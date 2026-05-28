@@ -152,6 +152,18 @@ const LOCAL_AVATARS={
   "Yarog (HorseLuis)":"assets/img/npc/yarog.jpg",
   "Ylldiane, Intendente Mayor":"assets/img/npc/Ylldiane.jpg",
 };
+async function initDefaultData(onDone){
+  if(!db){alert("Cal connectar Firebase primer.");return;}
+  if(!window.confirm("Sobreescriurà TOTES les dades de Firebase (chars, handouts, edificis) amb els valors per defecte.\n\nContinuar?"))return;
+  try{
+    const charsInit=CHARS.map(c=>({...c,avatar:LOCAL_AVATARS[c.nom]||c.avatar}));
+    await db.collection("ravnica").doc("chars").set({data:JSON.stringify(charsInit)});
+    await db.collection("ravnica").doc("handouts").set({data:JSON.stringify(HANDOUTS)});
+    await db.collection("ravnica").doc("edificis").set({data:JSON.stringify(EDIFICIS_DEFAULT)});
+    alert("Firebase inicialitzat. Recarregant...");
+    window.location.reload();
+  }catch(e){alert("Error: "+e.message);}
+}
 function stripImages(items,imgKey){const imgs={};const clean=items.map(x=>{const c={...x};if(c[imgKey]&&c[imgKey].startsWith('data:')){imgs[c.nom]=c[imgKey];delete c[imgKey];}return c;});return{clean,imgs};}
 function mergeImages(items,imgs,imgKey){return items.map(x=>({...x,[imgKey]:imgs[x.nom]||LOCAL_AVATARS[x.nom]||x[imgKey]||""}));}
 async function saveData(key,items,imgKey){
@@ -530,6 +542,7 @@ function App(){
         <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
+          {db&&<button onClick={()=>initDefaultData()} title="Inicialitza Firebase amb dades per defecte" style={{fontSize:9,padding:"2px 7px",border:"1px solid #8a7a5844",borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⬆ INIT DB</button>}
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
