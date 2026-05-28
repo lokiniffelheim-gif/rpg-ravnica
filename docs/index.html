@@ -367,7 +367,7 @@ function SetupScreen({onConnect}){
   </div>);
 }
 
-function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir}){
+function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
   const [sort,setSort]=useState("none");
@@ -383,7 +383,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const nivells=useMemo(()=>[...new Set(edificis.map(e=>e.nivel))].filter(Boolean).sort(),[edificis]);
   const filtered=useMemo(()=>{
     const lq=q.toLowerCase();
-    let r=edificis.filter(e=>{const ms=!lq||e.nom.toLowerCase().includes(lq)||(e.personajes||"").toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||e.gremi===fg)&&(fn==="all"||e.nivel===fn);});
+    let r=edificis.filter(e=>{const ms=!lq||e.nom.toLowerCase().includes(lq)||(e.personajes||"").toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||e.gremi===fg)&&(fn==="all"||e.nivel===fn)&&(!isPlayer||e.activo);});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     return r;
@@ -618,7 +618,7 @@ function App({user,onUsersPanel}){
         {TABS.map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
       </div>
     </div>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir}/>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={user.rol==="jugador"}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
