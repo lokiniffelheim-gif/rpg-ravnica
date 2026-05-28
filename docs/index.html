@@ -129,6 +129,31 @@ function visToArr(v){
 function arrToVis(arr){if(!arr||arr.length===0)return"";if(arr.includes("Tots"))return"Tots";return arr.join(", ");}
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
+function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
+
+function PersonajesTagSel({value,onChange,chars}){
+  const arr=parsePers(value);
+  const available=(chars||[]).filter(c=>!arr.includes(c.nom)).sort((a,b)=>a.nom.localeCompare(b.nom));
+  return(
+    <div style={{display:"flex",flexDirection:"column",gap:6}}>
+      <div style={{display:"flex",gap:4,flexWrap:"wrap",minHeight:22}}>
+        {arr.map((nom,i)=>{
+          const c=chars?.find(x=>x.nom===nom);
+          const col=c&&c.tags&&c.tags[0]?GC[c.tags[0]]||"#8a7a5a":"#8a7a5a";
+          return(<span key={i} style={{display:"inline-flex",alignItems:"center",gap:3,fontSize:11,padding:"2px 8px",borderRadius:10,background:col+"22",border:"1px solid "+col+"55",color:col,fontFamily:"'Cinzel',serif"}}>
+            {nom}
+            <button onClick={()=>onChange(arr.filter((_,j)=>j!==i))} style={{background:"none",border:"none",cursor:"pointer",color:col,fontSize:12,lineHeight:1,padding:0,opacity:.7}}>×</button>
+          </span>);
+        })}
+        {arr.length===0&&<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap personatge assignat</span>}
+      </div>
+      <select onChange={e=>{if(e.target.value){onChange([...arr,e.target.value]);}e.target.value="";}} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid #4a4035",background:"#13110e",color:"#c09040",cursor:"pointer",fontFamily:"'Cinzel',serif",maxWidth:260}}>
+        <option value="">+ Afegir personatge...</option>
+        {available.map(c=><option key={c.nom} value={c.nom}>{c.nom}</option>)}
+      </select>
+    </div>
+  );
+}
 
 function Toggle({value,onChange}){
   return(<div style={{display:"inline-flex",alignItems:"center",gap:7,cursor:"pointer"}} onClick={e=>{e.stopPropagation();onChange(!value);}}>
@@ -367,7 +392,7 @@ function SetupScreen({onConnect}){
   </div>);
 }
 
-function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer}){
+function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,chars}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
   const [sort,setSort]=useState("none");
@@ -383,7 +408,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const nivells=useMemo(()=>[...new Set(edificis.map(e=>e.nivel))].filter(Boolean).sort(),[edificis]);
   const filtered=useMemo(()=>{
     const lq=q.toLowerCase();
-    let r=edificis.filter(e=>{const ms=!lq||e.nom.toLowerCase().includes(lq)||(e.personajes||"").toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||e.gremi===fg)&&(fn==="all"||e.nivel===fn)&&(!isPlayer||e.activo);});
+    let r=edificis.filter(e=>{const ps=parsePers(e.personajes).join(" ");const ms=!lq||e.nom.toLowerCase().includes(lq)||ps.toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||e.gremi===fg)&&(fn==="all"||e.nivel===fn)&&(!isPlayer||e.activo);});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     return r;
@@ -429,7 +454,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         <Toggle value={item.activo} onChange={v=>upd("activo",v)}/>
       </div>
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><Field value={item.personajes} onChange={v=>upd("personajes",v)} accent={ac}/></div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars}/></div>
       {item.conflicto&&<div style={{padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule/>
       <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div>
@@ -465,7 +490,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
                 <span style={{fontSize:9,padding:"1px 5px",borderRadius:8,background:nc+"18",color:nc,fontFamily:"'Cinzel',serif",flexShrink:0}}>{e.nivel}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
-                {e.personajes&&<span style={{fontSize:10,color:"#baa880",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👤 {e.personajes}</span>}
+                {parsePers(e.personajes).length>0&&<span style={{fontSize:10,color:"#baa880",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👤 {parsePers(e.personajes).join(", ")}</span>}
                 {e.conflicto&&<span style={{fontSize:10,color:"#c4303099",fontFamily:"'Cinzel',serif"}}>⚔ {e.conflicto}</span>}
               </div>
             </div>
@@ -618,7 +643,7 @@ function App({user,onUsersPanel}){
         {TABS.map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
       </div>
     </div>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={user.rol==="jugador"}/>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={user.rol==="jugador"} chars={cs}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
