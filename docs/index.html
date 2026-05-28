@@ -127,7 +127,7 @@ function visToArr(v){
   return v.split(",").map(s=>s.trim()).filter(Boolean);
 }
 function arrToVis(arr){if(!arr||arr.length===0)return"";if(arr.includes("Tots"))return"Tots";return arr.join(", ");}
-function mc(item,tab){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";return tab==="handouts"?PC[item.propietari]||"#8a7a5a":item.tags&&item.tags.length?GC[item.tags[0]]||"#8a7a5a":"#8a7a5a";}
+function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 
 function Toggle({value,onChange}){
@@ -402,7 +402,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     <div style={{width:isMob?"100%":"50%",height:isMob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:isMob?"none":"1px solid "+BORDER,borderBottom:isMob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
       {edImgSrc
         ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
-        :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[item.gremi]||"◆"}</span>
+        :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[secureG(item.gremi)]||"◆"}</span>
       }
       <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
         <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
@@ -537,7 +537,7 @@ function App({user,onUsersPanel}){
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
-  const ac=item?mc(item,tab):GOLD;
+  const ac=item?mc(item,tab,tab==="chars"?secureT(item.tags,item.nom):undefined):GOLD;
   const isPJ=item&&PJS.includes(item.nom);
 
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);}
@@ -635,7 +635,7 @@ function App({user,onUsersPanel}){
         </div>
         <div style={{overflowY:"auto",flex:1}}>
           {fltd.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap registre als arxius...</div>}
-          {fltd.map((x,i)=>{const c=mc(x,tab),isSel=!mob&&sel===i,sig=tab==="chars"&&x.tags&&x.tags[0]?GS[x.tags[0]]:"📜";const cnx=tab==="chars"&&x.visible&&x.visible!=="Tots"&&x.visible!==""?x.visible.split(",")[0].trim()+(x.visible.includes(",")?"…":""):null;
+          {fltd.map((x,i)=>{const vt=tab==="chars"?secureT(x.tags,x.nom):undefined,c=mc(x,tab,vt),isSel=!mob&&sel===i,sig=tab==="chars"&&vt&&vt[0]?GS[vt[0]]:"📜";const cnx=tab==="chars"&&x.visible&&x.visible!=="Tots"&&x.visible!==""?x.visible.split(",")[0].trim()+(x.visible.includes(",")?"…":""):null;
             return(<div key={i} onClick={()=>pick(i)} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
               <Avatar nom={x.nom} avatar={x.avatar} img={x.img} size={34} color={c} tab={tab}/>
               <div style={{flex:1,minWidth:0}}>
