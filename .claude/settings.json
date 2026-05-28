@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$d = $input | ConvertFrom-Json; $cmd = $d.tool_input.command; if ($cmd -match 'git commit' -and $cmd -match 'v(\\d+\\.\\d+\\.\\d+)') { $ver = $matches[1]; $f = 'g:\\Mi unidad\\Rol\\Pathfinder 2ed\\Ravnica\\docs\\index.html'; $c = [System.IO.File]::ReadAllText($f, [System.Text.Encoding]::UTF8); $n = $c -replace 'const VERSION=\"[^\"]*\"', \"const VERSION=`\"$ver`\"\"; if ($c -ne $n) { [System.IO.File]::WriteAllText($f, $n, [System.Text.Encoding]::UTF8); & git -C 'g:\\Mi unidad\\Rol\\Pathfinder 2ed\\Ravnica' add 'docs/index.html' } }",
+            "statusMessage": "Actualitzant VERSION..."
+          }
+        ]
+      }
+    ]
+  }
+}

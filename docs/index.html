@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.7";
+const VERSION="3.5.8";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -91,7 +91,6 @@ function lsSave(key,data){
     // QuotaExceededError: intentar alliberar espai eliminant dades antigues
     console.warn("localStorage quota exceeded per",key,e);
     try{
-      // Eliminar altres claus menys importants
       const keysToTry=['rv_h4','rv_c4','rv_e1'];
       keysToTry.filter(k=>k!==key).forEach(k=>localStorage.removeItem(k));
       localStorage.setItem(key,JSON.stringify(data));
@@ -253,7 +252,6 @@ function Field({value,onChange,multi,accent,ph,readOnly}){
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
 }
 
-// Custom dropdown with guild colors
 function GuildDrop({value,opts,onChange,cm}){
   const [open,setOpen]=useState(false);
   const ref=useRef(null);
@@ -422,7 +420,6 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const edImgSrc=item?(item.avatarCustom||GUILD_SVG_MAP[secureG(item.gremi)]||""):"";
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:isMob?"column":"row",overflow:"hidden",position:"relative",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
 
-    {/* Columna esquerra — imatge */}
     <div style={{width:isMob?"100%":"33%",height:isMob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:isMob?"none":"1px solid "+BORDER,borderBottom:isMob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
       {edImgSrc
         ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
@@ -557,7 +554,7 @@ function App({user,onUsersPanel}){
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
     return r;
-  },[items,q,filt,sort,tab,user]);
+  },[items,q,filt,sort,tab,effectiveUser]);
 
   const canSeeDimir=useMemo(()=>effectiveUser.rol==="dm"||(cs.find(c=>c.nom===effectiveUser.personatge)?.tags||[]).includes("Dimir"),[effectiveUser,cs]);
   const secureT=useCallback((tags,charNom)=>{
@@ -583,7 +580,6 @@ function App({user,onUsersPanel}){
   const isOwnChar=effectiveUser.rol==="dm"||(tab==="chars"&&item?.nom===effectiveUser.personatge);
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:mob?"column":"row",overflow:"hidden",position:"relative",...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
 
-    {/* Columna esquerra — imatge */}
     <div style={{width:mob?"100%":"33%",height:mob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:mob?"none":"1px solid "+BORDER,borderBottom:mob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
       {imgSrc
         ?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block"}}/>
@@ -659,7 +655,7 @@ function App({user,onUsersPanel}){
               {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:"transparent",border:"none",color:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{p}</button>)}
             </div>}
           </div>)}
-          {onUsersPanel&&<button onClick={onUsersPanel} title="GestiónN DE USUARIOS" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
+          {onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
           <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
@@ -743,6 +739,3 @@ ReactDOM.render(<Root/>,document.getElementById('root'));
 </script>
 </body>
 </html>
-
-
-
