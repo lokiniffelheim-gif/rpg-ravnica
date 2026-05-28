@@ -62,16 +62,26 @@ const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personatges"},{id:"handouts",icon:"📜",label:"Handouts"}];
 
-let db=null;
+let db=null,auth=null;
 async function initFirebase(cfg){
   if(!window.firebase){
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js");
+    await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js");
   }
-  try{const app=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp(cfg);db=window.firebase.firestore(app);await db.collection("ravnica").doc("ping").get();return true;}
-  catch(e){db=null;return false;}
+  try{
+    const app=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp(cfg);
+    db=window.firebase.firestore(app);
+    auth=window.firebase.auth(app);
+    return true;
+  }catch(e){db=null;auth=null;return false;}
 }
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[src="'+src+'"]')){res();return;}const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+async function signIn(email,pass){try{await auth.signInWithEmailAndPassword(email,pass);return{};}catch(e){return{error:e.code==="auth/invalid-credential"||e.code==="auth/wrong-password"||e.code==="auth/user-not-found"?"Email o contrasenya incorrectes":e.message};}}
+async function doSignOut(){if(auth)await auth.signOut();}
+async function loadUserProfile(uid){try{const d=await db.collection("users").doc(uid).get();return d.exists?d.data():null;}catch(e){return null;}}
+async function ensureUserProfile(uid,email){const p=await loadUserProfile(uid);if(!p){await db.collection("users").doc(uid).set({email,rol:null,personatge:null});}return p||{email,rol:null,personatge:null};}
+function visibleToUser(visible,personatge){if(!visible||visible==="Tots")return true;if(visible==="Només DM")return false;return visible.split(",").map(s=>s.trim()).includes(personatge);}
 function lsSave(key,data){
   try{
     localStorage.setItem(key,JSON.stringify(data));
@@ -259,6 +269,88 @@ function SortBtn({sort,onSort}){
   return(<button onClick={onSort} title="Ordenar" style={{fontSize:10,padding:"2px 8px",borderRadius:10,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",border:"1px solid "+(sort!=="none"?GOLD+"88":BORDER),background:sort!=="none"?GOLD+"22":"transparent",color:colors[sort],transition:"all .15s"}}>{labels[sort]}</button>);
 }
 
+function LoginScreen(){
+  const [email,setEmail]=useState("");const [pass,setPass]=useState("");
+  const [err,setErr]=useState("");const [loading,setLoading]=useState(false);
+  const login=async()=>{
+    if(!email||!pass){setErr("Omple els dos camps");return;}
+    setLoading(true);setErr("");
+    const{error}=await signIn(email,pass);
+    if(error)setErr(error);
+    setLoading(false);
+  };
+  return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+    <div style={{maxWidth:340,width:"100%"}}>
+      <div style={{textAlign:"center",marginBottom:28}}>
+        <div style={{fontSize:32,marginBottom:8}}>⚜</div>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Arxiu de Ravnica</div>
+        <div style={{fontSize:13,color:"#7a6858",fontFamily:"'Crimson Text',serif"}}>Accés restringit — identifica't</div>
+      </div>
+      <div style={{display:"flex",flexDirection:"column",gap:10}}>
+        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} onKeyDown={e=>e.key==="Enter"&&login()} style={{padding:"10px 12px",borderRadius:3,border:"1px solid "+BORDER,background:BG2,color:"#ede3c8",fontSize:14,fontFamily:"'Crimson Text',serif",outline:"none"}}/>
+        <input type="password" placeholder="Contrasenya" value={pass} onChange={e=>setPass(e.target.value)} onKeyDown={e=>e.key==="Enter"&&login()} style={{padding:"10px 12px",borderRadius:3,border:"1px solid "+BORDER,background:BG2,color:"#ede3c8",fontSize:14,fontFamily:"'Crimson Text',serif",outline:"none"}}/>
+        {err&&<div style={{fontSize:12,color:"#c43030",padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033"}}>{err}</div>}
+        <button className="rv-btn-gold" onClick={login} disabled={loading} style={{padding:"10px",fontSize:13,marginTop:4,letterSpacing:".08em",opacity:loading?.7:1}}>{loading?"ENTRANT...":"⚔ ENTRAR"}</button>
+      </div>
+    </div>
+  </div>);
+}
+
+function PendingScreen({email}){
+  return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
+    <div style={{maxWidth:400,width:"100%",textAlign:"center"}}>
+      <div style={{fontSize:28,marginBottom:16}}>⏳</div>
+      <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#f8eecc",letterSpacing:".06em",marginBottom:12}}>Esperant aprovació del DM</div>
+      <p style={{color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>Has iniciat sessió com a <strong style={{color:GOLD}}>{email}</strong>.<br/>El DM ha d'assignar-te un personatge.</p>
+      <button onClick={doSignOut} style={{fontSize:11,padding:"6px 18px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>Tancar sessió</button>
+    </div>
+  </div>);
+}
+
+function UserMgmt({onClose}){
+  const [users,setUsers]=useState([]);const [loading,setLoading]=useState(true);const [saving,setSaving]=useState(null);
+  useEffect(()=>{db.collection("users").get().then(snap=>{setUsers(snap.docs.map(d=>({uid:d.id,...d.data()})));setLoading(false);});},[]);
+  const upd=(uid,f,v)=>setUsers(us=>us.map(u=>u.uid===uid?{...u,[f]:v}:u));
+  const save=async uid=>{
+    const u=users.find(u=>u.uid===uid);if(!u)return;
+    setSaving(uid);
+    await db.collection("users").doc(uid).set({email:u.email,rol:u.rol||null,personatge:u.personatge||null},{merge:true});
+    setSaving(null);
+  };
+  return(<div style={{position:"fixed",inset:0,background:"#000b",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
+    <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,width:"100%",maxWidth:540,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
+      <div style={{padding:"14px 18px",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10}}>
+        <span style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:13,letterSpacing:".06em",flex:1}}>👥 GESTIÓ D'USUARIS</span>
+        <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,lineHeight:1,padding:0}}>×</button>
+      </div>
+      <div style={{overflowY:"auto",flex:1,padding:"12px 18px"}}>
+        {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Carregant...</div>}
+        {!loading&&users.length===0&&<div style={{color:"#9a8a68",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cap usuari registrat.<br/>Crea comptes a Firebase Console → Authentication → Afegir usuari.</div>}
+        {users.map(u=>(
+          <div key={u.uid} style={{borderBottom:"1px solid "+BORDER,paddingBottom:12,marginBottom:12}}>
+            <div style={{fontSize:11,color:"#baa880",marginBottom:8,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>{u.email}</div>
+            <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
+              <select value={u.rol||""} onChange={e=>upd(u.uid,"rol",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
+                <option value="">— rol —</option>
+                <option value="dm">DM</option>
+                <option value="jugador">Jugador/a</option>
+              </select>
+              {u.rol==="jugador"&&<select value={u.personatge||""} onChange={e=>upd(u.uid,"personatge",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
+                <option value="">— personatge —</option>
+                {PJS.map(p=><option key={p} value={p}>{p}</option>)}
+              </select>}
+              <button onClick={()=>save(u.uid)} disabled={!!saving} style={{fontSize:11,padding:"4px 12px",borderRadius:3,border:"1px solid "+GOLD+"66",background:saving===u.uid?GOLD+"22":"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:saving&&saving!==u.uid?.5:1}}>{saving===u.uid?"DESANT...":"✦ DESAR"}</button>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{padding:"8px 18px",borderTop:"1px solid "+BORDER,fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif"}}>
+        Per crear comptes nous: <strong>Firebase Console → Authentication → Afegir usuari</strong>
+      </div>
+    </div>
+  </div>);
+}
+
 function SetupScreen({onConnect}){
   const [cfg,setCfg]=useState(()=>{try{return JSON.parse(localStorage.getItem("rv_fbcfg")||"{}");}catch(e){return{};}});
   const [loading,setLoading]=useState(false);const [error,setError]=useState("");
@@ -394,7 +486,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   </div>);
 }
 
-function App({onSetup}){
+function App({user,onUsersPanel}){
   const [tab,setTab]=useState("aventino");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("none");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
@@ -436,8 +528,9 @@ function App({onSetup}){
     let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||(x.tags||[]).includes(filt):filt==="all"||x.propietari===filt;return ms&&mf;});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
+    if(user.rol==="jugador")r=r.filter(x=>visibleToUser(x.visible,user.personatge));
     return r;
-  },[items,q,filt,sort,tab]);
+  },[items,q,filt,sort,tab,user]);
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
@@ -510,10 +603,12 @@ function App({onSetup}){
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
         <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Arxiu de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v2.9.0</span>}</div>
-        <span onClick={!db?onSetup:undefined} title={!db?"Connectar Firebase":""} style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em",cursor:!db?"pointer":"default",textDecoration:!db?"underline dotted":"none"}}>{syncLabel}</span>
+        <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
-          {!db&&<button onClick={onSetup} style={{fontSize:9,padding:"2px 7px",border:"1px solid #c09040aa",borderRadius:3,background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⚡ FIREBASE</button>}
+          {!mob&&<span style={{fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
+          {onUsersPanel&&<button onClick={onUsersPanel} title="Gestió d'usuaris" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
+          <button onClick={doSignOut} title="Tancar sessió" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
@@ -563,11 +658,33 @@ function App({onSetup}){
 
 function Root(){
   const [ready,setReady]=useState(false);
-  const [setup,setSetup]=useState(false);
-  useEffect(()=>{const cfg=localStorage.getItem("rv_fbcfg");(cfg?initFirebase(JSON.parse(cfg)):Promise.resolve(false)).then(()=>setReady(true));},[]);
-  if(!ready)return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}><div style={{fontSize:28}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:12,letterSpacing:".08em"}} className="syncing">CARREGANT...</div></div>);
-  if(setup)return <SetupScreen onConnect={()=>setSetup(false)}/>;
-  return <App onSetup={()=>setSetup(true)}/>;
+  const [user,setUser]=useState(null);
+  const [showUsers,setShowUsers]=useState(false);
+
+  useEffect(()=>{
+    initFirebase(FB_CONFIG).then(ok=>{
+      if(!ok){setReady(true);return;}
+      const unsub=auth.onAuthStateChanged(async fbUser=>{
+        if(fbUser){
+          const profile=await ensureUserProfile(fbUser.uid,fbUser.email);
+          setUser({uid:fbUser.uid,email:fbUser.email,...profile});
+        }else{
+          setUser(null);
+        }
+        setReady(true);
+      });
+      return unsub;
+    });
+  },[]);
+
+  const Loading=<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}><div style={{fontSize:28}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:12,letterSpacing:".08em"}} className="syncing">CARREGANT...</div></div>;
+  if(!ready)return Loading;
+  if(!user)return <LoginScreen/>;
+  if(!user.rol)return <PendingScreen email={user.email}/>;
+  return(<>
+    {showUsers&&<UserMgmt onClose={()=>setShowUsers(false)}/>}
+    <App user={user} onUsersPanel={user.rol==="dm"?()=>setShowUsers(true):null}/>
+  </>);
 }
 ReactDOM.render(<Root/>,document.getElementById('root'));
 </script>
