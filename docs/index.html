@@ -423,45 +423,57 @@ function App({onSetup}){
   const syncCol=saved==="⏳"?"#8a7a5a":saved?"#c09040":db?"#5a9a3a":"#6a5a40";
   const syncLabel=saved||(db?"☁ Firebase":"⬡ local");
 
-  const Detail=item?(<div className="rv-detail" style={{flex:1,overflowY:"auto",padding:"20px 22px",position:"relative",...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
-    {mob&&<button onClick={()=>setShowD(false)} style={{marginBottom:14,background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:14,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>← TORNAR</button>}
-    <div style={{display:"flex",gap:18,alignItems:"flex-start",marginBottom:16}}>
-      <div style={{flexShrink:0}}>
-        {tab==="handouts"?<Avatar nom={item.nom} avatar={item.avatar} img={item.img} size={mob?90:140} color={ac} tab={tab} onUpload={v=>updH(origI,"img",v)} onRemove={()=>updH(origI,"img","")}/>
-          :<Avatar nom={item.nom} avatar={item.avatar} img={item.img} size={mob?90:140} color={ac} tab={tab} onUpload={v=>updC(origI,"avatar",v)} onRemove={()=>updC(origI,"avatar","")}/>}
-      </div>
-      <div style={{flex:1,minWidth:0,display:"flex",flexDirection:"column",gap:8}}>
-        <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-          <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac}/></div>
-          <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-            <button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
-            {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
-          </div>
-        </div>
-        <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center"}}>
-          {tab==="chars"?(<>{(item.tags||[]).map((t,ti)=><GuildTagSel key={ti} value={t} opts={AG} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremi</button></>)
-          :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Només DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
-          {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
-        </div>
-        {tab==="chars"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
-          <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center",alignSelf:"flex-start"}}>
-            <span style={{opacity:.5,fontSize:11}}>🎮</span>
-            <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
-            <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
-          </div>
-          <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONEIX A:</div>
-            <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
-          </div>
-        </div>)}
+  const imgSrc=item?(item.img||item.avatar||""):"";
+  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:mob?"column":"row",overflow:"hidden",position:"relative",...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
+
+    {/* Columna esquerra — imatge */}
+    <div style={{width:mob?"100%":"50%",height:mob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:mob?"none":"1px solid "+BORDER,borderBottom:mob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      {imgSrc
+        ?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block"}}/>
+        :<span style={{fontSize:48,fontWeight:"bold",color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</span>
+      }
+      <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
+        <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
+          📷
+          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,500,700,0.82);tab==="handouts"?updH(origI,"img",c):updC(origI,"avatar",c);};r.readAsDataURL(f);e.target.value='';}}/>
+        </label>
+        {imgSrc&&<button onClick={()=>tab==="handouts"?updH(origI,"img",""):updC(origI,"avatar","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
       </div>
     </div>
-    <Rule color={ac}/>
-    <div style={{marginBottom:10}}><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"CONTINGUT":"BIO & INFO"}</div>
-      <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac}/>
-    </div>
-    <Rule/>
-    <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
-      <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
+
+    {/* Columna dreta — info */}
+    <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
+      {mob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
+      <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
+        <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac}/></div>
+        <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
+          <button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
+          {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+        </div>
+      </div>
+      <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center"}}>
+        {tab==="chars"?(<>{(item.tags||[]).map((t,ti)=><GuildTagSel key={ti} value={t} opts={AG} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremi</button></>)
+        :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Només DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
+        {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
+      </div>
+      {tab==="chars"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
+        <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center",alignSelf:"flex-start"}}>
+          <span style={{opacity:.5,fontSize:11}}>🎮</span>
+          <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
+          <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
+        </div>
+        <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONEIX A:</div>
+          <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
+        </div>
+      </div>)}
+      <Rule color={ac}/>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"CONTINGUT":"BIO & INFO"}</div>
+        <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac}/>
+      </div>
+      <Rule/>
+      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
+        <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
+      </div>
     </div>
   </div>):null;
 
