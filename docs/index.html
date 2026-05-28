@@ -56,12 +56,12 @@ const GC={Azorius:"#5b9fd4",Boros:"#d4621a",Dimir:"#7b6fd4",Golgari:"#5a9a3a",Gr
 const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet:"∞",Orzhov:"✝",Rakdos:"♦",Selesnya:"✿",Simic:"⌬",Guildless:"◆"};
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
-const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartit":"#8a7a5a","Només DM":"#888"};
+const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartit":"#8a7a5a","Solo DM":"#888"};
 const VERSION="3.5.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
-const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personatges"},{id:"handouts",icon:"📜",label:"Objetos"}];
+const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"}];
 
 let db=null,auth=null;
 async function initFirebase(cfg){
@@ -82,7 +82,7 @@ async function signIn(){try{const provider=new window.firebase.auth.GoogleAuthPr
 async function doSignOut(){if(auth)await auth.signOut();}
 async function loadUserProfile(uid){try{const d=await db.collection("users").doc(uid).get();return d.exists?d.data():null;}catch(e){return null;}}
 async function ensureUserProfile(uid,email){const p=await loadUserProfile(uid);if(!p){await db.collection("users").doc(uid).set({email,rol:null,personatge:null});}return p||{email,rol:null,personatge:null};}
-function visibleToUser(visible,personatge){if(!visible||visible==="Tots")return true;if(visible==="Només DM")return false;return visible.split(",").map(s=>s.trim()).includes(personatge);}
+function visibleToUser(visible,personatge){if(!visible||visible==="Tots")return true;if(visible==="Solo DM")return false;return visible.split(",").map(s=>s.trim()).includes(personatge);}
 function lsSave(key,data){
   try{
     localStorage.setItem(key,JSON.stringify(data));
@@ -147,7 +147,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly}){
       })}
       {arr.length===0&&<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
       {!readOnly&&<select onChange={e=>{if(e.target.value)onChange([...arr,e.target.value]);e.target.value="";}} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",outline:"none"}}>
-        <option value="">+ afegir...</option>
+        <option value="">+ añadir...</option>
         {available.map(c=><option key={c.nom} value={c.nom}>{c.nom}</option>)}
       </select>}
     </div>
@@ -219,16 +219,16 @@ function VisibleSelect({value,onChange}){
     if(next.includes(pj))next=next.filter(x=>x!==pj);else next.push(pj);
     onChange(arrToVis(next));
   },[isTots,sel,onChange]);
-  const display = isTots?"✦ Tots els personatges":sel.length===0?"Ningú":sel.join(", ");
+  const display = isTots?"✦ Todos los personajes":sel.length===0?"Nadie":sel.join(", ");
   return(<div ref={ref} style={{position:"relative"}}>
     <div onClick={()=>setOpen(o=>!o)} style={{display:"flex",flexWrap:"wrap",gap:4,padding:"5px 10px",cursor:"pointer",border:"1px solid "+(open?GOLD+"88":BORDER),borderRadius:3,background:BG,minHeight:32,alignItems:"center",transition:"border-color .15s"}}>
-      {isTots?<span style={{fontSize:13,color:"#5a9a3a",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>✦ Tots els personatges</span>
-        :sel.length===0?<span style={{fontSize:13,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Ningú</span>
+      {isTots?<span style={{fontSize:13,color:"#5a9a3a",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>✦ Todos los personajes</span>
+        :sel.length===0?<span style={{fontSize:13,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Nadie</span>
         :sel.map(p=><span key={p} className="rv-pill" style={{background:(PC[p]||"#888")+"25",border:"1px solid "+(PC[p]||"#888")+"55",color:PC[p]||"#888",fontSize:12}}>{p}</span>)}
       <span style={{marginLeft:"auto",color:GOLD,opacity:.5,fontSize:12}}>▾</span>
     </div>
     {open&&<div className="rv-dropdown">
-      <label className="rv-check-row"><input type="checkbox" checked={isTots} onChange={()=>toggle("Tots")}/><span style={{color:"#5a9a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✦ Tots els personatges</span></label>
+      <label className="rv-check-row"><input type="checkbox" checked={isTots} onChange={()=>toggle("Tots")}/><span style={{color:"#5a9a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✦ Todos los personajes</span></label>
       <div style={{height:1,background:BORDER,margin:"3px 4px"}}/>
       {PJS.map(p=><label key={p} className="rv-check-row">
         <input type="checkbox" checked={!isTots&&sel.includes(p)} onChange={()=>toggle(p)}/>
@@ -305,11 +305,11 @@ function LoginScreen(){
     <div style={{maxWidth:320,width:"100%",textAlign:"center"}}>
       <div style={{fontSize:36,marginBottom:10}}>⚜</div>
       <div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:6}}>Arxiu de Ravnica</div>
-      <div style={{fontSize:13,color:"#7a6858",fontFamily:"'Crimson Text',serif",marginBottom:28}}>Accés restringit</div>
+      <div style={{fontSize:13,color:"#7a6858",fontFamily:"'Crimson Text',serif",marginBottom:28}}>Acceso restringido</div>
       {err&&<div style={{fontSize:12,color:"#c43030",padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033",marginBottom:12}}>{err}</div>}
       <button onClick={login} disabled={loading} style={{display:"inline-flex",alignItems:"center",gap:10,padding:"11px 22px",borderRadius:4,border:"1px solid "+BORDER,background:BG2,color:"#ede3c8",fontSize:14,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:loading?.7:1,transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="#2a2520"} onMouseLeave={e=>e.currentTarget.style.background=BG2}>
         <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
-        {loading?"ENTRANT...":"Continuar amb Google"}
+        {loading?"ENTRANDO...":"Continuar con Google"}
       </button>
     </div>
   </div>);
@@ -319,9 +319,9 @@ function PendingScreen({email}){
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:400,width:"100%",textAlign:"center"}}>
       <div style={{fontSize:28,marginBottom:16}}>⏳</div>
-      <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#f8eecc",letterSpacing:".06em",marginBottom:12}}>Esperant aprovació del DM</div>
-      <p style={{color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>Has iniciat sessió com a <strong style={{color:GOLD}}>{email}</strong>.<br/>El DM ha d'assignar-te un personatge.</p>
-      <button onClick={doSignOut} style={{fontSize:11,padding:"6px 18px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>Tancar sessió</button>
+      <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#f8eecc",letterSpacing:".06em",marginBottom:12}}>Esperando aprobación del DM</div>
+      <p style={{color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>Has iniciado sesión como <strong style={{color:GOLD}}>{email}</strong>.<br/>El DM debe asignarte un personaje.</p>
+      <button onClick={doSignOut} style={{fontSize:11,padding:"6px 18px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>Cerrar sesión</button>
     </div>
   </div>);
 }
@@ -339,12 +339,12 @@ function UserMgmt({onClose}){
   return(<div style={{position:"fixed",inset:0,background:"#000b",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
     <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,width:"100%",maxWidth:540,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
       <div style={{padding:"14px 18px",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10}}>
-        <span style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:13,letterSpacing:".06em",flex:1}}>👥 GESTIÓ D'USUARIS</span>
+        <span style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:13,letterSpacing:".06em",flex:1}}>👥 GESTIÓN DE USUARIOS</span>
         <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,lineHeight:1,padding:0}}>×</button>
       </div>
       <div style={{overflowY:"auto",flex:1,padding:"12px 18px"}}>
-        {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Carregant...</div>}
-        {!loading&&users.length===0&&<div style={{color:"#9a8a68",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cap usuari registrat.<br/>Crea comptes a Firebase Console → Authentication → Afegir usuari.</div>}
+        {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cargando...</div>}
+        {!loading&&users.length===0&&<div style={{color:"#9a8a68",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Sin usuarios registrados.<br/>Crea cuentas en Firebase Console → Authentication → Añadir usuario.</div>}
         {users.map(u=>(
           <div key={u.uid} style={{borderBottom:"1px solid "+BORDER,paddingBottom:12,marginBottom:12}}>
             <div style={{fontSize:11,color:"#baa880",marginBottom:8,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>{u.email}</div>
@@ -358,13 +358,13 @@ function UserMgmt({onClose}){
                 <option value="">— personatge —</option>
                 {PJS.map(p=><option key={p} value={p}>{p}</option>)}
               </select>}
-              <button onClick={()=>save(u.uid)} disabled={!!saving} style={{fontSize:11,padding:"4px 12px",borderRadius:3,border:"1px solid "+GOLD+"66",background:saving===u.uid?GOLD+"22":"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:saving&&saving!==u.uid?.5:1}}>{saving===u.uid?"DESANT...":"✦ DESAR"}</button>
+              <button onClick={()=>save(u.uid)} disabled={!!saving} style={{fontSize:11,padding:"4px 12px",borderRadius:3,border:"1px solid "+GOLD+"66",background:saving===u.uid?GOLD+"22":"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:saving&&saving!==u.uid?.5:1}}>{saving===u.uid?"GUARDANDO...":"✦ GUARDAR"}</button>
             </div>
           </div>
         ))}
       </div>
       <div style={{padding:"8px 18px",borderTop:"1px solid "+BORDER,fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif"}}>
-        Per crear comptes nous: <strong>Firebase Console → Authentication → Afegir usuari</strong>
+        Para crear cuentas nuevas: <strong>Firebase Console → Authentication → Añadir usuario</strong>
       </div>
     </div>
   </div>);
@@ -375,16 +375,16 @@ function SetupScreen({onConnect}){
   const [loading,setLoading]=useState(false);const [error,setError]=useState("");
   const fields=[{k:"apiKey",l:"API Key"},{k:"authDomain",l:"Auth Domain"},{k:"projectId",l:"Project ID"},{k:"storageBucket",l:"Storage Bucket"},{k:"messagingSenderId",l:"Msg Sender ID"},{k:"appId",l:"App ID"}];
   const hp=e=>{const t=e.clipboardData.getData("text");const m=t.match(/apiKey:\s*["'](.*?)["'].*?authDomain:\s*["'](.*?)["'].*?projectId:\s*["'](.*?)["'].*?storageBucket:\s*["'](.*?)["'].*?messagingSenderId:\s*["'](.*?)["'].*?appId:\s*["'](.*?)["']/s);if(m){setCfg({apiKey:m[1],authDomain:m[2],projectId:m[3],storageBucket:m[4],messagingSenderId:m[5],appId:m[6]});e.preventDefault();}};
-  const connect=async()=>{if(!cfg.apiKey){setError("Cal omplir API Key");return;}setLoading(true);setError("");const ok=await initFirebase(cfg);if(ok){localStorage.setItem("rv_fbcfg",JSON.stringify(cfg));onConnect();}else setError("Error connexió. Comprova credencials i Firestore activat.");setLoading(false);};
+  const connect=async()=>{if(!cfg.apiKey){setError("Debes rellenar la API Key");return;}setLoading(true);setError("");const ok=await initFirebase(cfg);if(ok){localStorage.setItem("rv_fbcfg",JSON.stringify(cfg));onConnect();}else setError("Error connexió. Comprueba las credenciales y que Firestore está activo.");setLoading(false);};
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:480,width:"100%"}}>
       <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Arxiu de Ravnica v{VERSION}</div></div>
-      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#baa880",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#c8b880",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>COM CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea projecte → Firestore en mode test<br/>2. Configuració → app web → copia el config → enganxa a sota</div>
+      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#baa880",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#c8b880",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
       <textarea className="setup-input" style={{minHeight:55,resize:"vertical"}} placeholder="Enganxa el firebaseConfig = { apiKey: ... }" onPaste={hp} readOnly/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:9,color:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
       {error&&<div style={{color:"#c43030",fontSize:12,marginBottom:10,padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033"}}>{error}</div>}
       <div style={{display:"flex",gap:8}}>
-        <button className="rv-btn-gold" onClick={connect} disabled={loading} style={{flex:1,padding:"10px",fontSize:12,opacity:loading?.7:1}}>{loading?"CONNECTANT...":"⚡ CONNECTAR AMB FIREBASE"}</button>
+        <button className="rv-btn-gold" onClick={connect} disabled={loading} style={{flex:1,padding:"10px",fontSize:12,opacity:loading?.7:1}}>{loading?"CONECTANDO...":"⚡ CONECTAR CON FIREBASE"}</button>
         <button onClick={()=>{db=null;onConnect();}} style={{padding:"10px 14px",fontSize:11,background:"transparent",color:"#8a7a58",border:"1px solid "+BORDER,borderRadius:3,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",whiteSpace:"nowrap"}}>Usar local</button>
       </div>
     </div>
@@ -439,7 +439,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
 
     {/* Columna dreta — info */}
     <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
-      {isMob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
+      {isMob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← VOLVER</button>}
       <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
         <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/></div>
         <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
@@ -468,21 +468,21 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
         <div style={{position:"relative",marginBottom:7}}>
           <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
-          <input type="text" placeholder="Cerca edificis..." value={q} onChange={e=>{setQ(e.target.value);onSelect(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
+          <input type="text" placeholder="Buscar edificios..." value={q} onChange={e=>{setQ(e.target.value);onSelect(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",marginBottom:5}}>
-          <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TOTS</button>
+          <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TODOS</button>
           {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-          <button className="rv-filter" onClick={()=>setFn("all")} style={{background:fn==="all"?GOLD+"22":"transparent",border:"1px solid "+(fn==="all"?GOLD+"88":BORDER),color:fn==="all"?GOLD:"#9a8a68"}}>TOTS</button>
+          <button className="rv-filter" onClick={()=>setFn("all")} style={{background:fn==="all"?GOLD+"22":"transparent",border:"1px solid "+(fn==="all"?GOLD+"88":BORDER),color:fn==="all"?GOLD:"#9a8a68"}}>TODOS</button>
           {nivells.map(n=><button key={n} className="rv-filter" onClick={()=>setFn(n===fn?"all":n)} style={{background:fn===n?(NVC[n]||"#888")+"1a":"transparent",border:"1px solid "+(fn===n?(NVC[n]||"#888")+"66":(NVC[n]||"#888")+"22"),color:fn===n?NVC[n]||"#888":"#9a8a68"}}>{n}</button>)}
           <SortBtn sort={sort} onSort={cycleSort}/>
           <span style={{marginLeft:"auto",fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
         </div>
       </div>
       <div style={{overflowY:"auto",flex:1}}>
-        {filtered.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap edifici trobat...</div>}
+        {filtered.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Sin edificios encontrados...</div>}
         {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i,nc=NVC[e.nivel]||"#8a7a5a";
           return(<div key={i} onClick={()=>{onSelect(i===sel&&!isMob?null:i);setShowD(true);}} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:e.activo?"transparent":"#0d0b09",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,opacity:e.activo?1:.45,transition:"background .1s"}}>
             <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom} avatarDefault={e.avatar}/>
@@ -501,7 +501,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         })}
       </div>
       <div style={{padding:"8px 10px",borderTop:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
-        <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU EDIFICI</button>
+        <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NUEVO EDIFICIO</button>
       </div>
     </div>
     {item&&!isMob&&<div onMouseDown={startDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
@@ -535,16 +535,16 @@ function App({user,onUsersPanel}){
   const saveKey=useCallback((key,data)=>{
     setSaved("⏳");clearTimeout(saveTimer.current);
     const imgKey=key==="handouts"?"img":key==="chars"?"avatar":key==="edificis"?"avatarCustom":null;
-    saveTimer.current=setTimeout(async()=>{try{await saveData(key,data,imgKey);}catch(e){console.error(e);}setSaved("✦ Desat");setTimeout(()=>setSaved(""),2500);},600);
+    saveTimer.current=setTimeout(async()=>{try{await saveData(key,data,imgKey);}catch(e){console.error(e);}setSaved("✦ Guardado");setTimeout(()=>setSaved(""),2500);},600);
   },[]);
 
   const updH=(i,f,v)=>{const h=hs.map((x,j)=>j===i?{...x,[f]:v}:x);setHs(h);saveKey("handouts",h);};
   const updC=(i,f,v)=>{const c=cs.map((x,j)=>j===i?{...x,[f]:v}:x);setCs(c);saveKey("chars",c);};
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
 
-  const newH=()=>{const h=[...hs,{nom:"Nou objecte",propietari:"Compartit",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
-  const newC=()=>{const c=[...cs,{nom:"Nou personatge",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
-  const newE=()=>{const e=[...eds,{nom:"Nou edifici",nivel:"Lv0",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
+  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartit",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
+  const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
+  const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",nivel:"Lv0",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
   const items=tab==="handouts"?hs:cs;
   const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.nom===fi.nom):cs.findIndex(x=>x.nom===fi.nom),[hs,cs,tab]);
@@ -563,8 +563,9 @@ function App({user,onUsersPanel}){
   const secureT=useCallback((tags,charNom)=>{
     if(effectiveUser.rol==="dm")return tags||[];
     if(charNom===effectiveUser.personatge)return tags||[];
+    if(canSeeDimir&&!PJS.includes(charNom))return tags||[];
     return(tags||[]).filter(t=>t!=="Dimir");
-  },[effectiveUser]);
+  },[effectiveUser,canSeeDimir]);
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
@@ -599,7 +600,7 @@ function App({user,onUsersPanel}){
 
     {/* Columna dreta — info */}
     <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
-      {mob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
+      {mob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← VOLVER</button>}
       <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
         <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/></div>
         <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
@@ -611,8 +612,8 @@ function App({user,onUsersPanel}){
         {tab==="chars"?(<>{secureT(item.tags,item.nom).map((t,ti)=>effectiveUser.rol==="jugador"
           ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
           :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
-          {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremi</button>}</>)
-        :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Només DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
+          {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}</>)
+        :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
         {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
       </div>
       {tab==="chars"&&effectiveUser.rol==="dm"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
@@ -621,16 +622,16 @@ function App({user,onUsersPanel}){
           <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
           <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
         </div>
-        <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONEIX A:</div>
+        <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
           <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
         </div>
       </div>)}
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO & INFO"}</div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
       {effectiveUser.rol==="dm"&&<><Rule/>
-      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
+      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTAS DEL DM</div>
         <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
       </div></>}
     </div>
@@ -638,8 +639,8 @@ function App({user,onUsersPanel}){
 
   return(<div className="rv" style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden"}}>
     {previewAs&&<div style={{background:"#c09040",color:"#0f0e0c",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
-      <span style={{fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COM: {previewAs.toUpperCase()}</span>
-      <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:11,padding:"3px 12px",borderRadius:3,border:"1px solid #0f0e0c55",background:"#0f0e0c22",color:"#0f0e0c",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",fontWeight:600}}>← TORNAR A DM</button>
+      <span style={{fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
+      <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:11,padding:"3px 12px",borderRadius:3,border:"1px solid #0f0e0c55",background:"#0f0e0c22",color:"#0f0e0c",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
     <div style={{background:BG2,borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
@@ -655,8 +656,8 @@ function App({user,onUsersPanel}){
               {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:"transparent",border:"none",color:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{p}</button>)}
             </div>}
           </div>)}
-          {onUsersPanel&&<button onClick={onUsersPanel} title="Gestió d'usuaris" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
-          <button onClick={doSignOut} title="Tancar sessió" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
+          {onUsersPanel&&<button onClick={onUsersPanel} title="GestiónN DE USUARIOS" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
+          <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
@@ -672,9 +673,9 @@ function App({user,onUsersPanel}){
             <input type="text" placeholder={"Cerca "+(tab==="handouts"?"objectes":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-            <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TOTS</button>
+            <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TODOS</button>
             {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
-            :[...PJS,"Compartit","Només DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
+            :[...PJS,"Compartit","Solo DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
             <SortBtn sort={sort} onSort={cycleSort}/>
           </div>
         </div>
@@ -725,7 +726,7 @@ function Root(){
     });
   },[]);
 
-  const Loading=<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}><div style={{fontSize:28}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:12,letterSpacing:".08em"}} className="syncing">CARREGANT...</div></div>;
+  const Loading=<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}><div style={{fontSize:28}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:12,letterSpacing:".08em"}} className="syncing">Cargando...</div></div>;
   if(!ready)return Loading;
   if(!user)return <LoginScreen/>;
   if(!user.rol)return <PendingScreen email={user.email}/>;
@@ -738,3 +739,5 @@ ReactDOM.render(<Root/>,document.getElementById('root'));
 </script>
 </body>
 </html>
+
+
