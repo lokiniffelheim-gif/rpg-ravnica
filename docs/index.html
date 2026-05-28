@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arxiu de Ravnica</title>
+<title>Los archivos de Ravnica</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -56,7 +56,7 @@ const GC={Azorius:"#5b9fd4",Boros:"#d4621a",Dimir:"#7b6fd4",Golgari:"#5a9a3a",Gr
 const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet:"∞",Orzhov:"✝",Rakdos:"♦",Selesnya:"✿",Simic:"⌬",Guildless:"◆"};
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
-const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartit":"#8a7a5a","Solo DM":"#888"};
+const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
 const VERSION="3.5.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
@@ -304,7 +304,7 @@ function LoginScreen(){
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:320,width:"100%",textAlign:"center"}}>
       <div style={{fontSize:36,marginBottom:10}}>⚜</div>
-      <div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:6}}>Arxiu de Ravnica</div>
+      <div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:6}}>Los archivos de Ravnica</div>
       <div style={{fontSize:13,color:"#7a6858",fontFamily:"'Crimson Text',serif",marginBottom:28}}>Acceso restringido</div>
       {err&&<div style={{fontSize:12,color:"#c43030",padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033",marginBottom:12}}>{err}</div>}
       <button onClick={login} disabled={loading} style={{display:"inline-flex",alignItems:"center",gap:10,padding:"11px 22px",borderRadius:4,border:"1px solid "+BORDER,background:BG2,color:"#ede3c8",fontSize:14,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:loading?.7:1,transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="#2a2520"} onMouseLeave={e=>e.currentTarget.style.background=BG2}>
@@ -378,7 +378,7 @@ function SetupScreen({onConnect}){
   const connect=async()=>{if(!cfg.apiKey){setError("Debes rellenar la API Key");return;}setLoading(true);setError("");const ok=await initFirebase(cfg);if(ok){localStorage.setItem("rv_fbcfg",JSON.stringify(cfg));onConnect();}else setError("Error connexió. Comprueba las credenciales y que Firestore está activo.");setLoading(false);};
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:480,width:"100%"}}>
-      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Arxiu de Ravnica v{VERSION}</div></div>
+      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Los archivos de Ravnica v{VERSION}</div></div>
       <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#baa880",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#c8b880",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
       <textarea className="setup-input" style={{minHeight:55,resize:"vertical"}} placeholder="Enganxa el firebaseConfig = { apiKey: ... }" onPaste={hp} readOnly/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:9,color:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
@@ -542,7 +542,7 @@ function App({user,onUsersPanel}){
   const updC=(i,f,v)=>{const c=cs.map((x,j)=>j===i?{...x,[f]:v}:x);setCs(c);saveKey("chars",c);};
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
 
-  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartit",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
+  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
   const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
   const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",nivel:"Lv0",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
@@ -613,7 +613,7 @@ function App({user,onUsersPanel}){
           ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
           :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
           {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}</>)
-        :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
+        :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
         {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
       </div>
       {tab==="chars"&&effectiveUser.rol==="dm"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
@@ -645,7 +645,7 @@ function App({user,onUsersPanel}){
     <div style={{background:BG2,borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
-        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Arxiu de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}</span>}</div>
+        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}</span>}</div>
         <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
@@ -675,7 +675,7 @@ function App({user,onUsersPanel}){
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TODOS</button>
             {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
-            :[...PJS,"Compartit","Solo DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
+            :[...PJS,"Compartido","Solo DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
             <SortBtn sort={sort} onSort={cycleSort}/>
           </div>
         </div>
@@ -739,5 +739,6 @@ ReactDOM.render(<Root/>,document.getElementById('root'));
 </script>
 </body>
 </html>
+
 
 
