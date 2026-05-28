@@ -542,7 +542,7 @@ function App({onSetup}){
         <span onClick={!db?onSetup:undefined} title={!db?"Connectar Firebase":""} style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em",cursor:!db?"pointer":"default",textDecoration:!db?"underline dotted":"none"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
-          {db?<button onClick={()=>initDefaultData()} title="Inicialitza Firebase amb dades per defecte" style={{fontSize:9,padding:"2px 7px",border:"1px solid #8a7a5844",borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⬆ INIT DB</button>
+          {db?<button onClick={()=>initDefaultData()} title="Inicialitza Firebase amb dades per defecte" style={{fontSize:9,padding:"3px 9px",border:"1px solid "+GOLD+"88",borderRadius:3,background:GOLD+"18",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",fontWeight:"bold"}}>⬆ INIT DB</button>
             :<button onClick={onSetup} style={{fontSize:9,padding:"2px 7px",border:"1px solid #c09040aa",borderRadius:3,background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⚡ FIREBASE</button>}
         </div>
       </div>
