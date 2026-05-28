@@ -94,7 +94,7 @@ function lsSave(key,data){
 function lsLoad(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch(e){return def;}}
 function compressImage(dataUrl,maxW=320,maxH=320,quality=0.72){return new Promise(res=>{const img=new Image();img.onload=()=>{const ratio=Math.min(maxW/img.width,maxH/img.height,1);const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',quality));};img.src=dataUrl;});}
 function lsSaveImgs(base,imgs){Object.entries(imgs).forEach(([nom,b64])=>{const k=base+'__'+nom;if(!b64){try{localStorage.removeItem(k);}catch(e){}return;}try{localStorage.setItem(k,b64);}catch(e){console.warn("No s'ha pogut desar imatge:",nom,e);}});}
-function lsLoadImgs(base){const imgs={},p=base+'__';for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith(p))imgs[k.slice(p.length)]=localStorage.getItem(k)||'';}return imgs;}
+function lsLoadImgs(base){try{localStorage.removeItem(base+'_imgs');}catch(e){}const imgs={},p=base+'__';for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith(p))imgs[k.slice(p.length)]=localStorage.getItem(k)||'';}return imgs;}
 function stripImages(items,imgKey){const imgs={};const clean=items.map(x=>{const c={...x};if(c[imgKey]&&c[imgKey].startsWith('data:')){imgs[c.nom]=c[imgKey];delete c[imgKey];}return c;});return{clean,imgs};}
 function mergeImages(items,imgs,imgKey){return items.map(x=>({...x,[imgKey]:imgs[x.nom]||x[imgKey]||""}));}
 async function saveData(key,items,imgKey){
