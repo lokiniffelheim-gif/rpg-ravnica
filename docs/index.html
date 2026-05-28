@@ -671,7 +671,7 @@ function App({user,onUsersPanel}){
                 <div style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:9,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Cinzel',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
                   {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
-                  {cnx&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
+                  {cnx&&user.rol==="dm"&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                 </div>
               </div>
               <span style={{color:isSel?c:BORDER,fontSize:14,flexShrink:0}}>›</span>
