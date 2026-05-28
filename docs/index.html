@@ -57,11 +57,11 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartit":"#8a7a5a","Només DM":"#888"};
-const VERSION="3.4.0";
+const VERSION="3.5.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
-const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personatges"},{id:"handouts",icon:"📜",label:"Handouts"}];
+const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personatges"},{id:"handouts",icon:"📜",label:"Objetos"}];
 
 let db=null,auth=null;
 async function initFirebase(cfg){
@@ -428,22 +428,22 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
         :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[secureG(item.gremi)]||"◆"}</span>
       }
-      <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
+      {!isPlayer&&<div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
         <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
           📷
           <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);upd("avatarCustom",c);};r.readAsDataURL(f);e.target.value='';}}/>
         </label>
         {item.avatarCustom&&<button onClick={()=>upd("avatarCustom","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
-      </div>
+      </div>}
     </div>
 
     {/* Columna dreta — info */}
     <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
       {isMob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
       <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-        <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac}/></div>
+        <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/></div>
         <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-          <button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
+          {!isPlayer&&<button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
           {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
         </div>
       </div>
@@ -452,13 +452,14 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           ?<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>
           :<GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>}
         <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
-        <Toggle value={item.activo} onChange={v=>upd("activo",v)}/>
+        {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
       </div>
       <Rule color={ac}/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer}/></div>
       {item.conflicto&&<div style={{padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule/>
-      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
+      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
     </div>
   </div>):null;
 
@@ -541,7 +542,7 @@ function App({user,onUsersPanel}){
   const updC=(i,f,v)=>{const c=cs.map((x,j)=>j===i?{...x,[f]:v}:x);setCs(c);saveKey("chars",c);};
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
 
-  const newH=()=>{const h=[...hs,{nom:"Nou handout",propietari:"Compartit",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
+  const newH=()=>{const h=[...hs,{nom:"Nou objecte",propietari:"Compartit",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
   const newC=()=>{const c=[...cs,{nom:"Nou personatge",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
   const newE=()=>{const e=[...eds,{nom:"Nou edifici",nivel:"Lv0",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
@@ -625,8 +626,8 @@ function App({user,onUsersPanel}){
         </div>
       </div>)}
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"CONTINGUT":"BIO & INFO"}</div>
-        <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={!isOwnChar}/>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO & INFO"}</div>
+        <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
       {effectiveUser.rol==="dm"&&<><Rule/>
       <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
@@ -668,7 +669,7 @@ function App({user,onUsersPanel}){
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
           <div style={{position:"relative",marginBottom:7}}>
             <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
-            <input type="text" placeholder={"Cerca "+(tab==="handouts"?"handouts":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
+            <input type="text" placeholder={"Cerca "+(tab==="handouts"?"objectes":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TOTS</button>
@@ -694,7 +695,7 @@ function App({user,onUsersPanel}){
           })}
         </div>
         <div style={{padding:"8px 10px",borderTop:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
-          <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"HANDOUT":"PERSONATGE"}</button>
+          <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"OBJECTE":"PERSONATGE"}</button>
         </div>
       </div>
       {item&&!mob&&<div onMouseDown={startListDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
