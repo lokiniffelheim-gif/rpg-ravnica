@@ -283,6 +283,14 @@ function SetupScreen({onConnect}){
 function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD}){
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
   const [sort,setSort]=useState("none");
+  const [panelW,setPanelW]=useState(38);
+  const startDrag=useCallback(e=>{
+    if(isMob)return;e.preventDefault();
+    const x0=e.clientX,w0=panelW,tw=e.currentTarget.parentElement.getBoundingClientRect().width;
+    const move=ev=>setPanelW(Math.max(15,Math.min(75,w0+(ev.clientX-x0)/tw*100)));
+    const up=()=>{document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',up);};
+    document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
+  },[panelW,isMob]);
   const gremis=useMemo(()=>[...new Set(edificis.map(e=>e.gremi))].filter(Boolean).sort(),[edificis]);
   const nivells=useMemo(()=>[...new Set(edificis.map(e=>e.nivel))].filter(Boolean).sort(),[edificis]);
   const filtered=useMemo(()=>{
@@ -341,7 +349,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   </div>):null;
 
   return(<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
-    <div style={{width:isMob?"100%":item?"38%":"100%",display:isMob&&showD&&item?"none":"flex",flexDirection:"column",borderRight:!isMob&&item?"2px solid "+BORDER:"none",transition:"width .2s"}}>
+    <div style={{width:isMob?"100%":item?`${panelW}%`:"100%",display:isMob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
       <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
         <div style={{position:"relative",marginBottom:7}}>
           <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
@@ -381,6 +389,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU EDIFICI</button>
       </div>
     </div>
+    {item&&!isMob&&<div onMouseDown={startDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
     {item&&(isMob?showD?Detail:null:<div style={{flex:1,overflow:"hidden",position:"relative",display:"flex"}}>{Detail}</div>)}
   </div>);
 }
@@ -391,7 +400,15 @@ function App({onSetup}){
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
+  const [listW,setListW]=useState(36);
   const saveTimer=useRef(null);
+  const startListDrag=useCallback(e=>{
+    if(mob)return;e.preventDefault();
+    const x0=e.clientX,w0=listW,tw=e.currentTarget.parentElement.getBoundingClientRect().width;
+    const move=ev=>setListW(Math.max(15,Math.min(75,w0+(ev.clientX-x0)/tw*100)));
+    const up=()=>{document.removeEventListener('mousemove',move);document.removeEventListener('mouseup',up);};
+    document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
+  },[listW,mob]);
 
   useEffect(()=>{const chk=()=>setMob(window.innerWidth<580);chk();window.addEventListener("resize",chk);return()=>window.removeEventListener("resize",chk);},[]);
   useEffect(()=>{(async()=>{try{setHs(await loadData("handouts",HANDOUTS,"img"));setCs(await loadData("chars",CHARS,"avatar"));setEds(await loadData("edificis",EDIFICIS_DEFAULT,"avatarCustom"));}catch(e){console.error(e);}})();},[]);
@@ -505,7 +522,7 @@ function App({onSetup}){
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
-      <div style={{width:mob?"100%":item?"36%":"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",borderRight:!mob&&item?"2px solid "+BORDER:"none",transition:"width .2s"}}>
+      <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
           <div style={{position:"relative",marginBottom:7}}>
             <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
@@ -538,6 +555,7 @@ function App({onSetup}){
           <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"HANDOUT":"PERSONATGE"}</button>
         </div>
       </div>
+      {item&&!mob&&<div onMouseDown={startListDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
       {item&&(mob?showD?Detail:null:<div style={{flex:1,overflow:"hidden",position:"relative",display:"flex"}}>{Detail}</div>)}
     </div>}
   </div>);
