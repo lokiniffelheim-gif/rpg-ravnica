@@ -555,7 +555,7 @@ function App({user,onUsersPanel}){
     let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||(x.tags||[]).includes(filt):filt==="all"||x.propietari===filt;return ms&&mf;});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
-    if(effectiveUser.rol==="jugador")r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));
+    if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
     return r;
   },[items,q,filt,sort,tab,user]);
 
@@ -675,7 +675,7 @@ function App({user,onUsersPanel}){
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TODOS</button>
             {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
-            :[...PJS,"Compartido","Solo DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
+            :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
             <SortBtn sort={sort} onSort={cycleSort}/>
           </div>
         </div>
