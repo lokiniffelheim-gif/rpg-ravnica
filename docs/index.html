@@ -443,7 +443,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   </div>);
 }
 
-function App(){
+function App({onSetup}){
   const [tab,setTab]=useState("aventino");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("none");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
@@ -539,10 +539,11 @@ function App(){
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
         <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Arxiu de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v2.9.0</span>}</div>
-        <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
+        <span onClick={!db?onSetup:undefined} title={!db?"Connectar Firebase":""} style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em",cursor:!db?"pointer":"default",textDecoration:!db?"underline dotted":"none"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
-          {db&&<button onClick={()=>initDefaultData()} title="Inicialitza Firebase amb dades per defecte" style={{fontSize:9,padding:"2px 7px",border:"1px solid #8a7a5844",borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⬆ INIT DB</button>}
+          {db?<button onClick={()=>initDefaultData()} title="Inicialitza Firebase amb dades per defecte" style={{fontSize:9,padding:"2px 7px",border:"1px solid #8a7a5844",borderRadius:3,background:"transparent",color:"#8a7a58",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⬆ INIT DB</button>
+            :<button onClick={onSetup} style={{fontSize:9,padding:"2px 7px",border:"1px solid #c09040aa",borderRadius:3,background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>⚡ FIREBASE</button>}
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
@@ -591,9 +592,11 @@ function App(){
 
 function Root(){
   const [ready,setReady]=useState(false);
+  const [setup,setSetup]=useState(false);
   useEffect(()=>{const cfg=localStorage.getItem("rv_fbcfg");(cfg?initFirebase(JSON.parse(cfg)):Promise.resolve(false)).then(()=>setReady(true));},[]);
   if(!ready)return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:12}}><div style={{fontSize:28}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:12,letterSpacing:".08em"}} className="syncing">CARREGANT...</div></div>);
-  return <App/>;
+  if(setup)return <SetupScreen onConnect={()=>setSetup(false)}/>;
+  return <App onSetup={()=>setSetup(true)}/>;
 }
 ReactDOM.render(<Root/>,document.getElementById('root'));
 </script>
