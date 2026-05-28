@@ -627,10 +627,10 @@ function App({user,onUsersPanel}){
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"CONTINGUT":"BIO & INFO"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac}/>
       </div>
-      <Rule/>
+      {effectiveUser.rol==="dm"&&<><Rule/>
       <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
         <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
-      </div>
+      </div></>}
     </div>
   </div>):null;
 
