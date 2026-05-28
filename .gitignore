@@ -2,3 +2,7 @@ desktop.ini
 Thumbs.db
 *.gdoc
 *.gsheet
+*.xlsx
+PCs/
+sessions/
+
