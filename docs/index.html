@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arxiu de Ravnica v2.9.0</title>
+<title>Arxiu de Ravnica</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -57,6 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartit":"#8a7a5a","Només DM":"#888"};
+const VERSION="3.3.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -379,7 +380,7 @@ function SetupScreen({onConnect}){
   const connect=async()=>{if(!cfg.apiKey){setError("Cal omplir API Key");return;}setLoading(true);setError("");const ok=await initFirebase(cfg);if(ok){localStorage.setItem("rv_fbcfg",JSON.stringify(cfg));onConnect();}else setError("Error connexió. Comprova credencials i Firestore activat.");setLoading(false);};
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:480,width:"100%"}}>
-      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Arxiu de Ravnica v2.9.0</div></div>
+      <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#f8eecc",letterSpacing:".06em",marginBottom:4}}>Arxiu de Ravnica v{VERSION}</div></div>
       <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#baa880",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#c8b880",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>COM CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea projecte → Firestore en mode test<br/>2. Configuració → app web → copia el config → enganxa a sota</div>
       <textarea className="setup-input" style={{minHeight:55,resize:"vertical"}} placeholder="Enganxa el firebaseConfig = { apiKey: ... }" onPaste={hp} readOnly/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:9,color:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
@@ -635,7 +636,7 @@ function App({user,onUsersPanel}){
     <div style={{background:BG2,borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
-        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Arxiu de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v2.9.0</span>}</div>
+        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Arxiu de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}</span>}</div>
         <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
