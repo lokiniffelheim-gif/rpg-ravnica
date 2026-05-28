@@ -637,13 +637,14 @@ function App({user,onUsersPanel}){
     </div>
   </div>):null;
 
-  return(<div className="rv" style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden"}}>
-    {previewAs&&<div style={{background:"#c09040",color:"#0f0e0c",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
+  return(<div className="rv" style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
+    <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.07,zIndex:0,pointerEvents:"none"}}/>
+    {previewAs&&<div style={{position:"relative",zIndex:1,background:"#c09040",color:"#0f0e0c",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
       <span style={{fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
       <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:11,padding:"3px 12px",borderRadius:3,border:"1px solid #0f0e0c55",background:"#0f0e0c22",color:"#0f0e0c",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
-    <div style={{backgroundImage:"url('assets/img/misc/Portada.jpg')",backgroundSize:"cover",backgroundPosition:"center top",borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0,position:"relative"}}>
-      <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom, #13110ecc 0%, #13110eee 60%, #13110e 100%)",pointerEvents:"none"}}/>
+    <div style={{backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom, #13110eb8 0%, #13110edd 55%, #13110e 100%)",pointerEvents:"none"}}/>
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
@@ -667,8 +668,8 @@ function App({user,onUsersPanel}){
       </div>
       </div>
     </div>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} chars={cs}/>
-    :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} chars={cs} style={{position:"relative",zIndex:1}}/>
+    :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG,zIndex:1}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
           <div style={{position:"relative",marginBottom:7}}>
