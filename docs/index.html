@@ -92,7 +92,7 @@ function lsSave(key,data){
   }
 }
 function lsLoad(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch(e){return def;}}
-function compressImage(dataUrl,maxW=320,maxH=320,quality=0.72){return new Promise(res=>{const img=new Image();img.onload=()=>{const ratio=Math.min(maxW/img.width,maxH/img.height,1);const w=Math.round(img.width*ratio),h=Math.round(img.height*ratio);const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',quality));};img.src=dataUrl;});}
+function compressImage(dataUrl,size=400,quality=0.80){return new Promise(res=>{const img=new Image();img.onload=()=>{const sq=Math.min(img.width,img.height);const sx=Math.round((img.width-sq)/2);const sy=Math.round((img.height-sq)/2);const s=Math.min(size,sq);const c=document.createElement('canvas');c.width=s;c.height=s;c.getContext('2d').drawImage(img,sx,sy,sq,sq,0,0,s,s);res(c.toDataURL('image/jpeg',quality));};img.src=dataUrl;});}
 function lsSaveImgs(base,imgs){Object.entries(imgs).forEach(([nom,b64])=>{const k=base+'__'+nom;if(!b64){try{localStorage.removeItem(k);}catch(e){}return;}try{localStorage.setItem(k,b64);}catch(e){console.warn("No s'ha pogut desar imatge:",nom,e);}});}
 function lsLoadImgs(base){try{localStorage.removeItem(base+'_imgs');}catch(e){}const imgs={},p=base+'__';for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith(p))imgs[k.slice(p.length)]=localStorage.getItem(k)||'';}return imgs;}
 function stripImages(items,imgKey){const imgs={};const clean=items.map(x=>{const c={...x};if(c[imgKey]&&c[imgKey].startsWith('data:')){imgs[c.nom]=c[imgKey];delete c[imgKey];}return c;});return{clean,imgs};}
@@ -137,7 +137,7 @@ function Avatar({nom,avatar,img,size,color,tab,onUpload,onRemove}){
   const hasImg=src&&!err;
   const editable=!!(onUpload||onRemove);
   const btnSize=Math.max(16,s*0.32);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,256,256,0.75);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
+  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
   return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
     {hasImg?<img src={src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:"50%",objectFit:"cover",border:"2px solid "+(color||"#8a7a5a")+"66",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:"50%",background:(color||"#8a7a5a")+"14",border:"2px solid "+(color||"#8a7a5a")+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*(tab==="handouts"?.45:.35),fontWeight:600,color:color||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{tab==="handouts"?"📜":initials(nom)}</div>}
@@ -158,7 +158,7 @@ function EdificiAvatar({gremi,nom,size,avatarCustom,avatarDefault,onUpload,onRem
   const defaultSrc=GUILD_SVG_MAP[gremi]||GUILD_SVG_MAP['Guildless']||"";
   const src=avatarCustom||defaultSrc;
   const hasCustom=!!(avatarCustom&&!err);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400,300,0.78);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
+  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
   return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
     {src?<img src={err?defaultSrc:src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:8,objectFit:"cover",border:"2px solid "+c+"55",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:8,background:c+"18",border:"2px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*.35,color:c}}>{GS[gremi]||"◆"}</div>}
@@ -299,34 +299,45 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const ac=item?GC[item.gremi]||GOLD:GOLD;
   const upd=(f,v)=>{if(origI<0)return;onUpdate(origI,f,v);};
 
-  const Detail=item?(<div className="rv-detail" style={{flex:1,overflowY:"auto",padding:"20px 22px",position:"relative",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
-    {isMob&&<button onClick={()=>setShowD(false)} style={{marginBottom:14,background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:14,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>← TORNAR</button>}
-    <div style={{display:"flex",gap:18,alignItems:"flex-start",marginBottom:16}}>
-      <div style={{flexShrink:0}}>
-        <EdificiAvatar gremi={item.gremi} nom={item.nom} size={isMob?100:140}
-          avatarCustom={item.avatarCustom} avatarDefault={item.avatar}
-          onUpload={v=>upd("avatarCustom",v)} onRemove={()=>upd("avatarCustom","")}/>
-      </div>
-      <div style={{flex:1,minWidth:0,display:"flex",flexDirection:"column",gap:8}}>
-        <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-          <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac}/></div>
-          <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-            <button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
-            {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
-          </div>
-        </div>
-        <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
-          <GuildDrop value={item.gremi} opts={AG} onChange={v=>upd("gremi",v)} cm={GC}/>
-          <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
-        </div>
-        <Toggle value={item.activo} onChange={v=>upd("activo",v)}/>
+  const edImgSrc=item?(item.avatarCustom||GUILD_SVG_MAP[item.gremi]||""):"";
+  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:isMob?"column":"row",overflow:"hidden",position:"relative",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
+
+    {/* Columna esquerra — imatge */}
+    <div style={{width:isMob?"100%":"50%",height:isMob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:isMob?"none":"1px solid "+BORDER,borderBottom:isMob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
+      {edImgSrc
+        ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
+        :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[item.gremi]||"◆"}</span>
+      }
+      <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
+        <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
+          📷
+          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);upd("avatarCustom",c);};r.readAsDataURL(f);e.target.value='';}}/>
+        </label>
+        {item.avatarCustom&&<button onClick={()=>upd("avatarCustom","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
       </div>
     </div>
-    <Rule color={ac}/>
-    <div style={{marginBottom:12}}><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><Field value={item.personajes} onChange={v=>upd("personajes",v)} accent={ac}/></div>
-    {item.conflicto&&<div style={{marginBottom:12,padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:14,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6}}>{item.conflicto}</p></div>}
-    <Rule/>
-    <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div>
+
+    {/* Columna dreta — info */}
+    <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
+      {isMob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
+      <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
+        <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac}/></div>
+        <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
+          <button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
+          {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+        </div>
+      </div>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
+        <GuildDrop value={item.gremi} opts={AG} onChange={v=>upd("gremi",v)} cm={GC}/>
+        <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
+        <Toggle value={item.activo} onChange={v=>upd("activo",v)}/>
+      </div>
+      <Rule color={ac}/>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><Field value={item.personajes} onChange={v=>upd("personajes",v)} accent={ac}/></div>
+      {item.conflicto&&<div style={{padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
+      <Rule/>
+      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div>
+    </div>
   </div>):null;
 
   return(<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
@@ -370,7 +381,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU EDIFICI</button>
       </div>
     </div>
-    {item&&(isMob?showD?Detail:null:<div style={{flex:1,overflowY:"auto",position:"relative"}}>{Detail}</div>)}
+    {item&&(isMob?showD?Detail:null:<div style={{flex:1,overflow:"hidden",position:"relative",display:"flex"}}>{Detail}</div>)}
   </div>);
 }
 
@@ -435,7 +446,7 @@ function App({onSetup}){
       <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
         <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
           📷
-          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,500,700,0.82);tab==="handouts"?updH(origI,"img",c):updC(origI,"avatar",c);};r.readAsDataURL(f);e.target.value='';}}/>
+          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);tab==="handouts"?updH(origI,"img",c):updC(origI,"avatar",c);};r.readAsDataURL(f);e.target.value='';}}/>
         </label>
         {imgSrc&&<button onClick={()=>tab==="handouts"?updH(origI,"img",""):updC(origI,"avatar","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
       </div>
@@ -527,7 +538,7 @@ function App({onSetup}){
           <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"HANDOUT":"PERSONATGE"}</button>
         </div>
       </div>
-      {item&&(mob?showD?Detail:null:<div style={{flex:1,overflowY:"auto",position:"relative"}}>{Detail}</div>)}
+      {item&&(mob?showD?Detail:null:<div style={{flex:1,overflow:"hidden",position:"relative",display:"flex"}}>{Detail}</div>)}
     </div>}
   </div>);
 }
