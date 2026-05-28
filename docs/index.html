@@ -238,7 +238,7 @@ function VisibleSelect({value,onChange}){
   </div>);
 }
 
-function Field({value,onChange,multi,accent,ph}){
+function Field({value,onChange,multi,accent,ph,readOnly}){
   ph=ph||"";
   const [ed,setEd]=useState(false);const [draft,setDraft]=useState(value||"");
   const ref=useRef(null);
@@ -246,9 +246,9 @@ function Field({value,onChange,multi,accent,ph}){
   useEffect(()=>{if(!ed)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target)){onChange(draft);setEd(false);}};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[ed,draft,onChange]);
   const commit=()=>{onChange(draft);setEd(false);};
   const s={width:"100%",padding:"5px 8px",borderRadius:3,border:"1.5px solid "+(accent||GOLD)+"66",background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',Georgia,serif",fontSize:15,outline:"none",lineHeight:1.75,opacity:1};
-  if(!ed)return(<div className="rv-editable" onClick={()=>setEd(true)} style={{position:"relative",minHeight:24}}>
-    <span style={{position:"absolute",top:4,right:6,fontSize:10,color:GOLD,opacity:.4,pointerEvents:"none"}}>✎</span>
-    {value?<p style={{margin:0,fontSize:15,lineHeight:1.75,color:"#ede3c8",whiteSpace:"pre-line",paddingRight:14}}>{value}</p>:<p style={{margin:0,fontSize:14,color:"#7a6858",fontStyle:"italic"}}>{ph||"—"}</p>}
+  if(readOnly||!ed)return(<div className={readOnly?"":"rv-editable"} onClick={readOnly?undefined:()=>setEd(true)} style={{position:"relative",minHeight:24,cursor:readOnly?"default":undefined}}>
+    {!readOnly&&<span style={{position:"absolute",top:4,right:6,fontSize:10,color:GOLD,opacity:.4,pointerEvents:"none"}}>✎</span>}
+    {value?<p style={{margin:0,fontSize:15,lineHeight:1.75,color:"#ede3c8",whiteSpace:"pre-line",paddingRight:readOnly?0:14}}>{value}</p>:<p style={{margin:0,fontSize:14,color:"#7a6858",fontStyle:"italic"}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
 }
@@ -578,6 +578,7 @@ function App({user,onUsersPanel}){
   const syncLabel=saved||(db?"☁ Firebase":"⬡ local");
 
   const imgSrc=item?(item.img||item.avatar||""):"";
+  const isOwnChar=effectiveUser.rol==="dm"||(tab==="chars"&&item?.nom===effectiveUser.personatge);
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:mob?"column":"row",overflow:"hidden",position:"relative",...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
 
     {/* Columna esquerra — imatge */}
@@ -586,22 +587,22 @@ function App({user,onUsersPanel}){
         ?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block"}}/>
         :<span style={{fontSize:48,fontWeight:"bold",color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</span>
       }
-      <div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
+      {isOwnChar&&<div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
         <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
           📷
           <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);tab==="handouts"?updH(origI,"img",c):updC(origI,"avatar",c);};r.readAsDataURL(f);e.target.value='';}}/>
         </label>
         {imgSrc&&<button onClick={()=>tab==="handouts"?updH(origI,"img",""):updC(origI,"avatar","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
-      </div>
+      </div>}
     </div>
 
     {/* Columna dreta — info */}
     <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
       {mob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← TORNAR</button>}
       <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-        <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac}/></div>
+        <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/></div>
         <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-          <button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>
+          {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
           {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
         </div>
       </div>
@@ -613,7 +614,7 @@ function App({user,onUsersPanel}){
         :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Només DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
         {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
       </div>
-      {tab==="chars"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
+      {tab==="chars"&&effectiveUser.rol==="dm"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
         <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center",alignSelf:"flex-start"}}>
           <span style={{opacity:.5,fontSize:11}}>🎮</span>
           <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
@@ -625,7 +626,7 @@ function App({user,onUsersPanel}){
       </div>)}
       <Rule color={ac}/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"CONTINGUT":"BIO & INFO"}</div>
-        <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac}/>
+        <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={!isOwnChar}/>
       </div>
       {effectiveUser.rol==="dm"&&<><Rule/>
       <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTES DEL DM</div>
