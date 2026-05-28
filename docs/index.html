@@ -367,7 +367,8 @@ function SetupScreen({onConnect}){
   </div>);
 }
 
-function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD}){
+function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir}){
+  const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
   const [sort,setSort]=useState("none");
   const [panelW,setPanelW]=useState(38);
@@ -391,10 +392,10 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
 
   const item=sel!==null&&sel<filtered.length?filtered[sel]:null;
   const origI=item?edificis.findIndex(e=>e.nom===item.nom):-1;
-  const ac=item?GC[item.gremi]||GOLD:GOLD;
+  const ac=item?GC[secureG(item.gremi)]||GOLD:GOLD;
   const upd=(f,v)=>{if(origI<0)return;onUpdate(origI,f,v);};
 
-  const edImgSrc=item?(item.avatarCustom||GUILD_SVG_MAP[item.gremi]||""):"";
+  const edImgSrc=item?(item.avatarCustom||GUILD_SVG_MAP[secureG(item.gremi)]||""):"";
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:isMob?"column":"row",overflow:"hidden",position:"relative",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
 
     {/* Columna esquerra — imatge */}
@@ -423,7 +424,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         </div>
       </div>
       <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
-        <GuildDrop value={item.gremi} opts={AG} onChange={v=>upd("gremi",v)} cm={GC}/>
+        <GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>
         <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
         <Toggle value={item.activo} onChange={v=>upd("activo",v)}/>
       </div>
@@ -444,7 +445,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",marginBottom:5}}>
           <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TOTS</button>
-          {gremis.map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
+          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
           <button className="rv-filter" onClick={()=>setFn("all")} style={{background:fn==="all"?GOLD+"22":"transparent",border:"1px solid "+(fn==="all"?GOLD+"88":BORDER),color:fn==="all"?GOLD:"#9a8a68"}}>TOTS</button>
@@ -455,9 +456,9 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>
       <div style={{overflowY:"auto",flex:1}}>
         {filtered.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap edifici trobat...</div>}
-        {filtered.map((e,i)=>{const c=GC[e.gremi]||"#8a7a5a",isSel=!isMob&&sel===i,nc=NVC[e.nivel]||"#8a7a5a";
+        {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i,nc=NVC[e.nivel]||"#8a7a5a";
           return(<div key={i} onClick={()=>{onSelect(i===sel&&!isMob?null:i);setShowD(true);}} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:e.activo?"transparent":"#0d0b09",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,opacity:e.activo?1:.45,transition:"background .1s"}}>
-            <EdificiAvatar gremi={e.gremi} nom={e.nom} size={36} avatarCustom={e.avatarCustom} avatarDefault={e.avatar}/>
+            <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom} avatarDefault={e.avatar}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
                 <span style={{fontSize:13,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
@@ -617,7 +618,7 @@ function App({user,onUsersPanel}){
         {TABS.map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
       </div>
     </div>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD}/>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
