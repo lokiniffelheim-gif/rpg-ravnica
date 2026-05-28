@@ -642,7 +642,9 @@ function App({user,onUsersPanel}){
       <span style={{fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
       <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:11,padding:"3px 12px",borderRadius:3,border:"1px solid #0f0e0c55",background:"#0f0e0c22",color:"#0f0e0c",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
-    <div style={{background:BG2,borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0}}>
+    <div style={{backgroundImage:"url('assets/img/misc/Portada.jpg')",backgroundSize:"cover",backgroundPosition:"center top",borderBottom:"1px solid "+BORDER,padding:"12px 16px 0",flexShrink:0,position:"relative"}}>
+      <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom, #13110ecc 0%, #13110eee 60%, #13110e 100%)",pointerEvents:"none"}}/>
+      <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
         <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}</span>}</div>
@@ -662,6 +664,7 @@ function App({user,onUsersPanel}){
       </div>
       <div style={{display:"flex",gap:1}}>
         {TABS.map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
+      </div>
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} chars={cs}/>
