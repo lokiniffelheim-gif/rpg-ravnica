@@ -92,19 +92,21 @@ function lsSave(key,data){
   }
 }
 function lsLoad(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch(e){return def;}}
+function lsSaveImgs(base,imgs){Object.entries(imgs).forEach(([nom,b64])=>{const k=base+'__'+nom;if(!b64){try{localStorage.removeItem(k);}catch(e){}return;}try{localStorage.setItem(k,b64);}catch(e){console.warn("No s'ha pogut desar imatge:",nom,e);}});}
+function lsLoadImgs(base){const imgs={},p=base+'__';for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith(p))imgs[k.slice(p.length)]=localStorage.getItem(k)||'';}return imgs;}
 function stripImages(items,imgKey){const imgs={};const clean=items.map(x=>{const c={...x};if(c[imgKey]&&c[imgKey].startsWith('data:')){imgs[c.nom]=c[imgKey];delete c[imgKey];}return c;});return{clean,imgs};}
 function mergeImages(items,imgs,imgKey){return items.map(x=>({...x,[imgKey]:imgs[x.nom]||x[imgKey]||""}));}
 async function saveData(key,items,imgKey){
   const{clean,imgs}=imgKey?stripImages(items,imgKey):{clean:items,imgs:{}};
   if(db){try{await db.collection("ravnica").doc(key).set({data:JSON.stringify(clean)});}catch(e){}}
   lsSave(key,clean);
-  if(imgKey){const existing=lsLoad(key+"_imgs",{});const merged={...existing,...imgs};Object.keys(merged).forEach(k=>{if(!merged[k])delete merged[k];});lsSave(key+"_imgs",merged);}
+  if(imgKey){const existing=lsLoadImgs(key);const merged={...existing,...imgs};Object.keys(merged).forEach(k=>{if(!merged[k])delete merged[k];});lsSaveImgs(key,merged);}
 }
 async function loadData(key,def,imgKey){
   let data=null;
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
-  if(imgKey){const imgs=lsLoad(key+"_imgs",{});return mergeImages(data,imgs,imgKey);}
+  if(imgKey){const imgs=lsLoadImgs(key);return mergeImages(data,imgs,imgKey);}
   return data;
 }
 
