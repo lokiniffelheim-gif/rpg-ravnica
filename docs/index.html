@@ -527,6 +527,9 @@ function App({user,onUsersPanel}){
     return r;
   },[items,q,filt,sort,tab,user]);
 
+  const canSeeDimir=useMemo(()=>user.rol==="dm"||(cs.find(c=>c.nom===user.personatge)?.tags||[]).includes("Dimir"),[user,cs]);
+  const secureT=useCallback(tags=>(canSeeDimir?tags||[]:( tags||[]).filter(t=>t!=="Dimir")),[canSeeDimir]);
+
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
   const ac=item?mc(item,tab):GOLD;
@@ -568,7 +571,7 @@ function App({user,onUsersPanel}){
         </div>
       </div>
       <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center"}}>
-        {tab==="chars"?(<>{(item.tags||[]).map((t,ti)=><GuildTagSel key={ti} value={t} opts={AG} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremi</button></>)
+        {tab==="chars"?(<>{secureT(item.tags).map((t,ti)=><GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremi</button></>)
         :(<Sel value={item.propietari} opts={[...PJS,"Compartit","Només DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
         {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
       </div>
@@ -620,7 +623,7 @@ function App({user,onUsersPanel}){
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TOTS</button>
-            {tab==="chars"?AG.filter(g=>cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
+            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
             :[...PJS,"Compartit","Només DM"].map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
             <SortBtn sort={sort} onSort={cycleSort}/>
           </div>
@@ -633,7 +636,7 @@ function App({user,onUsersPanel}){
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:9,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Cinzel',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
-                  {tab==="chars"?(x.tags||[]).map(t=><span key={t} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
+                  {tab==="chars"?secureT(x.tags).map(t=><span key={t} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
                   {cnx&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                 </div>
               </div>
