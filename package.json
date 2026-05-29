@@ -1,0 +1,13 @@
+{
+  "name": "ravnica-arxiu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build.js",
+    "watch": "node build.js --watch"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-react": "^7.24.0"
+  }
+}
