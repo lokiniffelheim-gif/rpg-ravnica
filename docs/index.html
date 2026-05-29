@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.21";
+const VERSION="3.5.22";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -183,7 +183,8 @@ async function loadData(key,def,imgKey){
   if(imgKey){
     const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:{};
     const lsImgs=lsLoadImgs(key);
-    data=data.map(x=>({...x,[imgKey]:x[imgKey]||lsImgs[x.nom]||(initMap[x.nom]?GH_BASE+initMap[x.nom]:"")}));
+    const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
+    data=data.map(x=>{let img=x[imgKey]||lsImgs[x.nom]||(initMap[x.nom]?GH_BASE+initMap[x.nom]:"");if(img&&!img.startsWith("data:")&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=initMap[x.nom]?GH_BASE+initMap[x.nom]:"";}return{...x,[imgKey]:img};});
   }
   return data;
 }
