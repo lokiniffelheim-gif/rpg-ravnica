@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.9.0";
+const VERSION="3.9.1";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -201,6 +201,27 @@ function arrToVis(arr){if(!arr||arr.length===0)return"Nadie";if(arr.includes("To
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
+function renderMd(md){
+  if(!md)return"";
+  const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code style='background:#2a2520;padding:1px 5px;border-radius:3px;font-size:13px'>$1</code>").replace(/\[(.+?)\]\((.+?)\)/g,"<a href='$2' target='_blank' style='color:#c09040'>$1</a>");
+  const lines=md.split("\n");
+  let html="",inUl=false,inP=false;
+  const closeP=()=>{if(inP){html+="</p>";inP=false;}};
+  const closeUl=()=>{if(inUl){html+="</ul>";inUl=false;}};
+  for(const l of lines){
+    const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),hr=/^---+$/.test(l);
+    if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Cinzel',serif;font-size:20px;color:#f8eecc;letter-spacing:.06em;margin:0 0 16px;border-bottom:1px solid #2a2520;padding-bottom:8px">${inline(h1[1])}</h1>`;}
+    else if(h2){closeP();closeUl();html+=`<h2 style="font-family:'Cinzel',serif;font-size:16px;color:#f0e4b0;letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
+    else if(h3){closeP();closeUl();html+=`<h3 style="font-family:'Cinzel',serif;font-size:13px;color:#c8bfa8;letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
+    else if(hr){closeP();closeUl();html+="<hr style='border:none;border-top:1px solid #2a2520;margin:16px 0'>";}
+    else if(li){closeP();if(!inUl){html+="<ul style='margin:8px 0;padding-left:20px;list-style:none'>";inUl=true;}html+=`<li style="margin:4px 0;padding-left:8px">· ${inline(li[1])}</li>`;}
+    else if(!l.trim()){closeUl();closeP();}
+    else{closeUl();if(!inP){html+=`<p style="margin:0 0 10px">`;inP=true;}else html+=" ";html+=inline(l);}
+  }
+  closeUl();closeP();
+  return html;
+}
 </script>
 <script type="text/babel" charset="UTF-8">
 function PersonajesTagSel({value,onChange,chars,readOnly,onNavToChar}){
@@ -387,16 +408,22 @@ function SesionesPanel({isMob}){
   useEffect(()=>{fetch("assets/data/sesiones/manifest.json").then(r=>r.json()).then(d=>{setActs(d);setLoading(false);}).catch(()=>setLoading(false));},[]);
   const openFile=useCallback(async(act,file)=>{
     const url=`assets/data/sesiones/${encodeURIComponent(act.nom)}/${encodeURIComponent(file)}`;
-    if(file.endsWith(".md")){const r=await fetch(url);const text=await r.text();const body=text.replace(/^---[\s\S]*?---\r?\n?/,"").trim();setPage({act,file,body});}
-    else window.open(url,"_blank");
+    if(file.endsWith(".md")){
+      try{const r=await fetch(url);if(!r.ok){setPage({act,file,body:"",error:`Error ${r.status}`});return;}
+      const text=await r.text();const body=text.replace(/^---[\s\S]*?---\r?\n?/,"").trim();setPage({act,file,body});}
+      catch(e){setPage({act,file,body:"",error:e.message});}
+    } else window.open(url,"_blank");
   },[]);
   if(page)return(
-    <div style={{flex:1,overflowY:"auto",padding:"20px 24px",position:"relative",background:BG}}>
+    <div style={{flex:1,overflowY:"auto",padding:"24px 32px",position:"relative",background:BG}}>
       <button onClick={()=>setPage(null)} className="rv-btn-gold" style={{position:"absolute",top:16,right:16,padding:"5px 14px",fontSize:11}}>← TORNAR</button>
-      <div style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",marginBottom:16,opacity:.7}}>{page.act.nom} / {page.file}</div>
-      <div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.9,color:"#e0d4b8",whiteSpace:"pre-wrap",maxWidth:740}}>
-        {page.body||<span style={{color:"#7a6858",fontStyle:"italic"}}>Fitxer buit.</span>}
-      </div>
+      <div style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",marginBottom:20,opacity:.7}}>{page.act.nom} / {page.file}</div>
+      {page.error
+        ?<p style={{color:"#c43030",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>{page.error}</p>
+        :page.body
+          ?<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.8,color:"#e0d4b8",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(page.body)}}/>
+          :<p style={{color:"#7a6858",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Fitxer buit.</p>
+      }
     </div>
   );
   return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
