@@ -728,7 +728,7 @@ function App({user,onUsersPanel}){
           <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
         </div>
         <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
-          <VisibleSelect value={item.visible??\"Tots\"} onChange={v=>updC(origI,"visible",v)}/>
+          <VisibleSelect value={item.visible??'Tots'} onChange={v=>updC(origI,"visible",v)}/>
         </div>
       </div>)}
       <Rule color={ac}/>
