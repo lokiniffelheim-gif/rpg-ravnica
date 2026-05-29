@@ -57,25 +57,79 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.8";
+const VERSION="3.5.9";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"}];
+const GH_BASE="assets/img/";
+const IMG_CHARS={
+  "Ezzio Salvatore":"npc/Ezzio.jpg","Wundyr Somo":"npc/Wundyr.jpg","Yarog (HorseLuis)":"npc/yarog.jpg",
+  "Manjatan":"npc/manjatan.jpg","Svikull Rusl":"npc/svikull.jpg","Marchena":"npc/Marchena.jpg","Kasz":"npc/Kasz.jpg",
+  "El Vocero":"npc/Vocero.jpg","Pesha la Tabernera":"npc/Pesha.jpg","Kotyali la Cazadora":"npc/Kotyali.jpg",
+  "Shazel Bara, Chaman del clan":"npc/Shazel Bara.jpg","Obez el Prestamista":"npc/Obez.jpg",
+  "Iván el Cocinero":"npc/Ivan.jpg","Grukurg el Tintador":"npc/Grukurg.jpg","Ten el Pescadero":"npc/Ten.jpg",
+  "Morai la Capataz":"npc/Morai.jpg","Cresh el Vendedor de Comida Ambulante":"npc/Cresh.jpg",
+  "Elon Tusk el Mercader de grano":"npc/Elon.jpg","Dhalya Macav la Comerciante":"npc/Dhalya.jpg",
+  "Maeve la Carterista":"npc/Maeve.jpg","Sila, Tribuno de la Legión":"npc/Sila.jpg",
+  "Arkady el Alborotador":"npc/Arkady.jpg","Ikram la Contrabandista":"npc/Ikram.png",
+  "Bookworm el Consigliere":"npc/Bookworm.jpg","Kakí Skýla, Lugarteniente del Enjambre Ochran":"npc/Kaky Skyla.png",
+  "Tajic, Espada de la Legión":"npc/Tajic, Espada de la Legión.jpg","Sargento Instructor Gough":"npc/Sargento Instructor Gough.jpg",
+  "Informante Secreto":"npc/Informante Secreto.jpg","Mecenas misterioso":"npc/Mecenas misterioso.jpg",
+  "Emeritus Tobias Forge":"npc/Tobias Forge.jpg","Glenn Danzing, Sicario del Sindicato":"npc/Glenn.jpg",
+  "Padre Messiah Marcolin":"npc/Messiah.jpg","Niv-Mizzet, el Dracogenio":"npc/Niv-Mizzet.jpg",
+  "Sestri, Degana del Laboratorio de Tormentas y Electricidad":"npc/Sestri.jpg",
+  "Coldie, Genio Inestable":"npc/Coldie.png","Rotxar, Cultista Tatuador":"npc/Rotxar.png",
+  "Tai On, Justicar del Senado":"npc/Tai On.jpg","Randall, Comunero Pacifista":"npc/Randall.jpg",
+  "Khatnas, Juez de Asuntos Internos":"npc/Khatnas.jpg","Nebum Gerava, Arbites del Senado":"npc/Nebum.jpg",
+  "Gasz, Matón de la Calle de Hojalata":"npc/Gasz.jpg","Luda Manson, Productora y Cazatalentos":"npc/Luda Manson.jpg",
+  "Ylldiane, Intendente Mayor":"npc/Ylldiane.jpg","Ayudantes de laboratorio Izzet":"npc/Equipo de Investigacion Izzet.jpg",
+  "Reclutas Azorius":"npc/Reclutas Azorius.png","Giagia, Ama de llaves del Hogar Ancestral Dalverjar":"npc/Giagia.jpg",
+  "Escuadrón Boros":"npc/Escuadron Boros.jpg","Anarquistas Gruul":"npc/Anarquistas Gruuls.jpg",
+  "Troupe Rakdos":"npc/Artistas Rakdos.jpg","André el Herrero":"npc/Andre.jpg",
+  "Alysa la Sastre":"npc/Alysa.jpg","Albert Camus de la Oficina del Banco":"npc/Albert Camus.jpg",
+  "Aiker Bosset":"npc/Aiker.png","Los fieles seguidores del Maestro, el Evolucionador de hombres":"npc/Seguidores.jpg",
+  "Trisz, Legionario Caido (Fallecido)":"npc/Trisz, caido.jpg","Pandora, Espíritu Servicial":"npc/Pandora.webp",
+  "Goblin Moñeco":"npc/Goblin Moñeco.jpg","Ouray":"npc/Ouray.jpg","Lyzaxa":"npc/Lyzaxa.jpg",
+  "Sinrostro":"npc/Sinrostro.jpg",
+};
+const IMG_EDIFICIS={
+  "Oficina Capilla Azorius":"buildings/Oficina Capilla Azorius.jpg",
+  "Médico Azorius":"buildings/Médico Azorius.jpg","Medico Azorius":"buildings/Médico Azorius.jpg",
+  "Recaudador de Impuestos Azorius":"buildings/Recaudador de Impuestos Azorius.jpg",
+  "Ayuntamiento Azorius":"buildings/Ayuntamiento Azorius.jpg",
+  "Comisaría Boros":"buildings/Comisaría Boros.jpg","Comisaria Boros":"buildings/Comisaría Boros.jpg",
+  "Forja Boros":"buildings/Forja Boros.jpg","Barracones Boros":"buildings/Barracones Boros.jpg",
+  "Calabozos Boros":"buildings/Calabozos Boros.jpg","Callejuelas":"buildings/Callejuelas.jpg",
+  "Sastre":"buildings/Sastreria.jpg","Sastrería":"buildings/Sastreria.jpg",
+  "Campamento Gruul":"buildings/Campamento Gruul.jpg","Cloacas Golgari":"buildings/Cloacas Golgari.jpg",
+  "Herbolario":"buildings/Herbolario.jpg","Tienda del shamán Gruul":"buildings/Tienda del shamán Gruul.jpg",
+};
 
-let db=null,auth=null;
+let db=null,auth=null,storage=null;
 async function initFirebase(cfg){
   if(!window.firebase){
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js");
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js");
+    await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js");
   }
   try{
     const app=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp(cfg);
     db=window.firebase.firestore(app);
     auth=window.firebase.auth(app);
+    storage=window.firebase.storage(app);
     return true;
-  }catch(e){db=null;auth=null;return false;}
+  }catch(e){db=null;auth=null;storage=null;return false;}
+}
+async function uploadToStorage(nom,dataUrl){
+  if(!storage||!dataUrl.startsWith('data:'))return null;
+  try{
+    const ref=storage.ref('ravnica/imgs/'+Date.now()+'_'+encodeURIComponent(nom).slice(0,60));
+    const res=await fetch(dataUrl);const blob=await res.blob();
+    await ref.put(blob,{contentType:blob.type});
+    return await ref.getDownloadURL();
+  }catch(e){console.warn('Storage upload failed:',e);return null;}
 }
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[src="'+src+'"]')){res();return;}const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 async function signIn(){try{const provider=new window.firebase.auth.GoogleAuthProvider();await auth.signInWithPopup(provider);return{};}catch(e){return{error:e.code==="auth/popup-closed-by-user"?"Has tancat la finestra de Google":e.message};}}
@@ -117,7 +171,11 @@ async function loadData(key,def,imgKey){
   let data=null;
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
-  if(imgKey){const imgs=lsLoadImgs(key);return mergeImages(data,imgs,imgKey);}
+  if(imgKey){
+    const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:{};
+    const lsImgs=lsLoadImgs(key);
+    data=data.map(x=>({...x,[imgKey]:x[imgKey]||lsImgs[x.nom]||(initMap[x.nom]?GH_BASE+initMap[x.nom]:"")}));
+  }
   return data;
 }
 
@@ -170,7 +228,7 @@ function Avatar({nom,avatar,img,size,color,tab,onUpload,onRemove}){
   const hasImg=src&&!err;
   const editable=!!(onUpload||onRemove);
   const btnSize=Math.max(16,s*0.32);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
+  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(nom,c);onUpload&&onUpload(url||c);};r.readAsDataURL(file);e.target.value='';};
   return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
     {hasImg?<img src={src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:"50%",objectFit:"cover",border:"2px solid "+(color||"#8a7a5a")+"66",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:"50%",background:(color||"#8a7a5a")+"14",border:"2px solid "+(color||"#8a7a5a")+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*(tab==="handouts"?.45:.35),fontWeight:600,color:color||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{tab==="handouts"?"📜":initials(nom)}</div>}
@@ -191,7 +249,7 @@ function EdificiAvatar({gremi,nom,size,avatarCustom,avatarDefault,onUpload,onRem
   const defaultSrc=GUILD_SVG_MAP[gremi]||GUILD_SVG_MAP['Guildless']||"";
   const src=avatarCustom||defaultSrc;
   const hasCustom=!!(avatarCustom&&!err);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);onUpload&&onUpload(c);};r.readAsDataURL(file);e.target.value='';};
+  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(nom,c);onUpload&&onUpload(url||c);};r.readAsDataURL(file);e.target.value='';};
   return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
     {src?<img src={err?defaultSrc:src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:8,objectFit:"cover",border:"2px solid "+c+"55",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:8,background:c+"18",border:"2px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*.35,color:c}}>{GS[gremi]||"◆"}</div>}
@@ -428,7 +486,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       {!isPlayer&&<div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
         <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
           📷
-          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);upd("avatarCustom",c);};r.readAsDataURL(f);e.target.value='';}}/>
+          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(item.nom,c);upd("avatarCustom",url||c);};r.readAsDataURL(f);e.target.value='';}}/>
         </label>
         {item.avatarCustom&&<button onClick={()=>upd("avatarCustom","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
       </div>}
