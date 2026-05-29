@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.22";
+const VERSION="3.5.23";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -397,7 +397,8 @@ function UserMgmt({onClose}){
   useEffect(()=>{db.collection("users").get().then(snap=>{setUsers(snap.docs.map(d=>({uid:d.id,...d.data(),rol:d.data().rol||"jugador"})));setLoading(false);});},[]);
   const upd=(uid,f,v)=>setUsers(us=>us.map(u=>u.uid===uid?{...u,[f]:v}:u));
   const isPendent=u=>u.rol!=="dm"&&!u.personatge;
-  const sorted=useMemo(()=>[...users].sort((a,b)=>{const pa=isPendent(a),pb=isPendent(b);if(pa!==pb)return pa?-1:1;return(a.email||"").localeCompare(b.email||"");}),[users]);
+  const rank=u=>u.rol==="dm"?0:u.personatge?1:2;
+  const sorted=useMemo(()=>[...users].sort((a,b)=>rank(a)-rank(b)||(a.email||"").localeCompare(b.email||"")),[users]);
   const saveAll=async()=>{setSaving(true);await Promise.all(users.map(u=>db.collection("users").doc(u.uid).set({email:u.email,rol:u.rol||null,personatge:u.personatge||null},{merge:true})));setSaving(false);setSaved(true);setTimeout(()=>setSaved(false),2000);};
   return(<div style={{position:"fixed",inset:0,background:"#000b",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
     <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,width:"100%",maxWidth:540,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
