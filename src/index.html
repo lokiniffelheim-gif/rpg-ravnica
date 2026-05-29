@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.9.9";
+const VERSION="3.10.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -219,11 +219,28 @@ function renderMd(md){
   if(!md)return"";
   const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code style='background:#2a2520;padding:1px 5px;border-radius:3px;font-size:13px'>$1</code>").replace(/\[(.+?)\]\((.+?)\)/g,"<a href='$2' target='_blank' style='color:#c09040'>$1</a>");
+  const isSepRow=l=>l.trim().replace(/\|/g,"").replace(/[\s\-:]/g,"").length===0;
+  const parseCells=l=>l.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
   const lines=md.split("\n");
-  let html="",inUl=false,inP=false;
+  let html="",inUl=false,inP=false,tBuf=[];
   const closeP=()=>{if(inP){html+="</p>";inP=false;}};
   const closeUl=()=>{if(inUl){html+="</ul>";inUl=false;}};
+  const flushTable=()=>{
+    if(!tBuf.length)return;
+    const rows=tBuf.filter(l=>!isSepRow(l));
+    if(!rows.length){tBuf=[];return;}
+    let t=`<div style="overflow-x:auto;margin:12px 0"><table style="border-collapse:collapse;width:100%;font-size:14px;font-family:'Crimson Text',serif">`;
+    rows.forEach((l,i)=>{
+      const cells=parseCells(l);
+      if(i===0){t+=`<thead><tr>`+cells.map(c=>`<th style="text-align:left;padding:6px 10px;border-bottom:1px solid #3a3020;color:#f0e4b0;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.06em;white-space:nowrap">${inline(c)}</th>`).join("")+`</tr></thead><tbody>`;}
+      else{t+=`<tr style="border-bottom:1px solid #1e1c18">`+cells.map(c=>`<td style="padding:5px 10px;color:#e0d4b8;vertical-align:top">${inline(c)}</td>`).join("")+`</tr>`;}
+    });
+    t+=`</tbody></table></div>`;
+    html+=t;tBuf=[];
+  };
   for(const l of lines){
+    if(/^\s*\|/.test(l)){closeP();closeUl();tBuf.push(l);continue;}
+    else flushTable();
     const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),hr=/^---+$/.test(l);
     if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Cinzel',serif;font-size:20px;color:#f8eecc;letter-spacing:.06em;margin:0 0 16px;border-bottom:1px solid #2a2520;padding-bottom:8px">${inline(h1[1])}</h1>`;}
     else if(h2){closeP();closeUl();html+=`<h2 style="font-family:'Cinzel',serif;font-size:16px;color:#f0e4b0;letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
@@ -233,7 +250,7 @@ function renderMd(md){
     else if(!l.trim()){closeUl();closeP();}
     else{closeUl();if(!inP){html+=`<p style="margin:0 0 10px">`;inP=true;}else html+=" ";html+=inline(l);}
   }
-  closeUl();closeP();
+  flushTable();closeUl();closeP();
   return html;
 }
 
