@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.13";
+const VERSION="3.5.14";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -198,7 +198,7 @@ function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
 
-function PersonajesTagSel({value,onChange,chars,readOnly}){
+function PersonajesTagSel({value,onChange,chars,readOnly,onNavToChar}){
   const arr=parsePers(value);
   const available=(chars||[]).filter(c=>!arr.includes(c.nom)).sort((a,b)=>a.nom.localeCompare(b.nom));
   return(
@@ -207,7 +207,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly}){
         const ch=chars?.find(x=>x.nom===nom);
         const col=(ch?.tags||[])[0]?GC[ch.tags[0]]||"#8a7a5a":"#8a7a5a";
         return(<span key={i} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
-          {nom}
+          <span onClick={onNavToChar?()=>onNavToChar(nom):undefined} style={{cursor:onNavToChar?"pointer":"default",textDecoration:onNavToChar?"underline dotted":"none"}}>{nom}</span>
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>j!==i))}>×</button>}
         </span>);
       })}
@@ -456,10 +456,16 @@ function SetupScreen({onConnect}){
   </div>);
 }
 
-function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,chars}){
+function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,chars,navTarget,onNavToChar}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
   const [sort,setSort]=useState("none");
+  useEffect(()=>{
+    if(!navTarget?.nom)return;
+    setQ("");setFg("all");setFn("all");setSort("none");
+    const idx=edificis.findIndex(e=>e.nom===navTarget.nom);
+    if(idx>=0){onSelect(idx);setShowD(true);}
+  },[navTarget]);
   const [panelW,setPanelW]=useState(38);
   const startDrag=useCallback(e=>{
     if(isMob)return;e.preventDefault();
@@ -519,7 +525,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
       </div>
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer}/></div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} onNavToChar={onNavToChar}/></div>
       {item.conflicto&&<div style={{padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
@@ -582,8 +588,17 @@ function App({user,onUsersPanel}){
   const [listW,setListW]=useState(36);
   const [previewAs,setPreviewAs]=useState(null);
   const [showPreviewSel,setShowPreviewSel]=useState(false);
+  const [aventNavTarget,setAventNavTarget]=useState(null);
   const effectiveUser=useMemo(()=>previewAs?{rol:"jugador",personatge:previewAs,email:"preview",uid:"preview"}:user,[previewAs,user]);
   const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("aventino");};
+  const navToChar=useCallback(nom=>{
+    setTab("chars");setQ("");setFilt("all");setSort("none");setShowD(true);
+    const idx=cs.findIndex(x=>x.nom===nom);setSel(idx>=0?idx:null);
+  },[cs]);
+  const navToEdifici=useCallback(nom=>{
+    setTab("aventino");setSel(null);setShowD(false);
+    setAventNavTarget({nom,key:Date.now()});
+  },[]);
   const saveTimer=useRef(null);
   const startListDrag=useCallback(e=>{
     if(mob)return;e.preventDefault();
@@ -635,6 +650,7 @@ function App({user,onUsersPanel}){
   const origI=item?getOI(item):-1;
   const ac=item?mc(item,tab,tab==="chars"?secureT(item.tags,item.nom):undefined):GOLD;
   const isPJ=item&&PJS.includes(item.nom);
+  const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.nom)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);}
   function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);}
@@ -679,6 +695,14 @@ function App({user,onUsersPanel}){
         :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
         {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
       </div>
+      {tab==="chars"&&<div>
+        <div style={{fontSize:9,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4,paddingLeft:8}}>📍 LOCALIZACIONES</div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:4,paddingLeft:4}}>
+          {charEdificis.length===0
+            ?<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>
+            :charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.nom} onClick={()=>navToEdifici(e.nom)} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col,cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>);})}
+        </div>
+      </div>}
       {tab==="chars"&&effectiveUser.rol==="dm"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
         <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center",alignSelf:"flex-start"}}>
           <span style={{opacity:.5,fontSize:11}}>🎮</span>
@@ -732,7 +756,7 @@ function App({user,onUsersPanel}){
       </div>
       </div>
     </div>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} chars={cs} style={{position:"relative",zIndex:1}}/>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG,zIndex:1}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
