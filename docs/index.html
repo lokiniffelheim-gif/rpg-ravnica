@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.12";
+const VERSION="3.5.13";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -716,10 +716,11 @@ function App({user,onUsersPanel}){
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
           {!mob&&<span style={{fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
-          {user.rol==="dm"&&!previewAs&&(<div style={{position:"relative"}}>
-            <button onClick={()=>setShowPreviewSel(s=>!s)} title="Previsualitza com a jugador" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👁</button>
-            {showPreviewSel&&<div style={{position:"absolute",top:"calc(100% + 4px)",right:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,padding:4,minWidth:180,boxShadow:"0 4px 16px #0007"}}>
-              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:"transparent",border:"none",color:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{p}</button>)}
+          {user.rol==="dm"&&(<div style={{position:"relative"}}>
+            <button onClick={()=>setShowPreviewSel(s=>!s)} title="Previsualitza com a jugador" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"#9a8a68",cursor:"pointer"}}>👁</button>
+            {showPreviewSel&&<div style={{position:"fixed",top:50,right:8,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:9999,padding:4,minWidth:180,boxShadow:"0 4px 16px #0007"}}>
+              {previewAs&&<button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);setShowPreviewSel(false);}} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:GOLD+"22",border:"none",borderBottom:"1px solid "+BORDER,color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",fontSize:11,borderRadius:"3px 3px 0 0",letterSpacing:".05em",marginBottom:2}}>← VOLVER AL DM</button>}
+              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
             </div>}
           </div>)}
           {onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
