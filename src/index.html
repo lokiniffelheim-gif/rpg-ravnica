@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.9.7";
+const VERSION="3.9.8";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -110,6 +110,22 @@ const IMG_EDIFICIS={
   "Taberna el Cuerno de oro":"Aventino/Taberna el Cuerno de oro.jpg",
   "Tienda del shamán Gruul":"Aventino/Tienda del shamán Gruul.jpg",
   "Oficina de correo":"Aventino/Oficina de correo.jpg",
+};
+const IMG_HANDOUTS={
+  "3x Poción de Heroísmo (+3)":"misc/3x Poción de Heroísmo (+3).jpg",
+  "Amuleto contra Detección y Localización":"misc/Amuleto contra Detección y Localización.jpg",
+  "Aparato de Mizzium":"misc/Aparato de Mizzium.jpg",
+  "Bandera Trofeo del Basilisco":"misc/Bandera Trofeo del Basilisco.jpg",
+  "Baraja de Ilusiones":"misc/Baraja de Ilusiones.jpg",
+  "Bolsa de Contención":"misc/Bolsa de Contención.jpeg",
+  "Correo Misterioso":"misc/Correo Misterioso.jpeg",
+  "Deposito común en el Santísimo Banco Sindical Orzhov":"misc/Deposito común en el Santísimo Banco Sindical Orzhov.jpg",
+  "Escudo Centinela":"misc/Escudo Centinela.jpg",
+  "Espada de la Venganza":"misc/Espada de la Venganza.png",
+  "Gema de Resplandor":"misc/Gema de Resplandor.jpg",
+  "Guantelete de Fuerza de Ogro":"misc/Guantelete de Fuerza de Ogro.jpg",
+  "Par de Pistolas Ballesta Crueles":"misc/Par de Pistolas Ballesta Crueles.jpg",
+  "Pergamino Mágico - Nube de Dagas":"misc/Pergamino Mágico - Nube de Dagas.jpg",
 };
 
 let db=null,auth=null,storage=null;
@@ -180,7 +196,7 @@ async function loadData(key,def,imgKey){
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
   if(imgKey){
-    const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:{};
+    const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:key==="handouts"?IMG_HANDOUTS:{};
     const normMap=buildNormMap(initMap);
     const lsImgs=lsLoadImgs(key);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
