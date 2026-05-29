@@ -145,7 +145,7 @@ async function signIn(){try{const provider=new window.firebase.auth.GoogleAuthPr
 async function doSignOut(){if(auth)await auth.signOut();}
 async function loadUserProfile(uid){try{const d=await db.collection("users").doc(uid).get();return d.exists?d.data():null;}catch(e){return null;}}
 async function ensureUserProfile(uid,email){const p=await loadUserProfile(uid);if(!p){await db.collection("users").doc(uid).set({email,rol:null,personatge:null});}return p||{email,rol:null,personatge:null};}
-function visibleToUser(visible,personatge){if(!visible||visible==="Tots")return true;if(visible==="Solo DM")return false;return visible.split(",").map(s=>s.trim()).includes(personatge);}
+function visibleToUser(visible,personatge){if(!visible||visible==="Tots")return true;if(visible==="Solo DM"||visible==="Nadie")return false;return visible.split(",").map(s=>s.trim()).includes(personatge);}
 function lsSave(key,data){
   try{
     localStorage.setItem(key,JSON.stringify(data));
@@ -191,10 +191,10 @@ async function loadData(key,def,imgKey){
 
 function visToArr(v){
   if(!v||v==="Tots")return["Tots"];
-  if(v==="")return[];
+  if(v===""||v==="Nadie")return["Nadie"];
   return v.split(",").map(s=>s.trim()).filter(Boolean);
 }
-function arrToVis(arr){if(!arr||arr.length===0)return"";if(arr.includes("Tots"))return"Tots";return arr.join(", ");}
+function arrToVis(arr){if(!arr||arr.length===0)return"Nadie";if(arr.includes("Tots"))return"Tots";if(arr.includes("Nadie"))return"Nadie";return arr.join(", ");}
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
@@ -281,23 +281,25 @@ function VisibleSelect({value,onChange}){
     const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};
     document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);
   },[open]);
+  const isNadie=sel.includes("Nadie");
   const toggle=useCallback(pj=>{
-    if(pj==="Tots"){onChange(isTots?"":("Tots"));return;}
-    let next=isTots?[]:[...sel.filter(x=>x!=="Tots")];
+    if(pj==="Tots"){onChange(isTots?"Nadie":"Tots");return;}
+    if(pj==="Nadie"){onChange("Nadie");return;}
+    let next=[...sel.filter(x=>x!=="Tots"&&x!=="Nadie")];
     if(next.includes(pj))next=next.filter(x=>x!==pj);else next.push(pj);
     onChange(arrToVis(next));
   },[isTots,sel,onChange]);
-  const display = isTots?"✦ Todos los personajes":sel.length===0?"Nadie":sel.join(", ");
+  const display = isTots?"✦ Todos los personajes":isNadie?"✗ Nadie":sel.join(", ");
   return(<div ref={ref} style={{position:"relative"}}>
     <div onClick={()=>setOpen(o=>!o)} style={{display:"flex",flexWrap:"wrap",gap:4,padding:"5px 10px",cursor:"pointer",border:"1px solid "+(open?GOLD+"88":BORDER),borderRadius:3,background:BG,minHeight:32,alignItems:"center",transition:"border-color .15s"}}>
       {isTots?<span style={{fontSize:13,color:"#5a9a3a",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>✦ Todos los personajes</span>
-        :sel.length===0?<span style={{fontSize:13,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Nadie</span>
+        :isNadie?<span style={{fontSize:13,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>✗ Nadie</span>
         :sel.map(p=><span key={p} className="rv-pill" style={{background:(PC[p]||"#888")+"25",border:"1px solid "+(PC[p]||"#888")+"55",color:PC[p]||"#888",fontSize:12}}>{p}</span>)}
       <span style={{marginLeft:"auto",color:GOLD,opacity:.5,fontSize:12}}>▾</span>
     </div>
     {open&&<div className="rv-dropdown">
       <label className="rv-check-row"><input type="checkbox" checked={isTots} onChange={()=>toggle("Tots")}/><span style={{color:"#5a9a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✦ Todos los personajes</span></label>
-      <label className="rv-check-row"><input type="checkbox" checked={!isTots&&sel.length===0} onChange={()=>onChange("")}/><span style={{color:"#7a6858",fontFamily:"'Cinzel',serif",fontSize:12}}>✗ Nadie</span></label>
+      <label className="rv-check-row"><input type="checkbox" checked={isNadie} onChange={()=>toggle("Nadie")}/><span style={{color:"#7a6858",fontFamily:"'Cinzel',serif",fontSize:12}}>✗ Nadie</span></label>
       <div style={{height:1,background:BORDER,margin:"3px 4px"}}/>
       {PJS.map(p=><label key={p} className="rv-check-row">
         <input type="checkbox" checked={!isTots&&sel.includes(p)} onChange={()=>toggle(p)}/>
@@ -728,7 +730,7 @@ function App({user,onUsersPanel}){
           <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
         </div>
         <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
-          <VisibleSelect value={item.visible??'Tots'} onChange={v=>updC(origI,"visible",v)}/>
+          <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
         </div>
       </div>)}
       <Rule color={ac}/>
