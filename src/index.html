@@ -43,7 +43,7 @@ html,body{height:100%;background:#13110e}
 </head>
 <body>
 <div id="root"></div>
-<script>
+<<script type="text/babel" charset="UTF-8">
 const {useState,useMemo,useEffect,useCallback,useRef} = React;
 
 const HANDOUTS = [];
@@ -198,8 +198,7 @@ function arrToVis(arr){if(!arr||arr.length===0)return"";if(arr.includes("Tots"))
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
-</script>
-<script type="text/babel" charset="UTF-8">
+
 function PersonajesTagSel({value,onChange,chars,readOnly,onNavToChar}){
   const arr=parsePers(value);
   const available=(chars||[]).filter(c=>!arr.includes(c.nom)).sort((a,b)=>a.nom.localeCompare(b.nom));
@@ -350,6 +349,19 @@ function GuildTagSel({value,opts,onChange,onRemove,cm}){
 
 function Sel({value,opts,onChange,cm}){
   return <GuildDrop value={value} opts={opts} onChange={onChange} cm={cm}/>;
+}
+
+function RangoTable({value,onChange,accent,readOnly}){
+  const v=(value&&typeof value==="object")?value:{};
+  const FIELDS=[{k:"titulo",l:"Título"},{k:"sueldo",l:"Sueldo"},{k:"bonificaciones",l:"Bonificaciones"}];
+  return(<div style={{display:"grid",gridTemplateColumns:"auto 1fr",gap:"2px 10px",alignItems:"center",padding:"2px 4px"}}>
+    {FIELDS.map(({k,l})=>(
+      <React.Fragment key={k}>
+        <span style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".06em",whiteSpace:"nowrap",paddingLeft:4}}>{l}</span>
+        <Field value={v[k]||""} onChange={nv=>onChange({...v,[k]:nv})} accent={accent} readOnly={readOnly} ph="—"/>
+      </React.Fragment>
+    ))}
+  </div>);
 }
 
 function Rule({color}){const c=color||GOLD;return(<div style={{display:"flex",alignItems:"center",gap:8,margin:"12px 0"}}><div style={{flex:1,height:"1px",background:"linear-gradient(to right,transparent,"+c+"55)"}}/><span style={{fontSize:10,color:c,opacity:.6}}>✦</span><div style={{flex:1,height:"1px",background:"linear-gradient(to left,transparent,"+c+"55)"}}/></div>);}
@@ -722,10 +734,10 @@ function App({user,onUsersPanel}){
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
       {tab==="chars"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>RANGO GREMIAL</div>
-        <Field value={item.rangoGremial||""} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"} ph="—"/>
+        <RangoTable value={item.rangoGremial} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {tab==="chars"&&canSeeDimir&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
-        <Field value={item.rangoSombras||""} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"} ph="—"/>
+        <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {effectiveUser.rol==="dm"&&<><Rule/>
       <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTAS DEL DM</div>
