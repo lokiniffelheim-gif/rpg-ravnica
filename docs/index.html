@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.9.4";
+const VERSION="3.9.5";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -90,32 +90,26 @@ const IMG_CHARS={
   "Alysa la Sastre":"personajes/Alysa la Sastre.jpg","Albert Camus de la Oficina del Banco":"personajes/Albert Camus de la Oficina del Banco.jpg",
   "Aiker Bosset":"personajes/Aiker Bosset.png","Los fieles seguidores del Maestro, el Evolucionador de hombres":"personajes/Los fieles seguidores del Maestro, el Evolucionador de hombres.jpg",
   "Trisz, Legionario Caido (Fallecido)":"personajes/Trisz, Legionario Caido (Fallecido).jpg","Pandora, Espíritu Servicial":"personajes/Pandora, Espíritu Servicial.webp",
-  "Goblin Moñeco":"personajes/Goblin Moñeco.jpg","Lyzaxa":"personajes/Lyzaxa.jpg",
-  "Sinrostro":"personajes/Sinrostro.jpg",
-  "Rezana, Médico Azorius":"personajes/Rezana, Médico Azorius.jpg","Rezana, Medico Azorius":"personajes/Rezana, Médico Azorius.jpg",
-  "Aurelio, Líder del Clan":"personajes/Aurelio, Líder del Clan.jpg","Aurelio, Lider del Clan":"personajes/Aurelio, Líder del Clan.jpg",
-  "Aurelio, Líder del clan":"personajes/Aurelio, Líder del Clan.jpg","Aurelio":"personajes/Aurelio, Líder del Clan.jpg",
+  "Goblin Moñeco":"personajes/Goblin Moñeco.jpg","Lyzaxa":"personajes/Lyzaxa.jpg","Sinrostro":"personajes/Sinrostro.jpg",
+  "Rezana, Médico Azorius":"personajes/Rezana, Médico Azorius.jpg",
+  "Aurelio, Líder del Clan":"personajes/Aurelio, Líder del Clan.jpg",
 };
 const IMG_EDIFICIS={
   "Oficina Capilla Azorius":"Aventino/Oficina Capilla Azorius.jpg",
-  "Médico Azorius":"Aventino/Médico Azorius.jpg","Medico Azorius":"Aventino/Médico Azorius.jpg",
+  "Médico Azorius":"Aventino/Médico Azorius.jpg",
   "Recaudador de Impuestos Azorius":"Aventino/Recaudador de Impuestos Azorius.jpg",
   "Ayuntamiento Azorius":"Aventino/Ayuntamiento Azorius.jpg",
-  "Comisaría Boros":"Aventino/Comisaría Boros.jpg","Comisaria Boros":"Aventino/Comisaría Boros.jpg",
+  "Comisaría Boros":"Aventino/Comisaría Boros.jpg",
   "Forja Boros":"Aventino/Forja Boros.jpg","Barracones Boros":"Aventino/Barracones Boros.jpg",
   "Calabozos Boros":"Aventino/Calabozos Boros.jpg","Callejuelas":"Aventino/Callejuelas.jpg",
-  "Sastre":"Aventino/Sastrería.jpg","Sastrería":"Aventino/Sastrería.jpg",
+  "Sastrería":"Aventino/Sastrería.jpg",
   "Campamento Gruul":"Aventino/Campamento Gruul.jpg","Cloacas Golgari":"Aventino/Cloacas Golgari.jpg",
   "Herbolario":"Aventino/Herbolario.jpg","Casa Solar":"Aventino/Casa Solar.jpg","Yermos Rojos":"Aventino/Yermos Rojos.jpg",
   "Casa del prestamista Ozhov":"Aventino/Casa del prestamista Ozhov.jpg",
-  "Nivix, el Nido del Mente ígnea":"Aventino/Nivix, el Nido del Mente ígnea.jpg","Nivix, el Nido del Mente Ignea":"Aventino/Nivix, el Nido del Mente ígnea.jpg",
-  "Taberna el Cuerno de oro":"Aventino/Taberna el Cuerno de oro.jpg","Taberna el Cuerno de Oro":"Aventino/Taberna el Cuerno de oro.jpg","Taberna El Cuerno de Oro":"Aventino/Taberna el Cuerno de oro.jpg","Taberna El Cuerno de oro":"Aventino/Taberna el Cuerno de oro.jpg",
+  "Nivix, el Nido del Mente ígnea":"Aventino/Nivix, el Nido del Mente ígnea.jpg",
+  "Taberna el Cuerno de oro":"Aventino/Taberna el Cuerno de oro.jpg",
   "Tienda del shamán Gruul":"Aventino/Tienda del shamán Gruul.jpg",
-  "Tienda del Shamán Gruul":"Aventino/Tienda del shamán Gruul.jpg",
-  "Tienda del shaman Gruul":"Aventino/Tienda del shamán Gruul.jpg",
-  "Tienda del Shaman Gruul":"Aventino/Tienda del shamán Gruul.jpg",
   "Oficina de correo":"Aventino/Oficina de correo.jpg",
-  "Oficina de Correo":"Aventino/Oficina de correo.jpg",
 };
 
 let db=null,auth=null,storage=null;
@@ -179,15 +173,19 @@ async function saveData(key,items,imgKey){
   lsSave(key,clean);
   if(imgKey){const existing=lsLoadImgs(key);const merged={...existing,...imgs};Object.keys(merged).forEach(k=>{if(!merged[k])delete merged[k];});lsSaveImgs(key,merged);}
 }
+function normStr(s){return(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();}
+function buildNormMap(map){const n={};for(const k in map)n[normStr(k)]=map[k];return n;}
 async function loadData(key,def,imgKey){
   let data=null;
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
   if(imgKey){
     const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:{};
+    const normMap=buildNormMap(initMap);
     const lsImgs=lsLoadImgs(key);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
-    data=data.map(x=>{let img=x[imgKey]||lsImgs[x.nom]||(initMap[x.nom]?GH_BASE+initMap[x.nom]:"");if(img&&!img.startsWith("data:")&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=initMap[x.nom]?GH_BASE+initMap[x.nom]:"";}return{...x,[imgKey]:img};});
+    const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
+    data=data.map(x=>{let img=x[imgKey]||lsImgs[x.nom]||fallback(x.nom);if(img&&!img.startsWith("data:")&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
   }
   return data;
 }
