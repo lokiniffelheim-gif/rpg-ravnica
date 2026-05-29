@@ -57,11 +57,11 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.10.0";
+const VERSION="3.11.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
-const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
+const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 const GH_BASE="assets/img/";
 const IMG_CHARS={
   "Ezzio Salvatore":"personajes/Ezzio Salvatore.jpg","Wundyr Somo":"personajes/Wundyr Somo.jpg","Yarog (HorseLuis)":"personajes/Yarog (HorseLuis).jpg",
@@ -715,11 +715,41 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   </div>);
 }
 
+function GremiosPanel({isPlayer,canSeeDimir,data,onUpdate}){
+  const gremis=canSeeDimir?AG:AG.filter(g=>g!=="Dimir");
+  const [sel,setSel]=useState(null);
+  const item=sel!==null?gremis[sel]:null;
+  const itemData=item?(data[item]||{}):{};
+  const ac=item?GC[item]:GOLD;
+  const upd=(field,val)=>{if(!item)return;onUpdate(item,field,val);};
+  return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
+    <div style={{width:item?"38%":"100%",display:"flex",flexDirection:"column",borderRight:item?"1px solid "+BORDER:"none",flexShrink:0,overflowY:"auto"}}>
+      {gremis.map((g,i)=>{const c=GC[g],isSel=sel===i;return(<div key={g} onClick={()=>setSel(i===sel?null:i)} className="rv-row" style={{padding:"12px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
+        <div style={{width:36,height:36,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:c,flexShrink:0}}>{GS[g]}</div>
+        <span style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",fontFamily:"'Cinzel',serif",letterSpacing:".04em",fontWeight:isSel?700:500,flex:1}}>{g}</span>
+        <span style={{color:isSel?c:BORDER,fontSize:14}}>›</span>
+      </div>);})}
+    </div>
+    {item&&<div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10}}>
+      <div style={{display:"flex",alignItems:"center",gap:12}}>
+        <div style={{width:48,height:48,borderRadius:10,background:ac+"18",border:"2px solid "+ac+"55",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,color:ac,flexShrink:0}}>{GS[item]}</div>
+        <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:ac,letterSpacing:".06em",flex:1}}>{item}</div>
+        <button onClick={()=>setSel(null)} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,lineHeight:1,padding:0}}>×</button>
+      </div>
+      <Rule color={ac}/>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>DESCRIPCIÓ</div>
+        <Field value={itemData.descripcio||""} onChange={v=>upd("descripcio",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
+      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div>
+        <Field value={itemData.notes_dm||""} onChange={v=>upd("notes_dm",v)} multi={true} accent={GOLD}/></div></>}
+    </div>}
+  </div>);
+}
+
 function App({user,onUsersPanel}){
   const [tab,setTab]=useState("aventino");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("none");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
-  const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);
+  const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
   const [listW,setListW]=useState(36);
   const [previewAs,setPreviewAs]=useState(null);
@@ -745,7 +775,7 @@ function App({user,onUsersPanel}){
   },[listW,mob]);
 
   useEffect(()=>{const chk=()=>setMob(window.innerWidth<580);chk();window.addEventListener("resize",chk);return()=>window.removeEventListener("resize",chk);},[]);
-  useEffect(()=>{(async()=>{try{setHs(await loadData("handouts",HANDOUTS,"img"));setCs(await loadData("chars",CHARS,"avatar"));setEds(await loadData("edificis",EDIFICIS_DEFAULT,"avatarCustom"));}catch(e){console.error(e);}})();},[]);
+  useEffect(()=>{(async()=>{try{setHs(await loadData("handouts",HANDOUTS,"img"));setCs(await loadData("chars",CHARS,"avatar"));setEds(await loadData("edificis",EDIFICIS_DEFAULT,"avatarCustom"));setGds(await loadData("gremios",{}));}catch(e){console.error(e);}})();},[]);
 
   const saveKey=useCallback((key,data)=>{
     setSaved("⏳");clearTimeout(saveTimer.current);
@@ -756,6 +786,7 @@ function App({user,onUsersPanel}){
   const updH=(i,f,v)=>{const h=hs.map((x,j)=>j===i?{...x,[f]:v}:x);setHs(h);saveKey("handouts",h);};
   const updC=(i,f,v)=>{const c=cs.map((x,j)=>j===i?{...x,[f]:v}:x);setCs(c);saveKey("chars",c);};
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
+  const updG=(gremi,field,val)=>{const nd={...gds,[gremi]:{...(gds[gremi]||{}),[field]:val}};setGds(nd);saveKey("gremios",nd);};
 
   const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
   const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
@@ -899,6 +930,7 @@ function App({user,onUsersPanel}){
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
+    :tab==="gremios"?<GremiosPanel isPlayer={effectiveUser.rol==="jugador"} canSeeDimir={canSeeDimir} data={gds} onUpdate={updG}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
