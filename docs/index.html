@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.9";
+const VERSION="3.5.10";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -112,13 +112,13 @@ async function initFirebase(cfg){
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js");
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js");
     await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js");
-    await loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js");
+    loadScript("https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js").catch(()=>{});
   }
   try{
     const app=window.firebase.apps.length?window.firebase.app():window.firebase.initializeApp(cfg);
     db=window.firebase.firestore(app);
     auth=window.firebase.auth(app);
-    storage=window.firebase.storage(app);
+    try{storage=window.firebase.storage(app);}catch(e){storage=null;}
     return true;
   }catch(e){db=null;auth=null;storage=null;return false;}
 }
