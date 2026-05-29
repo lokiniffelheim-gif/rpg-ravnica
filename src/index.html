@@ -198,7 +198,7 @@ function arrToVis(arr){if(!arr||arr.length===0)return"";if(arr.includes("Tots"))
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
-
+
 function PersonajesTagSel({value,onChange,chars,readOnly,onNavToChar}){
   const arr=parsePers(value);
   const available=(chars||[]).filter(c=>!arr.includes(c.nom)).sort((a,b)=>a.nom.localeCompare(b.nom));
@@ -296,6 +296,7 @@ function VisibleSelect({value,onChange}){
     </div>
     {open&&<div className="rv-dropdown">
       <label className="rv-check-row"><input type="checkbox" checked={isTots} onChange={()=>toggle("Tots")}/><span style={{color:"#5a9a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✦ Todos los personajes</span></label>
+      <label className="rv-check-row"><input type="checkbox" checked={!isTots&&sel.length===0} onChange={()=>onChange("")}/><span style={{color:"#7a6858",fontFamily:"'Cinzel',serif",fontSize:12}}>✗ Nadie</span></label>
       <div style={{height:1,background:BORDER,margin:"3px 4px"}}/>
       {PJS.map(p=><label key={p} className="rv-check-row">
         <input type="checkbox" checked={!isTots&&sel.includes(p)} onChange={()=>toggle(p)}/>
