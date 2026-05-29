@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.17";
+const VERSION="3.5.18";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -392,15 +392,12 @@ function PendingScreen({email}){
 }
 
 function UserMgmt({onClose}){
-  const [users,setUsers]=useState([]);const [loading,setLoading]=useState(true);const [saving,setSaving]=useState(null);
-  useEffect(()=>{db.collection("users").get().then(snap=>{setUsers(snap.docs.map(d=>({uid:d.id,...d.data()})));setLoading(false);});},[]);
+  const [users,setUsers]=useState([]);const [loading,setLoading]=useState(true);const [saving,setSaving]=useState(false);const [saved,setSaved]=useState(false);
+  useEffect(()=>{db.collection("users").get().then(snap=>{setUsers(snap.docs.map(d=>({uid:d.id,...d.data(),rol:d.data().rol||"jugador"})));setLoading(false);});},[]);
   const upd=(uid,f,v)=>setUsers(us=>us.map(u=>u.uid===uid?{...u,[f]:v}:u));
-  const save=async uid=>{
-    const u=users.find(u=>u.uid===uid);if(!u)return;
-    setSaving(uid);
-    await db.collection("users").doc(uid).set({email:u.email,rol:u.rol||null,personatge:u.personatge||null},{merge:true});
-    setSaving(null);
-  };
+  const isPendent=u=>u.rol!=="dm"&&!u.personatge;
+  const sorted=useMemo(()=>[...users].sort((a,b)=>{const pa=isPendent(a),pb=isPendent(b);if(pa!==pb)return pa?-1:1;return(a.email||"").localeCompare(b.email||"");}),[users]);
+  const saveAll=async()=>{setSaving(true);await Promise.all(users.map(u=>db.collection("users").doc(u.uid).set({email:u.email,rol:u.rol||null,personatge:u.personatge||null},{merge:true})));setSaving(false);setSaved(true);setTimeout(()=>setSaved(false),2000);};
   return(<div style={{position:"fixed",inset:0,background:"#000b",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={e=>{if(e.target===e.currentTarget)onClose();}}>
     <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,width:"100%",maxWidth:540,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
       <div style={{padding:"14px 18px",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10}}>
@@ -410,9 +407,12 @@ function UserMgmt({onClose}){
       <div style={{overflowY:"auto",flex:1,padding:"12px 18px"}}>
         {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cargando...</div>}
         {!loading&&users.length===0&&<div style={{color:"#9a8a68",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Sin usuarios registrados.<br/>Crea cuentas en Firebase Console → Authentication → Añadir usuario.</div>}
-        {users.map(u=>(
+        {sorted.map(u=>{const pendent=isPendent(u);return(
           <div key={u.uid} style={{borderBottom:"1px solid "+BORDER,paddingBottom:12,marginBottom:12}}>
-            <div style={{fontSize:11,color:"#baa880",marginBottom:8,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>{u.email}</div>
+            <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
+              <span style={{fontSize:11,color:pendent?"#c09040":"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{u.email}</span>
+              {pendent&&<span style={{fontSize:9,padding:"1px 6px",borderRadius:8,background:"#c0904020",border:"1px solid #c0904044",color:"#c09040",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>PENDENT</span>}
+            </div>
             <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
               <select value={u.rol||""} onChange={e=>upd(u.uid,"rol",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
                 <option value="">— rol —</option>
@@ -423,13 +423,13 @@ function UserMgmt({onClose}){
                 <option value="">— personatge —</option>
                 {PJS.map(p=><option key={p} value={p}>{p}</option>)}
               </select>}
-              <button onClick={()=>save(u.uid)} disabled={!!saving} style={{fontSize:11,padding:"4px 12px",borderRadius:3,border:"1px solid "+GOLD+"66",background:saving===u.uid?GOLD+"22":"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:saving&&saving!==u.uid?.5:1}}>{saving===u.uid?"GUARDANDO...":"✦ GUARDAR"}</button>
             </div>
           </div>
-        ))}
+        );})}
       </div>
-      <div style={{padding:"8px 18px",borderTop:"1px solid "+BORDER,fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif"}}>
-        Para crear cuentas nuevas: <strong>Firebase Console → Authentication → Añadir usuario</strong>
+      <div style={{padding:"10px 18px",borderTop:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:12}}>
+        <span style={{fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif",flex:1}}>Per crear comptes: <strong>Firebase Console → Authentication</strong></span>
+        <button onClick={saveAll} disabled={saving} className="rv-btn-gold" style={{padding:"7px 18px",fontSize:11,opacity:saving?.6:1}}>{saving?"GUARDANT...":saved?"✦ DESAT":"✦ GUARDAR TOTS"}</button>
       </div>
     </div>
   </div>);
