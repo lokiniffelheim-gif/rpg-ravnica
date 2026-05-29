@@ -2,23 +2,17 @@
   {
     "nom": "Acto I - Las Cloacas",
     "gremi": "Simic",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto II - El Pan",
     "gremi": "Selesnya",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto III - Los Monumentos",
     "gremi": "Izzet",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto IV - La Plebe",
@@ -29,50 +23,37 @@
       "4.1 La caza.md",
       "Sessio 4.1 - no svikull.pdf",
       "Sessio 4.1.pdf",
-      "el_contrato_de_pandora.pdf",
-      "info.md"
-    ]
-  },
-  {
-    "nom": "Acto IX - El Laberinto",
-    "gremi": "Golgari",
-    "fitxers": [
-      "info.md"
+      "el_contrato_de_pandora.pdf"
     ]
   },
   {
     "nom": "Acto V - El Circo",
     "gremi": "Rakdos",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto VI - Las Legiones",
     "gremi": "Boros",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto VII - La Basílica",
     "gremi": "Orzhov",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   },
   {
     "nom": "Acto VIII - El Senado",
     "gremi": "Azorius",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
+  },
+  {
+    "nom": "Acto IX - El Laberinto",
+    "gremi": "Golgari",
+    "fitxers": []
   },
   {
     "nom": "Acto X - La Fortaleza",
     "gremi": "Dimir",
-    "fitxers": [
-      "info.md"
-    ]
+    "fitxers": []
   }
 ]

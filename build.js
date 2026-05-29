@@ -42,12 +42,25 @@ function build() {
   console.log(`Build OK  src=${srcKB}KB  plain=${plainKB}KB  babel=${jsxKB}KB  (${Math.round((1-jsxPart.length/babelCode.length)*100)}% menys Babel)`);
 }
 
+function romanToInt(s) {
+  const vals = {I:1,V:5,X:10,L:50,C:100,D:500,M:1000};
+  return [...s.toUpperCase()].reduce((acc,c,i,a)=>{
+    const v=vals[c]||0, next=vals[a[i+1]]||0;
+    return acc + (v < next ? -v : v);
+  }, 0);
+}
+function actOrder(nom) {
+  const m = nom.match(/^Acto\s+([IVXLCDM]+)\s*-/i);
+  return m ? romanToInt(m[1]) : 999;
+}
+
 function buildManifest() {
   const sesDir = path.join(__dirname, 'docs/assets/data/sesiones');
   if (!fs.existsSync(sesDir)) return;
+  const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep|info\.md)$/i;
   const acts = fs.readdirSync(sesDir)
     .filter(d => fs.statSync(path.join(sesDir, d)).isDirectory())
-    .sort()
+    .sort((a, b) => actOrder(a) - actOrder(b))
     .map(nom => {
       const infoPath = path.join(sesDir, nom, 'info.md');
       let gremi = 'Guildless';
@@ -55,7 +68,6 @@ function buildManifest() {
         const m = fs.readFileSync(infoPath, 'utf8').match(/^---\s*[\r\n]+gremi:\s*(.+?)[\r\n]+---/);
         if (m) gremi = m[1].trim();
       }
-      const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
       const fitxers = fs.readdirSync(path.join(sesDir, nom))
         .filter(f => !fs.statSync(path.join(sesDir, nom, f)).isDirectory() && !IGNORE.test(f))
         .sort();
