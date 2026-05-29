@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.11.0";
+const VERSION="3.11.1";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -241,11 +241,12 @@ function renderMd(md){
   for(const l of lines){
     if(/^\s*\|/.test(l)){closeP();closeUl();tBuf.push(l);continue;}
     else flushTable();
-    const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),hr=/^---+$/.test(l);
+    const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),bq=/^> ?(.*)/.exec(l),hr=/^---+$/.test(l);
     if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Cinzel',serif;font-size:20px;color:#f8eecc;letter-spacing:.06em;margin:0 0 16px;border-bottom:1px solid #2a2520;padding-bottom:8px">${inline(h1[1])}</h1>`;}
     else if(h2){closeP();closeUl();html+=`<h2 style="font-family:'Cinzel',serif;font-size:16px;color:#f0e4b0;letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
     else if(h3){closeP();closeUl();html+=`<h3 style="font-family:'Cinzel',serif;font-size:13px;color:#c8bfa8;letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
     else if(hr){closeP();closeUl();html+="<hr style='border:none;border-top:1px solid #2a2520;margin:16px 0'>";}
+    else if(bq){closeP();closeUl();html+=`<blockquote style="border-left:3px solid #5a4a2a;margin:12px 0;padding:8px 16px;background:#1a1710;color:#c8b880;font-style:italic">${inline(bq[1])}</blockquote>`;}
     else if(li){closeP();if(!inUl){html+="<ul style='margin:8px 0;padding-left:20px;list-style:none'>";inUl=true;}html+=`<li style="margin:4px 0;padding-left:8px">· ${inline(li[1])}</li>`;}
     else if(!l.trim()){closeUl();closeP();}
     else{closeUl();if(!inP){html+=`<p style="margin:0 0 10px">`;inP=true;}else html+=" ";html+=inline(l);}
@@ -716,32 +717,31 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   </div>);
 }
 
-function GremiosPanel({isPlayer,canSeeDimir,data,onUpdate}){
+const GREMI_SLUG={Azorius:"azorius",Boros:"boros",Dimir:"dimir",Golgari:"golgari",Gruul:"gruul",Izzet:"izzet",Orzhov:"orzhov",Rakdos:"rakdos",Selesnya:"selesnya",Simic:"simic",Guildless:"guildless"};
+function GremiosPanel({isPlayer,canSeeDimir}){
   const gremis=canSeeDimir?AG:AG.filter(g=>g!=="Dimir");
   const [sel,setSel]=useState(null);
+  const [mdContent,setMdContent]=useState(null);
+  const [loading,setLoading]=useState(false);
   const item=sel!==null?gremis[sel]:null;
-  const itemData=item?(data[item]||{}):{};
   const ac=item?GC[item]:GOLD;
-  const upd=(field,val)=>{if(!item)return;onUpdate(item,field,val);};
+  useEffect(()=>{
+    if(!item){setMdContent(null);return;}
+    setLoading(true);setMdContent(null);
+    const slug=GREMI_SLUG[item]||item.toLowerCase();
+    fetch("assets/data/gremios/"+slug+".md").then(r=>r.ok?r.text():Promise.reject()).then(t=>setMdContent(t)).catch(()=>setMdContent("*(No hi ha informació disponible)*")).finally(()=>setLoading(false));
+  },[item]);
   return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
-    <div style={{width:item?"38%":"100%",display:"flex",flexDirection:"column",borderRight:item?"1px solid "+BORDER:"none",flexShrink:0,overflowY:"auto"}}>
+    <div style={{width:item?"32%":"100%",display:"flex",flexDirection:"column",borderRight:item?"1px solid "+BORDER:"none",flexShrink:0,overflowY:"auto"}}>
       {gremis.map((g,i)=>{const c=GC[g],isSel=sel===i;return(<div key={g} onClick={()=>setSel(i===sel?null:i)} className="rv-row" style={{padding:"12px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
         <div style={{width:36,height:36,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:c,flexShrink:0}}>{GS[g]}</div>
         <span style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",fontFamily:"'Cinzel',serif",letterSpacing:".04em",fontWeight:isSel?700:500,flex:1}}>{g}</span>
         <span style={{color:isSel?c:BORDER,fontSize:14}}>›</span>
       </div>);})}
     </div>
-    {item&&<div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10}}>
-      <div style={{display:"flex",alignItems:"center",gap:12}}>
-        <div style={{width:48,height:48,borderRadius:10,background:ac+"18",border:"2px solid "+ac+"55",display:"flex",alignItems:"center",justifyContent:"center",fontSize:24,color:ac,flexShrink:0}}>{GS[item]}</div>
-        <div style={{fontFamily:"'Cinzel',serif",fontSize:20,color:ac,letterSpacing:".06em",flex:1}}>{item}</div>
-        <button onClick={()=>setSel(null)} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,lineHeight:1,padding:0}}>×</button>
-      </div>
-      <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>DESCRIPCIÓ</div>
-        <Field value={itemData.descripcio||""} onChange={v=>upd("descripcio",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
-      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div>
-        <Field value={itemData.notes_dm||""} onChange={v=>upd("notes_dm",v)} multi={true} accent={GOLD}/></div></>}
+    {item&&<div style={{flex:1,overflowY:"auto",padding:"20px 24px"}}>
+      {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:40,fontFamily:"'Crimson Text',serif",fontSize:15}}>Cargando...</div>}
+      {!loading&&mdContent&&<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.85,color:"#e0d4b8",maxWidth:760,"--ac":ac}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
     </div>}
   </div>);
 }
@@ -931,7 +931,7 @@ function App({user,onUsersPanel}){
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
-    :tab==="gremios"?<GremiosPanel isPlayer={effectiveUser.rol==="jugador"} canSeeDimir={canSeeDimir} data={gds} onUpdate={updG}/>
+    :tab==="gremios"?<GremiosPanel isPlayer={effectiveUser.rol==="jugador"} canSeeDimir={canSeeDimir}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
