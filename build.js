@@ -55,8 +55,9 @@ function buildManifest() {
         const m = fs.readFileSync(infoPath, 'utf8').match(/^---\s*[\r\n]+gremi:\s*(.+?)[\r\n]+---/);
         if (m) gremi = m[1].trim();
       }
+      const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
       const fitxers = fs.readdirSync(path.join(sesDir, nom))
-        .filter(f => !fs.statSync(path.join(sesDir, nom, f)).isDirectory())
+        .filter(f => !fs.statSync(path.join(sesDir, nom, f)).isDirectory() && !IGNORE.test(f))
         .sort();
       return { nom, gremi, fitxers };
     });
