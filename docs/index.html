@@ -7,7 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&subset=latin,latin-ext&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;background:#13110e}
 .rv{font-family:'Crimson Text',Georgia,serif;background:#13110e;color:#ede3c8;height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:16px}
@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.5.10";
+const VERSION="3.5.11";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -92,6 +92,9 @@ const IMG_CHARS={
   "Trisz, Legionario Caido (Fallecido)":"npc/Trisz, caido.jpg","Pandora, Espíritu Servicial":"npc/Pandora.webp",
   "Goblin Moñeco":"npc/Goblin Moñeco.jpg","Ouray":"npc/Ouray.jpg","Lyzaxa":"npc/Lyzaxa.jpg",
   "Sinrostro":"npc/Sinrostro.jpg",
+  "Rezana, Médico Azorius":"npc/Rezana, Médico Azorius.jpg","Rezana, Medico Azorius":"npc/Rezana, Médico Azorius.jpg",
+  "Aurelio, Líder del Clan":"npc/Aurelio, Líder del Clan.jpg","Aurelio, Lider del Clan":"npc/Aurelio, Líder del Clan.jpg",
+  "Aurelio, Líder del clan":"npc/Aurelio, Líder del Clan.jpg","Aurelio":"npc/Aurelio, Líder del Clan.jpg",
 };
 const IMG_EDIFICIS={
   "Oficina Capilla Azorius":"buildings/Oficina Capilla Azorius.jpg",
@@ -103,7 +106,13 @@ const IMG_EDIFICIS={
   "Calabozos Boros":"buildings/Calabozos Boros.jpg","Callejuelas":"buildings/Callejuelas.jpg",
   "Sastre":"buildings/Sastreria.jpg","Sastrería":"buildings/Sastreria.jpg",
   "Campamento Gruul":"buildings/Campamento Gruul.jpg","Cloacas Golgari":"buildings/Cloacas Golgari.jpg",
-  "Herbolario":"buildings/Herbolario.jpg","Tienda del shamán Gruul":"buildings/Tienda del shamán Gruul.jpg",
+  "Herbolario":"buildings/Herbolario.jpg",
+  "Tienda del shamán Gruul":"buildings/Tienda del shamán Gruul.jpg",
+  "Tienda del Shamán Gruul":"buildings/Tienda del shamán Gruul.jpg",
+  "Tienda del shaman Gruul":"buildings/Tienda del shamán Gruul.jpg",
+  "Tienda del Shaman Gruul":"buildings/Tienda del shamán Gruul.jpg",
+  "Oficina de correo":"buildings/Oficina de correo.jpg",
+  "Oficina de Correo":"buildings/Oficina de correo.jpg",
 };
 
 let db=null,auth=null,storage=null;
