@@ -740,7 +740,7 @@ function App({user,onUsersPanel}){
       {tab==="chars"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>RANGO GREMIAL</div>
         <RangoTable value={item.rangoGremial} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
-      {tab==="chars"&&canSeeDimir&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
+      {tab==="chars"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
         <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {effectiveUser.rol==="dm"&&<><Rule/>
