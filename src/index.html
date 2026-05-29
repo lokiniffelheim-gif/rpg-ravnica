@@ -57,11 +57,11 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.7.1";
+const VERSION="3.8.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
-const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"}];
+const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 const GH_BASE="assets/img/";
 const IMG_CHARS={
   "Ezzio Salvatore":"personajes/Ezzio Salvatore.jpg","Wundyr Somo":"personajes/Wundyr Somo.jpg","Yarog (HorseLuis)":"personajes/Yarog (HorseLuis).jpg",
@@ -373,6 +373,10 @@ function SortBtn({sort,onSort}){
   const labels={none:"A-Z",asc:"Z-A",desc:"•••"};
   const colors={none:"#9a8a68",asc:GOLD,desc:GOLD};
   return(<button onClick={onSort} title="Ordenar" style={{fontSize:10,padding:"2px 8px",borderRadius:10,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",border:"1px solid "+(sort!=="none"?GOLD+"88":BORDER),background:sort!=="none"?GOLD+"22":"transparent",color:colors[sort],transition:"all .15s"}}>{labels[sort]}</button>);
+}
+
+function SesionesPanel(){
+  return(<div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#7a6858",fontFamily:"'Crimson Text',serif",fontSize:16,fontStyle:"italic"}}>Contingut de sessions en construcció...</div>);
 }
 
 function LoginScreen(){
@@ -777,11 +781,12 @@ function App({user,onUsersPanel}){
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
-        {TABS.map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
+        {TABS.filter(t=>!t.dm||effectiveUser.rol==="dm").map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#8a7a58",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
       </div>
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
+    :tab==="sesiones"?<SesionesPanel/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
