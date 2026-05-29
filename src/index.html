@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.8.2";
+const VERSION="3.9.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -378,8 +378,56 @@ function SortBtn({sort,onSort}){
   return(<button onClick={onSort} title="Ordenar" style={{fontSize:10,padding:"2px 8px",borderRadius:10,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",border:"1px solid "+(sort!=="none"?GOLD+"88":BORDER),background:sort!=="none"?GOLD+"22":"transparent",color:colors[sort],transition:"all .15s"}}>{labels[sort]}</button>);
 }
 
-function SesionesPanel(){
-  return(<div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#7a6858",fontFamily:"'Crimson Text',serif",fontSize:16,fontStyle:"italic"}}>Contingut de sessions en construcció...</div>);
+function SesionesPanel({isMob}){
+  const [acts,setActs]=useState([]);
+  const [loading,setLoading]=useState(true);
+  const [sel,setSel]=useState(null);
+  const [page,setPage]=useState(null);
+  useEffect(()=>{fetch("assets/data/sesiones/manifest.json").then(r=>r.json()).then(d=>{setActs(d);setLoading(false);}).catch(()=>setLoading(false));},[]);
+  const openFile=useCallback(async(act,file)=>{
+    const url=`assets/data/sesiones/${encodeURIComponent(act.nom)}/${encodeURIComponent(file)}`;
+    if(file.endsWith(".md")){const r=await fetch(url);const text=await r.text();const body=text.replace(/^---[\s\S]*?---\r?\n?/,"").trim();setPage({act,file,body});}
+    else window.open(url,"_blank");
+  },[]);
+  if(page)return(
+    <div style={{flex:1,overflowY:"auto",padding:"20px 24px",position:"relative",background:BG}}>
+      <button onClick={()=>setPage(null)} className="rv-btn-gold" style={{position:"absolute",top:16,right:16,padding:"5px 14px",fontSize:11}}>← TORNAR</button>
+      <div style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",marginBottom:16,opacity:.7}}>{page.act.nom} / {page.file}</div>
+      <div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.9,color:"#e0d4b8",whiteSpace:"pre-wrap",maxWidth:740}}>
+        {page.body||<span style={{color:"#7a6858",fontStyle:"italic"}}>Fitxer buit.</span>}
+      </div>
+    </div>
+  );
+  return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
+    <div style={{width:isMob||sel===null?"100%":"36%",display:isMob&&sel!==null?"none":"flex",flexDirection:"column",borderRight:!isMob&&sel!==null?"1px solid "+BORDER:"none",overflowY:"auto"}}>
+      {loading&&<div style={{padding:30,color:"#9a8a68",textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Carregant...</div>}
+      {acts.map((act,i)=>{const c=GC[act.gremi]||"#8a7a5a";const isSel=!isMob&&sel===i;
+        return(<div key={i} onClick={()=>setSel(i===sel&&!isMob?null:i)} className="rv-row" style={{padding:"10px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
+          <div style={{width:34,height:34,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:c,flexShrink:0}}>{GS[act.gremi]||"◆"}</div>
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{fontSize:12,color:isSel?"#f8eecc":"#e0d4b8",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontWeight:isSel?600:400}}>{act.nom}</div>
+            <div style={{fontSize:10,color:c,fontFamily:"'Cinzel',serif",letterSpacing:".04em",marginTop:2}}>{GS[act.gremi]} {act.gremi}</div>
+          </div>
+          <span style={{color:isSel?c:BORDER,fontSize:14,flexShrink:0}}>›</span>
+        </div>);
+      })}
+    </div>
+    {sel!==null&&<div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
+      {isMob&&<button onClick={()=>setSel(null)} style={{margin:"12px 14px 4px",background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",padding:0}}>← TORNAR</button>}
+      <div style={{padding:"12px 16px",borderBottom:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
+        <div style={{fontSize:12,color:GC[acts[sel].gremi]||GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>{GS[acts[sel].gremi]} {acts[sel].nom}</div>
+      </div>
+      <div style={{overflowY:"auto",flex:1}}>
+        {acts[sel].fitxers.map(file=>{const ext=file.split(".").pop().toLowerCase();const icon=ext==="md"?"📄":ext==="pdf"?"📋":"📎";
+          return(<div key={file} onClick={()=>openFile(acts[sel],file)} className="rv-row" style={{padding:"10px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
+            <span style={{fontSize:16,flexShrink:0}}>{icon}</span>
+            <span style={{fontFamily:"'Crimson Text',serif",fontSize:14,color:"#e0d4b8",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{file}</span>
+            <span style={{color:BORDER,fontSize:14,flexShrink:0}}>›</span>
+          </div>);
+        })}
+      </div>
+    </div>}
+  </div>);
 }
 
 function LoginScreen(){
@@ -789,7 +837,7 @@ function App({user,onUsersPanel}){
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
-    :tab==="sesiones"?<SesionesPanel/>
+    :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>

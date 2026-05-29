@@ -1,0 +1,85 @@
+[
+  {
+    "nom": "Acto I - Las Cloacas",
+    "gremi": "Simic",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto II - El Pan",
+    "gremi": "Selesnya",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto III - Los Monumentos",
+    "gremi": "Izzet",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto IV - La Plebe",
+    "gremi": "Gruul",
+    "fitxers": [
+      "Sessio 4.1 - no svikull.pdf",
+      "Sessio 4.1.pdf",
+      "desktop.ini",
+      "el_contrato_de_pandora.pdf",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto IX - El Laberinto",
+    "gremi": "Golgari",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto V - El Circo",
+    "gremi": "Rakdos",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto VI - Las Legiones",
+    "gremi": "Boros",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto VII - La Basílica",
+    "gremi": "Orzhov",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto VIII - El Senado",
+    "gremi": "Azorius",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  },
+  {
+    "nom": "Acto X - La Fortaleza",
+    "gremi": "Dimir",
+    "fitxers": [
+      "desktop.ini",
+      "info.md"
+    ]
+  }
+]

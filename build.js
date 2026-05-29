@@ -42,7 +42,30 @@ function build() {
   console.log(`Build OK  src=${srcKB}KB  plain=${plainKB}KB  babel=${jsxKB}KB  (${Math.round((1-jsxPart.length/babelCode.length)*100)}% menys Babel)`);
 }
 
+function buildManifest() {
+  const sesDir = path.join(__dirname, 'docs/assets/data/sesiones');
+  if (!fs.existsSync(sesDir)) return;
+  const acts = fs.readdirSync(sesDir)
+    .filter(d => fs.statSync(path.join(sesDir, d)).isDirectory())
+    .sort()
+    .map(nom => {
+      const infoPath = path.join(sesDir, nom, 'info.md');
+      let gremi = 'Guildless';
+      if (fs.existsSync(infoPath)) {
+        const m = fs.readFileSync(infoPath, 'utf8').match(/^---\s*[\r\n]+gremi:\s*(.+?)[\r\n]+---/);
+        if (m) gremi = m[1].trim();
+      }
+      const fitxers = fs.readdirSync(path.join(sesDir, nom))
+        .filter(f => !fs.statSync(path.join(sesDir, nom, f)).isDirectory())
+        .sort();
+      return { nom, gremi, fitxers };
+    });
+  fs.writeFileSync(path.join(sesDir, 'manifest.json'), JSON.stringify(acts, null, 2), 'utf8');
+  console.log(`Manifest: ${acts.length} actes`);
+}
+
 build();
+buildManifest();
 
 if (process.argv.includes('--watch')) {
   console.log('Watching', SRC, '...');
