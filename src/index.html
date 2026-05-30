@@ -789,7 +789,7 @@ function App({user,onUsersPanel}){
 
   const imgSrc=item?(item.img||item.avatar||""):"";
   const isOwnChar=effectiveUser.rol==="dm"||(tab==="chars"&&item?.nom===effectiveUser.personatge);
-  const conquistes=cs.filter(c=>c.wundyrHeart&&c.nom!=="Wundyr Somo");
+  const conquistes=cs.filter(c=>c.wundyrHeart&&c.nom!=="Wundyr Somo"&&(effectiveUser.rol==="dm"||visibleToUser(c.visible,effectiveUser.personatge)));
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",background:BG,...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:10}:{})}}>
     {imgZoom&&imgSrc&&ReactDOM.createPortal(
       <div onClick={()=>setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
@@ -849,7 +849,7 @@ function App({user,onUsersPanel}){
       {tab==="chars"&&item.controlledby!=="DM"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
         <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
-      {tab==="chars"&&item.nom==="Wundyr Somo"&&effectiveUser.rol==="dm"&&<><Rule/>
+      {tab==="chars"&&item.nom==="Wundyr Somo"&&<><Rule/>
         <div>
           <div style={{fontSize:13,color:"#c43030",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:12,textAlign:"center",opacity:.9}}>💘 PROEZAS Y CONQUISTAS AMOROSAS</div>
           {conquistes.length===0
