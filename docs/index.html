@@ -189,7 +189,15 @@ async function loadData(key,def,imgKey){
     const normMap=buildNormMap(initMap);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
     const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
-    data=data.map(x=>{let img=x[imgKey]||fallback(x.nom);if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
+    data=data.map(x=>{
+      const stored=x[imgKey]||"";
+      // Si ja és ID-based (path amb id com a basename), usar directament
+      if(stored&&validPfx.some(p=>stored.startsWith(p))){const base=stored.split("/").pop().split(".")[0];if(x.id&&base===x.id)return x;}
+      // Fallback per nom (mentre la migració no s'hagi executat)
+      let img=stored||(x.id?fallback(x.nom):"");
+      if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}
+      return{...x,[imgKey]:img};
+    });
   }
   if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;
