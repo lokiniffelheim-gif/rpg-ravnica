@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.17.0";
+const VERSION="3.18.1";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -964,6 +964,8 @@ function App({user,onUsersPanel}){
               {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
             </div>,document.body)}
           </div>)}
+          {user.rol==="dm"&&<button onClick={()=>{const d={chars:cs,handouts:hs,edificis:eds};const b=new Blob([JSON.stringify(d)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="img-export.json";a.click();}} title="Exportar dades per migrar imatges" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>📦</button>}
+          {user.rol==="dm"&&<label title="Importar dades migrades (img-migrated.json)" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
           {onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
           <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
