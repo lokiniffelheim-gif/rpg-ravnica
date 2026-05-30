@@ -9,26 +9,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&subset=latin,latin-ext&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#f5e8cc}
-.rv{font-family:'Crimson Text',Georgia,serif;background:#f5e8cc;color:#180a04;height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:16px;font-weight:600}
+html,body{height:100%;background:#f0e4cc}
+.rv{font-family:'Crimson Text',Georgia,serif;background:#ffffff;color:#2d1a0a;height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:16px;font-weight:600}
 .rv-head{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.05em}
 .rv-row:hover{background:#e8d8b8!important}
 .rv-btn-gold{background:#8b1c1c;color:#f5e8cc;border:1px solid #6a1010;cursor:pointer;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.08em;padding:5px 14px;border-radius:3px;transition:filter .15s}
 .rv-btn-gold:hover{background:#6a1010}
 .rv-editable{cursor:text;padding:4px 8px;border-radius:3px;border:1px solid transparent;transition:border-color .15s}
-.rv-editable:hover{border-color:#a08050;background:#ede8d8}
+.rv-editable:hover{border-color:#a08050;background:#f5f0e4}
 .rv-filter{font-size:10px;padding:2px 8px;border-radius:10px;cursor:pointer;font-family:'Cinzel',serif;letter-spacing:.04em;border:1px solid transparent;transition:all .1s;background:transparent;font-weight:500;color:#3a1a0a}
 .rv-pill{display:inline-flex;align-items:center;gap:3px;font-size:10px;padding:2px 6px;border-radius:6px;font-family:'Cinzel',serif;letter-spacing:.03em}
 .rv-pill-x{background:none;border:none;cursor:pointer;color:inherit;font-size:11px;line-height:1;padding:0 0 0 2px;opacity:.6}
 .rv-pill-x:hover{opacity:1;color:#8b1c1c}
-.rv-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#ede0b8;border:1px solid #a08050;border-radius:4px;z-index:200;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
-.rv-check-row{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:3px;cursor:pointer;font-size:14px;font-family:'Crimson Text',Georgia,serif;color:#180a04;transition:background .1s}
+.rv-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#f8f3ea;border:1px solid #a08050;border-radius:4px;z-index:200;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.rv-check-row{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:3px;cursor:pointer;font-size:14px;font-family:'Crimson Text',Georgia,serif;color:#2d1a0a;transition:background .1s}
 .rv-check-row:hover{background:#c0a878}
 .rv-check-row input[type=checkbox]{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid #5a3820;border-radius:2px;background:#f5e8cc;cursor:pointer;flex-shrink:0;position:relative}
 .rv-check-row input[type=checkbox]:checked{background:#8b1c1c;border-color:#8b1c1c}
 .rv-check-row input[type=checkbox]:checked::after{content:'✓';position:absolute;top:-1px;left:2px;font-size:11px;color:#f5e8cc}
 .rv-check-row input[type=checkbox]:disabled{opacity:.4;cursor:default}
-.rv input,.rv textarea,.rv select{-webkit-appearance:none!important;appearance:none!important;background-color:#f5e8cc!important;background:#f5e8cc!important;color:#180a04!important;-webkit-text-fill-color:#180a04!important;border-radius:3px!important;opacity:1!important;font-family:'Crimson Text',Georgia,serif!important;font-size:15px!important;border-color:#a08050!important}
+.rv input,.rv textarea,.rv select{-webkit-appearance:none!important;appearance:none!important;background-color:#ffffff!important;background:#ffffff!important;color:#2d1a0a!important;-webkit-text-fill-color:#2d1a0a!important;border-radius:3px!important;opacity:1!important;font-family:'Crimson Text',Georgia,serif!important;font-size:15px!important;border-color:#a08050!important}
 .rv input::placeholder,.rv textarea::placeholder{color:#5a3820!important;-webkit-text-fill-color:#5a3820!important;opacity:1!important}
 .rv input[type=checkbox]{width:14px!important;height:14px!important;font-size:unset!important}
 .setup-input{width:100%;padding:8px 12px;border-radius:4px;border:1px solid #a08050;background:#ede0b8;color:#180a04;font-family:'Crimson Text',serif;font-size:14px;outline:none;margin-bottom:8px}
@@ -57,8 +57,8 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.2.0";const BUILD_HASH="e787780";
-const GOLD="#8b1c1c",BG="#f5e8cc",BG2="#ede0b8",BG3="#e0ceaa",BORDER="#a08050";
+const VERSION="4.3.0";const BUILD_HASH="8a85f32";
+const GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 
@@ -184,7 +184,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
         </span>);
       })}
-      {visible.length===0&&<span style={{fontSize:12,color:"#5a3820",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
+      {visible.length===0&&<span style={{fontSize:12,color:"#7a5a3a",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
       {!readOnly&&<AddCharDrop available={available} idToChar={idToChar} onAdd={id=>onChange([...arr,id])}/>}
     </div>
   );
@@ -197,8 +197,8 @@ function AddCharDrop({available,idToChar,onAdd}){
   return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
     <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ añadir...</button>
     {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:240,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
-      {available.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#5a3820",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más personajes</div>}
-      {available.map(c=>{const t0=(c.tags||[])[0];const col=t0?GC[t0]||"#4a2c14":"#4a2c14";return(<div key={c.id} onClick={()=>{onAdd(c.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:col,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=col+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[t0]||"◆"} {c.nom}</div>);})}
+      {available.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a5a3a",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más personajes</div>}
+      {available.map(c=>{const t0=(c.tags||[])[0];const col=t0?GC[t0]||"#6a4a2a":"#6a4a2a";return(<div key={c.id} onClick={()=>{onAdd(c.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:col,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=col+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[t0]||"◆"} {c.nom}</div>);})}
     </div>}
   </div>);
 }
@@ -208,7 +208,7 @@ function Toggle({value,onChange}){
     <div style={{width:36,height:20,borderRadius:10,background:value?"#5a9a3a":"#3a3020",position:"relative",transition:"background .2s",flexShrink:0}}>
       <div style={{position:"absolute",top:3,left:value?19:3,width:14,height:14,borderRadius:"50%",background:"#f0e4c8",transition:"left .2s"}}/>
     </div>
-    <span style={{fontSize:11,color:value?"#5a9a3a":"#5a3820",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{value?"ACTIU":"INACTIU"}</span>
+    <span style={{fontSize:11,color:value?"#5a9a3a":"#7a5a3a",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{value?"ACTIU":"INACTIU"}</span>
   </div>);
 }
 
@@ -257,13 +257,13 @@ function VisibleSelect({value,onChange}){
   return(<div ref={ref} style={{position:"relative"}}>
     <div onClick={()=>setOpen(o=>!o)} style={{display:"flex",flexWrap:"wrap",gap:4,padding:"5px 10px",cursor:"pointer",border:"1px solid "+(open?GOLD+"88":BORDER),borderRadius:3,background:BG,minHeight:32,alignItems:"center",transition:"border-color .15s"}}>
       {isTots?<span style={{fontSize:13,color:"#5a9a3a",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>✦ Todos los personajes</span>
-        :isNadie?<span style={{fontSize:13,color:"#5a3820",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>✗ Nadie</span>
+        :isNadie?<span style={{fontSize:13,color:"#7a5a3a",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>✗ Nadie</span>
         :sel.map(p=><span key={p} className="rv-pill" style={{background:(PC[p]||"#888")+"25",border:"1px solid "+(PC[p]||"#888")+"55",color:PC[p]||"#888",fontSize:12}}>{p}</span>)}
       <span style={{marginLeft:"auto",color:GOLD,opacity:.5,fontSize:12}}>▾</span>
     </div>
     {open&&<div className="rv-dropdown">
       <label className="rv-check-row"><input type="checkbox" checked={isTots} onChange={()=>toggle("Tots")}/><span style={{color:"#5a9a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✦ Todos los personajes</span></label>
-      <label className="rv-check-row"><input type="checkbox" checked={isNadie} onChange={()=>toggle("Nadie")}/><span style={{color:"#5a3820",fontFamily:"'Cinzel',serif",fontSize:12}}>✗ Nadie</span></label>
+      <label className="rv-check-row"><input type="checkbox" checked={isNadie} onChange={()=>toggle("Nadie")}/><span style={{color:"#7a5a3a",fontFamily:"'Cinzel',serif",fontSize:12}}>✗ Nadie</span></label>
       <div style={{height:1,background:BORDER,margin:"3px 4px"}}/>
       {PJS.map(p=><label key={p} className="rv-check-row">
         <input type="checkbox" checked={!isTots&&sel.includes(p)} onChange={()=>toggle(p)}/>
@@ -280,10 +280,10 @@ function Field({value,onChange,multi,accent,ph,readOnly}){
   useEffect(()=>setDraft(value||""),[value]);
   useEffect(()=>{if(!ed)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target)){onChange(draft);setEd(false);}};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[ed,draft,onChange]);
   const commit=()=>{onChange(draft);setEd(false);};
-  const s={width:"100%",padding:"5px 8px",borderRadius:3,border:"1.5px solid "+(accent||GOLD)+"66",background:BG,color:"#180a04",WebkitTextFillColor:"#180a04",fontFamily:"'Crimson Text',Georgia,serif",fontSize:15,outline:"none",lineHeight:1.75,opacity:1};
+  const s={width:"100%",padding:"5px 8px",borderRadius:3,border:"1.5px solid "+(accent||GOLD)+"66",background:BG,color:"#2d1a0a",WebkitTextFillColor:"#2d1a0a",fontFamily:"'Crimson Text',Georgia,serif",fontSize:15,outline:"none",lineHeight:1.75,opacity:1};
   if(readOnly||!ed)return(<div className={readOnly?"":"rv-editable"} onClick={readOnly?undefined:()=>setEd(true)} style={{position:"relative",minHeight:24,cursor:readOnly?"default":undefined}}>
     {!readOnly&&<span style={{position:"absolute",top:4,right:6,fontSize:10,color:GOLD,opacity:.4,pointerEvents:"none"}}>✎</span>}
-    {value?<p style={{margin:0,fontSize:15,lineHeight:1.75,color:"#180a04",whiteSpace:"pre-line",paddingRight:readOnly?0:14}}>{value}</p>:<p style={{margin:0,fontSize:14,color:"#5a3820",fontStyle:"italic"}}>{ph||"—"}</p>}
+    {value?<p style={{margin:0,fontSize:15,lineHeight:1.75,color:"#2d1a0a",whiteSpace:"pre-line",paddingRight:readOnly?0:14}}>{value}</p>:<p style={{margin:0,fontSize:14,color:"#7a5a3a",fontStyle:"italic"}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
 }
@@ -296,8 +296,8 @@ function AddLocDrop({eds,itemId,onAdd}){
   return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
     <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ localización</button>
     {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:220,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
-      {avail.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#5a3820",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más localizaciones</div>}
-      {avail.map(ed=>{const c=GC[ed.gremi]||"#4a2c14";return(<div key={ed.id} onClick={()=>{onAdd(ed.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:c,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=c+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[ed.gremi]||"◆"} {ed.nom}</div>);})}
+      {avail.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a5a3a",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más localizaciones</div>}
+      {avail.map(ed=>{const c=GC[ed.gremi]||"#6a4a2a";return(<div key={ed.id} onClick={()=>{onAdd(ed.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:c,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=c+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[ed.gremi]||"◆"} {ed.nom}</div>);})}
     </div>}
   </div>);
 }
@@ -310,7 +310,7 @@ function GuildDrop({value,opts,onChange,cm}){
   return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
     <span onClick={()=>setOpen(o=>!o)} style={{display:"inline-flex",alignItems:"center",gap:4,fontSize:11,padding:"2px 8px",borderRadius:10,cursor:"pointer",background:col+"25",border:"1px solid "+col+"55",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>{value} ▾</span>
     {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:130,padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
-      {opts.map(o=>{const oc=(cm&&cm[o])||"#4a2c14";return(<div key={o} onClick={()=>{onChange(o);setOpen(false);}}
+      {opts.map(o=>{const oc=(cm&&cm[o])||"#6a4a2a";return(<div key={o} onClick={()=>{onChange(o);setOpen(false);}}
         style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".04em",color:oc,transition:"background .1s"}}
         onMouseEnter={e=>e.currentTarget.style.background=oc+"1a"}
         onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
@@ -339,7 +339,7 @@ function RangoTable({value,onChange,accent,readOnly}){
   return(<div style={{display:"grid",gridTemplateColumns:"auto 1fr",gap:"2px 10px",alignItems:"center",padding:"2px 4px"}}>
     {FIELDS.map(({k,l})=>(
       <React.Fragment key={k}>
-        <span style={{fontSize:10,color:"#4a2c14",fontFamily:"'Cinzel',serif",letterSpacing:".06em",whiteSpace:"nowrap",paddingLeft:4}}>{l}</span>
+        <span style={{fontSize:10,color:"#6a4a2a",fontFamily:"'Cinzel',serif",letterSpacing:".06em",whiteSpace:"nowrap",paddingLeft:4}}>{l}</span>
         <Field value={v[k]||""} onChange={nv=>onChange({...v,[k]:nv})} accent={accent} readOnly={readOnly} ph="—"/>
       </React.Fragment>
     ))}
@@ -371,26 +371,26 @@ function SesionesPanel({isMob}){
       <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
         <span onClick={()=>setPage(null)} style={{fontSize:13,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
         <span style={{fontSize:13,color:"#6a5a40",fontFamily:"'Cinzel',serif",flexShrink:0}}> / </span>
-        <span style={{fontSize:13,color:"#3d1e0a",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
+        <span style={{fontSize:13,color:"#5a3a20",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
           ?<p style={{color:"#c43030",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>{page.error}</p>
           :page.body
-            ?<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.8,color:"#280e06",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(page.body)}}/>
-            :<p style={{color:"#5a3820",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Fitxer buit.</p>
+            ?<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.8,color:"#3a2210",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(page.body)}}/>
+            :<p style={{color:"#7a5a3a",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Fitxer buit.</p>
         }
       </div>
     </div>
   );
   return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
     <div style={{width:isMob||sel===null?"100%":"36%",display:isMob&&sel!==null?"none":"flex",flexDirection:"column",borderRight:!isMob&&sel!==null?"1px solid "+BORDER:"none",overflowY:"auto"}}>
-      {loading&&<div style={{padding:30,color:"#4a2c14",textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Carregant...</div>}
+      {loading&&<div style={{padding:30,color:"#6a4a2a",textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Carregant...</div>}
       {acts.map((act,i)=>{const c=GC[act.gremi]||"#8a7a5a";const isSel=!isMob&&sel===i;
         return(<div key={i} onClick={()=>setSel(i===sel&&!isMob?null:i)} className="rv-row" style={{padding:"10px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
           <div style={{width:34,height:34,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,color:c,flexShrink:0}}>{GS[act.gremi]||"◆"}</div>
           <div style={{flex:1,minWidth:0}}>
-            <div style={{fontSize:12,color:isSel?"#1a0e0a":"#280e06",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontWeight:isSel?600:400}}>{act.nom}</div>
+            <div style={{fontSize:12,color:isSel?"#1a0e0a":"#3a2210",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontWeight:isSel?600:400}}>{act.nom}</div>
             <div style={{fontSize:10,color:c,fontFamily:"'Cinzel',serif",letterSpacing:".04em",marginTop:2}}>{GS[act.gremi]} {act.gremi}</div>
           </div>
           <span style={{color:isSel?c:BORDER,fontSize:14,flexShrink:0}}>›</span>
@@ -406,7 +406,7 @@ function SesionesPanel({isMob}){
         {acts[sel].fitxers.map(file=>{const ext=file.split(".").pop().toLowerCase();const icon=ext==="md"?"📄":ext==="pdf"?"📋":"📎";
           return(<div key={file} onClick={()=>openFile(acts[sel],file)} className="rv-row" style={{padding:"10px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
             <span style={{fontSize:16,flexShrink:0}}>{icon}</span>
-            <span style={{fontFamily:"'Crimson Text',serif",fontSize:14,color:"#280e06",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{file}</span>
+            <span style={{fontFamily:"'Crimson Text',serif",fontSize:14,color:"#3a2210",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{file}</span>
             <span style={{color:BORDER,fontSize:14,flexShrink:0}}>›</span>
           </div>);
         })}
@@ -427,9 +427,9 @@ function LoginScreen(){
     <div style={{maxWidth:320,width:"100%",textAlign:"center"}}>
       <div style={{fontSize:36,marginBottom:10}}>⚜</div>
       <div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#1a0e0a",letterSpacing:".06em",marginBottom:6}}>Los archivos de Ravnica</div>
-      <div style={{fontSize:13,color:"#5a3820",fontFamily:"'Crimson Text',serif",marginBottom:28}}>Acceso restringido</div>
+      <div style={{fontSize:13,color:"#7a5a3a",fontFamily:"'Crimson Text',serif",marginBottom:28}}>Acceso restringido</div>
       {err&&<div style={{fontSize:12,color:"#c43030",padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033",marginBottom:12}}>{err}</div>}
-      <button onClick={login} disabled={loading} style={{display:"inline-flex",alignItems:"center",gap:10,padding:"11px 22px",borderRadius:4,border:"1px solid "+BORDER,background:BG2,color:"#180a04",fontSize:14,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:loading?.7:1,transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="#c0a878"} onMouseLeave={e=>e.currentTarget.style.background=BG2}>
+      <button onClick={login} disabled={loading} style={{display:"inline-flex",alignItems:"center",gap:10,padding:"11px 22px",borderRadius:4,border:"1px solid "+BORDER,background:BG2,color:"#2d1a0a",fontSize:14,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",opacity:loading?.7:1,transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="#c0a878"} onMouseLeave={e=>e.currentTarget.style.background=BG2}>
         <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/></svg>
         {loading?"ENTRANDO...":"Continuar con Google"}
       </button>
@@ -442,8 +442,8 @@ function PendingScreen({email}){
     <div style={{maxWidth:400,width:"100%",textAlign:"center"}}>
       <div style={{fontSize:28,marginBottom:16}}>⏳</div>
       <div style={{fontFamily:"'Cinzel',serif",fontSize:15,color:"#1a0e0a",letterSpacing:".06em",marginBottom:12}}>Esperando aprobación del DM</div>
-      <p style={{color:"#4a2c14",fontFamily:"'Crimson Text',serif",fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>Has iniciado sesión como <strong style={{color:GOLD}}>{email}</strong>.<br/>El DM debe asignarte un personaje.</p>
-      <button onClick={doSignOut} style={{fontSize:11,padding:"6px 18px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#5a3820",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>Cerrar sesión</button>
+      <p style={{color:"#6a4a2a",fontFamily:"'Crimson Text',serif",fontSize:15,lineHeight:1.7,margin:"0 0 20px"}}>Has iniciado sesión como <strong style={{color:GOLD}}>{email}</strong>.<br/>El DM debe asignarte un personaje.</p>
+      <button onClick={doSignOut} style={{fontSize:11,padding:"6px 18px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#7a5a3a",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>Cerrar sesión</button>
     </div>
   </div>);
 }
@@ -460,24 +460,24 @@ function UserMgmt({onClose}){
     <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,width:"100%",maxWidth:540,maxHeight:"80vh",display:"flex",flexDirection:"column"}}>
       <div style={{padding:"14px 18px",borderBottom:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:10}}>
         <span style={{fontFamily:"'Cinzel',serif",color:GOLD,fontSize:13,letterSpacing:".06em",flex:1}}>👥 GESTIÓN DE USUARIOS</span>
-        <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#4a2c14",fontSize:20,lineHeight:1,padding:0}}>×</button>
+        <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer",color:"#6a4a2a",fontSize:20,lineHeight:1,padding:0}}>×</button>
       </div>
       <div style={{overflowY:"auto",flex:1,padding:"12px 18px"}}>
-        {loading&&<div style={{color:"#4a2c14",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cargando...</div>}
-        {!loading&&users.length===0&&<div style={{color:"#4a2c14",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Sin usuarios registrados.<br/>Crea cuentas en Firebase Console → Authentication → Añadir usuario.</div>}
+        {loading&&<div style={{color:"#6a4a2a",textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Cargando...</div>}
+        {!loading&&users.length===0&&<div style={{color:"#6a4a2a",fontSize:13,textAlign:"center",padding:24,fontFamily:"'Crimson Text',serif"}}>Sin usuarios registrados.<br/>Crea cuentas en Firebase Console → Authentication → Añadir usuario.</div>}
         {sorted.map(u=>{const pendent=isPendent(u);return(
           <div key={u.uid} style={{borderBottom:"1px solid "+BORDER,paddingBottom:12,marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
-              <span style={{fontSize:11,color:pendent?"#8b1c1c":"#3d1e0a",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{u.email}</span>
+              <span style={{fontSize:11,color:pendent?"#8b1c1c":"#5a3a20",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{u.email}</span>
               {pendent&&<span style={{fontSize:9,padding:"1px 6px",borderRadius:8,background:"#8b1c1c20",border:"1px solid #8b1c1c44",color:"#8b1c1c",fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>PENDENT</span>}
             </div>
             <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
-              <select value={u.rol||""} onChange={e=>upd(u.uid,"rol",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#180a04",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
+              <select value={u.rol||""} onChange={e=>upd(u.uid,"rol",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#2d1a0a",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
                 <option value="">— rol —</option>
                 <option value="dm">DM</option>
                 <option value="jugador">Jugador/a</option>
               </select>
-              {u.rol==="jugador"&&<select value={u.personatge||""} onChange={e=>upd(u.uid,"personatge",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#180a04",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
+              {u.rol==="jugador"&&<select value={u.personatge||""} onChange={e=>upd(u.uid,"personatge",e.target.value||null)} style={{fontSize:12,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#2d1a0a",cursor:"pointer",fontFamily:"'Cinzel',serif"}}>
                 <option value="">— personatge —</option>
                 {PJS.map(p=><option key={p} value={p}>{p}</option>)}
               </select>}
@@ -486,7 +486,7 @@ function UserMgmt({onClose}){
         );})}
       </div>
       <div style={{padding:"10px 18px",borderTop:"1px solid "+BORDER,display:"flex",alignItems:"center",gap:12}}>
-        <span style={{fontSize:11,color:"#5a3820",fontFamily:"'Crimson Text',serif",flex:1}}>Per crear comptes: <strong>Firebase Console → Authentication</strong></span>
+        <span style={{fontSize:11,color:"#7a5a3a",fontFamily:"'Crimson Text',serif",flex:1}}>Per crear comptes: <strong>Firebase Console → Authentication</strong></span>
         <button onClick={saveAll} disabled={saving} className="rv-btn-gold" style={{padding:"7px 18px",fontSize:11,opacity:saving?.6:1}}>{saving?"GUARDANT...":saved?"✦ DESAT":"✦ GUARDAR TOTS"}</button>
       </div>
     </div>
@@ -502,13 +502,13 @@ function SetupScreen({onConnect}){
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:480,width:"100%"}}>
       <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Cinzel',serif",fontSize:18,color:"#1a0e0a",letterSpacing:".06em",marginBottom:4}}>Los archivos de Ravnica v{VERSION}</div></div>
-      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#3d1e0a",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#6a0e0e",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
+      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:13,color:"#5a3a20",lineHeight:1.7,fontFamily:"'Crimson Text',serif"}}><strong style={{color:"#6a0e0e",fontFamily:"'Cinzel',serif",fontSize:11,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
       <textarea className="setup-input" style={{minHeight:55,resize:"vertical"}} placeholder="Enganxa el firebaseConfig = { apiKey: ... }" onPaste={hp} readOnly/>
-      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:9,color:"#5a3820",fontFamily:"'Cinzel',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:9,color:"#7a5a3a",fontFamily:"'Cinzel',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
       {error&&<div style={{color:"#c43030",fontSize:12,marginBottom:10,padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033"}}>{error}</div>}
       <div style={{display:"flex",gap:8}}>
         <button className="rv-btn-gold" onClick={connect} disabled={loading} style={{flex:1,padding:"10px",fontSize:12,opacity:loading?.7:1}}>{loading?"CONECTANDO...":"⚡ CONECTAR CON FIREBASE"}</button>
-        <button onClick={()=>{db=null;onConnect();}} style={{padding:"10px 14px",fontSize:11,background:"transparent",color:"#5a3820",border:"1px solid "+BORDER,borderRadius:3,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",whiteSpace:"nowrap"}}>Usar local</button>
+        <button onClick={()=>{db=null;onConnect();}} style={{padding:"10px 14px",fontSize:11,background:"transparent",color:"#7a5a3a",border:"1px solid "+BORDER,borderRadius:3,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".05em",whiteSpace:"nowrap"}}>Usar local</button>
       </div>
     </div>
   </div>);
@@ -580,7 +580,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>
       <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2}}>
         {!isPlayer&&<button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
-        {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#4a2c14",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+        {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#6a4a2a",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
@@ -588,7 +588,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
-      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#4a2c14",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
+      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#6a4a2a",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
     </div>
   </div>):null;
 
@@ -597,26 +597,26 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
         <div style={{position:"relative",marginBottom:7}}>
           <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
-          <input type="text" placeholder="Buscar edificios..." value={q} onChange={e=>{setQ(e.target.value);onSelect(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#180a04",WebkitTextFillColor:"#180a04",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
+          <input type="text" placeholder="Buscar edificios..." value={q} onChange={e=>{setQ(e.target.value);onSelect(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#2d1a0a",WebkitTextFillColor:"#2d1a0a",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
           <SortBtn sort={sort} onSort={cycleSort}/>
-          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#4a2c14"}}>{GS[g]} {g}</button>)}
-          {!isPlayer&&<button className="rv-filter" onClick={()=>setFa(fa==="all"?"actius":fa==="actius"?"inactius":"all")} style={{background:fa==="actius"?"#5a9a3a22":fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":fa==="inactius"?"#88888888":BORDER),color:fa==="actius"?"#5a9a3a":fa==="inactius"?"#aaa":"#4a2c14"}}>{fa==="actius"?"● ACTIUS":fa==="inactius"?"○ INACTIUS":"● ESTAT"}</button>}
-          <span style={{marginLeft:"auto",fontSize:10,color:"#5a3820",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
+          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#6a4a2a"}}>{GS[g]} {g}</button>)}
+          {!isPlayer&&<button className="rv-filter" onClick={()=>setFa(fa==="all"?"actius":fa==="actius"?"inactius":"all")} style={{background:fa==="actius"?"#5a9a3a22":fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":fa==="inactius"?"#88888888":BORDER),color:fa==="actius"?"#5a9a3a":fa==="inactius"?"#aaa":"#6a4a2a"}}>{fa==="actius"?"● ACTIUS":fa==="inactius"?"○ INACTIUS":"● ESTAT"}</button>}
+          <span style={{marginLeft:"auto",fontSize:10,color:"#7a5a3a",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
         </div>
       </div>
       <div style={{overflowY:"auto",flex:1}}>
-        {filtered.length===0&&<div style={{padding:30,color:"#4a2c14",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Sin edificios encontrados...</div>}
+        {filtered.length===0&&<div style={{padding:30,color:"#6a4a2a",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Sin edificios encontrados...</div>}
         {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i;
           return(<div key={i} onClick={()=>{onSelect(i===sel&&!isMob?null:i);setShowD(true);}} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:e.activo?"transparent":"#ede8d8",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,opacity:e.activo?1:.45,transition:"background .1s"}}>
             <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
-                <span style={{fontSize:13,color:isSel?"#1a0e0a":"#280e06",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
+                <span style={{fontSize:13,color:isSel?"#1a0e0a":"#3a2210",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
-                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#3d1e0a":"#3d1e0a";return<span key={nom} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
+                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
                 {e.conflicto&&<span style={{fontSize:10,color:"#c4303099",fontFamily:"'Cinzel',serif"}}>⚔ {e.conflicto}</span>}
               </div>
             </div>
@@ -625,7 +625,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         })}
       </div>
       <div style={{padding:"8px 10px",borderTop:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
-        <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NUEVO EDIFICIO</button>
+        <button onClick={onNew} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NUEVO EDIFICIO</button>
       </div>
     </div>
     {item&&!isMob&&<div onMouseDown={startDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
@@ -654,8 +654,8 @@ function GremiosPanel({canSeeDimir,isMob}){
         <span style={{fontSize:12,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".08em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{GS[item]} {item.toUpperCase()}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
-        {loading&&<div style={{color:"#4a2c14",textAlign:"center",padding:40,fontFamily:"'Crimson Text',serif",fontSize:15}}>Cargando...</div>}
-        {!loading&&mdContent&&<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.85,color:"#280e06",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
+        {loading&&<div style={{color:"#6a4a2a",textAlign:"center",padding:40,fontFamily:"'Crimson Text',serif",fontSize:15}}>Cargando...</div>}
+        {!loading&&mdContent&&<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.85,color:"#3a2210",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
       </div>
     </div>
   );
@@ -663,7 +663,7 @@ function GremiosPanel({canSeeDimir,isMob}){
     <div style={{width:"100%",display:"flex",flexDirection:"column",overflowY:"auto"}}>
       {gremis.map((g,i)=>{const c=GC[g];return(<div key={g} onClick={()=>setSel(i)} className="rv-row" style={{padding:"12px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:"transparent",borderLeft:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
         <div style={{width:36,height:36,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:c,flexShrink:0}}>{GS[g]}</div>
-        <span style={{fontSize:14,color:"#280e06",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{g}</span>
+        <span style={{fontSize:14,color:"#3a2210",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{g}</span>
         <span style={{color:BORDER,fontSize:14}}>›</span>
       </div>);})}
     </div>
@@ -809,7 +809,7 @@ function App({user,onUsersPanel}){
       <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2,alignItems:"center"}}>
         {tab==="chars"&&effectiveUser.rol==="dm"&&!item.nom.startsWith("Wundyr Somo")&&<button onClick={()=>updC(origI,"wundyrHeart",!item.wundyrHeart)} title="Proeza de Wundyr" style={{background:"none",border:"none",cursor:"pointer",fontSize:17,lineHeight:1,padding:"0 2px",opacity:item.wundyrHeart?1:.35,transition:"opacity .15s"}}>{item.wundyrHeart?"❤️":"🤍"}</button>}
         {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
-        {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#4a2c14",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+        {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#6a4a2a",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
@@ -817,11 +817,11 @@ function App({user,onUsersPanel}){
         <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
           <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center"}}>
             <span style={{opacity:.5,fontSize:11}}>🎮</span>
-            <span style={{color:"#3d1e0a",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
-            <span style={{color:"#180a04",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
+            <span style={{color:"#5a3a20",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
+            <span style={{color:"#2d1a0a",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
           </div>
         </div>
-        <div><div style={{fontSize:9,color:"#3d1e0a",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
+        <div><div style={{fontSize:9,color:"#5a3a20",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
           <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
         </div>
       </div>}
@@ -839,7 +839,7 @@ function App({user,onUsersPanel}){
         <div>
           <div style={{fontSize:15,color:"#c43030",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:16,textAlign:"center",opacity:.9}}>💘 PROEZAS Y CONQUISTAS AMOROSAS</div>
           {conquistes.length===0
-            ?<p style={{textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic",color:"#4a2c14",fontSize:17,margin:0,lineHeight:1.6}}>Sargento creemos en usted,<br/>¡siga intentándolo!</p>
+            ?<p style={{textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic",color:"#6a4a2a",fontSize:17,margin:0,lineHeight:1.6}}>Sargento creemos en usted,<br/>¡siga intentándolo!</p>
             :<div style={{display:"flex",flexWrap:"wrap",gap:16,justifyContent:"center"}}>
               {conquistes.map(c=>{const csrc=c.avatar||c.img||"";const ct=secureT(c.tags,c.nom);const ccol=GC[ct[0]]||"#8a7a5a";return(<div key={c.nom} onClick={()=>navToChar(c.id)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:7,width:90,cursor:"pointer"}} title={c.nom}>
                 {csrc?<img src={csrc} alt={c.nom} onError={e=>{e.target.style.display="none"}} style={{width:78,height:78,borderRadius:"50%",objectFit:"cover",objectPosition:"center top",border:"2px solid #c4303066",transition:"transform .15s",boxShadow:"0 2px 10px #0006"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}/>
@@ -850,7 +850,7 @@ function App({user,onUsersPanel}){
         </div>
       </>}
       {effectiveUser.rol==="dm"&&<><Rule/>
-        <div><div style={{fontSize:10,color:"#4a2c14",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>NOTAS DEL DM</div>
+        <div><div style={{fontSize:10,color:"#6a4a2a",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>NOTAS DEL DM</div>
           <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
         </div></>}
     </div>
@@ -867,19 +867,19 @@ function App({user,onUsersPanel}){
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
-        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#1a0e0a",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#4a2810",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:10,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
+        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#1a0e0a",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#6a4020",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:10,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
         <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
-          {!mob&&<span style={{fontSize:11,color:"#4a2810",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
-          {!mob&&<span style={{fontSize:10,color:"#5a3820",fontFamily:"'Cinzel',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
+          {!mob&&<span style={{fontSize:11,color:"#6a4020",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
+          {!mob&&<span style={{fontSize:10,color:"#7a5a3a",fontFamily:"'Cinzel',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
           {user.rol==="dm"&&(<div style={{position:"relative"}}>
-            <button onClick={()=>setShowPreviewSel(s=>!s)} title="Previsualitza com a jugador" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"#4a2c14",cursor:"pointer"}}>👁</button>
+            <button onClick={()=>setShowPreviewSel(s=>!s)} title="Previsualitza com a jugador" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"#6a4a2a",cursor:"pointer"}}>👁</button>
             {showPreviewSel&&ReactDOM.createPortal(<div style={{position:"fixed",top:50,right:8,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:9999,padding:4,minWidth:180,boxShadow:"0 4px 16px #0007"}}>
               {previewAs&&<button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);setShowPreviewSel(false);}} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:GOLD+"22",border:"none",borderBottom:"1px solid "+BORDER,color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",fontSize:11,borderRadius:"3px 3px 0 0",letterSpacing:".05em",marginBottom:2}}>← VOLVER AL DM</button>}
-              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#180a04",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
+              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#2d1a0a",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
             </div>,document.body)}
           </div>)}
-{onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer"}}>👥</button>}
+{onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer"}}>👥</button>}
           {user.rol==="dm"&&<button title="Descarregar dades per a Claude" onClick={()=>{
             const idToName=id=>{const c=cs.find(x=>x.id===id);return c?c.nom:id;};
             const lines=[];
@@ -914,13 +914,13 @@ function App({user,onUsersPanel}){
             });
             const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
             const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`ravnica-${new Date().toISOString().slice(0,10)}.txt`;a.click();
-          }} style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer"}}>📦</button>}
-          {user.rol==="dm"&&<label title="Importar JSON migrat" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer",display:"inline-flex",alignItems:"center"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
-          <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer"}}>⊘</button>
+          }} style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer"}}>📦</button>}
+          {user.rol==="dm"&&<label title="Importar JSON migrat" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer",display:"inline-flex",alignItems:"center"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
+          <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
-        {TABS.filter(t=>!t.dm||effectiveUser.rol==="dm").map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#5a3820",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
+        {TABS.filter(t=>!t.dm||effectiveUser.rol==="dm").map(t=><button key={t.id} onClick={()=>chTab(t.id)} style={{background:tab===t.id?BG:"transparent",border:"1px solid "+(tab===t.id?GOLD+"55":"transparent"),borderBottom:tab===t.id?"1px solid "+BG:"none",borderRadius:"3px 3px 0 0",padding:"6px 14px",fontSize:mob?10:12,cursor:"pointer",color:tab===t.id?GOLD:"#7a5a3a",fontFamily:"'Cinzel',serif",letterSpacing:".07em",marginBottom:tab===t.id?-1:0,transition:"all .15s"}}>{t.icon} {mob?"":t.label.toUpperCase()}</button>)}
       </div>
       </div>
     </div>
@@ -932,25 +932,25 @@ function App({user,onUsersPanel}){
         <div style={{padding:"8px 10px",borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG2}}>
           <div style={{position:"relative",marginBottom:7}}>
             <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
-            <input type="text" placeholder={"Cerca "+(tab==="handouts"?"objectes":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#180a04",WebkitTextFillColor:"#180a04",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
+            <input type="text" placeholder={"Cerca "+(tab==="handouts"?"objectes":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#2d1a0a",WebkitTextFillColor:"#2d1a0a",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <SortBtn sort={sort} onSort={cycleSort}/>
-            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#4a2c14"}}>{GS[g]} {g}</button>)
-            :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#4a2c14"}}>{p}</button>)}
+            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#6a4a2a"}}>{GS[g]} {g}</button>)
+            :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#6a4a2a"}}>{p}</button>)}
           </div>
         </div>
         <div style={{overflowY:"auto",flex:1}}>
-          {fltd.length===0&&<div style={{padding:30,color:"#4a2c14",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap registre als arxius...</div>}
+          {fltd.length===0&&<div style={{padding:30,color:"#6a4a2a",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Cap registre als arxius...</div>}
           {fltd.map((x,i)=>{const vt=tab==="chars"?secureT(x.tags,x.nom):undefined,c=mc(x,tab,vt),isSel=!mob&&sel===i,sig=tab==="chars"&&vt&&vt[0]?GS[vt[0]]:"📜";const cnx=tab==="chars"?(x.visible==="Tots"||!x.visible||x.visible===""?"Todos":x.visible==="Nadie"||x.visible==="Solo DM"?"Nadie":x.visible.split(",")[0].trim()+(x.visible.includes(",")?"…":"")):null;const xlocs=tab==="chars"?eds.filter(e=>parsePers(e.personajes).includes(x.id)&&(effectiveUser.rol==="dm"||e.activo)):[];
             return(<div key={i} onClick={()=>pick(i)} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
               <Avatar nom={x.nom} avatar={x.avatar} img={x.img} size={34} color={c} tab={tab}/>
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontSize:14,color:isSel?"#1a0e0a":"#280e06",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:9,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Cinzel',serif",verticalAlign:"middle"}}>PJ</span>}</div>
+                <div style={{fontSize:14,color:isSel?"#1a0e0a":"#3a2210",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:9,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Cinzel',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
                   {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
                   {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:ec+"20",color:ec,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
-                  {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#4a2c14",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
+                  {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#6a4a2a",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                 </div>
               </div>
               <span style={{color:isSel?c:BORDER,fontSize:14,flexShrink:0}}>›</span>
@@ -958,7 +958,7 @@ function App({user,onUsersPanel}){
           })}
         </div>
         <div style={{padding:"8px 10px",borderTop:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
-          <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#4a2c14",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"OBJECTE":"PERSONATGE"}</button>
+          <button onClick={tab==="handouts"?newH:newC} style={{width:"100%",padding:"6px",fontSize:11,border:"1px dashed "+GOLD+"44",borderRadius:3,background:"transparent",color:"#6a4a2a",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".08em"}}>+ NOU {tab==="handouts"?"OBJECTE":"PERSONATGE"}</button>
         </div>
       </div>
       {item&&!mob&&<div onMouseDown={startListDrag} style={{width:5,flexShrink:0,cursor:'col-resize',background:BORDER,zIndex:2,transition:'background .15s'}} onMouseEnter={e=>e.currentTarget.style.background=GOLD+'66'} onMouseLeave={e=>e.currentTarget.style.background=BORDER}/>}
