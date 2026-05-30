@@ -760,7 +760,7 @@ function App({user,onUsersPanel}){
 
   const fltd=useMemo(()=>{
     const lq=q.toLowerCase();
-    let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||(x.tags||[]).includes(filt)&&!(filt==="Dimir"&&PJS.includes(x.nom)&&effectiveUser.rol==="jugador"&&x.nom!==effectiveUser.personatge):filt==="all"||x.propietari===filt;return ms&&mf;});
+    let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||secureT(x.tags,x.nom).includes(filt):filt==="all"||x.propietari===filt;return ms&&mf;});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
