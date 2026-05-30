@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.11.1";
+const VERSION="3.12.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -144,15 +144,6 @@ async function initFirebase(cfg){
     return true;
   }catch(e){db=null;auth=null;storage=null;return false;}
 }
-async function uploadToStorage(nom,dataUrl){
-  if(!storage||!dataUrl.startsWith('data:'))return null;
-  try{
-    const ref=storage.ref('ravnica/imgs/'+Date.now()+'_'+encodeURIComponent(nom).slice(0,60));
-    const res=await fetch(dataUrl);const blob=await res.blob();
-    await ref.put(blob,{contentType:blob.type});
-    return await ref.getDownloadURL();
-  }catch(e){console.warn('Storage upload failed:',e);return null;}
-}
 function loadScript(src){return new Promise((res,rej)=>{if(document.querySelector('script[src="'+src+'"]')){res();return;}const s=document.createElement("script");s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 async function signIn(){try{const provider=new window.firebase.auth.GoogleAuthProvider();await auth.signInWithPopup(provider);return{};}catch(e){return{error:e.code==="auth/popup-closed-by-user"?"Has tancat la finestra de Google":e.message};}}
 async function doSignOut(){if(auth)await auth.signOut();}
@@ -178,16 +169,9 @@ function lsSave(key,data){
   }
 }
 function lsLoad(key,def){try{const v=localStorage.getItem(key);return v?JSON.parse(v):def;}catch(e){return def;}}
-function compressImage(dataUrl,size=400,quality=0.80){return new Promise(res=>{const img=new Image();img.onload=()=>{const sq=Math.min(img.width,img.height);const sx=Math.round((img.width-sq)/2);const sy=Math.round((img.height-sq)/2);const s=Math.min(size,sq);const c=document.createElement('canvas');c.width=s;c.height=s;c.getContext('2d').drawImage(img,sx,sy,sq,sq,0,0,s,s);res(c.toDataURL('image/jpeg',quality));};img.src=dataUrl;});}
-function lsSaveImgs(base,imgs){Object.entries(imgs).forEach(([nom,b64])=>{const k=base+'__'+nom;if(!b64){try{localStorage.removeItem(k);}catch(e){}return;}try{localStorage.setItem(k,b64);}catch(e){console.warn("No s'ha pogut desar imatge:",nom,e);}});}
-function lsLoadImgs(base){try{localStorage.removeItem(base+'_imgs');}catch(e){}const imgs={},p=base+'__';for(let i=localStorage.length-1;i>=0;i--){const k=localStorage.key(i);if(k&&k.startsWith(p))imgs[k.slice(p.length)]=localStorage.getItem(k)||'';}return imgs;}
-function stripImages(items,imgKey){const imgs={};const clean=items.map(x=>{const c={...x};if(c[imgKey]&&c[imgKey].startsWith('data:')){imgs[c.nom]=c[imgKey];delete c[imgKey];}return c;});return{clean,imgs};}
-function mergeImages(items,imgs,imgKey){return items.map(x=>({...x,[imgKey]:imgs[x.nom]||x[imgKey]||""}));}
-async function saveData(key,items,imgKey){
-  const{clean,imgs}=imgKey?stripImages(items,imgKey):{clean:items,imgs:{}};
-  if(db){try{await db.collection("ravnica").doc(key).set({data:JSON.stringify(clean)});}catch(e){}}
-  lsSave(key,clean);
-  if(imgKey){const existing=lsLoadImgs(key);const merged={...existing,...imgs};Object.keys(merged).forEach(k=>{if(!merged[k])delete merged[k];});lsSaveImgs(key,merged);}
+async function saveData(key,data){
+  if(db){try{await db.collection("ravnica").doc(key).set({data:JSON.stringify(data)});}catch(e){}}
+  lsSave(key,data);
 }
 function normStr(s){return(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();}
 function buildNormMap(map){const n={};for(const k in map)n[normStr(k)]=map[k];return n;}
@@ -198,10 +182,9 @@ async function loadData(key,def,imgKey){
   if(imgKey){
     const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:key==="handouts"?IMG_HANDOUTS:{};
     const normMap=buildNormMap(initMap);
-    const lsImgs=lsLoadImgs(key);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
     const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
-    data=data.map(x=>{let img=x[imgKey]||lsImgs[x.nom]||fallback(x.nom);if(img&&!img.startsWith("data:")&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
+    data=data.map(x=>{let img=x[imgKey]||fallback(x.nom);if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
   }
   return data;
 }
@@ -287,43 +270,26 @@ function Toggle({value,onChange}){
   </div>);
 }
 
-function Avatar({nom,avatar,img,size,color,tab,onUpload,onRemove}){
+function Avatar({nom,avatar,img,size,color,tab}){
   const [err,setErr]=useState(false);
-  const fileRef=useRef(null);
   const s=size||32;
   const src=avatar||img||"";
   const hasImg=src&&!err;
-  const editable=!!(onUpload||onRemove);
-  const btnSize=Math.max(16,s*0.32);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(nom,c);onUpload&&onUpload(url||c);};r.readAsDataURL(file);e.target.value='';};
-  return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
+  return(<div style={{flexShrink:0,width:s,height:s}}>
     {hasImg?<img src={src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:"50%",objectFit:"cover",border:"2px solid "+(color||"#8a7a5a")+"66",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:"50%",background:(color||"#8a7a5a")+"14",border:"2px solid "+(color||"#8a7a5a")+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*(tab==="handouts"?.45:.35),fontWeight:600,color:color||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{tab==="handouts"?"📜":initials(nom)}</div>}
-    {editable&&(<><input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={handleFile}/>
-      {hasImg?<button onClick={e=>{e.stopPropagation();onRemove&&onRemove();setErr(false);}} title="Eliminar" style={{position:"absolute",bottom:-2,right:-2,width:btnSize,height:btnSize,borderRadius:"50%",background:"transparent",border:"none",color:"#c43030",fontSize:btnSize*.85,lineHeight:1,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,fontWeight:700,textShadow:"0 0 4px #0f0e0c",opacity:.8,transition:"opacity .15s"}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.8}>×</button>
-      :<button onClick={e=>{e.stopPropagation();fileRef.current.click();}} title="Afegir" style={{position:"absolute",bottom:-2,right:-2,width:btnSize,height:btnSize,borderRadius:"50%",background:"transparent",border:"none",color:"#5a9a3a",fontSize:btnSize*.75,lineHeight:1,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,fontWeight:700,textShadow:"0 0 4px #0f0e0c",opacity:.7,transition:"opacity .15s"}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.7}>+</button>}
-    </>)}
   </div>);
 }
 
-function EdificiAvatar({gremi,nom,size,avatarCustom,avatarDefault,onUpload,onRemove}){
+function EdificiAvatar({gremi,nom,size,avatarCustom}){
   const [err,setErr]=useState(false);
-  const fileRef=useRef(null);
   const s=size||32;
   const c=GC[gremi]||"#8a7a5a";
-  const editable=!!(onUpload||onRemove);
-  const btnSize=Math.max(16,s*0.28);
   const defaultSrc=GUILD_SVG_MAP[gremi]||GUILD_SVG_MAP['Guildless']||"";
   const src=avatarCustom||defaultSrc;
-  const hasCustom=!!(avatarCustom&&!err);
-  const handleFile=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(nom,c);onUpload&&onUpload(url||c);};r.readAsDataURL(file);e.target.value='';};
-  return(<div style={{position:"relative",flexShrink:0,width:s,height:s}}>
+  return(<div style={{flexShrink:0,width:s,height:s}}>
     {src?<img src={err?defaultSrc:src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:8,objectFit:"cover",border:"2px solid "+c+"55",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:8,background:c+"18",border:"2px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*.35,color:c}}>{GS[gremi]||"◆"}</div>}
-    {editable&&(<><input ref={fileRef} type="file" accept="image/*" style={{display:"none"}} onChange={handleFile}/>
-      {hasCustom?<button onClick={e=>{e.stopPropagation();onRemove&&onRemove();setErr(false);}} title="Eliminar" style={{position:"absolute",bottom:-2,right:-2,width:btnSize,height:btnSize,borderRadius:"50%",background:"transparent",border:"none",color:"#c43030",fontSize:btnSize*.85,lineHeight:1,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,fontWeight:700,textShadow:"0 0 4px #0f0e0c",opacity:.8,transition:"opacity .15s"}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.8}>×</button>
-      :<button onClick={e=>{e.stopPropagation();fileRef.current.click();}} title="Afegir foto pròpia" style={{position:"absolute",bottom:-2,right:-2,width:btnSize,height:btnSize,borderRadius:"50%",background:"transparent",border:"none",color:"#5a9a3a",fontSize:btnSize*.75,lineHeight:1,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,fontWeight:700,textShadow:"0 0 4px #0f0e0c",opacity:.7,transition:"opacity .15s"}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.7}>+</button>}
-    </>)}
   </div>);
 }
 
@@ -636,13 +602,6 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
         :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[secureG(item.gremi)]||"◆"}</span>
       }
-      {!isPlayer&&<div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
-        <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
-          📷
-          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);const url=await uploadToStorage(item.nom,c);upd("avatarCustom",url||c);};r.readAsDataURL(f);e.target.value='';}}/>
-        </label>
-        {item.avatarCustom&&<button onClick={()=>upd("avatarCustom","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
-      </div>}
     </div>
 
     {/* Columna dreta — info */}
@@ -693,7 +652,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         {filtered.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Sin edificios encontrados...</div>}
         {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i,nc=NVC[e.nivel]||"#8a7a5a";
           return(<div key={i} onClick={()=>{onSelect(i===sel&&!isMob?null:i);setShowD(true);}} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:e.activo?"transparent":"#0d0b09",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,opacity:e.activo?1:.45,transition:"background .1s"}}>
-            <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom} avatarDefault={e.avatar}/>
+            <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
                 <span style={{fontSize:13,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
@@ -780,8 +739,7 @@ function App({user,onUsersPanel}){
 
   const saveKey=useCallback((key,data)=>{
     setSaved("⏳");clearTimeout(saveTimer.current);
-    const imgKey=key==="handouts"?"img":key==="chars"?"avatar":key==="edificis"?"avatarCustom":null;
-    saveTimer.current=setTimeout(async()=>{try{await saveData(key,data,imgKey);}catch(e){console.error(e);}setSaved("✦ Guardado");setTimeout(()=>setSaved(""),2500);},600);
+    saveTimer.current=setTimeout(async()=>{try{await saveData(key,data);}catch(e){console.error(e);}setSaved("✦ Guardado");setTimeout(()=>setSaved(""),2500);},600);
   },[]);
 
   const updH=(i,f,v)=>{const h=hs.map((x,j)=>j===i?{...x,[f]:v}:x);setHs(h);saveKey("handouts",h);};
@@ -836,13 +794,6 @@ function App({user,onUsersPanel}){
         ?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block"}}/>
         :<span style={{fontSize:48,fontWeight:"bold",color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</span>
       }
-      {isOwnChar&&<div style={{position:"absolute",bottom:8,right:8,display:"flex",gap:4}}>
-        <label style={{cursor:"pointer",fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid "+BORDER,borderRadius:3,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".04em"}}>
-          📷
-          <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=async ev=>{const c=await compressImage(ev.target.result,400);tab==="handouts"?updH(origI,"img",c):updC(origI,"avatar",c);};r.readAsDataURL(f);e.target.value='';}}/>
-        </label>
-        {imgSrc&&<button onClick={()=>tab==="handouts"?updH(origI,"img",""):updC(origI,"avatar","")} style={{fontSize:11,padding:"3px 8px",background:BG2+"dd",border:"1px solid #c4303055",borderRadius:3,color:"#c43030",cursor:"pointer"}}>✕</button>}
-      </div>}
     </div>
 
     {/* Columna dreta — info */}
