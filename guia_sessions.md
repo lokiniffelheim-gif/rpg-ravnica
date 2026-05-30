@@ -24,7 +24,7 @@
 Cada document de sessió ha de contenir els següents blocs en ordre:
 
 1. **Capçalera** — Títol, arc, nivell
-2. **Context per al master** — Taula de situació de cada PJ (sap / no sap), secrets actius, notes importants
+2. **Context per al master** — Només informació de sessions anteriors: resum del que ha passat, estat dels PJs en entrar a la sessió (taula sap/no sap), i secrets establerts prèviament. Cap informació nova d'aquesta sessió.
 3. **Elements de setting nous** — Si hi ha localitzacions o NPCs nous, descriure'ls amb detall aquí
 4. **Estructura de la sessió** — Llista numerada de parts amb temps estimat
 5. **Parts de la sessió** — Cada part amb el seu propi bloc, seguit de les seves notes d'absència
@@ -57,15 +57,17 @@ Estructura obligatòria:
 **DC dels Skill Challenges — Regla oficial PF2e Remastered**
 Les DCs han de basar-se en el nivell del repte, no en el nivell dels PJs:
 
-| Nivell del repte | DC base |
-|---|---|
-| 4 | 19 |
-| 5 | 20 |
-| 6 | 22 |
-| 7 | 23 |
-| 8 | 24 |
-| 9 | 26 |
-| 10 | 27 |
+| Nivell | DC | Nivell | DC | Nivell | DC |
+|---|---|---|---|---|---|
+| 0 | 14 | 9 | 26 | 18 | 38 |
+| 1 | 15 | 10 | 27 | 19 | 39 |
+| 2 | 16 | 11 | 28 | 20 | 40 |
+| 3 | 18 | 12 | 30 | 21 | 42 |
+| 4 | 19 | 13 | 31 | 22 | 44 |
+| 5 | 20 | 14 | 32 | 23 | 46 |
+| 6 | 22 | 15 | 34 | 24 | 48 |
+| 7 | 23 | 16 | 35 | 25 | 50 |
+| 8 | 24 | 17 | 36 | | |
 
 Ajustos de dificultat aplicables sobre el DC base:
 
@@ -157,6 +159,29 @@ Taula amb tots els elements tècnics mencionats:
 ### NPCs principals
 - Incloure motivació, to de veu i com reaccionen a cada PJ si és rellevant
 - Diàlegs de referència escrits en castellà i llestos per llegir en veu alta
+- Per a cada interacció social rellevant, preparar **3-4 respostes o frases alternatives** que cobreixin: la resposta base, una reacció si els PJs pressionen, una reacció si els PJs es mostren hostils, i una reacció si els PJs guanyen la seva confiança. Això evita que el master quedi en blanc davant de reaccions inesperades.
+
+---
+
+## TRESORS I RECOMPENSES
+
+Quan sigui narrativament plausible, proposar tresors, objectes o riqueses adequats al nivell i classe dels PJs. No forçar-ho en cada sessió, però tampoc ignorar-ho quan el context ho justifiqui (derrota d'un enemic, exploració d'un espai, recompensa per un servei, botí d'una operació).
+
+**Criteris per proposar tresors:**
+- El tresor ha d'encaixar narrativament amb el context: un diaca Orzhov mort pot dur objectes litúrgics valuosos, no una espasa màgica aleatòria
+- Adaptar al nivell actual dels PJs consultant https://2e.aonprd.com/Equipment.aspx per objectes adequats
+- Considerar la classe i el rol de cada PJ: un assassí Dimir no necessita una armadura pesada; un paladí Boros no necessita verins
+- Proposar sempre una alternativa en monedes si l'objecte concret no encaixa amb cap PJ
+
+**Tipus de tresors per context narratiu:**
+
+| Context | Tipus de tresor adequat |
+|---|---|
+| Enemic derrotat | Armes, armadures, objectes personals, monedes |
+| Espai explorat | Objectes ocults, documents valuosos, materials rars |
+| Recompensa gremial | Objectes tèctics del gremi, rang, accés a recursos |
+| Operació completada | Informació, favors, monedes, objectes d'utilitat |
+| Moment de classe (Arc 4) | Sempre en monedes o béns materials, mai objectes màgics potents — reforça la desigualtat |
 
 ---
 

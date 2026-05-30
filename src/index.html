@@ -245,19 +245,6 @@ function renderMd(md){
   return html;
 }
 
-function AddCharDrop({available,idToChar,onAdd}){
-  const [open,setOpen]=useState(false);
-  const ref=useRef(null);
-  useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
-  return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
-    <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ añadir...</button>
-    {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:240,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
-      {available.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más personajes</div>}
-      {available.map(c=>{const t0=(c.tags||[])[0];const col=t0?GC[t0]||"#9a8a68":"#9a8a68";return(<div key={c.id} onClick={()=>{onAdd(c.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:col,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=col+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[t0]||"◆"} {c.nom}</div>);})}
-    </div>}
-  </div>);
-}
-
 function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar}){
   const arr=parsePers(value);
   const idToChar=useMemo(()=>{const m={};(chars||[]).forEach(c=>{if(c.id)m[c.id]=c;});return m;},[chars]);
@@ -277,6 +264,19 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
       {!readOnly&&<AddCharDrop available={available} idToChar={idToChar} onAdd={id=>onChange([...arr,id])}/>}
     </div>
   );
+}
+
+function AddCharDrop({available,idToChar,onAdd}){
+  const [open,setOpen]=useState(false);
+  const ref=useRef(null);
+  useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
+  return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
+    <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ añadir...</button>
+    {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:240,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
+      {available.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más personajes</div>}
+      {available.map(c=>{const t0=(c.tags||[])[0];const col=t0?GC[t0]||"#9a8a68":"#9a8a68";return(<div key={c.id} onClick={()=>{onAdd(c.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:col,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=col+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[t0]||"◆"} {c.nom}</div>);})}
+    </div>}
+  </div>);
 }
 
 function Toggle({value,onChange}){
