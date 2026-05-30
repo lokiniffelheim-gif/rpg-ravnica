@@ -126,7 +126,7 @@
     {
       "nom": "El Vocero",
       "bio": "El Vocero es un Homúnculo: estos pequeños seres mágicos son creados por magos Azorius para llevar a cabo tareas sencillas y recados. Gritón y algo malhumorado, el Vocero está atado mágicamente a la Oficina Capilla de la plaza principal del Aventino, desde donde realiza anuncios y presta servicio a sus habitantes. El resto del tiempo lo dedica al mantenimiento de la oficina y a tareas administrativas, aunque en general hace todo lo posible para holgazanear y trabajar lo menos posible.",
-      "info": "Homunculus Tiny construct, neutral Armor Class 13 (Natural Armor) Hit Points 5 (2d4) Speed 20 ft., fly 40 ft. STR 4 (-3) DEX 15 (+2) CON 11 (+0) INT 10 (+0) WIS 10 (+0) CHA 7 (-2) Damage Immunities Poison Condition Immunities Charmed, Poisoned Senses Darkvision 60 Ft., passive Perception 10 Languages Understands The Languages Of Its Creator But Can't Speak Challenge 0 (10 XP) Telepathic Bond . While the homunculus is on the same plane of existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically. Actions Bite. Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: (1d1) piercing damage. The target must succeed on a dc 10 constitution saving throw or be poisoned for 1 minute If the saving throw fails by 5 or more, the target is instead poisoned for 5 (1d10) minutes and unconscious while poisoned in this way",
+      "info": "Veu: cridaner, malhumorat, burocràtic. Parla com si tot el que li demanes fos un atac personal.\nClau: fa el mínim imprescindible. Si pot derivar a un altre formulari, ho fa. No és dolent, és funcionari.\nRol: còmic de relleu. Termòmetre de l'absurd burocràtic del barri.",
       "tags": [
         "Azorius"
       ],
@@ -138,7 +138,7 @@
     {
       "nom": "Pesha la Tabernera",
       "bio": "Pesha es la propietaria de El Cuerno de Oro, la tasca de la plaza del Aventino, y una minotaura con muy malas pulgas. Llegó al barrio un buen día con su tatuaje Rakdos en el brazo, algo de dinero y actitud a raudales, decidida a llevar su propia taberna y a no hablar de un pasado misterioso. Cargar barriles y echar borrachos le ha permitido mantener un impresionante estado de forma física, y aunque llevar su propio negocio es una ocupación a tiempo completo, hay quien dice que la ha visto entrenar junto Iván por las noches.",
-      "info": "Minotaur Large monstrosity, chaotic evil Armor Class 14 (Natural Armor) Hit Points 76 (9d10+27) Speed 40 ft. STR 18 (+4) DEX 11 (+0) CON 16 (+3) INT 6 (-2) WIS 16 (+3) CHA 9 (-1) Skills Perception +7 Senses Darkvision 60 Ft., passive Perception 17 Languages Abyssal Challenge 3 (700 XP) Charge . If the minotaur moves at least 10 ft. straight toward a target and then hits it with a gore attack on the same turn, the target takes an extra 9 (2d8) piercing damage. If the target is a creature, it must succeed on a DC 14 Strength saving throw or be pushed up to 10 ft. away and knocked prone. Labyrinthine Recall . The minotaur can perfectly recall any path it has traveled. Reckless . At the start of its turn, the minotaur can gain advantage on all melee weapon attack rolls it makes during that turn, but attack rolls against it have advantage until the start of its next turn. Actions Greataxe. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d12 + 4) slashing damage. Gore. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d8 + 4) piercing damage.",
+      "info": "Veu: directa, seca, amb sentit de l'humor negre. No ven rondes, ven pau temporal.\nClau: Rakdos encobert. Entrena amb Iván per les nits. Sap moltes coses del barri.\nRol: hub social del Aventino. Tothom hi passa. Ella ho recorda tot i no ho diu tot.",
       "tags": [
         "Rakdos"
       ],
@@ -150,7 +150,7 @@
     {
       "nom": "Kotyali la Cazadora",
       "bio": "Ver a Kotyali en medio del trajín de las calles de Ravnica es un espectáculo curioso: combina la apariencia salvaje propia de una cazadora centaura -cubierta de pieles y escarificaciones tribales- con el porte de una urbanita acostumbrada a las multitudes y al comercio. Abierta y directa en el trato al prójimo, su amable tono de voz siempre encuentra el camino al corazón de quienes la escuchan, y no es extraño verla reir mientras vende piezas de caza en el mercado. Pero no se debe confundir su actitud con candidez, pues aquellos que lo hacen no tardan en conocer las garras de Céfiro, su fiel halcón de caza....",
-      "info": "Centaur Large monstrosity, neutral good Armor Class 12 Hit Points 45 (6d10+12) Speed 50 ft. STR 18 (+4) DEX 14 (+2) CON 14 (+2) INT 9 (-1) WIS 13 (+1) CHA 11 (+0) Skills Athletics +6, Perception +3, Survival +3 Senses passive Perception 13 Languages Elvish, Sylvan Challenge 2 (450 XP) Charge . If the centaur moves at least 30 ft. straight toward a target and then hits it with a pike attack on the same turn, the target takes an extra 10 (3d6) piercing damage. Actions Multiattack. The centaur makes two attacks: one with its pike and one with its hooves or two with its longbow. Pike. Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: (1d10 + 4) piercing damage. Hooves. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d6 + 4) bludgeoning damage. Longbow. Ranged Weapon Attack: +4 to hit, reach 150/600 ft., one target. Hit: (1d8 + 2) piercing damage.",
+      "info": "Veu: oberta, directa, riu fàcilment. Però la mirada avalua sempre.\nClau: l'actitud amable és real i calculada alhora. No es contradiu.\nRol: contacte de mercat i connexió amb el món dels sense gremi. Pot ser portaveu del malestar.",
       "tags": [
         "Guildless"
       ],
@@ -162,7 +162,7 @@
     {
       "nom": "Shazel Bara, Chaman del clan",
       "bio": "",
-      "info": "",
+      "info": "Veu: ritual, amb silencis intencionats. Parla del futur com si ja hagués passat.\nClau: no visible per a ningú fora del clan. Custòdia de la memòria tribal.\nRol: autoritat espiritual. Pot donar context o profecia a moments clau de l'Arc 4.",
       "tags": [
         "Gruul"
       ],
@@ -174,7 +174,7 @@
     {
       "nom": "Obez el Prestamista",
       "bio": "No hay mucho que contar de Obez, pues ha elevado a la categoría de arte la mediocridad. Gordo y perezoso, lo único que le mantiene trabajando en el Sindicato son sus deudas (y las amenazas de aquellos que las quieren ver saldadas). La única fuente de placer que le queda es hundir en la desdicha a aquellos a los que ve felices, lo que junto a una mentalidad retorcida y una actitud paciente le convierte en un excelente prestamista.",
-      "info": "Cultist Medium humanoid (any race), any non-good alignment Armor Class 12 (Leather Armor) Hit Points 9 (2d8) Speed 30 ft. STR 11 (+0) DEX 12 (+1) CON 10 (+0) INT 10 (+0) WIS 11 (+0) CHA 10 (+0) Skills Deception +2, Religion +2 Senses passive Perception 10 Languages Any One Language (Usually Common) Challenge 1/8 (25 XP) Dark Devotion . The cultist has advantage on saving throws against being charmed or frightened. Actions Scimitar. Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: (1d6 + 1) slashing damage.",
+      "info": "Veu: lenta, xarrupejant, amb plaer visible quan algú té un problema.\nClau: no és perillós per força física. Ho és per paciència i rencor acumulat.\nRol: antagonista menor però persistent. Recorda als PJs que el Sindicato té memòria llarga.",
       "tags": [
         "Orzhov"
       ],
@@ -186,7 +186,7 @@
     {
       "nom": "Iván el Cocinero",
       "bio": "Puede que la cocina de la taberna no sea exquisita, pero a aquellos que trabajan todo la jornada en talleres, almacenes y mercados, les proporciona un momento de apreciada tranquilidad y bienestar. El encargado de este curioso festín diario es Iván, cocinero del Cuerno de Oro, y dado lo que entra en la cocina y lo que sale en los platos, es quedarse corto (quedad tranquilos, el universo recupera su equilibrio cósmico cuando los comensales visitan el excusado). Si sus gruesos dedos agarrando cuchillos o sus hablar lento y torpe no os ponen nerviosos, quizá sus ojos perturbadoramente abiertos de par en par lo hagan. Que eso no os inquiete, Iván es (casi) siempre un buen muchacho (aunque mejor que no le pidáis recetas).",
-      "info": "Berserker Medium humanoid (any race), any chaotic alignment Armor Class 13 (Hide Armor) Hit Points 67 (9d8+27) Speed 30 ft. STR 16 (+3) DEX 12 (+1) CON 17 (+3) INT 9 (-1) WIS 11 (+0) CHA 9 (-1) Senses passive Perception 10 Languages Any One Language (Usually Common) Challenge 2 (450 XP) Reckless . At the start of its turn, the berserker can gain advantage on all melee weapon attack rolls during that turn, but attack rolls against it have advantage until the start of its next turn. Actions Greataxe. Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: (1d12 + 3) slashing damage.",
+      "info": "Veu: lenta, amable, amb una mirada fixa que inquieta més que cap amenaça.\nClau: gairebé sempre un bon noi. \"Gairebé\" és la paraula clau.\nRol: còmic de relleu i detall de color de la taberna. No el facis perillós tret que calgui.",
       "tags": [
         "Guildless"
       ],
@@ -198,7 +198,7 @@
     {
       "nom": "Grukurg el Tintador",
       "bio": "Trabajar duramente en un sitio asfixiante y apestoso catorce horas diarias pone de mal humor a cualquiera, pero si encima eres el propietario y no conoces vacaciones, enfermedad o descanso, tienes a Grukurg. Este ogro se pasa el día curtiendo pieles de toda clase de animales y bestias en su taller, y su actitud oscila entre el trabajo obsesivo y la furia psicótica, dependiendo en gran medida -pero no solamente- de los gases que emanan de las cubas, la cantidad de faena acumulada y los errores de sus empleados.",
-      "info": "",
+      "info": "Veu: queixosa per defecte, com si tothom li deués alguna cosa.\nClau: treballa 14 hores al dia i no ho pot deixar. Resentiment justificat.\nRol: retrat del petit empresari Guildless estrangulat pel sistema.",
       "tags": [
         "Guildless"
       ],
@@ -210,7 +210,7 @@
     {
       "nom": "Ten el Pescadero",
       "bio": "",
-      "info": "currante, familiar, ha patit durant la crisi de l'aigua, donde pesca??",
+      "info": "Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.\nClau: cadascun representa una comunitat del barri. Escolten i parlen.\nRol: color de mercat i fonts d'informació de carrer de primer nivell.",
       "tags": [
         "Guildless"
       ],
@@ -222,7 +222,7 @@
     {
       "nom": "Morai la Capataz",
       "bio": "Vivir sin la protección de un gremio en Ravnica no es fácil, pero a Morai le compensa: es su propia jefa (Obras Aventino SA), mantiene su equipo de construcción (una plantilla de goblins ingobernables) y no tiene que dar explicaciones a (casi) nadie. Algo reservada y tímida, tiende a guardarse para si sus opiniones personales, aunque en sus proyectos despliega su amplio abanico de conocimientos técnicos y es capaz de arrollar a cualquier ingenuo que pretenda enseñarle algo.",
-      "info": "CounterFlux Blastseeker Medium humanoid (any race), chaotic neutral Armor Class 13 (16 with mage armor) Hit Points 39 (6d8+12) Speed 30 ft. STR 13 (+1) DEX 16 (+3) CON 15 (+2) INT 18 (+4) WIS 11 (+0) CHA 14 (+2) Saving Throws Con +4, Wis +2 Skills Arcana +6, Perception +2 Senses passive Perception 12 Languages Common plus any one language Challenge 2 (450 XP) Counterflux Overcast (Recharge 5-6). The blastseeker can create an additional effect immediately after casting a spell . Roll a d6 to determine the effect: 1- 3. The blastseeker creates a 15-foot-radius invisible sphere centered on itself that lasts until the end of its next turn. Creatures in the sphere have disadvantage on saving throws against spells and other magical effects. 4- 6. The blastseeker c reates a 15-foot-radius invisible sphere centered on itse lf t hat lasts until the end of its next turn. Creatures in the sphere have advantage on saving throws against spells and other magical effects. Innate Spellcasting. The blastseeker's innate spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The blastseeker can innately cast the following spells, requiring no components other than its lzzet gear, which doesn't function for others : 3/day each: enlarge/reduce, mage armor (self only) , scorching ray 1/day each: counterspell, dispel magic, protection from energy Actions Rapier. Melee Weapon Attack: +5 to hit, rea ch 5 ft., one target. Hit: 7 (ld8 + 3) pie rcing dam age. Putejada per Obez",
+      "info": "Veu: pràctica, sense temps per a romanticismes. Parla en termes de feina i resultat.\nClau: ha construït alguna cosa real sense xarxa gremial. Ho sap i és el seu orgull i la seva feblesa.\nRol: referent de resiliència de classe treballadora. Involucrada en l'Arc 4 com a veu de l'obra.",
       "tags": [
         "Guildless"
       ],
@@ -234,7 +234,7 @@
     {
       "nom": "Cresh el Vendedor de Comida Ambulante",
       "bio": "Descrito como el empresario menos exitoso de Ravnica, el \"emprendedor aventurero\" del Aventino, Cresh es más conocido por vender productos “mayormente compuestos de carne” a almas desprevenidas. Ha vendido desde un extraño líquido verde hecho por monjes que vivían en una montaña según una antigua receta, consejos \"astrales\", lecciones de artes marciales por correo (bajo el alias \"Gran Maestro Cresh\"), auténticas y genuinas reliquias sagradas, globos de nieve de recuerdo y espacio publicitario en el boletín del gremio de Vendedores de Comida ambulante (del cual ostenta a la vez el cargo de Presidente, Portavoz, Notario y Portero). Su mejor venta son los productos intangibles; la mercancía física tiende a dificultar un poco su modelo de negocio...",
-      "info": "Lizardfolk Medium humanoid (lizardfolk), neutral Armor Class 15 (Natural Armor, Shield) Hit Points 22 (4d8+4) Speed 30 ft., swim 30 ft. STR 7 (-2) DEX 13 (+1) CON 10 (+0) INT 7 (-2) WIS 12 (+1) CHA 15 (+2) Skills Persuasion+4, Perception+3, Insight+5 Senses passive Perception 13 Languages Draconic Challenge 1/2 (100 XP) Hold Breath . The lizardfolk can hold its breath for 15 minutes. Actions Multiattack. The lizardfolk makes two melee attacks, each one with a different weapon. Bite. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage. Heavy Club. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) bludgeoning damage. Javelin. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage. Javelin. Ranged Weapon Attack: +2 to hit, reach 30/120 ft., one target. Hit: (1d6) piercing damage. Spiked Shield. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage.",
+      "info": "Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.\nClau: cadascun representa una comunitat del barri. Escolten i parlen.\nRol: color de mercat i fonts d'informació de carrer de primer nivell.",
       "tags": [
         "Guildless"
       ],
@@ -246,7 +246,7 @@
     {
       "nom": "Elon Tusk el Mercader de grano",
       "bio": "Si en el mercado escuchas maldiciones, lamentos y ruido de cosas rompiéndose, es posible que al girarte te encuentres a Elon en medio del estropicio. Ser un loxodon (aunque seas el último del linaje Tusk) no evita ser descuidado ni torpe, aunque eso le ha permitido tener la plaza más espaciosa del mercado (nadie quiere arriesgarse a estar a su alrededor). Probablemente uno de los mercaderes más ricos del Aventino, ha hecho su fortuna vendiendo grano a buen precio. Eso y una empatía cuasi-mística con la naturaleza y la gentes del barrio hacen de Elon un personaje popular y entrañable, si bien conviene evitarlo si llevas algo frágil encima.",
-      "info": "Druid Medium humanoid (any race), any alignment Armor Class 14 (16 With Barkskin) Hit Points 27 (5d8+5) Speed 30 ft. STR 10 (+0) DEX 12 (+1) CON 15 (+2) INT 12 (+1) WIS 16 (+3) CHA 11 (+0) Skills Medicine +5, Nature +4, Perception +5 Senses passive Perception 15 Languages Druidic, Loxodon and Sylvan Challenge 2 (450 XP) Spellcasting . The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared: • Cantrips (at will): druidcraft, produce flame, shillelagh • 1st level (4 slots): entangle, longstrider, speak with animals, thunderwave • 2nd level (3 slots): animal messenger, barkskin Keen Smell. Thanks to your sensitive trunk, you have advantage on Wisdom (Perception), Wisdom (Survival), and Intelligence (Investigation) checks that involve smell. Actions Quarterstaff. Melee Weapon Attack: +2 to hit, reach 5 ft., (+4 with shillelagh), one target. Hit: (1d6) bludgeoning damage plus (1d8 + 2)bludgeoning damage. Or with shillelagh or if wielded with two hands",
+      "info": "Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.\nClau: cadascun representa una comunitat del barri. Escolten i parlen.\nRol: color de mercat i fonts d'informació de carrer de primer nivell.",
       "tags": [
         "Guildless"
       ],
@@ -258,7 +258,7 @@
     {
       "nom": "Dhalya Macav la Comerciante",
       "bio": "Dhalya es el resultado acumulado de generación tras generación de mercaderes Macav. Toda una vida de aventuras comerciales a lo ancho del plano le ha proporcionado una extensa red de contactos, colaboradores y proveedores, así como un sinfín de anécdotas y vivencias. Si necesitas cualquier cosa, no dudes de que ella puede conseguirlo, pero cuidado, sus tarifas no son aptas para todos los bolsillos. Ya sea con materias primas, objetos de lujo o servicios, es una negociadora brutal, nunca pierde la oportunidad de sacar tajada de cualquier situación y siempre consigue cerrar un buen trato.",
-      "info": "Noble Medium humanoid (any race), any alignment Armor Class 15 (Breastplate) Hit Points 9 (2d8) Speed 30 ft. STR 11 (+0) DEX 12 (+1) CON 11 (+0) INT 12 (+1) WIS 14 (+2) CHA 16 (+3) Skills Deception +5, Insight +4, Persuasion +5 Senses passive Perception 12 Languages Any Two Languages Challenge 1/8 (25 XP) Actions Rapier. Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: (1d8 + 1) piercing damage. Reactions Parry. The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon.",
+      "info": "Veu: encantadora, anecdòtica, sempre té una història de quan era a un altre plà.\nClau: cada anècdota és una negociació. Mai para de treballar.\nRol: accés a objectes i serveis inusuals. Cara però efectiva. No li gusta qui perd el temps.",
       "tags": [
         "Guildless"
       ],
@@ -270,7 +270,7 @@
     {
       "nom": "Maeve la Carterista",
       "bio": "La plaza del Aventino, como cualquier zona ajetreada, es conocida por ser un lugar habitual de pequeños robos y hurtos. Lo que no tanta gente conoce es que no sólo los crímenes son pequeños, sino que también existen criminales de esa medida: Maeve es un buen ejemplo de ello. Vivir en un mundo hecho a medida de gigantes no ha hecho más que facilitarle la vida a esta hada y a su banda de carteristas, que disponen de mil lugares donde esconderse, y que convierte cualquier botín en un tesoro. Lo único que evita que se conviertan en una verdadera plaga es su falta de concentración y ambiciones mayores, pero la vida puede ser muy fácil cuando robar tu peso en oro no es solamente una expresión.",
-      "info": "Sprite Tiny fey, neutral good Armor Class 15 (Leather Armor) Hit Points 2 (1d4) Speed 10 ft., fly 40 ft. STR 3 (-4) DEX 18 (+4) CON 10 (+0) INT 14 (+2) WIS 13 (+1) CHA 11 (+0) Skills Perception +3, Stealth +8 Senses passive Perception 13 Languages Common, Elvish, Sylvan Challenge 1/4 (50 XP) Actions Longsword. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d1) slashing damage. Shortbow. Ranged Weapon Attack: +6 to hit, reach 40/160 ft., one target. Hit: (1d1) piercing damage. The target must succeed on a dc 10 constitution saving throw or become poisoned for 1 minute If its saving throw result is 5 or lower, the poisoned target falls unconscious for the same duration, or until it takes damage or another creature takes an action to shake it awake Heart Sight. The sprite touches a creature and magically knows the creature's current emotional state. If the target fails a DC 10 Charisma saving throw, the sprite also knows the creature's alignment. Celestials, fiends, and undead automatically fail the saving throw. Invisibility. The sprite magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell). Any equipment the sprite wears or carries is invisible with it.",
+      "info": "Veu: ràpida, distreta, sempre mirant cap a una altra banda. Canvia de tema quan li convé.\nClau: mida petita, ambicions proporcionades. No és perillosa però és impredictible.\nRol: recurs d'informació i accés a objectes recuperats. Pot ser útil o problema depenent del dia.",
       "tags": [
         "Guildless"
       ],
@@ -282,7 +282,7 @@
     {
       "nom": "Sila, Tribuno de la Legión",
       "bio": "Uno de los más notables políticos y militares Boros en el último siglo, perteneciente al bando de los optimates. Tras distinguirse en la revueltas obreras Gruul, el asedio del fuerte de la Senda Verde contra los Selesnya y la pacificación de los pozos de Sangre Rakdos, los intentos de Sila por arrebatarle el control del ejército que debía combatir a Tajic le llevaron a denunciarle para intentar restaurar una Legión cada vez más mermada y sobrecargada. Pese a contar con el apoyo de varios lugartenientes angelicales de renombre, Tajic contaba con demasiado soporte dentro de la Legión, por lo que Sila se retiró de la vida militar para intentar hacer carrera política. Esa era su intención al menos, hasta que la llegada de la Guerra de la Chispa reavivo su fuego justiciero y le llevo una vez más a ser de nuevo el firme escudo de Ravnica, defensor de los débiles y vengador de agravios.",
-      "info": "",
+      "info": "Veu: política, calculada. Parla com qui sempre pensa en el proper moviment.\nClau: vol recuperar la Legió de mans de Tajic. Usa als PJs si li convé.\nRol: aliat potencial però no de confiança cega. Té la seva agenda.",
       "tags": [
         "Boros"
       ],
@@ -294,7 +294,7 @@
     {
       "nom": "Aurelio, Líder del Clan",
       "bio": "",
-      "info": "",
+      "info": "Veu: breu, pesada, cada paraula costa.\nClau: representa la tradició Gruul davant del buit deixat per Borborygmos en coma.\nRol: autoritat del clan. La seva aprovació o desaprovació de les accions de Yarog té conseqüències reals.",
       "tags": [
         "Gruul"
       ],
@@ -306,7 +306,7 @@
     {
       "nom": "Arkady el Alborotador",
       "bio": "Arkady no ha tenido una vida fácil: su padre era zapatero y tenía su propio taller; y aunque al principio fue un éxito, más tarde cayó en bancarrota y la familia se encontró viviendo en la pobreza. Fue entonces cuando su padre se convirtió en alcohólico y golpeaba a su mujer e hijo en estado de embriaguez. Tras años de abusos, Arkady y su madre le abandonaron y comenzaron una vida errante, viviendo con vagabundos y sin techo durante la siguiente década. Cuando ya era un adoslecente se mudaron a la casa de un amigo de la familia, un pastor Orzhov, quien más tarde le consiguió una plaza a Arkady en la Escuela Eclesiástica. Aunque se metió en muchas peleas, destacó en el ámbito académico, demostrando su talento en las clases de pintura y teatro, escribiendo su propia poesía, y cantando como niño de coro. Durante su infancia se enfrentó a varios problemas graves de salud: una infección de viruela le dejó cicatrices en la cara; y a la edad de 12 años se lesionó gravemente al ser atropellado por un centauro, probablemente la causa de una discapacidad de por vida en su brazo izquierdo. Gracias a una beca que le permitía estudiar a un precio reducido, se matriculó en el Seminario Espiritual Orzhov. Se unió a los 600 sacerdotes en formación que se alojaban allí, y obtuvo altas calificaciones. Continuó escribiendo poesía: cinco de sus poemas, sobre temas como la naturaleza, la tierra y el patriotismo, se publicaron bajo seudónimo en las revistas dominicales. Sin embargo, a medida que crecía, Arkady perdió el interés por los estudios sacerdotales: sus notas bajaron, y fue confinado repetidamente en una celda por su comportamiento rebelde. El diario del seminario señaló que se declaraba ateo, se retiraba de las oraciones y se negaba a quitarse el sombrero ante los monjes. Se unió a un club de libros prohibidos en la escuela; estuvo especialmente influenciado por libros pro-revolucionarios y textos profanos Rakdos. Arkady se dedicó a la teoría sociopolítica, que entonces estaba en auge en Ravnica, una de las diversas formas de socialismo opuestas a las autoridades Azorius que gobiernan la ciudad. Por la noche, asistía a reuniones obreras secretas y acudía a asambleas Gruul, donde empezó a demostrar un gran poder de oratoria. Finalmente, abandonó el seminario para unirse a una tribu errante Gruul, y nunca regresó.",
-      "info": "",
+      "info": "Veu: apassionada, oratòria natural, amb cites de teoria política que semblen versos.\nClau: el passat Orzhov el persegueix i el motiva alhora. Creu en la causa, però no sempre en les persones.\nRol: agitador del barri. Motor de conflicte social. Pot ser aliat o problema depenent de com el tractin els PJs.",
       "tags": [
         "Gruul"
       ],
@@ -318,7 +318,7 @@
     {
       "nom": "Ikram la Contrabandista",
       "bio": "La Guerra de la chispa conmocionó los cimientos de todo el plano, haciendo desaparecer edificios e incluso barriadas enteras, y forzando el desplazamiento de miles de refugiados a zonas más seguras. Para gente como Ikram, quien no parece tener un hogar al que volver, ha implicado buscarse la vida de formas más creativas para poder sobrevivir y medrar en una ciudad que no concede muchas oportunidades (y unos pocos psicotrópicos de contrabando nunca han hecho daño a nadie)",
-      "info": "",
+      "info": "Veu: tranquil·la, antiga, sense pressa. Parla de la mort com si fos el temps.\nClau: tres segles de vida fan que res l'impressioni. La seva lleialtat és al cicle, no a les persones.\nRol: recurs d'informació i verins per a Svikull. Tractar-la amb respecte, mai com a subordinada.",
       "tags": [
         "Golgari"
       ],
@@ -330,7 +330,7 @@
     {
       "nom": "Bookworm el Consigliere",
       "bio": "",
-      "info": "",
+      "info": "Veu: acadèmica, precisa, lleugerament pedant.\nClau: lleial al Enjambre Ochran, no a Svikull personalment. La diferència importa.\nRol: intermediari polític del Golgari per a Svikull. Dona ordres disfressades de consells.",
       "tags": [
         "Golgari"
       ],
@@ -342,7 +342,7 @@
     {
       "nom": "Kakí Skýla, Lugarteniente del Enjambre Ochran",
       "bio": "",
-      "info": "",
+      "info": "Veu: breu, tallant, sense cortesia innecessària.\nClau: avalua constantment l'utilitat de Svikull. Si deixa de ser-ho, ho notarà.\nRol: amenaça latent i jerarquia real per damunt de Svikull dins del Golgari.",
       "tags": [
         "Golgari"
       ],
@@ -354,7 +354,7 @@
     {
       "nom": "Tajic, Espada de la Legión",
       "bio": "Como segundo al mando, Tajic se opuso al plan de Aurelia de unirse con los otros gremios en su lucha contra las fuerzas de Bolas. Tajic cree que los Boros sólo pueden confiar en los Boros. Está convencido de que cualquier esfuerzo de paz entre los gremios está condenado al fracaso sin el Pacto del Gremio. Los Boros, argumenta, estarían mejor gastando su energía para hacerse más fuertes y así poder mantener el frágil equilibrio que existe ahora y proteger a los inocentes cuando la balanza se inclina. Aurelia cree que su actitud negativa corre el riesgo de envenenar los corazones de los otros Boros y socavar cualquier esfuerzo de paz.",
-      "info": "",
+      "info": "Veu: directa, marcial, sense floritures. \"Los Boros solos. Siempre.\"\nClau: no és el vilà: és un home de principis equivocats. Creu el que diu.\nRol: antagonista intern dels Boros. En conflicte ideològic permanent amb Aurelia i Sila.",
       "tags": [
         "Boros"
       ],
@@ -366,7 +366,7 @@
     {
       "nom": "Sargento Instructor Gough",
       "bio": "Gough \"Ojo de Halcón\" fue una vez uno de los cuatro caballeros Boros y líder de los Wojek, la fuerza de asalto de élite de la Legión. Sin embargo, Gough no carecía de enemigos: su visión fue afectada por villanos que le consideraban un gigante salvaje, y pensaron que cubriéndole con resina los agujeros de los ojos de su yelmo le podrían derrotar (aunque en realidad esto no disminuyó su capacidad de lanzar jabalinas con precisión mortal). Cegado, dedica sus días a preparar a las nuevas generaciones de cadetes, y pasa el tiempo reflexionando filosóficamente sobre la virtud, el valor y el significado de la palabra \"legionario\".",
-      "info": "",
+      "info": "Veu: lenta, reflexiva, amb pauses llargues. Parla com qui ha vist massa coses.\nClau: cec físicament però no metafòricament. Detecta la veritat instintivament.\nRol: mentor/pare de Wundyr. La seva saviesa és real, però el sistema que defensa no sempre ho és.",
       "tags": [
         "Boros"
       ],
@@ -390,7 +390,7 @@
     {
       "nom": "Mecenas misterioso",
       "bio": "",
-      "info": "Araithia Shokta",
+      "info": "Veu: mai apareix directament. Notes, missatges, intermediaris.\nClau: invisible per disseny. Si apareix en persona, és que alguna cosa important passa.\nRol: fil Dimir per a Svikull. Manipula, no ordena.",
       "tags": [
         "Dimir"
       ],
@@ -402,7 +402,7 @@
     {
       "nom": "Ministrant Tobias Forge",
       "bio": "Tobias Forge lleva tres décadas haciendo que las cosas funcionen en silencio. No figura en ninguna lista de poder, no preside ningún consejo, no firma ningún contrato que lleve su nombre en primera línea. Y sin embargo, cuando algo se rompe en el Cuarto Precinto, es él quien lo arregla antes de que nadie se entere de que estaba roto.\nEncontró a Ezzio Salvatore cuando el chico todavía no sabía bien lo que era. Vio algo útil. Quizás algo más. Lo formó, lo cubrió, lo ascendió. Ahora Ezzio es Caballero, y Tobias se pregunta en silencio si ha construido un activo o un problema.\nSigue siendo leal al Sindicato. Siempre lo será. La pregunta es si el Sindicato seguirá siendo leal a él.",
-      "info": "",
+      "info": "Veu: pausada, paterna, amb subtext constant. Rarament diu el que vol dir directament.\nClau: genuïnament vol Ezzio, però el Sistema Orzhov és el que és. La seva lleialtat al Sindicat és absoluta.\nRol: figura paterna ambigua d'Ezzio. Ha de generar afecte i desconfiança alhora.",
       "tags": [
         "Orzhov"
       ],
@@ -414,7 +414,7 @@
     {
       "nom": "Glenn Danzing, Sicario del Sindicato",
       "bio": "",
-      "info": "",
+      "info": "Veu: professional, neutral, com un servei tècnic.\nClau: no té opinió sobre les feines. Les fa. Prou.\nRol: recordatori que el Sindicat té braç executor. Apareix quan les paraules ja no funcionen.",
       "tags": [
         "Orzhov"
       ],
@@ -426,7 +426,7 @@
     {
       "nom": "Padre Messiah Marcolin",
       "bio": "",
-      "info": "",
+      "info": "Veu: pastoral, càlida, amb cites velades. Inspira confiança immediatament.\nClau: l'orfenat és una xarxa de reclutament Dimir. Ho fa amb genuïna cura pels nens, però els resultats són els mateixos.\nRol: connexió fosca amb el passat d'Ezzio. Apareix quan convé destabilitzar-lo.",
       "tags": [
         "Orzhov",
         "Dimir"
@@ -439,7 +439,7 @@
     {
       "nom": "Niv-Mizzet, el Dracogenio",
       "bio": "Niv-Mizzet, comúnmente conocido como el Mente de Fuego,es un antiguo dragón de color marrón rojizo de Ravnica obsesionado con la omnisciencia. A pesar de su tamaño, es capaz de moverse con ligereza y gracia. Tiene una cola retorcida, largas alas con bordes azules, un largo cuello, membranas espinosas alrededor de su cabeza y largos cuernos oscuros. El intelecto del Mente de Fuego excede al de los mortales estándar en varios niveles, y es conocido por muchos inventos ingeniosos que actualmente sirven a los ciudadanos de Ravnica, siendo el más conocido el casi indestructible, pero fácilmente utilizable y forjable metal, el mizzium. Poseedor de una arrogancia y vanidad que iguala su vasto intelecto y su tremendo poder, Niv-Mizzet dirige la investigación y los experimentos de Izzet desde hace más de 10.000 años, a menudo desde su laboratorio privado en la cima de Nivix, sede gremial de los Izzet. Como el nuevo Pacto del Gremio Viviente, el Mente de Fuego sirve ahora como guardián de la propia Ravnica. Debido a su extrema edad, su triunfo sobre numerosos desafíos, y su estatus de mago dragón, Niv-Mizzet posee un conocimiento que ningún otro posee, incluyendo hechizos que se han perdido en el tiempo y armas cuyas hechuras se han perdido.",
-      "info": "",
+      "info": "Veu: si apareix: omniscient, distant, com si parlar amb mortals li costés esforç.\nClau: sap coses que ningú més sap. La seva desaparició és el misteri que lliga l'Arc 3 amb el que ve.\nRol: absència que pesa. Usa'l com a referència constant, no com a personatge present.",
       "tags": [
         "Izzet"
       ],
@@ -451,7 +451,7 @@
     {
       "nom": "Sestri, Degana del Laboratorio de Tormentas y Electricidad",
       "bio": "",
-      "info": "",
+      "info": "Veu: tècnica, eficient, lleument defensiva des de la crisi de l'Arc 3.\nClau: intenta mantenir la Liga funcional en absència de Niv-Mizzet. No té la seva autoritat ni el seu geni.\nRol: interlocutora oficial de l'Izzet post-Arc 3. Pot ser aliada tècnica si cal.",
       "tags": [
         "Izzet"
       ],
@@ -463,7 +463,7 @@
     {
       "nom": "Coldie, Genio Inestable",
       "bio": "",
-      "info": "",
+      "info": "Veu: entusiasta, dispersa, salta de tema sense avisar. Els experiments l'emocionalen.\nClau: brillant però impredictible. Les seves idees poden ser genials o catastròfiques. Sovint les dues alhora.\nRol: còmic de relleu i recurs tècnic caòtic. Útil per a situacions on cal improvisació.",
       "tags": [
         "Izzet"
       ],
@@ -475,7 +475,7 @@
     {
       "nom": "Rotxar, Cultista Tatuador",
       "bio": "",
-      "info": "",
+      "info": "Veu: intensa, ritualista, amb pauses que semblen amenaces.\nClau: la violència és el seu idioma natural, però la conté quan el codi del cult ho exigeix.\nRol: figura de color i perill físic dins del cercle Rakdos.",
       "tags": [
         "Rakdos"
       ],
@@ -487,7 +487,7 @@
     {
       "nom": "Tai On, Justicar del Senado",
       "bio": "",
-      "info": "",
+      "info": "Veu: formal, condescendent, sempre amb un subtext de \"esteu perdent el meu temps\".\nClau: visible a Marchena. La representa institucionalment però la usa políticament.\nRol: obstacle burocràtic de rang alt. Apareix quan la situació escala.",
       "tags": [
         "Azorius"
       ],
@@ -499,7 +499,7 @@
     {
       "nom": "Randall, Comunero Pacifista",
       "bio": "",
-      "info": "",
+      "info": "Veu: càlida, entusiasta, amb tendència al moralisme no demanat.\nClau: fanàtic sincer. No és hipòcrita: creu de veritat. Que sigui el problema.\nRol: representació del perill del pensament grupal voluntari. Useful, irritant, i ocasionalment inquietant.",
       "tags": [
         "Selesnya"
       ],
@@ -511,7 +511,7 @@
     {
       "nom": "Khatnas, Juez de Asuntos Internos",
       "bio": "",
-      "info": "",
+      "info": "Veu: suau, pausada, inquietant. Sembla comprensiu. No ho és.\nClau: investiga als seus. Marchena és al seu punt de mira o al seu radar.\nRol: amenaça latent per a Marchena. La seva aparició ha d'inquietar.",
       "tags": [
         "Azorius"
       ],
@@ -523,7 +523,7 @@
     {
       "nom": "Nebum Gerava, Arbites del Senado",
       "bio": "Vigila a tus hermanos, su pecado de herejía es tu pecado de tolerancia.",
-      "info": "",
+      "info": "Veu: severa, sentenciosa. \"La herejía de tu hermano es tu herejía.\"\nClau: doctrinari pur. No negocia. No cedeix. Creu el que diu.\nRol: antagonista ideològic de Marchena. Representa l'Azorius més intransigent.",
       "tags": [
         "Azorius"
       ],
@@ -535,7 +535,7 @@
     {
       "nom": "Gasz, Matón de la Calle de Hojalata",
       "bio": "",
-      "info": "Extorsiona a la familia de Brir",
+      "info": "Veu: intimidatoria, simple, directa.\nClau: extorsiona una família concreta. No és una organització, és un individu amb un negoci petit i brut.\nRol: problema de carrer resoluble. Bona introducció a la violència urbana del barri.\nGuia d'interpretació de personatges · Las Calles de Ravnica · Actualitzat: Arc 3 completat",
       "tags": [
         "Guildless"
       ],
@@ -547,7 +547,7 @@
     {
       "nom": "Luda Manson, Productora y Cazatalentos",
       "bio": "Luda Manson era la mejor representante de artistas de la pasada década y, aunque ahora todo ha cambiado, ella no. Cuando Juanita Mexita, su promesa más conocida, la abandona inesperadamente, el mundo de Luda se tambalea. Junto a Kasz, su nueva promesa, y Rotxar, un tatuador pendenciero, que acabará convertido en parte de la familia, Luda se lanza desesperada al descubrimiento de nuevo talento. Una búsqueda que le hará encontrar su lugar en la profesión y en el mundo tras la guerra.",
-      "info": "",
+      "info": "Veu: exagerada, dramàtica, com si cada conversa fos una actuació.\nClau: el món Rakdos és el seu món natural. Genuïnament vol talent, genuïnament no li importa el cost.\nRol: porta d'entrada al món Rakdos per a Wundyr i Kasz. Pot obrir o tancar portes.",
       "tags": [
         "Rakdos"
       ],
@@ -559,7 +559,7 @@
     {
       "nom": "Ylldiane, Intendente Mayor",
       "bio": "",
-      "info": "",
+      "info": "Veu: administrativa, eficient, lleugerament exasperada amb tothom.\nClau: gestiona Casa Solar. Sap moltes coses que no pot dir oficialment.\nRol: font d'informació interna dels Boros per a Wundyr, si la sap treballar.",
       "tags": [
         "Boros"
       ],
@@ -595,7 +595,7 @@
     {
       "nom": "Giagia, Ama de llaves del Hogar Ancestral Dalverjar",
       "bio": "Ikram es el nombre falso bajo el que se esconde Giagia, la antigua ama de llaves del Hogar Ancestral Dalverjar, y lleva más de 3 siglos sirviendo a esta familia devkarin de la corte del sur. Su habilidad para preparar tinturas, pociones y venenos es legendaria entre los Golgari de cierto renombre, pero su manejo de la daga no se limita a la preparación de ingredientes. Para ella, la caída del hogar solo fue parte del ciclo de las cosas: sabe que todo se desmorona y se pudre al final, y luego una nueva vida surge de esa podredumbre. El tiempo pasa inevitablemente, trayendo tanto destrucción como nueva creación a todas las cosas, y ahora que ha encontrado al heredero perdido de los Dalverjar, pondrá todo su empeño a servirles una vez más.",
-      "info": "",
+      "info": "Veu: tranquil·la, antiga, sense pressa. Parla de la mort com si fos el temps.\nClau: tres segles de vida fan que res l'impressioni. La seva lleialtat és al cicle, no a les persones.\nRol: recurs d'informació i verins per a Svikull. Tractar-la amb respecte, mai com a subordinada.",
       "tags": [
         "Golgari"
       ],
@@ -655,7 +655,7 @@
     {
       "nom": "Rezana, Médico Azorius",
       "bio": "",
-      "info": "",
+      "info": "Veu: clínica, precisa, poc empàtica. Diagnòstic primer, persona després.\nClau: fa bé la seva feina. No menteix, però tampoc s'implica més del necessari.\nRol: servei mèdic neutral. Pot ser font d'informació forense si se la tracta bé.",
       "tags": [
         "Azorius"
       ],
@@ -667,7 +667,7 @@
     {
       "nom": "Alysa la Sastre",
       "bio": "",
-      "info": "molt inteligent, es fa la tonta y la superficial, molt diva, mata hari",
+      "info": "Veu: efusiva, frívola, amb compliments constants que mai acaben on sembla que aniran.\nClau: mai respon directament. Cada pregunta que li fan és informació per a ella.\nRol: font d'informació i perill latent. Els PJs no han de saber mai del cert de quin bàndol és.",
       "tags": [
         "Dimir"
       ],
@@ -679,7 +679,7 @@
     {
       "nom": "Albert Camus de la Oficina del Banco",
       "bio": "",
-      "info": "Financer, agarrat, depresiu, salary man, desagradable amb tothom pq esta fins la polla",
+      "info": "Veu: plana, seca, sense inflexió emocional. Com llegir un extracte bancari en veu alta.\nClau: miserable, però eficient. Desagradable amb tothom perquè odia la seva vida.\nRol: obstacle burocràtic. Porta d'accés a recursos Orzhov per a Ezzio, però sempre amb un cost.",
       "tags": [
         "Orzhov"
       ],
@@ -691,7 +691,7 @@
     {
       "nom": "Mira, la de correos",
       "bio": "Mira lleva las cartas del Aventino desde que abrió la oficina, que nadie recuerda exactamente cuándo fue. Cobra una tarifa fija por envíos locales, otra por los de distrito, y una tercera por los urgentes que casi nadie usa porque sale muy caro. El horario está pegado en la puerta con cinta, aunque la cinta se está despegando por un lado.\nSi le preguntas cómo está, dice \"bien\". Si le preguntas de dónde es, dice \"de aquí\". Si le preguntas si ha visto a alguien pasar por la oficina, dice el nombre, la hora y el número de paquetes sin pestañear, porque eso es su trabajo.\nCasi nadie le ha preguntado nunca cómo se llama.",
-      "info": "",
+      "info": "Veu: monosil·làbica, neutral, eficient. \"Bien.\" \"De aquí.\" \"Sí.\"\nClau: recorda tot el que passa per la seva finestreta. Literalment tot.\nRol: font d'informació passiva extraordinària si algú pensa a preguntar-li bé.",
       "tags": [
         "Dimir"
       ],
@@ -703,7 +703,7 @@
     {
       "nom": "Aiker Bosset",
       "bio": "Despues del dolor causado por la guerra, no dejará que esta se vuelva a producir o por lo menos tendrá suficiente poder como para aplacarla. Incansable en la búsqueda de poder, utilizará todos los recursos Simic a su disposición para evolucionar a una forma de vida superior, si la naturaleza no evoluciona lo suficientemente rápido, le dará un empujón. Uniros a la lucha o no os interpongáis. Cualquiera que busque la guerra será aniquilado.",
-      "info": "",
+      "info": "Veu: determinada, intensa, amb frases curtes com ordres a si mateix.\nClau: poder com a objectiu, no com a instrument. Ja no distingeix entre els dos.\nRol: PJ absent. Si apareix com a NPC, mostrar la deriva sense jutjar-la explícitament.",
       "tags": [
         "Simic"
       ],
@@ -715,7 +715,7 @@
     {
       "nom": "Los fieles seguidores del Maestro, el Evolucionador de hombres",
       "bio": "El Maestro dijo: “Los sanos no tienen necesidad de médico, sino los enfermos”. Él vino realmente a buscar, levantar y salvar a los que están perdidos, a los débiles y abatidos. ¡Sí, Maestro, vienes a levantar al débil y lo tomas en tus brazos! ¡Qué poderosa verdad! Verdaderamente el Maestro te toma en Sus brazos de amor en este día, querido(a) amigo(a). Él te conduce hacia la Verdad y la mejora personal.",
-      "info": "",
+      "info": "Veu: coral, dòcil, amb frases fetes de sermó.\nClau: no saben el que fan realment. Això és el més inquietant.\nRol: massa de fons que mostra la capacitat de manipulació del Simic. Invisible fins que no ho és.",
       "tags": [
         "Simic"
       ],
@@ -727,7 +727,7 @@
     {
       "nom": "Trisz, Legionario Caido (Fallecido)",
       "bio": "Pese a que el hambre y el miedo siempre han estado presentes en su vida, Trisz nunca ha considerado tener una infancia infeliz. Criado en barrios que ya eran pobres antes de la Guerra de la Chispa, él y su familia malvivían como parias, con la incertidumbre constante de donde vendría el próximo bocado (si es que llegaba), pero siempre se tuvieron los unos a los otros. Su hermana en particular era una fuente constante de cándida alegría, y un solo abrazo suyo era capaz de hacerle olvidar las palizas recibidas durante el día o las desgracias vividas. Que ella pudiera seguir jugando con sus juguetes y tuviera una vida mejor fue lo que le empujó a alistarse (aunque ella odiase esa decisión). Con su última exhalación susurró su nombre.... LEGIO AETERNA VICTRIX",
-      "info": "",
+      "info": "Rol: absència que pesa. El seu nom pot aparèixer en moments clau per a Wundyr i Ezzio. No el ressuscitis, usa'l com a record i culpa.",
       "tags": [
         "Boros"
       ],
@@ -739,7 +739,7 @@
     {
       "nom": "Pandora, Espíritu Servicial",
       "bio": "",
-      "info": "",
+      "info": "Veu: serena, una mica melancòlica. Obedient per contracte, no per voluntat.\nClau: el seu futur depèn d'Ezzio. Que ell ho senti com a pes, no com a poder.\nRol: dilema moral actiu d'Ezzio. No la resolgueu vosaltres com a DM: deixeu-la com a pregunta oberta.",
       "tags": [
         "Orzhov"
       ],
@@ -751,7 +751,7 @@
     {
       "nom": "Nullan, Xofer de Ezzio",
       "bio": "Nullan lleva años conduciendo carruajes por el Aventino. Nadie recuerda exactamente cuándo apareció, ni para quién trabajaba antes. Lo que sí recuerda todo el mundo es la flasca que lleva siempre en el cinturón y el olor a aguardiente barato que parece seguirle a todas partes. Es puntual, no hace preguntas y nunca pierde una dirección. Para un caballero Orzhov que necesita discreción, un cochero que nadie mira dos veces vale más que uno que recuerda todo el mundo.",
-      "info": "",
+      "info": "Veu: monosil·làbic, puntual, amb olor a aiguardent barat. No fa preguntes.\nClau: sap més del que mostra. És Dimir. Observa sempre.\nRol: recurs de mobilitat per a Ezzio amb un cost informatiu que aquest no percep.",
       "tags": [
         "Dimir"
       ],
@@ -763,7 +763,7 @@
     {
       "nom": "Drekk, revolucionario desencantado",
       "bio": "Drekk llegó al Aventino siguiendo el rastro de Yarog, como tantos otros Gruul que vieron en el campamento algo parecido a un hogar. Lo que encontró fue un trabajo, un catre y la misma pobreza de siempre, solo que rodeada de piedra en lugar de tierra.\nEn los Yermos, su tamaño era una ventaja. En las obras del Computador, es un problema. No cabe por las puertas de la oficina de contratación. No puede subir a las plataformas superiores. Cobra lo mismo que un obrero humano y carga tres veces más. Nadie lo ha dicho en voz alta, pero Drekk lo sabe: la ciudad no fue construida para él.\nTodavía no ha decidido nada, pero eso no va a durar para siempre.",
-      "info": "",
+      "info": "Veu: lenta, cansada, amb moments de rabia que controla just.\nClau: no ha decidit res encara. Però l'ha de decidir. El context el pressiona cap a la violència.\nRol: mirall de Yarog. Representa el que pot passar quan el sistema esgota la paciència d'un Gruul.",
       "tags": [
         "Gruul"
       ],
