@@ -599,8 +599,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",background:BG,...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:10}:{})}}>
     {imgZoom&&edImgSrc&&ReactDOM.createPortal(
       <div onClick={()=>setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
-        <button onClick={e=>{e.stopPropagation();setImgZoom(false);}} style={{position:"absolute",top:16,right:20,background:"#ffffff18",border:"1px solid #ffffff33",borderRadius:"50%",color:"#fff",fontSize:20,width:38,height:38,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1,zIndex:1}}>×</button>
-        <img src={edImgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e"}} onClick={e=>e.stopPropagation()}/>
+        <img src={edImgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e",cursor:"zoom-out"}} onClick={()=>setImgZoom(false)}/>
       </div>,document.body)}
     <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
       {edImgSrc?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
