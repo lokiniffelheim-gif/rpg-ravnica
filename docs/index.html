@@ -81,7 +81,9 @@ const IMG_CHARS={
   "Coldie, Genio Inestable":"personajes/Coldie, Genio Inestable.png","Rotxar, Cultista Tatuador":"personajes/Rotxar, Cultista Tatuador.png",
   "Tai On, Justicar del Senado":"personajes/Tai On, Justicar del Senado.jpg","Randall, Comunero Pacifista":"personajes/Randall, Comunero Pacifista.jpg",
   "Khatnas, Juez de Asuntos Internos":"personajes/Khatnas, Juez de Asuntos Internos.jpg","Nebum Gerava, Arbites del Senado":"personajes/Nebum Gerava, Arbites del Senado.jpg",
-  "Gasz, Matón de la Calle de Hojalata":"personajes/Gasz, Matón de la Calle de Hojalata.jpg","Luda Manson, Productora y Cazatalentos":"personajes/Luda Manson, Productora y Cazatalentos.jpg",
+  "Gasz, Matón de la Calle de Hojalata":"personajes/Gasz, Matón de la Calle de Hojalata.jpg","Luda Manson, Productora y Cazatalentos":"personajes/Luda Manson, Productora y Cazatalentos.png",
+  "Drekk, revolucionario desencantado":"personajes/Drekk, revolucionario desencantado.png",
+  "Mira, la de correos":"personajes/Mira, la de correos.png",
   "Ylldiane, Intendente Mayor":"personajes/Ylldiane, Intendente Mayor.jpg","Ayudantes de laboratorio Izzet":"personajes/Ayudantes de laboratorio Izzet.jpg",
   "Reclutas Azorius":"personajes/Reclutas Azorius.png","Giagia, Ama de llaves del Hogar Ancestral Dalverjar":"personajes/Giagia, Ama de llaves del Hogar Ancestral Dalverjar.jpg",
   "Escuadrón Boros":"personajes/Escuadrón Boros.jpg","Anarquistas Gruul":"personajes/Anarquistas Gruul.jpg",
@@ -242,7 +244,7 @@ function renderMd(md){
   flushTable();closeUl();closeP();
   return html;
 }
-</script>
+</script>
 <script type="text/babel" charset="UTF-8">
 function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar}){
   const arr=parsePers(value);
@@ -400,9 +402,7 @@ function RangoTable({value,onChange,accent,readOnly}){
 function Rule({color}){const c=color||GOLD;return(<div style={{display:"flex",alignItems:"center",gap:8,margin:"12px 0"}}><div style={{flex:1,height:"1px",background:"linear-gradient(to right,transparent,"+c+"55)"}}/><span style={{fontSize:10,color:c,opacity:.6}}>✦</span><div style={{flex:1,height:"1px",background:"linear-gradient(to left,transparent,"+c+"55)"}}/></div>);}
 
 function SortBtn({sort,onSort}){
-  const labels={none:"A-Z",asc:"Z-A",desc:"•••"};
-  const colors={none:"#9a8a68",asc:GOLD,desc:GOLD};
-  return(<button onClick={onSort} title="Ordenar" style={{fontSize:10,padding:"2px 8px",borderRadius:10,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",border:"1px solid "+(sort!=="none"?GOLD+"88":BORDER),background:sort!=="none"?GOLD+"22":"transparent",color:colors[sort],transition:"all .15s"}}>{labels[sort]}</button>);
+  return(<button onClick={onSort} title="Ordenar" style={{fontSize:10,padding:"2px 8px",borderRadius:10,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",border:"1px solid "+GOLD+"88",background:GOLD+"22",color:GOLD,transition:"all .15s"}}>{sort==="asc"?"A-Z":"Z-A"}</button>);
 }
 
 function SesionesPanel({isMob}){
@@ -574,10 +574,10 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     return filtered.map(id=>{const ch=chars?.find(c=>c.id===id);return ch?ch.nom:id;});
   },[isPlayer,chars,playerName]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fa,setFa]=useState("actius");
-  const [sort,setSort]=useState("none");
+  const [sort,setSort]=useState("asc");
   useEffect(()=>{
     if(!navTarget?.id)return;
-    setQ("");setFg("all");setFa("all");setSort("none");
+    setQ("");setFg("all");setFa("all");setSort("asc");
     const idx=edificis.findIndex(e=>e.id===navTarget.id);
     if(idx>=0){onSelect(idx);setShowD(true);}
   },[navTarget]);
@@ -597,7 +597,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     return r;
   },[edificis,q,fg,fa,sort]);
-  const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
+  const cycleSort=()=>setSort(s=>s==="asc"?"desc":"asc");
 
   const item=sel!==null&&sel<filtered.length?filtered[sel]:null;
   const origI=item?edificis.findIndex(e=>e.nom===item.nom):-1;
@@ -719,7 +719,7 @@ function GremiosPanel({canSeeDimir,isMob}){
 
 function App({user,onUsersPanel}){
   const [tab,setTab]=useState("aventino");
-  const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("none");
+  const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("asc");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
@@ -730,7 +730,7 @@ function App({user,onUsersPanel}){
   const effectiveUser=useMemo(()=>previewAs?{rol:"jugador",personatge:previewAs,email:"preview",uid:"preview"}:user,[previewAs,user]);
   const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("aventino");};
   const navToChar=useCallback(id=>{
-    setTab("chars");setQ("");setFilt("all");setSort("none");setShowD(true);
+    setTab("chars");setQ("");setFilt("all");setSort("asc");setShowD(true);
     const idx=cs.findIndex(x=>x.id===id);setSel(idx>=0?idx:null);
   },[cs]);
   const navToEdifici=useCallback(id=>{
@@ -778,13 +778,13 @@ function App({user,onUsersPanel}){
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
   const updG=(gremi,field,val)=>{const nd={...gds,[gremi]:{...(gds[gremi]||{}),[field]:val}};setGds(nd);saveKey("gremios",nd);};
 
-  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:"",id:genId()}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
-  const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:"",id:genId()}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
+  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:"",id:genId()}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("asc");setSel(h.length-1);setShowD(true);};
+  const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:"",id:genId()}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("asc");setSel(c.length-1);setShowD(true);};
   const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:"",id:genId()}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
   const items=tab==="handouts"?hs:cs;
   const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.id===fi.id):cs.findIndex(x=>x.id===fi.id),[hs,cs,tab]);
-  const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
+  const cycleSort=()=>setSort(s=>s==="asc"?"desc":"asc");
 
   const canSeeDimir=useMemo(()=>effectiveUser.rol==="dm"||(cs.find(c=>c.nom===effectiveUser.personatge)?.tags||[]).includes("Dimir"),[effectiveUser,cs]);
   const secureT=useCallback((tags,charNom)=>{
@@ -809,7 +809,7 @@ function App({user,onUsersPanel}){
   const isPJ=item&&PJS.includes(item.nom);
   const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.id)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
-  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);setImgZoom(false);}
+  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);}
   function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
