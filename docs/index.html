@@ -772,7 +772,7 @@ function App({user,onUsersPanel}){
     if(effectiveUser.rol==="dm")return tags||[];
     if(charNom===effectiveUser.personatge)return tags||[];
     if(canSeeDimir&&!PJS.includes(charNom))return tags||[];
-    return(tags||[]).filter(t=>t!=="Dimir");
+    const f=(tags||[]).filter(t=>t!=="Dimir");return f.length?f:["Guildless"];
   },[effectiveUser,canSeeDimir]);
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
