@@ -63,7 +63,7 @@ const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"ap
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 const GH_BASE="assets/img/";
 const IMG_CHARS={
-  "Ezzio Salvatore":"personajes/Ezzio Salvatore.jpg","Wundyr Somo":"personajes/Wundyr Somo.jpg","Yarog (HorseLuis)":"personajes/Yarog (HorseLuis).jpg",
+  "Ezzio Salvatore":"personajes/Ezzio Salvatore.jpg","Wundyr Somo":"personajes/Wundyr Somo.jpg","Wundyr Somo (Torito)":"personajes/Wundyr Somo.jpg","Yarog (HorseLuis)":"personajes/Yarog (HorseLuis).jpg",
   "Manjatan":"personajes/Manjatan.jpg","Svikull Rusl":"personajes/Svikull Rusl.jpg","Marchena":"personajes/Marchena.jpg","Kasz":"personajes/Kasz.jpg",
   "El Vocero":"personajes/El Vocero.jpg","Pesha la Tabernera":"personajes/Pesha la Tabernera.jpg","Kotyali la Cazadora":"personajes/Kotyali la Cazadora.jpg",
   "Shazel Bara, Chaman del clan":"personajes/Shazel Bara, Chaman del clan.jpg","Obez el Prestamista":"personajes/Obez el Prestamista.jpg",
@@ -189,7 +189,7 @@ async function loadData(key,def,imgKey){
     const normMap=buildNormMap(initMap);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
     const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
-    data=data.map(x=>{const fb=fallback(x.nom);const stored=x[imgKey]||"";const img=fb||(stored.startsWith("http")?stored:"");return{...x,[imgKey]:img};});
+    data=data.map(x=>{let img=x[imgKey]||fallback(x.nom);if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
   }
   if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;
