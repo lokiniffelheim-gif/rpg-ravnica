@@ -637,12 +637,10 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           <span style={{position:"absolute",left:9,top:"50%",transform:"translateY(-50%)",fontSize:13,color:GOLD,opacity:.5,pointerEvents:"none"}}>⚜</span>
           <input type="text" placeholder="Buscar edificios..." value={q} onChange={e=>{setQ(e.target.value);onSelect(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
         </div>
-        <div style={{display:"flex",gap:3,flexWrap:"wrap",marginBottom:5}}>
-          <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TODOS</button>
-          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
-        </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
           <SortBtn sort={sort} onSort={cycleSort}/>
+          <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TODOS</button>
+          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
           <span style={{marginLeft:"auto",fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
         </div>
       </div>
@@ -900,10 +898,10 @@ function App({user,onUsersPanel}){
             <input type="text" placeholder={"Cerca "+(tab==="handouts"?"objectes":"personatges")+"..."} value={q} onChange={e=>{setQ(e.target.value);setSel(null);}} style={{width:"100%",padding:"7px 10px 7px 28px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"#ede3c8",WebkitTextFillColor:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:14,outline:"none"}}/>
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
+            <SortBtn sort={sort} onSort={cycleSort}/>
             <button className="rv-filter" onClick={()=>setFilt("all")} style={{background:filt==="all"?GOLD+"22":"transparent",border:"1px solid "+(filt==="all"?GOLD+"88":BORDER),color:filt==="all"?GOLD:"#9a8a68"}}>TODOS</button>
             {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)
             :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#9a8a68"}}>{p}</button>)}
-            <SortBtn sort={sort} onSort={cycleSort}/>
           </div>
         </div>
         <div style={{overflowY:"auto",flex:1}}>
