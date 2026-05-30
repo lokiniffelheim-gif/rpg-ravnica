@@ -841,10 +841,10 @@ function App({user,onUsersPanel}){
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
-      {tab==="chars"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>RANGO GREMIAL</div>
+      {tab==="chars"&&item.controlledby!=="DM"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>RANGO GREMIAL</div>
         <RangoTable value={item.rangoGremial} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
-      {tab==="chars"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
+      {tab==="chars"&&item.controlledby!=="DM"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
         <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {effectiveUser.rol==="dm"&&<><Rule/>
