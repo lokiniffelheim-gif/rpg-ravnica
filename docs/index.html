@@ -915,6 +915,7 @@ function App({user,onUsersPanel}){
             const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
             const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`ravnica-${new Date().toISOString().slice(0,10)}.txt`;a.click();
           }} style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>📦</button>}
+          {user.rol==="dm"&&<label title="Importar imatges migrades (img-export-migrated.json)" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",display:"inline-flex",alignItems:"center"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
           <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
