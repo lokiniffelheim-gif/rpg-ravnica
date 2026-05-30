@@ -879,6 +879,41 @@ function App({user,onUsersPanel}){
             </div>,document.body)}
           </div>)}
 {onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
+          {user.rol==="dm"&&<button title="Descarregar dades per a Claude" onClick={()=>{
+            const idToName=id=>{const c=cs.find(x=>x.id===id);return c?c.nom:id;};
+            const lines=[];
+            lines.push("# LOS ARCHIVOS DE RAVNICA — Exportació per a Claude");
+            lines.push(`Data: ${new Date().toLocaleDateString("ca-ES")}\n`);
+            lines.push("## PERSONATGES");
+            cs.forEach(c=>{
+              lines.push(`\n### ${c.nom}`);
+              if(c.tags?.length)lines.push(`Gremi: ${c.tags.join(", ")}`);
+              if(c.controlledby)lines.push(`Control: ${c.controlledby}`);
+              if(c.visible)lines.push(`Visible a: ${c.visible}`);
+              const locs=eds.filter(e=>parsePers(e.personajes).includes(c.id)&&e.activo).map(e=>e.nom);
+              if(locs.length)lines.push(`Localitzacions: ${locs.join(", ")}`);
+              if(c.bio)lines.push(`Bio: ${c.bio}`);
+              if(c.rangoGremial?.titulo||c.rangoGremial?.sueldo)lines.push(`Rang gremial: ${JSON.stringify(c.rangoGremial)}`);
+              if(c.info)lines.push(`Notes DM: ${c.info}`);
+            });
+            lines.push("\n## EDIFICIS");
+            eds.forEach(e=>{
+              lines.push(`\n### ${e.nom} [${e.gremi}${e.activo?"":" — INACTIU"}]`);
+              const pers=parsePers(e.personajes).map(idToName).filter(Boolean);
+              if(pers.length)lines.push(`Personatges: ${pers.join(", ")}`);
+              if(e.descripcion)lines.push(`Descripció: ${e.descripcion}`);
+              if(e.conflicto)lines.push(`Conflicte: ${e.conflicto}`);
+              if(e.ideas)lines.push(`Notes DM: ${e.ideas}`);
+            });
+            lines.push("\n## OBJECTES");
+            hs.forEach(h=>{
+              lines.push(`\n### ${h.nom} [${h.propietari||"Compartido"}]`);
+              if(h.contingut||h.bio)lines.push(`Descripció: ${h.contingut||h.bio}`);
+              if(h.notes_dm)lines.push(`Notes DM: ${h.notes_dm}`);
+            });
+            const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
+            const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`ravnica-${new Date().toISOString().slice(0,10)}.txt`;a.click();
+          }} style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⬇</button>}
           <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
