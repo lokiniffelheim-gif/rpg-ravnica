@@ -852,7 +852,6 @@ function App({user,onUsersPanel}){
             ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
             :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
             {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}
-            {effectiveUser.rol==="dm"&&!item.nom.startsWith("Wundyr Somo")&&<button onClick={()=>updC(origI,"wundyrHeart",!item.wundyrHeart)} title="Proeza de Wundyr" style={{background:"none",border:"none",cursor:"pointer",fontSize:17,lineHeight:1,padding:"0 2px",marginLeft:2,opacity:item.wundyrHeart?1:.35,transition:"opacity .15s"}}>{item.wundyrHeart?"❤️":"🤍"}</button>}
             {charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
               <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
@@ -863,9 +862,10 @@ function App({user,onUsersPanel}){
           {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
         </div>
       </div>
-      <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2}}>
+      <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2,alignItems:"center"}}>
         {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
         {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+        {tab==="chars"&&effectiveUser.rol==="dm"&&!item.nom.startsWith("Wundyr Somo")&&<button onClick={()=>updC(origI,"wundyrHeart",!item.wundyrHeart)} title="Proeza de Wundyr" style={{background:"none",border:"none",cursor:"pointer",fontSize:17,lineHeight:1,padding:"0 2px",opacity:item.wundyrHeart?1:.35,transition:"opacity .15s"}}>{item.wundyrHeart?"❤️":"🤍"}</button>}
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
