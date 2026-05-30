@@ -571,11 +571,11 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     const filtered=isPlayer?ids.filter(id=>{const ch=chars?.find(c=>c.id===id);return!ch||visibleToUser(ch.visible,playerName);}):ids;
     return filtered.map(id=>{const ch=chars?.find(c=>c.id===id);return ch?ch.nom:id;});
   },[isPlayer,chars,playerName]);
-  const [q,setQ]=useState("");const [fg,setFg]=useState("all");
+  const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fa,setFa]=useState("all");
   const [sort,setSort]=useState("none");
   useEffect(()=>{
     if(!navTarget?.id)return;
-    setQ("");setFg("all");setSort("none");
+    setQ("");setFg("all");setFa("all");setSort("none");
     const idx=edificis.findIndex(e=>e.id===navTarget.id);
     if(idx>=0){onSelect(idx);setShowD(true);}
   },[navTarget]);
@@ -590,11 +590,11 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const gremis=useMemo(()=>[...new Set(edificis.map(e=>e.gremi))].filter(Boolean).sort(),[edificis]);
   const filtered=useMemo(()=>{
     const lq=q.toLowerCase();
-    let r=edificis.filter(e=>{const ps=parsePers(e.personajes).join(" ");const ms=!lq||e.nom.toLowerCase().includes(lq)||ps.toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||secureG(e.gremi)===fg)&&(!isPlayer||e.activo);});
+    let r=edificis.filter(e=>{const ps=parsePers(e.personajes).join(" ");const ms=!lq||e.nom.toLowerCase().includes(lq)||ps.toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);const ma=isPlayer?e.activo:fa==="all"||( fa==="actius"?e.activo:!e.activo);return ms&&(fg==="all"||secureG(e.gremi)===fg)&&ma;});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     return r;
-  },[edificis,q,fg,sort]);
+  },[edificis,q,fg,fa,sort]);
   const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
 
   const item=sel!==null&&sel<filtered.length?filtered[sel]:null;
@@ -648,6 +648,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           <SortBtn sort={sort} onSort={cycleSort}/>
           <button className="rv-filter" onClick={()=>setFg("all")} style={{background:fg==="all"?GOLD+"22":"transparent",border:"1px solid "+(fg==="all"?GOLD+"88":BORDER),color:fg==="all"?GOLD:"#9a8a68"}}>TODOS</button>
           {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
+          {!isPlayer&&<><button className="rv-filter" onClick={()=>setFa("all")} style={{background:fa==="all"?"#8a7a5a22":"transparent",border:"1px solid "+(fa==="all"?"#8a7a5a88":BORDER),color:fa==="all"?"#c8b880":"#9a8a68"}}>TOTS</button><button className="rv-filter" onClick={()=>setFa("actius")} style={{background:fa==="actius"?"#5a9a3a22":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":"#5a9a3a33"),color:fa==="actius"?"#5a9a3a":"#9a8a68"}}>● ACTIUS</button><button className="rv-filter" onClick={()=>setFa("inactius")} style={{background:fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="inactius"?"#88888888":"#88888833"),color:fa==="inactius"?"#aaa":"#9a8a68"}}>○ INACTIUS</button></>}
           <span style={{marginLeft:"auto",fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
         </div>
       </div>
