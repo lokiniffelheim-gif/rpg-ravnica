@@ -398,7 +398,7 @@ function SesionesPanel({isMob}){
       })}
     </div>
     {sel!==null&&<div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
-      {isMob&&<button onClick={()=>setSel(null)} style={{margin:"12px 14px 4px",background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",padding:0}}>← TORNAR</button>}
+      {isMob&&<button onClick={()=>setSel(null)} style={{margin:"12px 14px 4px",background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",padding:0}}>← VOLVER</button>}
       <div style={{padding:"12px 16px",borderBottom:"1px solid "+BORDER,background:BG2,flexShrink:0}}>
         <div style={{fontSize:12,color:GC[acts[sel].gremi]||GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>{GS[acts[sel].gremi]} {acts[sel].nom}</div>
       </div>
@@ -650,7 +650,7 @@ function GremiosPanel({canSeeDimir,isMob}){
   if(item)return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
       <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:12}}>
-        <button onClick={()=>setSel(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:11,flexShrink:0}}>← TORNAR</button>
+        <button onClick={()=>setSel(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:11,flexShrink:0}}>← VOLVER</button>
         <span style={{fontSize:12,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".08em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{GS[item]} {item.toUpperCase()}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
