@@ -1,0 +1,1380 @@
+{
+  "chars": [
+    {
+      "nom": "Ezzio Salvatore",
+      "bio": "Ezzio se crió en el orfanato Orzov , aprendió de jovencito a esconderse de los curas pedófilos. Una vez adulto decidió pagar su deuda a la orden sirviendo para el gremio. Nunca le había gustado el hedonismo y la falsa moral de muchos miembros de la orden, sin embargo aún creía en la doctrina: \" sólo necesitan un buen guía \".\nPersonatge: https://pathbuilder2e.com/launch.html?build=860593\n",
+      "info": "Albert camus contracta alarma Cresh manda pastelitos a los gruul Mimic en la boveda creash manda papeles iluminati.",
+      "tags": [
+        "Orzhov",
+        "Dimir"
+      ],
+      "controlledby": "Ezzio Salvatore",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3truybqn.jpg",
+      "rangoGremial": {
+        "titulo": "Acólito del Sindicato",
+        "bonificaciones": "1x Espíritu Servicial",
+        "sueldo": "Modesto"
+      },
+      "rangoSombras": {
+        "titulo": "Agente Dimir",
+        "sueldo": "Frugal",
+        "bonificaciones": "Secretos del Aventino"
+      },
+      "wundyrHeart": false,
+      "id": "mpsh5o3truybqn"
+    },
+    {
+      "nom": "Wundyr Somo (Torito)",
+      "bio": "Mi palabra es mi espada, mis hermanos son mi gremio y mi guia es mi señora Aurelia. Mediador hasta que observo algun acto malvado. Temperamental cuando no atienden a razones. Impartiré justicia vaya donde vaya.",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "Wundyr Somo",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tg6lulv.jpg",
+      "rangoGremial": {
+        "titulo": "Sargento de escuadrón",
+        "sueldo": "Modesto",
+        "bonificaciones": "Escuadrón Boros: 4x Legionarios Boros"
+      },
+      "wundyrHeart": true,
+      "id": "mpsh5o3tg6lulv"
+    },
+    {
+      "nom": "Yarog (HorseLuis)",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "Yarog (HorseLuis)",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tjn9pgk.jpg",
+      "rangoGremial": {
+        "titulo": "Campeón del Clan",
+        "sueldo": "Frugal",
+        "bonificaciones": "4x Anarquistas Gruul"
+      },
+      "id": "mpsh5o3tjn9pgk"
+    },
+    {
+      "nom": "Manjatan",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Izzet"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tqh5ysb.jpg",
+      "id": "mpsh5o3tqh5ysb"
+    },
+    {
+      "nom": "Svikull Rusl",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Golgari",
+        "Dimir"
+      ],
+      "controlledby": "Svikull Rusl",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tx6v3ww.jpg",
+      "rangoGremial": {
+        "titulo": "Explorador Devkarin",
+        "sueldo": "Frugal",
+        "bonificaciones": "Provisiones"
+      },
+      "rangoSombras": {
+        "titulo": "Agente Dimir",
+        "bonificaciones": "Secretos del Aventino",
+        "sueldo": "Frugal"
+      },
+      "id": "mpsh5o3tx6v3ww"
+    },
+    {
+      "nom": "Marchena",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "Marchena",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tuv5fj9.jpg",
+      "rangoGremial": {
+        "bonificaciones": "Reclutas Azorius: 4x Funcionarios",
+        "sueldo": "Modesto",
+        "titulo": "Fiscal del Distrito"
+      },
+      "id": "mpsh5o3tuv5fj9"
+    },
+    {
+      "nom": "Kasz",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Rakdos"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tbwzvqo.jpg",
+      "id": "mpsh5o3tbwzvqo"
+    },
+    {
+      "nom": "El Vocero",
+      "bio": "El Vocero es un Homúnculo: estos pequeños seres mágicos son creados por magos Azorius para llevar a cabo tareas sencillas y recados. Gritón y algo malhumorado, el Vocero está atado mágicamente a la Oficina Capilla de la plaza principal del Aventino, desde donde realiza anuncios y presta servicio a sus habitantes. El resto del tiempo lo dedica al mantenimiento de la oficina y a tareas administrativas, aunque en general hace todo lo posible para holgazanear y trabajar lo menos posible.",
+      "info": "Homunculus Tiny construct, neutral Armor Class 13 (Natural Armor) Hit Points 5 (2d4) Speed 20 ft., fly 40 ft. STR 4 (-3) DEX 15 (+2) CON 11 (+0) INT 10 (+0) WIS 10 (+0) CHA 7 (-2) Damage Immunities Poison Condition Immunities Charmed, Poisoned Senses Darkvision 60 Ft., passive Perception 10 Languages Understands The Languages Of Its Creator But Can't Speak Challenge 0 (10 XP) Telepathic Bond . While the homunculus is on the same plane of existence as its master, it can magically convey what it senses to its master, and the two can communicate telepathically. Actions Bite. Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: (1d1) piercing damage. The target must succeed on a dc 10 constitution saving throw or be poisoned for 1 minute If the saving throw fails by 5 or more, the target is instead poisoned for 5 (1d10) minutes and unconscious while poisoned in this way",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tl25vg4.jpg",
+      "id": "mpsh5o3tl25vg4"
+    },
+    {
+      "nom": "Pesha la Tabernera",
+      "bio": "Pesha es la propietaria de El Cuerno de Oro, la tasca de la plaza del Aventino, y una minotaura con muy malas pulgas. Llegó al barrio un buen día con su tatuaje Rakdos en el brazo, algo de dinero y actitud a raudales, decidida a llevar su propia taberna y a no hablar de un pasado misterioso. Cargar barriles y echar borrachos le ha permitido mantener un impresionante estado de forma física, y aunque llevar su propio negocio es una ocupación a tiempo completo, hay quien dice que la ha visto entrenar junto Iván por las noches.",
+      "info": "Minotaur Large monstrosity, chaotic evil Armor Class 14 (Natural Armor) Hit Points 76 (9d10+27) Speed 40 ft. STR 18 (+4) DEX 11 (+0) CON 16 (+3) INT 6 (-2) WIS 16 (+3) CHA 9 (-1) Skills Perception +7 Senses Darkvision 60 Ft., passive Perception 17 Languages Abyssal Challenge 3 (700 XP) Charge . If the minotaur moves at least 10 ft. straight toward a target and then hits it with a gore attack on the same turn, the target takes an extra 9 (2d8) piercing damage. If the target is a creature, it must succeed on a DC 14 Strength saving throw or be pushed up to 10 ft. away and knocked prone. Labyrinthine Recall . The minotaur can perfectly recall any path it has traveled. Reckless . At the start of its turn, the minotaur can gain advantage on all melee weapon attack rolls it makes during that turn, but attack rolls against it have advantage until the start of its next turn. Actions Greataxe. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d12 + 4) slashing damage. Gore. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d8 + 4) piercing damage.",
+      "tags": [
+        "Rakdos"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3toch697.jpg",
+      "id": "mpsh5o3toch697"
+    },
+    {
+      "nom": "Kotyali la Cazadora",
+      "bio": "Ver a Kotyali en medio del trajín de las calles de Ravnica es un espectáculo curioso: combina la apariencia salvaje propia de una cazadora centaura -cubierta de pieles y escarificaciones tribales- con el porte de una urbanita acostumbrada a las multitudes y al comercio. Abierta y directa en el trato al prójimo, su amable tono de voz siempre encuentra el camino al corazón de quienes la escuchan, y no es extraño verla reir mientras vende piezas de caza en el mercado. Pero no se debe confundir su actitud con candidez, pues aquellos que lo hacen no tardan en conocer las garras de Céfiro, su fiel halcón de caza....",
+      "info": "Centaur Large monstrosity, neutral good Armor Class 12 Hit Points 45 (6d10+12) Speed 50 ft. STR 18 (+4) DEX 14 (+2) CON 14 (+2) INT 9 (-1) WIS 13 (+1) CHA 11 (+0) Skills Athletics +6, Perception +3, Survival +3 Senses passive Perception 13 Languages Elvish, Sylvan Challenge 2 (450 XP) Charge . If the centaur moves at least 30 ft. straight toward a target and then hits it with a pike attack on the same turn, the target takes an extra 10 (3d6) piercing damage. Actions Multiattack. The centaur makes two attacks: one with its pike and one with its hooves or two with its longbow. Pike. Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: (1d10 + 4) piercing damage. Hooves. Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: (2d6 + 4) bludgeoning damage. Longbow. Ranged Weapon Attack: +4 to hit, reach 150/600 ft., one target. Hit: (1d8 + 2) piercing damage.",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore, Wundyr Somo, Yarog (HorseLuis), Svikull Rusl",
+      "avatar": "assets/img/personajes/mpsh5o3tsz2ft8.jpg",
+      "id": "mpsh5o3tsz2ft8"
+    },
+    {
+      "nom": "Shazel Bara, Chaman del clan",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "DM",
+      "visible": "Yarog (HorseLuis)",
+      "avatar": "assets/img/personajes/mpsh5o3ta7zcb3.jpg",
+      "id": "mpsh5o3ta7zcb3"
+    },
+    {
+      "nom": "Obez el Prestamista",
+      "bio": "No hay mucho que contar de Obez, pues ha elevado a la categoría de arte la mediocridad. Gordo y perezoso, lo único que le mantiene trabajando en el Sindicato son sus deudas (y las amenazas de aquellos que las quieren ver saldadas). La única fuente de placer que le queda es hundir en la desdicha a aquellos a los que ve felices, lo que junto a una mentalidad retorcida y una actitud paciente le convierte en un excelente prestamista.",
+      "info": "Cultist Medium humanoid (any race), any non-good alignment Armor Class 12 (Leather Armor) Hit Points 9 (2d8) Speed 30 ft. STR 11 (+0) DEX 12 (+1) CON 10 (+0) INT 10 (+0) WIS 11 (+0) CHA 10 (+0) Skills Deception +2, Religion +2 Senses passive Perception 10 Languages Any One Language (Usually Common) Challenge 1/8 (25 XP) Dark Devotion . The cultist has advantage on saving throws against being charmed or frightened. Actions Scimitar. Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: (1d6 + 1) slashing damage.",
+      "tags": [
+        "Orzhov"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tsd7xa7.jpg",
+      "id": "mpsh5o3tsd7xa7"
+    },
+    {
+      "nom": "Iván el Cocinero",
+      "bio": "Puede que la cocina de la taberna no sea exquisita, pero a aquellos que trabajan todo la jornada en talleres, almacenes y mercados, les proporciona un momento de apreciada tranquilidad y bienestar. El encargado de este curioso festín diario es Iván, cocinero del Cuerno de Oro, y dado lo que entra en la cocina y lo que sale en los platos, es quedarse corto (quedad tranquilos, el universo recupera su equilibrio cósmico cuando los comensales visitan el excusado). Si sus gruesos dedos agarrando cuchillos o sus hablar lento y torpe no os ponen nerviosos, quizá sus ojos perturbadoramente abiertos de par en par lo hagan. Que eso no os inquiete, Iván es (casi) siempre un buen muchacho (aunque mejor que no le pidáis recetas).",
+      "info": "Berserker Medium humanoid (any race), any chaotic alignment Armor Class 13 (Hide Armor) Hit Points 67 (9d8+27) Speed 30 ft. STR 16 (+3) DEX 12 (+1) CON 17 (+3) INT 9 (-1) WIS 11 (+0) CHA 9 (-1) Senses passive Perception 10 Languages Any One Language (Usually Common) Challenge 2 (450 XP) Reckless . At the start of its turn, the berserker can gain advantage on all melee weapon attack rolls during that turn, but attack rolls against it have advantage until the start of its next turn. Actions Greataxe. Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: (1d12 + 3) slashing damage.",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tl2n47v.jpg",
+      "id": "mpsh5o3tl2n47v"
+    },
+    {
+      "nom": "Grukurg el Tintador",
+      "bio": "Trabajar duramente en un sitio asfixiante y apestoso catorce horas diarias pone de mal humor a cualquiera, pero si encima eres el propietario y no conoces vacaciones, enfermedad o descanso, tienes a Grukurg. Este ogro se pasa el día curtiendo pieles de toda clase de animales y bestias en su taller, y su actitud oscila entre el trabajo obsesivo y la furia psicótica, dependiendo en gran medida -pero no solamente- de los gases que emanan de las cubas, la cantidad de faena acumulada y los errores de sus empleados.",
+      "info": "",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t0qqdbh.jpg",
+      "id": "mpsh5o3t0qqdbh"
+    },
+    {
+      "nom": "Ten el Pescadero",
+      "bio": "",
+      "info": "currante, familiar, ha patit durant la crisi de l'aigua, donde pesca??",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Svikull Rusl, Marchena",
+      "avatar": "assets/img/personajes/mpsh5o3ti7dndm.jpg",
+      "id": "mpsh5o3ti7dndm"
+    },
+    {
+      "nom": "Morai la Capataz",
+      "bio": "Vivir sin la protección de un gremio en Ravnica no es fácil, pero a Morai le compensa: es su propia jefa (Obras Aventino SA), mantiene su equipo de construcción (una plantilla de goblins ingobernables) y no tiene que dar explicaciones a (casi) nadie. Algo reservada y tímida, tiende a guardarse para si sus opiniones personales, aunque en sus proyectos despliega su amplio abanico de conocimientos técnicos y es capaz de arrollar a cualquier ingenuo que pretenda enseñarle algo.",
+      "info": "CounterFlux Blastseeker Medium humanoid (any race), chaotic neutral Armor Class 13 (16 with mage armor) Hit Points 39 (6d8+12) Speed 30 ft. STR 13 (+1) DEX 16 (+3) CON 15 (+2) INT 18 (+4) WIS 11 (+0) CHA 14 (+2) Saving Throws Con +4, Wis +2 Skills Arcana +6, Perception +2 Senses passive Perception 12 Languages Common plus any one language Challenge 2 (450 XP) Counterflux Overcast (Recharge 5-6). The blastseeker can create an additional effect immediately after casting a spell . Roll a d6 to determine the effect: 1- 3. The blastseeker creates a 15-foot-radius invisible sphere centered on itself that lasts until the end of its next turn. Creatures in the sphere have disadvantage on saving throws against spells and other magical effects. 4- 6. The blastseeker c reates a 15-foot-radius invisible sphere centered on itse lf t hat lasts until the end of its next turn. Creatures in the sphere have advantage on saving throws against spells and other magical effects. Innate Spellcasting. The blastseeker's innate spellcasting ability is Intelligence (spell save DC 14, +6 to hit with spell attacks). The blastseeker can innately cast the following spells, requiring no components other than its lzzet gear, which doesn't function for others : 3/day each: enlarge/reduce, mage armor (self only) , scorching ray 1/day each: counterspell, dispel magic, protection from energy Actions Rapier. Melee Weapon Attack: +5 to hit, rea ch 5 ft., one target. Hit: 7 (ld8 + 3) pie rcing dam age. Putejada per Obez",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore, Svikull Rusl, Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3tmfzd83.jpg",
+      "id": "mpsh5o3tmfzd83"
+    },
+    {
+      "nom": "Cresh el Vendedor de Comida Ambulante",
+      "bio": "Descrito como el empresario menos exitoso de Ravnica, el \"emprendedor aventurero\" del Aventino, Cresh es más conocido por vender productos “mayormente compuestos de carne” a almas desprevenidas. Ha vendido desde un extraño líquido verde hecho por monjes que vivían en una montaña según una antigua receta, consejos \"astrales\", lecciones de artes marciales por correo (bajo el alias \"Gran Maestro Cresh\"), auténticas y genuinas reliquias sagradas, globos de nieve de recuerdo y espacio publicitario en el boletín del gremio de Vendedores de Comida ambulante (del cual ostenta a la vez el cargo de Presidente, Portavoz, Notario y Portero). Su mejor venta son los productos intangibles; la mercancía física tiende a dificultar un poco su modelo de negocio...",
+      "info": "Lizardfolk Medium humanoid (lizardfolk), neutral Armor Class 15 (Natural Armor, Shield) Hit Points 22 (4d8+4) Speed 30 ft., swim 30 ft. STR 7 (-2) DEX 13 (+1) CON 10 (+0) INT 7 (-2) WIS 12 (+1) CHA 15 (+2) Skills Persuasion+4, Perception+3, Insight+5 Senses passive Perception 13 Languages Draconic Challenge 1/2 (100 XP) Hold Breath . The lizardfolk can hold its breath for 15 minutes. Actions Multiattack. The lizardfolk makes two melee attacks, each one with a different weapon. Bite. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage. Heavy Club. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) bludgeoning damage. Javelin. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage. Javelin. Ranged Weapon Attack: +2 to hit, reach 30/120 ft., one target. Hit: (1d6) piercing damage. Spiked Shield. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d6) piercing damage.",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t8jzb0i.jpg",
+      "id": "mpsh5o3t8jzb0i"
+    },
+    {
+      "nom": "Elon Tusk el Mercader de grano",
+      "bio": "Si en el mercado escuchas maldiciones, lamentos y ruido de cosas rompiéndose, es posible que al girarte te encuentres a Elon en medio del estropicio. Ser un loxodon (aunque seas el último del linaje Tusk) no evita ser descuidado ni torpe, aunque eso le ha permitido tener la plaza más espaciosa del mercado (nadie quiere arriesgarse a estar a su alrededor). Probablemente uno de los mercaderes más ricos del Aventino, ha hecho su fortuna vendiendo grano a buen precio. Eso y una empatía cuasi-mística con la naturaleza y la gentes del barrio hacen de Elon un personaje popular y entrañable, si bien conviene evitarlo si llevas algo frágil encima.",
+      "info": "Druid Medium humanoid (any race), any alignment Armor Class 14 (16 With Barkskin) Hit Points 27 (5d8+5) Speed 30 ft. STR 10 (+0) DEX 12 (+1) CON 15 (+2) INT 12 (+1) WIS 16 (+3) CHA 11 (+0) Skills Medicine +5, Nature +4, Perception +5 Senses passive Perception 15 Languages Druidic, Loxodon and Sylvan Challenge 2 (450 XP) Spellcasting . The druid is a 4th-level spellcaster. Its spellcasting ability is Wisdom (spell save DC 12, +4 to hit with spell attacks). It has the following druid spells prepared: • Cantrips (at will): druidcraft, produce flame, shillelagh • 1st level (4 slots): entangle, longstrider, speak with animals, thunderwave • 2nd level (3 slots): animal messenger, barkskin Keen Smell. Thanks to your sensitive trunk, you have advantage on Wisdom (Perception), Wisdom (Survival), and Intelligence (Investigation) checks that involve smell. Actions Quarterstaff. Melee Weapon Attack: +2 to hit, reach 5 ft., (+4 with shillelagh), one target. Hit: (1d6) bludgeoning damage plus (1d8 + 2)bludgeoning damage. Or with shillelagh or if wielded with two hands",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3ttfh2q9.jpg",
+      "id": "mpsh5o3ttfh2q9"
+    },
+    {
+      "nom": "Dhalya Macav la Comerciante",
+      "bio": "Dhalya es el resultado acumulado de generación tras generación de mercaderes Macav. Toda una vida de aventuras comerciales a lo ancho del plano le ha proporcionado una extensa red de contactos, colaboradores y proveedores, así como un sinfín de anécdotas y vivencias. Si necesitas cualquier cosa, no dudes de que ella puede conseguirlo, pero cuidado, sus tarifas no son aptas para todos los bolsillos. Ya sea con materias primas, objetos de lujo o servicios, es una negociadora brutal, nunca pierde la oportunidad de sacar tajada de cualquier situación y siempre consigue cerrar un buen trato.",
+      "info": "Noble Medium humanoid (any race), any alignment Armor Class 15 (Breastplate) Hit Points 9 (2d8) Speed 30 ft. STR 11 (+0) DEX 12 (+1) CON 11 (+0) INT 12 (+1) WIS 14 (+2) CHA 16 (+3) Skills Deception +5, Insight +4, Persuasion +5 Senses passive Perception 12 Languages Any Two Languages Challenge 1/8 (25 XP) Actions Rapier. Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: (1d8 + 1) piercing damage. Reactions Parry. The noble adds 2 to its AC against one melee attack that would hit it. To do so, the noble must see the attacker and be wielding a melee weapon.",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t34ufne.jpg",
+      "id": "mpsh5o3t34ufne"
+    },
+    {
+      "nom": "Maeve la Carterista",
+      "bio": "La plaza del Aventino, como cualquier zona ajetreada, es conocida por ser un lugar habitual de pequeños robos y hurtos. Lo que no tanta gente conoce es que no sólo los crímenes son pequeños, sino que también existen criminales de esa medida: Maeve es un buen ejemplo de ello. Vivir en un mundo hecho a medida de gigantes no ha hecho más que facilitarle la vida a esta hada y a su banda de carteristas, que disponen de mil lugares donde esconderse, y que convierte cualquier botín en un tesoro. Lo único que evita que se conviertan en una verdadera plaga es su falta de concentración y ambiciones mayores, pero la vida puede ser muy fácil cuando robar tu peso en oro no es solamente una expresión.",
+      "info": "Sprite Tiny fey, neutral good Armor Class 15 (Leather Armor) Hit Points 2 (1d4) Speed 10 ft., fly 40 ft. STR 3 (-4) DEX 18 (+4) CON 10 (+0) INT 14 (+2) WIS 13 (+1) CHA 11 (+0) Skills Perception +3, Stealth +8 Senses passive Perception 13 Languages Common, Elvish, Sylvan Challenge 1/4 (50 XP) Actions Longsword. Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: (1d1) slashing damage. Shortbow. Ranged Weapon Attack: +6 to hit, reach 40/160 ft., one target. Hit: (1d1) piercing damage. The target must succeed on a dc 10 constitution saving throw or become poisoned for 1 minute If its saving throw result is 5 or lower, the poisoned target falls unconscious for the same duration, or until it takes damage or another creature takes an action to shake it awake Heart Sight. The sprite touches a creature and magically knows the creature's current emotional state. If the target fails a DC 10 Charisma saving throw, the sprite also knows the creature's alignment. Celestials, fiends, and undead automatically fail the saving throw. Invisibility. The sprite magically turns invisible until it attacks or casts a spell, or until its concentration ends (as if concentrating on a spell). Any equipment the sprite wears or carries is invisible with it.",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t5mu7oq.jpg",
+      "id": "mpsh5o3t5mu7oq"
+    },
+    {
+      "nom": "Sila, Tribuno de la Legión",
+      "bio": "Uno de los más notables políticos y militares Boros en el último siglo, perteneciente al bando de los optimates. Tras distinguirse en la revueltas obreras Gruul, el asedio del fuerte de la Senda Verde contra los Selesnya y la pacificación de los pozos de Sangre Rakdos, los intentos de Sila por arrebatarle el control del ejército que debía combatir a Tajic le llevaron a denunciarle para intentar restaurar una Legión cada vez más mermada y sobrecargada. Pese a contar con el apoyo de varios lugartenientes angelicales de renombre, Tajic contaba con demasiado soporte dentro de la Legión, por lo que Sila se retiró de la vida militar para intentar hacer carrera política. Esa era su intención al menos, hasta que la llegada de la Guerra de la Chispa reavivo su fuego justiciero y le llevo una vez más a ser de nuevo el firme escudo de Ravnica, defensor de los débiles y vengador de agravios.",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3te0gk70.jpg",
+      "id": "mpsh5o3te0gk70"
+    },
+    {
+      "nom": "Aurelio, Líder del Clan",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore, Wundyr Somo, Yarog (HorseLuis)",
+      "avatar": "assets/img/personajes/mpsh5o3tgf7y5a.jpg",
+      "id": "mpsh5o3tgf7y5a"
+    },
+    {
+      "nom": "Arkady el Alborotador",
+      "bio": "Arkady no ha tenido una vida fácil: su padre era zapatero y tenía su propio taller; y aunque al principio fue un éxito, más tarde cayó en bancarrota y la familia se encontró viviendo en la pobreza. Fue entonces cuando su padre se convirtió en alcohólico y golpeaba a su mujer e hijo en estado de embriaguez. Tras años de abusos, Arkady y su madre le abandonaron y comenzaron una vida errante, viviendo con vagabundos y sin techo durante la siguiente década. Cuando ya era un adoslecente se mudaron a la casa de un amigo de la familia, un pastor Orzhov, quien más tarde le consiguió una plaza a Arkady en la Escuela Eclesiástica. Aunque se metió en muchas peleas, destacó en el ámbito académico, demostrando su talento en las clases de pintura y teatro, escribiendo su propia poesía, y cantando como niño de coro. Durante su infancia se enfrentó a varios problemas graves de salud: una infección de viruela le dejó cicatrices en la cara; y a la edad de 12 años se lesionó gravemente al ser atropellado por un centauro, probablemente la causa de una discapacidad de por vida en su brazo izquierdo. Gracias a una beca que le permitía estudiar a un precio reducido, se matriculó en el Seminario Espiritual Orzhov. Se unió a los 600 sacerdotes en formación que se alojaban allí, y obtuvo altas calificaciones. Continuó escribiendo poesía: cinco de sus poemas, sobre temas como la naturaleza, la tierra y el patriotismo, se publicaron bajo seudónimo en las revistas dominicales. Sin embargo, a medida que crecía, Arkady perdió el interés por los estudios sacerdotales: sus notas bajaron, y fue confinado repetidamente en una celda por su comportamiento rebelde. El diario del seminario señaló que se declaraba ateo, se retiraba de las oraciones y se negaba a quitarse el sombrero ante los monjes. Se unió a un club de libros prohibidos en la escuela; estuvo especialmente influenciado por libros pro-revolucionarios y textos profanos Rakdos. Arkady se dedicó a la teoría sociopolítica, que entonces estaba en auge en Ravnica, una de las diversas formas de socialismo opuestas a las autoridades Azorius que gobiernan la ciudad. Por la noche, asistía a reuniones obreras secretas y acudía a asambleas Gruul, donde empezó a demostrar un gran poder de oratoria. Finalmente, abandonó el seminario para unirse a una tribu errante Gruul, y nunca regresó.",
+      "info": "",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t17y314.jpg",
+      "id": "mpsh5o3t17y314"
+    },
+    {
+      "nom": "Ikram la Contrabandista",
+      "bio": "La Guerra de la chispa conmocionó los cimientos de todo el plano, haciendo desaparecer edificios e incluso barriadas enteras, y forzando el desplazamiento de miles de refugiados a zonas más seguras. Para gente como Ikram, quien no parece tener un hogar al que volver, ha implicado buscarse la vida de formas más creativas para poder sobrevivir y medrar en una ciudad que no concede muchas oportunidades (y unos pocos psicotrópicos de contrabando nunca han hecho daño a nadie)",
+      "info": "",
+      "tags": [
+        "Golgari"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3ty3mmsb.png",
+      "id": "mpsh5o3ty3mmsb"
+    },
+    {
+      "nom": "Bookworm el Consigliere",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Golgari"
+      ],
+      "controlledby": "DM",
+      "visible": "Svikull Rusl",
+      "avatar": "assets/img/personajes/mpsh5o3tlw7ybm.jpg",
+      "id": "mpsh5o3tlw7ybm"
+    },
+    {
+      "nom": "Kakí Skýla, Lugarteniente del Enjambre Ochran",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Golgari"
+      ],
+      "controlledby": "DM",
+      "visible": "Svikull Rusl",
+      "avatar": "assets/img/personajes/mpsh5o3tch754a.png",
+      "id": "mpsh5o3tch754a"
+    },
+    {
+      "nom": "Tajic, Espada de la Legión",
+      "bio": "Como segundo al mando, Tajic se opuso al plan de Aurelia de unirse con los otros gremios en su lucha contra las fuerzas de Bolas. Tajic cree que los Boros sólo pueden confiar en los Boros. Está convencido de que cualquier esfuerzo de paz entre los gremios está condenado al fracaso sin el Pacto del Gremio. Los Boros, argumenta, estarían mejor gastando su energía para hacerse más fuertes y así poder mantener el frágil equilibrio que existe ahora y proteger a los inocentes cuando la balanza se inclina. Aurelia cree que su actitud negativa corre el riesgo de envenenar los corazones de los otros Boros y socavar cualquier esfuerzo de paz.",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo, Ezzio Salvatore",
+      "avatar": "assets/img/personajes/mpsh5o3tliibhr.jpg",
+      "id": "mpsh5o3tliibhr"
+    },
+    {
+      "nom": "Sargento Instructor Gough",
+      "bio": "Gough \"Ojo de Halcón\" fue una vez uno de los cuatro caballeros Boros y líder de los Wojek, la fuerza de asalto de élite de la Legión. Sin embargo, Gough no carecía de enemigos: su visión fue afectada por villanos que le consideraban un gigante salvaje, y pensaron que cubriéndole con resina los agujeros de los ojos de su yelmo le podrían derrotar (aunque en realidad esto no disminuyó su capacidad de lanzar jabalinas con precisión mortal). Cegado, dedica sus días a preparar a las nuevas generaciones de cadetes, y pasa el tiempo reflexionando filosóficamente sobre la virtud, el valor y el significado de la palabra \"legionario\".",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3tpqsk84.jpg",
+      "id": "mpsh5o3tpqsk84"
+    },
+    {
+      "nom": "Informante Secreto",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3tw13moe.jpg",
+      "id": "mpsh5o3tw13moe"
+    },
+    {
+      "nom": "Mecenas misterioso",
+      "bio": "",
+      "info": "Araithia Shokta",
+      "tags": [
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Svikull Rusl",
+      "avatar": "assets/img/personajes/mpsh5o3tg5mrdt.jpg",
+      "id": "mpsh5o3tg5mrdt"
+    },
+    {
+      "nom": "Ministrant Tobias Forge",
+      "bio": "Tobias Forge lleva tres décadas haciendo que las cosas funcionen en silencio. No figura en ninguna lista de poder, no preside ningún consejo, no firma ningún contrato que lleve su nombre en primera línea. Y sin embargo, cuando algo se rompe en el Cuarto Precinto, es él quien lo arregla antes de que nadie se entere de que estaba roto.\nEncontró a Ezzio Salvatore cuando el chico todavía no sabía bien lo que era. Vio algo útil. Quizás algo más. Lo formó, lo cubrió, lo ascendió. Ahora Ezzio es Caballero, y Tobias se pregunta en silencio si ha construido un activo o un problema.\nSigue siendo leal al Sindicato. Siempre lo será. La pregunta es si el Sindicato seguirá siendo leal a él.",
+      "info": "",
+      "tags": [
+        "Orzhov"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore",
+      "avatar": "assets/img/personajes/mpsh5o3t4rlgji.jpg",
+      "id": "mpsh5o3t4rlgji"
+    },
+    {
+      "nom": "Glenn Danzing, Sicario del Sindicato",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Orzhov"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore",
+      "avatar": "assets/img/personajes/mpsh5o3tx6cwdw.jpg",
+      "id": "mpsh5o3tx6cwdw"
+    },
+    {
+      "nom": "Padre Messiah Marcolin",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Orzhov",
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore",
+      "avatar": "assets/img/personajes/mpsh5o3tvml5q4.jpg",
+      "id": "mpsh5o3tvml5q4"
+    },
+    {
+      "nom": "Niv-Mizzet, el Dracogenio",
+      "bio": "Niv-Mizzet, comúnmente conocido como el Mente de Fuego,es un antiguo dragón de color marrón rojizo de Ravnica obsesionado con la omnisciencia. A pesar de su tamaño, es capaz de moverse con ligereza y gracia. Tiene una cola retorcida, largas alas con bordes azules, un largo cuello, membranas espinosas alrededor de su cabeza y largos cuernos oscuros. El intelecto del Mente de Fuego excede al de los mortales estándar en varios niveles, y es conocido por muchos inventos ingeniosos que actualmente sirven a los ciudadanos de Ravnica, siendo el más conocido el casi indestructible, pero fácilmente utilizable y forjable metal, el mizzium. Poseedor de una arrogancia y vanidad que iguala su vasto intelecto y su tremendo poder, Niv-Mizzet dirige la investigación y los experimentos de Izzet desde hace más de 10.000 años, a menudo desde su laboratorio privado en la cima de Nivix, sede gremial de los Izzet. Como el nuevo Pacto del Gremio Viviente, el Mente de Fuego sirve ahora como guardián de la propia Ravnica. Debido a su extrema edad, su triunfo sobre numerosos desafíos, y su estatus de mago dragón, Niv-Mizzet posee un conocimiento que ningún otro posee, incluyendo hechizos que se han perdido en el tiempo y armas cuyas hechuras se han perdido.",
+      "info": "",
+      "tags": [
+        "Izzet"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t2q5mi5.jpg",
+      "id": "mpsh5o3t2q5mi5"
+    },
+    {
+      "nom": "Sestri, Degana del Laboratorio de Tormentas y Electricidad",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Izzet"
+      ],
+      "controlledby": "DM",
+      "visible": "Manjatan",
+      "avatar": "assets/img/personajes/mpsh5o3t03lebb.jpg",
+      "id": "mpsh5o3t03lebb"
+    },
+    {
+      "nom": "Coldie, Genio Inestable",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Izzet"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3th7tfw8.png",
+      "id": "mpsh5o3th7tfw8"
+    },
+    {
+      "nom": "Rotxar, Cultista Tatuador",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Rakdos"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tkxdx2l.png",
+      "id": "mpsh5o3tkxdx2l"
+    },
+    {
+      "nom": "Tai On, Justicar del Senado",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Marchena",
+      "avatar": "assets/img/personajes/mpsh5o3tkkkd8z.jpg",
+      "id": "mpsh5o3tkkkd8z"
+    },
+    {
+      "nom": "Randall, Comunero Pacifista",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Selesnya"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3txkd5c8.jpg",
+      "id": "mpsh5o3txkd5c8"
+    },
+    {
+      "nom": "Khatnas, Juez de Asuntos Internos",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Marchena",
+      "avatar": "assets/img/personajes/mpsh5o3tkvbm26.jpg",
+      "id": "mpsh5o3tkvbm26"
+    },
+    {
+      "nom": "Nebum Gerava, Arbites del Senado",
+      "bio": "Vigila a tus hermanos, su pecado de herejía es tu pecado de tolerancia.",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Marchena",
+      "avatar": "assets/img/personajes/mpsh5o3tkqt3vc.jpg",
+      "id": "mpsh5o3tkqt3vc"
+    },
+    {
+      "nom": "Gasz, Matón de la Calle de Hojalata",
+      "bio": "",
+      "info": "Extorsiona a la familia de Brir",
+      "tags": [
+        "Guildless"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tu6e6g2.jpg",
+      "id": "mpsh5o3tu6e6g2"
+    },
+    {
+      "nom": "Luda Manson, Productora y Cazatalentos",
+      "bio": "Luda Manson era la mejor representante de artistas de la pasada década y, aunque ahora todo ha cambiado, ella no. Cuando Juanita Mexita, su promesa más conocida, la abandona inesperadamente, el mundo de Luda se tambalea. Junto a Kasz, su nueva promesa, y Rotxar, un tatuador pendenciero, que acabará convertido en parte de la familia, Luda se lanza desesperada al descubrimiento de nuevo talento. Una búsqueda que le hará encontrar su lugar en la profesión y en el mundo tras la guerra.",
+      "info": "",
+      "tags": [
+        "Rakdos"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo, Kasz",
+      "avatar": "assets/img/personajes/mpsh5o3tpbov7j.png",
+      "id": "mpsh5o3tpbov7j"
+    },
+    {
+      "nom": "Ylldiane, Intendente Mayor",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3tkxpsh0.jpg",
+      "id": "mpsh5o3tkxpsh0"
+    },
+    {
+      "nom": "Ayudantes de laboratorio Izzet",
+      "bio": "Aún son aprendices, pero algún día podrían llegar a maestros.....",
+      "info": "",
+      "tags": [
+        "Izzet"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t0volgr.jpg",
+      "id": "mpsh5o3t0volgr"
+    },
+    {
+      "nom": "Reclutas Azorius",
+      "bio": "Siempre queda tanto papeleo que hacer...",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tds8bru.png",
+      "id": "mpsh5o3tds8bru"
+    },
+    {
+      "nom": "Giagia, Ama de llaves del Hogar Ancestral Dalverjar",
+      "bio": "Ikram es el nombre falso bajo el que se esconde Giagia, la antigua ama de llaves del Hogar Ancestral Dalverjar, y lleva más de 3 siglos sirviendo a esta familia devkarin de la corte del sur. Su habilidad para preparar tinturas, pociones y venenos es legendaria entre los Golgari de cierto renombre, pero su manejo de la daga no se limita a la preparación de ingredientes. Para ella, la caída del hogar solo fue parte del ciclo de las cosas: sabe que todo se desmorona y se pudre al final, y luego una nueva vida surge de esa podredumbre. El tiempo pasa inevitablemente, trayendo tanto destrucción como nueva creación a todas las cosas, y ahora que ha encontrado al heredero perdido de los Dalverjar, pondrá todo su empeño a servirles una vez más.",
+      "info": "",
+      "tags": [
+        "Golgari"
+      ],
+      "controlledby": "DM",
+      "visible": "Svikull Rusl",
+      "avatar": "assets/img/personajes/mpsh5o3tvojzo4.jpg",
+      "id": "mpsh5o3tvojzo4"
+    },
+    {
+      "nom": "Escuadrón Boros",
+      "bio": "La justicia no se va a servir sola...",
+      "info": "Soldier Medium humanoid (any race), any alignment Armor Class 18 (chain mail, shield) Hit Points 16 (3d8+3) Speed 30 ft. STR 13 (+1) DEX 12 (+1) CON 12 (+1) INT 10 (+0) WIS 11 (+0) CHA 11 (+0) Skills Perception +2, Athletics +3 Senses passive Perception 12 Languages Any One Language (Usually Common) Challenge 1/2 (100 XP) Actions Multiattack. The soldier makes two melee attacks. Longsword. Melee Weapon Attack: +3 to hit, reach 5 ft ., one target. Hit: 6 (ld8 + 2) slashing damage, or 7 (1d10 + 2) slashing damage if used with two hands.",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t18lxci.jpg",
+      "id": "mpsh5o3t18lxci"
+    },
+    {
+      "nom": "Anarquistas Gruul",
+      "bio": "Raramente desarmados, raramente sobrios...",
+      "info": "Anarch Small or Medium humanoid (any race), chaotic neutral Armor Class 13 (hide armor) Hit Points 11 (2d8+2) Speed 30 ft. STR 14 (+2) DEX 13 (+1) CON 12 (+1) INT 9 (-1) WIS 11 (+0) CHA 10 (+0) Skills Perception +2, Survival +2 Senses passive Perception 10 Languages Any One Language (Usually Common) Challenge 1/4 (50 XP) Aggressive . As a bonus action, the anarch can move up to its speed toward a hostile creature it can see. Siege Monster. The anarch deals double damage to objects and structures. Actions Spiked Club. Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (ld8 + 2) piercing damage, or 7 (1d10 + 2) piercing damage if used with two hands.",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3thuq2nm.jpg",
+      "id": "mpsh5o3thuq2nm"
+    },
+    {
+      "nom": "Troupe Rakdos",
+      "bio": "El espectáculo debe continuar...",
+      "info": "",
+      "tags": [
+        "Rakdos"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t067ldd.jpg",
+      "id": "mpsh5o3t067ldd"
+    },
+    {
+      "nom": "André el Herrero",
+      "bio": "André, como muchos Loxodones, proviene de las arboledas y ensenadas del Cónclave Selesnya; pero poco más se sabe de sus orígenes. Es conocida sin embargo la traición sufrida a manos de sus compañeros vernadi, y su posterior salvación por parte de un gigante Boros, con quién adquirió una deuda de sangre. Tras abandonar a aquellos a quien una vez llamó hermanos, sus creencias y su hogar, se alistó en las filas de la legión. Allí su alma descubrió una nueva llamada al sentir el calor de la fragua, el sudor de los herreros y el latir de una hermandad de martillos golpeando el metal al ritmo de sus ardientes corazones. Sus golpes son rápidos y precisos, y su técnica moldea el metal y lo convierte en herramientas certeras que en manos de ángeles hacen el trabajo de demonios. Ha aprendido a tener largas charlas con martillo y yunque, con fuego y metal: puede el guerrero blandir el arma más poderosa o vestir la coraza más tenaz, que un herrero sabe que toda armadura, escama de dragón o mizzium encantado esconden un punto vulnerable…",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3t7ylpsh.jpg",
+      "id": "mpsh5o3t7ylpsh"
+    },
+    {
+      "nom": "Rezana, Médico Azorius",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Azorius"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3txctbtm.jpg",
+      "id": "mpsh5o3txctbtm"
+    },
+    {
+      "nom": "Alysa la Sastre",
+      "bio": "",
+      "info": "molt inteligent, es fa la tonta y la superficial, molt diva, mata hari",
+      "tags": [
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3t3tj642.jpg",
+      "id": "mpsh5o3t3tj642"
+    },
+    {
+      "nom": "Albert Camus de la Oficina del Banco",
+      "bio": "",
+      "info": "Financer, agarrat, depresiu, salary man, desagradable amb tothom pq esta fins la polla",
+      "tags": [
+        "Orzhov"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tqgji8r.jpg",
+      "id": "mpsh5o3tqgji8r"
+    },
+    {
+      "nom": "Mira, la de correos",
+      "bio": "Mira lleva las cartas del Aventino desde que abrió la oficina, que nadie recuerda exactamente cuándo fue. Cobra una tarifa fija por envíos locales, otra por los de distrito, y una tercera por los urgentes que casi nadie usa porque sale muy caro. El horario está pegado en la puerta con cinta, aunque la cinta se está despegando por un lado.\nSi le preguntas cómo está, dice \"bien\". Si le preguntas de dónde es, dice \"de aquí\". Si le preguntas si ha visto a alguien pasar por la oficina, dice el nombre, la hora y el número de paquetes sin pestañear, porque eso es su trabajo.\nCasi nadie le ha preguntado nunca cómo se llama.",
+      "info": "",
+      "tags": [
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3tncqyjr.png",
+      "id": "mpsh5o3tncqyjr"
+    },
+    {
+      "nom": "Aiker Bosset",
+      "bio": "Despues del dolor causado por la guerra, no dejará que esta se vuelva a producir o por lo menos tendrá suficiente poder como para aplacarla. Incansable en la búsqueda de poder, utilizará todos los recursos Simic a su disposición para evolucionar a una forma de vida superior, si la naturaleza no evoluciona lo suficientemente rápido, le dará un empujón. Uniros a la lucha o no os interpongáis. Cualquiera que busque la guerra será aniquilado.",
+      "info": "",
+      "tags": [
+        "Simic"
+      ],
+      "controlledby": "DM",
+      "visible": "Nadie",
+      "avatar": "assets/img/personajes/mpsh5o3tx76rn3.png",
+      "id": "mpsh5o3tx76rn3"
+    },
+    {
+      "nom": "Los fieles seguidores del Maestro, el Evolucionador de hombres",
+      "bio": "El Maestro dijo: “Los sanos no tienen necesidad de médico, sino los enfermos”. Él vino realmente a buscar, levantar y salvar a los que están perdidos, a los débiles y abatidos. ¡Sí, Maestro, vienes a levantar al débil y lo tomas en tus brazos! ¡Qué poderosa verdad! Verdaderamente el Maestro te toma en Sus brazos de amor en este día, querido(a) amigo(a). Él te conduce hacia la Verdad y la mejora personal.",
+      "info": "",
+      "tags": [
+        "Simic"
+      ],
+      "controlledby": "DM",
+      "visible": "Nadie",
+      "avatar": "assets/img/personajes/mpsh5o3trdif8w.jpg",
+      "id": "mpsh5o3trdif8w"
+    },
+    {
+      "nom": "Trisz, Legionario Caido (Fallecido)",
+      "bio": "Pese a que el hambre y el miedo siempre han estado presentes en su vida, Trisz nunca ha considerado tener una infancia infeliz. Criado en barrios que ya eran pobres antes de la Guerra de la Chispa, él y su familia malvivían como parias, con la incertidumbre constante de donde vendría el próximo bocado (si es que llegaba), pero siempre se tuvieron los unos a los otros. Su hermana en particular era una fuente constante de cándida alegría, y un solo abrazo suyo era capaz de hacerle olvidar las palizas recibidas durante el día o las desgracias vividas. Que ella pudiera seguir jugando con sus juguetes y tuviera una vida mejor fue lo que le empujó a alistarse (aunque ella odiase esa decisión). Con su última exhalación susurró su nombre.... LEGIO AETERNA VICTRIX",
+      "info": "",
+      "tags": [
+        "Boros"
+      ],
+      "controlledby": "DM",
+      "visible": "Ezzio Salvatore, Wundyr Somo",
+      "avatar": "assets/img/personajes/mpsh5o3tajx4uj.jpg",
+      "id": "mpsh5o3tajx4uj"
+    },
+    {
+      "nom": "Pandora, Espíritu Servicial",
+      "bio": "",
+      "info": "",
+      "tags": [
+        "Orzhov"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsh5o3twodibd.webp",
+      "id": "mpsh5o3twodibd"
+    },
+    {
+      "nom": "Nullan, Xofer de Ezzio",
+      "bio": "Nullan lleva años conduciendo carruajes por el Aventino. Nadie recuerda exactamente cuándo apareció, ni para quién trabajaba antes. Lo que sí recuerda todo el mundo es la flasca que lleva siempre en el cinturón y el olor a aguardiente barato que parece seguirle a todas partes. Es puntual, no hace preguntas y nunca pierde una dirección. Para un caballero Orzhov que necesita discreción, un cochero que nadie mira dos veces vale más que uno que recuerda todo el mundo.",
+      "info": "",
+      "tags": [
+        "Dimir"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpshdhp6jpma4g.png",
+      "id": "mpshdhp6jpma4g"
+    },
+    {
+      "nom": "Drekk, revolucionario desencantado",
+      "bio": "Drekk llegó al Aventino siguiendo el rastro de Yarog, como tantos otros Gruul que vieron en el campamento algo parecido a un hogar. Lo que encontró fue un trabajo, un catre y la misma pobreza de siempre, solo que rodeada de piedra en lugar de tierra.\nEn los Yermos, su tamaño era una ventaja. En las obras del Computador, es un problema. No cabe por las puertas de la oficina de contratación. No puede subir a las plataformas superiores. Cobra lo mismo que un obrero humano y carga tres veces más. Nadie lo ha dicho en voz alta, pero Drekk lo sabe: la ciudad no fue construida para él.\nTodavía no ha decidido nada, pero eso no va a durar para siempre.",
+      "info": "",
+      "tags": [
+        "Gruul"
+      ],
+      "controlledby": "DM",
+      "visible": "Tots",
+      "avatar": "assets/img/personajes/mpsi0twmtb9hnd.png",
+      "id": "mpsi0twmtb9hnd"
+    }
+  ],
+  "handouts": [
+    {
+      "nom": "Notas de Laboratorio",
+      "propietari": "Manjatan",
+      "visible": "Tots",
+      "contingut": "Fajo desordenado de notas de laboratorio encontradas en la C mara de Crecimiento Simic. Est n principalmente redactadas en Vedalken y Trit n, aunque contiene notas en caracteres extra os escritos apresuradamente de forma enajenada y ca tica que no reconoces. Su contenido revela que recientes acontecimientos han permitido realizar grandes avances en el campo de la gesti n, control y regeneraci n de tejidos ex nimes mediante la infusi n de mana azul en metales no disponibles hasta la fecha (art culo pendiente de revisi n por parte de los responsables del Zonot). Tras aplicar Comprensi n idiom tica : los caracteres extra os siguen sin ser reconocibles, pero parece que el metal azul tiene propiedades nigromanticas.",
+      "notes_dm": "",
+      "img": "",
+      "id": "mpst0ffvffg0mv"
+    },
+    {
+      "nom": "Informe para el Juez de Manjatan",
+      "propietari": "Marchena",
+      "visible": "Tots",
+      "contingut": "Fajo desordenado de notas de laboratorio encontradas en la C mara de Crecimiento Simic. Est n principalmente redactadas en Vedalken y Trit n, aunque contiene notas en caracteres extra os escritos apresuradamente de forma enajenada y ca tica que no reconoces. Su contenido revela que recientes acontecimientos han permitido realizar grandes avances en el campo de la gesti n, control y regeneraci n de tejidos ex nimes.",
+      "notes_dm": "",
+      "img": "",
+      "id": "mpst0ffvl3ul1y"
+    },
+    {
+      "nom": "Espada de la Venganza",
+      "propietari": "Wundyr Somo",
+      "visible": "Tots",
+      "contingut": "Espada, poco com n (requiere vinculaci n) Extra da de un esqueleto con cabeza animal, al extraer la espada se ha desmenuzado en fina arena. Obtienes un bonificador +1 a tiradas de ataque y da o realizadas con esta espada m gica. Maldici n: Esta espada est  maldita y pose da por un esp ritu vengativo. Estar vinculado a ella extiende la maldici n hasta ti. Mientras permanezcas maldito, no est s dispuesto a desprenderte de la espada, manteni ndola contigo todo el tiempo. Mientras est s vinculado a esta arma, tienes desventaja en tiradas de ataque realizadas con otras armas distintas a esta. Adem s, mientras la espada este contigo, debes superar una tirada de salvaci n de Sabidur a con CD 15 cada vez que recibas da o en combate. Con una salvaci n fallida, debes atacar a la criatura que te lastim  hasta que tus puntos de golpe o los de la criatura que te lastim  queden reducidos a 0, o hasta que no puedas alcanzar a la criatura para realizar un ataque cuerpo a cuerpo contra ella. Puedes romper la maldici n de forma normal. Alternativamente, conjurar destierro sobre la espada fuerza al esp ritu vengativo a dejarla. La espada se convierte entonces en un arma +1 sin ninguna otra propiedad.",
+      "notes_dm": "",
+      "img": "assets/img/misc/mpst0ffvu7vkbh.png",
+      "id": "mpst0ffvu7vkbh"
+    },
+    {
+      "nom": "Deposito común en el Santísimo Banco Sindical Orzhov",
+      "propietari": "Compartido",
+      "visible": "Tots",
+      "contingut": "8650 cp (A) 22950 cp (O) 262 ep (A) 557 gp (B) C liz de cobre con filigrana de plata (25 gp) 2x relicarios de oro con un retrato pintado en su interior (25 gp) Set de dados de hueso grabados (25 gp) Peque o espejo con marco de madera pintada (25 gp)",
+      "notes_dm": "",
+      "img": "assets/img/misc/mpst0ffvv7nzjb.jpg",
+      "id": "mpst0ffvv7nzjb"
+    },
+    {
+      "nom": "Correo Misterioso",
+      "propietari": "Wundyr Somo",
+      "visible": "Tots",
+      "contingut": "\"He estado ausente durante muchas lunas, hubo contratiempos inesperados. Explica qu  es lo que necesitas.\" - Firmado: Un aliado discreto. -------------------------------------------- 12/XII/21 Ocurren cosas que me afectan indirecta y directamente. Tengo enemigos por todas partes y necesito tus servicios: - Un hermano goblin esta desaparecido. necesito saber que ha sido de  l. se encuentra en la calle de hojalata [doy informacion] . - Cierto goblin esta ocasionando el malestar entre gremios... necesito saber de  l .[explico datos e informacion y sobretodo doy el nombre de arkady para ver si puede relacionarlos]. Necesito nombres para interrogar... y no sera solo con palabras. - Grukurg ha sido enga ado y presuntamente estafado. capataz 2 dice haber visto alguien , apodado \" el fantasma \". necesito informaci n, datos... se que abunda el mana negro en el acto de aquel dia.[ explico el caso del prestamista y que empiece por su circulo]. - Pesha... quiero saber de su pasado. Que vida llev , quien era antes de ser la posadera del cuerno de oro.y sobretodo ... que objeto le podria gustar. Favor por favor. La confianza debe de ser mutua. Ayudame y la mano de la justicia estara de tu lado. 13/XII/21 Investigar  estos datos que me comentas sobre Arkady y Pesha y el Goblin desaparecido. Sobre el fantasma: Es un misterioso y poderoso ente, y su misterio s lo es comparable a su poder. Puede ser una figura clave para el futuro o un mero espectador, no sabemos cual es su prop sito a n. No parece estar relacionado con la presunta estafa. 28/II/2022 No necesito que busques al goblin ... cierto amigo ya me ha ayudado en encontrar su paradero. Tenia familia.B scala. Estar  retenida en algun lado, por miembros de mi orden, si los tienen la chusma de tajik o de algun colaborador .Dame una pista fiable, un lugar...solo pido eso para poder emmendar mi falta y empezar con mi venganza... 03/III/2022 Fue muy fortuito que alguien le diera a tu amigo la indicaci n correcta y la motivaci n d nde buscar a tu amigo. Pronto el viento susurrar  alguna otra pista.",
+      "notes_dm": "",
+      "img": "assets/img/misc/mpst0ffv1k9wut.jpeg",
+      "id": "mpst0ffv1k9wut"
+    },
+    {
+      "nom": "Bandera Trofeo del Basilisco",
+      "propietari": "Wundyr Somo",
+      "visible": "Tots",
+      "contingut": "+1 a las tiradas de Persuasi n",
+      "notes_dm": "",
+      "img": "assets/img/misc/mpst0ffvj81e3e.jpg",
+      "id": "mpst0ffvj81e3e"
+    },
+    {
+      "nom": "Goblin Moñeco",
+      "propietari": "Yarog (HorseLuis)",
+      "visible": "Tots",
+      "contingut": "Objeto maravilloso, poco com n Tras una desafortunada noche envuelta en el misterio (en la que se quedo to' mo eco en un WC), el esp ritu de Kasz trascendi  su cuerpo y alcanzo cotas de iluminaci n c smica solo al alcance de gur s y sabios. Aunque nadie sabe si su alma se encuentra se encuentra en el infierno o en el para so, su cuerpo sigue semi-momificado en Ravnica, donde es adorado por sus seguidores el que fue anta o un verdadero h roe del Aventino. Proporciona ventaja en las tiradas de habilidad basadas en el Carisma si el Gremio del objetivo comparte al menos un color de man  con el Gremio del usuario, o desventaja de no compartir ninguno. Sin efecto sobre los que no tengan ninguna afiliaci n gremial.",
+      "notes_dm": "",
+      "img": "",
+      "id": "mpst0ffvvyt9pi"
+    }
+  ],
+  "edificis": [
+    {
+      "nom": "Oficina Capilla Azorius",
+      "nivel": "Lv0",
+      "gremi": "Azorius",
+      "personajes": "mpsh5o3tuv5fj9, mpsh5o3tl25vg4, mpsh5o3tds8bru",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "Elecciones a cargos publicos",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa34tfci8.jpg",
+      "id": "mpsh5oa34tfci8"
+    },
+    {
+      "nom": "Medico Azorius",
+      "nivel": "Lv1",
+      "gremi": "Azorius",
+      "personajes": "mpsh5o3txctbtm",
+      "reglas": "Restauraci n, Quitar maldici n",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3r6kkgn.jpg",
+      "id": "mpsh5oa3r6kkgn"
+    },
+    {
+      "nom": "Recaudador de Impuestos Azorius",
+      "nivel": "Lv2",
+      "gremi": "Azorius",
+      "personajes": [],
+      "reglas": "",
+      "conflicto": "Simic",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa319eaz8.jpg",
+      "id": "mpsh5oa319eaz8"
+    },
+    {
+      "nom": "Ayuntamiento Azorius",
+      "nivel": "Lv3",
+      "gremi": "Azorius",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Dimir",
+      "ideas": "Aduanas",
+      "activo": false,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa35kszci.jpg",
+      "id": "mpsh5oa35kszci"
+    },
+    {
+      "nom": "Comisaria Boros",
+      "nivel": "Lv0",
+      "gremi": "Boros",
+      "personajes": "mpsh5o3t18lxci, mpsh5o3tg6lulv",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "Resolver crimenes",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3yqxm3d.jpg",
+      "id": "mpsh5oa3yqxm3d"
+    },
+    {
+      "nom": "Forja Boros",
+      "nivel": "Lv1",
+      "gremi": "Boros",
+      "personajes": "mpsh5o3t7ylpsh",
+      "reglas": "Armas y armaduras",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3t4zfbv.jpg",
+      "id": "mpsh5oa3t4zfbv"
+    },
+    {
+      "nom": "Barracones Boros",
+      "nivel": "Lv3",
+      "gremi": "Boros",
+      "personajes": "Escuadr n Boros",
+      "reglas": "",
+      "conflicto": "Orzhov",
+      "ideas": "Sacralizar [Hallow]",
+      "activo": false,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3xsqszc.jpg",
+      "id": "mpsh5oa3xsqszc"
+    },
+    {
+      "nom": "Calabozos Boros",
+      "nivel": "Lv2",
+      "gremi": "Boros",
+      "personajes": "",
+      "reglas": "Recompensas",
+      "conflicto": "Gruul",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3fsmkow.jpg",
+      "id": "mpsh5oa3fsmkow"
+    },
+    {
+      "nom": "Callejuelas",
+      "nivel": "Lv0",
+      "gremi": "Dimir",
+      "personajes": "mpsh5o3tx6v3ww",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "Crimenes, persecuciones",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa33ys1s6.jpg",
+      "id": "mpsh5oa33ys1s6"
+    },
+    {
+      "nom": "Sastre",
+      "nivel": "Lv1",
+      "gremi": "Dimir",
+      "personajes": "mpsh5o3t3tj642",
+      "reglas": "Ropa y disfraces",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3hqo258.jpg",
+      "id": "mpsh5oa3hqo258"
+    },
+    {
+      "nom": "Piso Franco",
+      "nivel": "Lv2",
+      "gremi": "Dimir",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Boros",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3yxj6uo"
+    },
+    {
+      "nom": "Oficina de correo",
+      "nivel": "Lv2",
+      "gremi": "Dimir",
+      "personajes": "",
+      "reglas": "Permite contactar por correo",
+      "conflicto": "Azorius",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa38nxotq.jpg",
+      "id": "mpsh5oa38nxotq"
+    },
+    {
+      "nom": "Herbolario",
+      "nivel": "Lv1",
+      "gremi": "Golgari",
+      "personajes": "mpsh5o3ty3mmsb, mpsh5o3tvojzo4",
+      "reglas": "Venenos y suministros",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3htas9g.jpg",
+      "id": "mpsh5oa3htas9g"
+    },
+    {
+      "nom": "Oficina de objetos perdidos Golgari",
+      "nivel": "Lv3",
+      "gremi": "Golgari",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Simic",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3vzz1xy"
+    },
+    {
+      "nom": "Alcantarillado subterráneo Golgari",
+      "nivel": "Lv2",
+      "gremi": "Golgari",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Boros",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3ks4jda.jpg",
+      "id": "mpsh5oa3ks4jda"
+    },
+    {
+      "nom": "Campamento Gruul",
+      "nivel": "Lv0",
+      "gremi": "Gruul",
+      "personajes": "mpsh5o3tjn9pgk, mpsh5o3thuq2nm, mpsh5o3tgf7y5a, mpsi0twmtb9hnd",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3j66m9m.jpg",
+      "id": "mpsh5oa3j66m9m"
+    },
+    {
+      "nom": "Tienda del shaman Gruul",
+      "nivel": "Lv1",
+      "gremi": "Gruul",
+      "personajes": "mpsh5o3ta7zcb3",
+      "reglas": "Pociones y suministros",
+      "conflicto": "",
+      "ideas": "Invocar elementales",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3rxgtcp.jpg",
+      "id": "mpsh5oa3rxgtcp"
+    },
+    {
+      "nom": "Arena de duelos Gruul",
+      "nivel": "Lv2",
+      "gremi": "Gruul",
+      "personajes": [],
+      "reglas": "",
+      "conflicto": "Rakdos",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3yjammm"
+    },
+    {
+      "nom": "Reserva salvaje Gruul",
+      "nivel": "Lv3",
+      "gremi": "Gruul",
+      "personajes": "Aurelio, L der del Clan",
+      "reglas": "",
+      "conflicto": "Dimir",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3s1kznn"
+    },
+    {
+      "nom": "Yermos Rojos",
+      "nivel": "Lv0",
+      "gremi": "Guildless",
+      "personajes": "",
+      "reglas": "Aventuras",
+      "conflicto": "",
+      "ideas": "Migraci n de sierpes",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa35njcyl.jpg",
+      "id": "mpsh5oa35njcyl"
+    },
+    {
+      "nom": "Plaza",
+      "nivel": "Lv0",
+      "gremi": "Guildless",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "",
+      "ideas": "Manifestaci n de trabajadores, actos publicos, ferias",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa35x6ey3"
+    },
+    {
+      "nom": "Fuente",
+      "nivel": "Lv0",
+      "gremi": "Guildless",
+      "personajes": "",
+      "reglas": "Suministro de agua",
+      "conflicto": "",
+      "ideas": "Brecha en laboratorio simic",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa30y0qbu"
+    },
+    {
+      "nom": "Mercado en la plaza",
+      "nivel": "Lv0",
+      "gremi": "Guildless",
+      "personajes": "mpsh5o3t8jzb0i, mpsh5o3t34ufne, mpsh5o3ttfh2q9, mpsh5o3ti7dndm, mpsh5o3tsz2ft8",
+      "reglas": "Compras b sicas",
+      "conflicto": "",
+      "ideas": "Conseguir suministros (trigo Selesnya, por ej)",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa3gi42qx"
+    },
+    {
+      "nom": "Constructora",
+      "nivel": "Lv0",
+      "gremi": "Guildless",
+      "personajes": "mpsh5o3tmfzd83",
+      "reglas": "Reconstruir el barrio",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa3lc2s5h"
+    },
+    {
+      "nom": "Taller Izzet",
+      "nivel": "Lv0",
+      "gremi": "Izzet",
+      "personajes": "mpsh5o3tqh5ysb, mpsh5o3t0volgr",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa3u9zrct"
+    },
+    {
+      "nom": "Biblioteca Izzet",
+      "nivel": "Lv1",
+      "gremi": "Izzet",
+      "personajes": "",
+      "reglas": "Conjuros adicionales",
+      "conflicto": "",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3318gmo"
+    },
+    {
+      "nom": "Puerto Aereo Izzet",
+      "nivel": "Lv3",
+      "gremi": "Izzet",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Boros",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3vzctfr"
+    },
+    {
+      "nom": "Laboratorio Arcano Izzet",
+      "nivel": "Lv2",
+      "gremi": "Izzet",
+      "personajes": [],
+      "reglas": "Permite encantar objetos",
+      "conflicto": "Orzhov",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3brp416"
+    },
+    {
+      "nom": "Casa del prestamista Ozhov",
+      "nivel": "Lv0",
+      "gremi": "Orzhov",
+      "personajes": "mpsh5o3truybqn, mpsh5o3tsd7xa7",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "Prestamos",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3ynzrbt.jpg",
+      "id": "mpsh5oa3ynzrbt"
+    },
+    {
+      "nom": "Banco del Sindicato Orzhov",
+      "nivel": "Lv1",
+      "gremi": "Orzhov",
+      "personajes": "mpsh5o3tqgji8r",
+      "reglas": "Guardar tesoros, prestamos",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa3741bbg"
+    },
+    {
+      "nom": "Iglesia Orzhov",
+      "nivel": "Lv3",
+      "gremi": "Orzhov",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Izzet",
+      "ideas": "Construcci n en multiples arcos",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3da9ss3"
+    },
+    {
+      "nom": "Cementerio Orzhov",
+      "nivel": "Lv2",
+      "gremi": "Orzhov",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Golgari",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3rc6c2l"
+    },
+    {
+      "nom": "Salon de juego Rakdos",
+      "nivel": "Lv1",
+      "gremi": "Rakdos",
+      "personajes": "mpsh5o3tbwzvqo, mpsh5o3t5mu7oq",
+      "reglas": "Objetos magicos aleatorios",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "",
+      "id": "mpsh5oa3wy2poj"
+    },
+    {
+      "nom": "Teatro Rakdos",
+      "nivel": "Lv2",
+      "gremi": "Rakdos",
+      "personajes": "mpsh5o3tpbov7j",
+      "reglas": "",
+      "conflicto": "Azorius",
+      "ideas": "Festival rakdos",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3ylju3d"
+    },
+    {
+      "nom": "Taberna El Cuerno de Oro",
+      "nivel": "Lv0",
+      "gremi": "Rakdos",
+      "personajes": "mpsh5o3toch697, mpsh5o3tbwzvqo, mpsh5o3tl2n47v",
+      "reglas": "Bebida y diversi n, hogar",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3xgdvgd.jpg",
+      "id": "mpsh5oa3xgdvgd"
+    },
+    {
+      "nom": "Gremio de Costureras Rakdos",
+      "nivel": "Lv3",
+      "gremi": "Rakdos",
+      "personajes": "",
+      "reglas": "Contactos",
+      "conflicto": "Gruul",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3z1t40m"
+    },
+    {
+      "nom": "Misión de la Armonía Compartida Selesnya",
+      "nivel": "Lv1",
+      "gremi": "Selesnya",
+      "personajes": "mpsh5o3txkd5c8",
+      "reglas": "Suministros de comida",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa32134fo.png",
+      "descripcion": "La Misión de la Armonía Compartida es una granería comunitaria y centro de ayuda vecinal donde los habitantes del Aventino pueden conseguir alimentos, semillas y apoyo durante los momentos difíciles. Sus voluntarios mantienen comedores populares, pequeños huertos urbanos y diversas actividades para la comunidad.\n\nMás allá de su labor benéfica, la misión promueve activamente los valores de cooperación, unidad y vida en comunidad propios de Selesnya. A través de reuniones, celebraciones y actividades sociales, muchos vecinos terminan integrándose cada vez más en la organización.\n\nPara la mayoría es un refugio de solidaridad en un barrio duro. Para Selesnya, es también una forma de cultivar algo más que alimentos.\n",
+      "id": "mpsh5oa32134fo"
+    },
+    {
+      "nom": "Estanque reproductor Simic",
+      "nivel": "Lv2",
+      "gremi": "Simic",
+      "personajes": "",
+      "reglas": "Mascotas",
+      "conflicto": "Izzet",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3is6w3g"
+    },
+    {
+      "nom": "Clinica de injertos Simic",
+      "nivel": "Lv3",
+      "gremi": "Simic",
+      "personajes": "",
+      "reglas": "",
+      "conflicto": "Golgari",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3ks8vi7"
+    },
+    {
+      "nom": "Dojo Inclusivo Simic",
+      "nivel": "Lv1",
+      "gremi": "Simic",
+      "personajes": "mpsh5o3tx76rn3",
+      "reglas": "Hogar",
+      "conflicto": "",
+      "ideas": "",
+      "activo": false,
+      "avatarCustom": "",
+      "id": "mpsh5oa3uzcj5a"
+    },
+    {
+      "nom": "Casa Solar",
+      "nivel": "Lv0",
+      "gremi": "Boros",
+      "personajes": "mpsh5o3tkxpsh0, mpsh5o3tpqsk84, mpsh5o3tliibhr, mpsh5o3te0gk70",
+      "reglas": "",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa34z0mte.jpg",
+      "avatar": "",
+      "descripcion": "Casa Solar es la imponente sede central de la Legión Boros, el gremio que actúa como el ejército permanente y la fuerza policial del plano de Rávnica. Esta gigantesca fortaleza militar funciona como un bastión inexpugnable de justicia y orden, caracterizado por su arquitectura colosal coronada con estandartes dorados, altares de luz y estatuas de ángeles que vigilan el plano. En su interior conviven la disciplina marcial y el fervor religioso, albergando desde barracones y arsenales hasta los aposentos de los arcángeles que lideran la facción. La Legión Boros opera bajo una estricta cadena de mando que fusiona la pasión y el fuego del color rojo con la estructura y la rectitud del color blanco. A diferencia de otros gremios de la ley que se pierden en la burocracia, los Boros defienden el espíritu de la justicia de forma apasionada, rápida y contundente, desplegando su poder militar desde Casa Solar para purgar el crimen y proteger a los ciudadanos de Rávnica con un celo implacable.",
+      "id": "mpsh5oa34z0mte"
+    },
+    {
+      "nom": "Nivix, el Nido del Mente ígnea",
+      "nivel": "Lv0",
+      "gremi": "Izzet",
+      "personajes": "mpsh5o3t2q5mi5, mpsh5o3th7tfw8, mpsh5o3t03lebb",
+      "reglas": "",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3apcrvw.jpg",
+      "avatar": "",
+      "descripcion": "Nivix, el Nido del Mente ígnea, es la descomunal sede central de la Liga Izzet, el gremio de científicos locos, magos e ingenieros encargados de la infraestructura pública y la innovación tecnológica en Rávnica. Esta colosal estructura es una de las torres más altas del plano, un laberinto vertical envuelto en potentes runas protectoras donde la magia y la ciencia colisionan en un caos constante. A lo largo de sus incontables pisos, miles de alquimistas y sabios elegidos a dedo teorizan, inventan y arrojan peligrosos experimentos fallidos de una habitación a otra, desatando llamaradas y distorsiones gravitacionales sin un orden aparente. Fiel al espíritu de su gremio, que fusiona el intelecto calculador del color azul con la pasión impredecible del color rojo, Nivix opera bajo una paradoja: es un epicentro de explosiones recurrentes, pero también el lugar donde se diseñan los sistemas de alcantarillado, calderas y energía que mantienen viva a la ciudad. En la cúspide absoluta de la torre se encuentra el nido privado de Niv-Mizzet, el egocéntrico e hiperinteligente dragón parun que lidera el gremio. Desde su inmensa biblioteca superior, el dragón observa el aparente descontrol de los niveles inferiores, tratándolo secretamente como las piezas interconectadas de un único, brillante y monumental experimento global.",
+      "id": "mpsh5oa3apcrvw"
+    },
+    {
+      "nom": "Sede Sindical Orzhov del Cuarto Precinto",
+      "nivel": "Lv0",
+      "gremi": "Orzhov",
+      "personajes": "mpsh5o3t4rlgji, mpsh5o3tx6cwdw",
+      "reglas": "",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3gcy3pq.png",
+      "avatar": "",
+      "descripcion": "La sede Orzhov del Aventino es el corazón financiero del barrio. Comerciantes, artesanos y vecinos acuden allí en busca de préstamos, asesoramiento o ayuda durante tiempos difíciles, aunque pocos salen sin haber adquirido alguna nueva obligación.\n\nEn sus despachos trabajan escribanos, recaudadores y sacerdotes financieros que administran contratos, deudas y herencias con una eficiencia casi sobrenatural. Los rumores afirman que algunos de sus empleados más antiguos continúan desempeñando sus funciones incluso después de la muerte.\n\nPara muchos es una institución respetable y necesaria. Para otros, una trampa elegante donde cada favor tiene un precio oculto. Lo único seguro es que los Orzhov siempre llevan las cuentas al día.\n",
+      "id": "mpsh5oa3gcy3pq"
+    },
+    {
+      "nom": "Orfanato de Santa Alisande",
+      "nivel": "Lv0",
+      "gremi": "Dimir",
+      "personajes": "mpsh5o3tvml5q4",
+      "reglas": "",
+      "conflicto": "",
+      "ideas": "",
+      "activo": true,
+      "avatarCustom": "assets/img/Aventino/mpsh5oa3gq6udu.png",
+      "avatar": "",
+      "descripcion": "El Orfanato de Santa Alisande es una institución modesta pero sorprendentemente bien gestionada que acoge a huérfanos y niños sin recursos del Aventino. Sus cuidadores son atentos, la educación es buena y rara vez faltan alimentos o materiales, algo que muchos vecinos consideran casi milagroso.\n\nA lo largo de los años, numerosos jóvenes han abandonado el orfanato para ocupar puestos respetables o encontrar oportunidades lejos del barrio. Curiosamente, pocos regresan y resulta difícil seguirles la pista.\n\nPara la mayoría de los habitantes del Aventino es simplemente un refugio para quienes más lo necesitan. Sin embargo, quienes han pasado por sus aulas suelen compartir ciertas cualidades: discreción, buena memoria y una notable capacidad para escuchar sin llamar la atención. En una ciudad como Ravnica, no son habilidades que pasen desapercibidas.",
+      "id": "mpsh5oa3gq6udu"
+    }
+  ]
+}

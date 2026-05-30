@@ -57,81 +57,10 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.17.0";
+const VERSION="3.19.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
-const GH_BASE="assets/img/";
-const IMG_CHARS={
-  "Ezzio Salvatore":"personajes/Ezzio Salvatore.jpg","Wundyr Somo":"personajes/Wundyr Somo.jpg","Wundyr Somo (Torito)":"personajes/Wundyr Somo.jpg","Yarog (HorseLuis)":"personajes/Yarog (HorseLuis).jpg",
-  "Manjatan":"personajes/Manjatan.jpg","Svikull Rusl":"personajes/Svikull Rusl.jpg","Marchena":"personajes/Marchena.jpg","Kasz":"personajes/Kasz.jpg",
-  "El Vocero":"personajes/El Vocero.jpg","Pesha la Tabernera":"personajes/Pesha la Tabernera.jpg","Kotyali la Cazadora":"personajes/Kotyali la Cazadora.jpg",
-  "Shazel Bara, Chaman del clan":"personajes/Shazel Bara, Chaman del clan.jpg","Obez el Prestamista":"personajes/Obez el Prestamista.jpg",
-  "Iván el Cocinero":"personajes/Iván el Cocinero.jpg","Grukurg el Tintador":"personajes/Grukurg el Tintador.jpg","Ten el Pescadero":"personajes/Ten el Pescadero.jpg",
-  "Morai la Capataz":"personajes/Morai la Capataz.jpg","Cresh el Vendedor de Comida Ambulante":"personajes/Cresh el Vendedor de Comida Ambulante.jpg",
-  "Elon Tusk el Mercader de grano":"personajes/Elon Tusk el Mercader de grano.jpg","Dhalya Macav la Comerciante":"personajes/Dhalya Macav la Comerciante.jpg",
-  "Maeve la Carterista":"personajes/Maeve la Carterista.jpg","Sila, Tribuno de la Legión":"personajes/Sila, Tribuno de la Legión.jpg",
-  "Arkady el Alborotador":"personajes/Arkady el Alborotador.jpg","Ikram la Contrabandista":"personajes/Ikram la Contrabandista.png",
-  "Bookworm el Consigliere":"personajes/Bookworm el Consigliere.jpg","Kakí Skýla, Lugarteniente del Enjambre Ochran":"personajes/Kakí Skýla, Lugarteniente del Enjambre Ochran.png",
-  "Tajic, Espada de la Legión":"personajes/Tajic, Espada de la Legión.jpg","Sargento Instructor Gough":"personajes/Sargento Instructor Gough.jpg",
-  "Informante Secreto":"personajes/Informante Secreto.jpg","Mecenas misterioso":"personajes/Mecenas misterioso.jpg",
-  "Emeritus Tobias Forge":"personajes/Emeritus Tobias Forge.jpg","Ministrant Tobias Forge":"personajes/Emeritus Tobias Forge.jpg","Glenn Danzing, Sicario del Sindicato":"personajes/Glenn Danzing, Sicario del Sindicato.jpg",
-  "Padre Messiah Marcolin":"personajes/Padre Messiah Marcolin.jpg","Niv-Mizzet, el Dracogenio":"personajes/Niv-Mizzet, el Dracogenio.jpg",
-  "Sestri, Degana del Laboratorio de Tormentas y Electricidad":"personajes/Sestri, Degana del Laboratorio de Tormentas y Electricidad.jpg",
-  "Coldie, Genio Inestable":"personajes/Coldie, Genio Inestable.png","Rotxar, Cultista Tatuador":"personajes/Rotxar, Cultista Tatuador.png",
-  "Tai On, Justicar del Senado":"personajes/Tai On, Justicar del Senado.jpg","Randall, Comunero Pacifista":"personajes/Randall, Comunero Pacifista.jpg",
-  "Khatnas, Juez de Asuntos Internos":"personajes/Khatnas, Juez de Asuntos Internos.jpg","Nebum Gerava, Arbites del Senado":"personajes/Nebum Gerava, Arbites del Senado.jpg",
-  "Gasz, Matón de la Calle de Hojalata":"personajes/Gasz, Matón de la Calle de Hojalata.jpg","Luda Manson, Productora y Cazatalentos":"personajes/Luda Manson, Productora y Cazatalentos.png",
-  "Drekk, revolucionario desencantado":"personajes/Drekk, revolucionario desencantado.png",
-  "Mira, la de correos":"personajes/Mira, la de correos.png",
-  "Ylldiane, Intendente Mayor":"personajes/Ylldiane, Intendente Mayor.jpg","Ayudantes de laboratorio Izzet":"personajes/Ayudantes de laboratorio Izzet.jpg",
-  "Reclutas Azorius":"personajes/Reclutas Azorius.png","Giagia, Ama de llaves del Hogar Ancestral Dalverjar":"personajes/Giagia, Ama de llaves del Hogar Ancestral Dalverjar.jpg",
-  "Escuadrón Boros":"personajes/Escuadrón Boros.jpg","Anarquistas Gruul":"personajes/Anarquistas Gruul.jpg",
-  "Troupe Rakdos":"personajes/Troupe Rakdos.jpg","André el Herrero":"personajes/André el Herrero.jpg",
-  "Alysa la Sastre":"personajes/Alysa la Sastre.jpg","Albert Camus de la Oficina del Banco":"personajes/Albert Camus de la Oficina del Banco.jpg",
-  "Aiker Bosset":"personajes/Aiker Bosset.png","Los fieles seguidores del Maestro, el Evolucionador de hombres":"personajes/Los fieles seguidores del Maestro, el Evolucionador de hombres.jpg",
-  "Trisz, Legionario Caido (Fallecido)":"personajes/Trisz, Legionario Caido (Fallecido).jpg","Pandora, Espíritu Servicial":"personajes/Pandora, Espíritu Servicial.webp",
-  "Goblin Moñeco":"personajes/Goblin Moñeco.jpg","Lyzaxa":"personajes/Lyzaxa.jpg","Sinrostro":"personajes/Sinrostro.jpg",
-  "Rezana, Médico Azorius":"personajes/Rezana, Médico Azorius.jpg",
-  "Aurelio, Líder del Clan":"personajes/Aurelio, Líder del Clan.jpg",
-  "Nullan, Xofer de Ezzio":"personajes/Nullan, Xofer de Ezzio.png",
-};
-const IMG_EDIFICIS={
-  "Oficina Capilla Azorius":"Aventino/Oficina Capilla Azorius.jpg",
-  "Médico Azorius":"Aventino/Médico Azorius.jpg",
-  "Recaudador de Impuestos Azorius":"Aventino/Recaudador de Impuestos Azorius.jpg",
-  "Ayuntamiento Azorius":"Aventino/Ayuntamiento Azorius.jpg",
-  "Comisaría Boros":"Aventino/Comisaría Boros.jpg",
-  "Forja Boros":"Aventino/Forja Boros.jpg","Barracones Boros":"Aventino/Barracones Boros.jpg",
-  "Calabozos Boros":"Aventino/Calabozos Boros.jpg","Callejuelas":"Aventino/Callejuelas.jpg",
-  "Sastrería":"Aventino/Sastrería.jpg","Sastre":"Aventino/Sastrería.jpg",
-  "Campamento Gruul":"Aventino/Campamento Gruul.jpg","Cloacas Golgari":"Aventino/Cloacas Golgari.jpg","Alcantarillado subterráneo Golgari":"Aventino/Cloacas Golgari.jpg",
-  "Herbolario":"Aventino/Herbolario.jpg","Casa Solar":"Aventino/Casa Solar.jpg","Yermos Rojos":"Aventino/Yermos Rojos.jpg",
-  "Casa del prestamista Ozhov":"Aventino/Casa del prestamista Ozhov.jpg",
-  "Nivix, el Nido del Mente ígnea":"Aventino/Nivix, el Nido del Mente ígnea.jpg",
-  "Taberna el Cuerno de oro":"Aventino/Taberna el Cuerno de oro.jpg",
-  "Tienda del shamán Gruul":"Aventino/Tienda del shamán Gruul.jpg",
-  "Oficina de correo":"Aventino/Oficina de correo.jpg",
-  "Sede Sindical Orzhov del Cuarto Precinto":"Aventino/Sede Sindical Orzhov del Cuarto Precinto.png",
-  "Orfanato de Santa Alisande":"Aventino/Orfanato de Santa Alisande.png",
-  "Misión de la Armonía Compartida":"Aventino/Misión de la Armonía Compartida.png","Misión de la Armonía Compartida Selesnya":"Aventino/Misión de la Armonía Compartida.png",
-};
-const IMG_HANDOUTS={
-  "3x Poción de Heroísmo (+3)":"misc/3x Poción de Heroísmo (+3).jpg",
-  "Amuleto contra Detección y Localización":"misc/Amuleto contra Detección y Localización.jpg",
-  "Aparato de Mizzium":"misc/Aparato de Mizzium.jpg",
-  "Bandera Trofeo del Basilisco":"misc/Bandera Trofeo del Basilisco.jpg",
-  "Baraja de Ilusiones":"misc/Baraja de Ilusiones.jpg",
-  "Bolsa de Contención":"misc/Bolsa de Contención.jpeg",
-  "Correo Misterioso":"misc/Correo Misterioso.jpeg",
-  "Deposito común en el Santísimo Banco Sindical Orzhov":"misc/Deposito común en el Santísimo Banco Sindical Orzhov.jpg",
-  "Escudo Centinela":"misc/Escudo Centinela.jpg",
-  "Espada de la Venganza":"misc/Espada de la Venganza.png",
-  "Gema de Resplandor":"misc/Gema de Resplandor.jpg",
-  "Guantelete de Fuerza de Ogro":"misc/Guantelete de Fuerza de Ogro.jpg",
-  "Par de Pistolas Ballesta Crueles":"misc/Par de Pistolas Ballesta Crueles.jpg",
-  "Pergamino Mágico - Nube de Dagas":"misc/Pergamino Mágico - Nube de Dagas.jpg",
-};
 
 let db=null,auth=null,storage=null;
 async function initFirebase(cfg){
@@ -178,26 +107,12 @@ async function saveData(key,data){
   if(db){try{await db.collection("ravnica").doc(key).set({data:JSON.stringify(data)});}catch(e){}}
   lsSave(key,data);
 }
-function normStr(s){return(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();}
-function buildNormMap(map){const n={};for(const k in map)n[normStr(k)]=map[k];return n;}
 async function loadData(key,def,imgKey){
   let data=null;
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
   if(imgKey){
-    const initMap=key==="chars"?IMG_CHARS:key==="edificis"?IMG_EDIFICIS:key==="handouts"?IMG_HANDOUTS:{};
-    const normMap=buildNormMap(initMap);
-    const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
-    const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
-    data=data.map(x=>{
-      const stored=x[imgKey]||"";
-      // Si ja és ID-based (path amb id com a basename), usar directament
-      if(stored&&validPfx.some(p=>stored.startsWith(p))){const base=stored.split("/").pop().split(".")[0];if(x.id&&base===x.id)return x;}
-      // Fallback per nom (mentre la migració no s'hagi executat)
-      let img=stored||(x.id?fallback(x.nom):"");
-      if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}
-      return{...x,[imgKey]:img};
-    });
+    data=data.map(x=>({...x,[imgKey]:x[imgKey]||""}));
   }
   if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;
@@ -963,9 +878,7 @@ function App({user,onUsersPanel}){
               {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#ede3c8",cursor:"pointer",fontFamily:"'Crimson Text',serif",fontSize:14,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
             </div>,document.body)}
           </div>)}
-          {user.rol==="dm"&&<button onClick={()=>{const d={chars:cs,handouts:hs,edificis:eds};const b=new Blob([JSON.stringify(d)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="img-export.json";a.click();}} title="Exportar dades per migrar imatges" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>📦</button>}
-          {user.rol==="dm"&&<label title="Importar dades migrades (img-migrated.json)" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
-          {onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
+{onUsersPanel&&<button onClick={onUsersPanel} title="Gestión de usuarios" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>👥</button>}
           <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
