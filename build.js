@@ -14,8 +14,16 @@ const DEST = path.join(__dirname, 'docs/index.html');
 // Punt de tall: primer component React que usa JSX
 const SPLIT_MARKER = '\nfunction PersonajesTagSel(';
 
+function getGitHash() {
+  try { return require('child_process').execSync('git rev-parse --short HEAD').toString().trim(); } catch(e) { return ''; }
+}
+
 function build() {
-  const src = fs.readFileSync(SRC, 'utf8');
+  let src = fs.readFileSync(SRC, 'utf8');
+
+  // Injecta el git hash a la constant BUILD_HASH
+  const hash = getGitHash();
+  src = src.replace(/const BUILD_HASH="[^"]*"/, `const BUILD_HASH="${hash}"`);
 
   const babelOpen  = '<script type="text/babel" charset="UTF-8">';
   const babelClose = '</script>';

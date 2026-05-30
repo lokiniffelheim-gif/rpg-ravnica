@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.19.0";
+const VERSION="4.0.0";const BUILD_HASH="";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -866,7 +866,7 @@ function App({user,onUsersPanel}){
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
         <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:12,lineHeight:1}}>⚜</span></div>
-        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}</span>}</div>
+        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#f8eecc",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:12,color:"#aa9870",fontStyle:"italic",fontFamily:"'Crimson Text',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:10,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
         <span style={{fontSize:10,color:syncCol,marginLeft:4,fontFamily:"'Cinzel',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
           {!mob&&<span style={{fontSize:11,color:"#aa9870",fontFamily:"'Cinzel',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
