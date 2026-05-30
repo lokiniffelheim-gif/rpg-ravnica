@@ -598,12 +598,17 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   },[isPlayer,chars,playerName]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fa,setFa]=useState("actius");
   const [sort,setSort]=useState("asc");
+  const [pendingId,setPendingId]=useState(null);
   useEffect(()=>{
     if(!navTarget?.id)return;
     setQ("");setFg("all");setFa("all");setSort("asc");
-    const idx=edificis.findIndex(e=>e.id===navTarget.id);
-    if(idx>=0){onSelect(idx);setShowD(true);}
+    setPendingId(navTarget.id);
   },[navTarget]);
+  useEffect(()=>{
+    if(!pendingId)return;
+    const idx=filtered.findIndex(e=>e.id===pendingId);
+    if(idx>=0){onSelect(idx);setShowD(true);setPendingId(null);}
+  },[pendingId,filtered]);
   const [panelW,setPanelW]=useState(38);
   const startDrag=useCallback(e=>{
     if(isMob)return;e.preventDefault();
@@ -750,12 +755,13 @@ function App({user,onUsersPanel}){
   const [previewAs,setPreviewAs]=useState(null);
   const [showPreviewSel,setShowPreviewSel]=useState(false);
   const [aventNavTarget,setAventNavTarget]=useState(null);
+  const [pendingCharId,setPendingCharId]=useState(null);
   const effectiveUser=useMemo(()=>previewAs?{rol:"jugador",personatge:previewAs,email:"preview",uid:"preview"}:user,[previewAs,user]);
   const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("aventino");};
   const navToChar=useCallback(id=>{
     setTab("chars");setQ("");setFilt("all");setSort("asc");setShowD(true);
-    const idx=cs.findIndex(x=>x.id===id);setSel(idx>=0?idx:null);
-  },[cs]);
+    setPendingCharId(id);
+  },[]);
   const navToEdifici=useCallback(id=>{
     setTab("aventino");setSel(null);setShowD(false);
     setAventNavTarget({id,key:Date.now()});
@@ -825,6 +831,11 @@ function App({user,onUsersPanel}){
     if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
     return r;
   },[items,q,filt,sort,tab,effectiveUser,secureT]);
+  useEffect(()=>{
+    if(!pendingCharId||tab!=="chars")return;
+    const idx=fltd.findIndex(x=>x.id===pendingCharId);
+    if(idx>=0){setSel(idx);setShowD(true);setPendingCharId(null);}
+  },[pendingCharId,fltd,tab]);
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
