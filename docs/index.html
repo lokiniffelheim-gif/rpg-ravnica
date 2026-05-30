@@ -112,7 +112,7 @@ async function loadData(key,def,imgKey){
   if(db){try{const r=await db.collection("ravnica").doc(key).get();if(r.exists)data=JSON.parse(r.data().data);}catch(e){}}
   if(!data)data=lsLoad(key,null);if(!data)data=def;
   if(imgKey){
-    data=data.map(x=>({...x,[imgKey]:x[imgKey]||""}));
+    data=data.map(x=>{let img=x[imgKey]||"";if(img)img=img.replace("assets/img/misc/","assets/img/objetos/");return{...x,[imgKey]:img};});
   }
   if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;

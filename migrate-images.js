@@ -79,7 +79,7 @@ const IMG_HANDOUTS = {
 
 const KEY_INFO = {
   chars:    { imgKey: 'avatar',       map: IMG_CHARS    },
-  handouts: { imgKey: 'img',          map: IMG_HANDOUTS },
+  handouts: { imgKey: 'img',          map: IMG_HANDOUTS, folder: 'objetos' },
   edificis: { imgKey: 'avatarCustom', map: IMG_EDIFICIS },
 };
 
