@@ -444,9 +444,10 @@ function SesionesPanel({isMob}){
   },[]);
   if(page)return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
-      <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:12}}>
-        <button onClick={()=>setPage(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:11,flexShrink:0}}>← TORNAR</button>
-        <span style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",opacity:.7,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.act.nom} / {page.file}</span>
+      <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
+        <span onClick={()=>setPage(null)} style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
+        <span style={{fontSize:10,color:"#6a5a40",fontFamily:"'Cinzel',serif",flexShrink:0}}> / </span>
+        <span style={{fontSize:10,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".06em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
