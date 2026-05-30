@@ -189,7 +189,7 @@ async function loadData(key,def,imgKey){
     const normMap=buildNormMap(initMap);
     const validPfx=[GH_BASE+"personajes/",GH_BASE+"Aventino/",GH_BASE+"misc/"];
     const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
-    data=data.map(x=>{let img=x[imgKey]||fallback(x.nom);if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
+    data=data.map(x=>{const fb=fallback(x.nom);const stored=x[imgKey]||"";const img=fb||(stored.startsWith("http")?stored:"");return{...x,[imgKey]:img};});
   }
   if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;
@@ -352,6 +352,20 @@ function Field({value,onChange,multi,accent,ph,readOnly}){
     {value?<p style={{margin:0,fontSize:15,lineHeight:1.75,color:"#ede3c8",whiteSpace:"pre-line",paddingRight:readOnly?0:14}}>{value}</p>:<p style={{margin:0,fontSize:14,color:"#7a6858",fontStyle:"italic"}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
+}
+
+function AddLocDrop({eds,itemId,onAdd}){
+  const [open,setOpen]=useState(false);
+  const ref=useRef(null);
+  const avail=eds.filter(ed=>!parsePers(ed.personajes).includes(itemId)).sort((a,b)=>a.nom.localeCompare(b.nom));
+  useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
+  return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
+    <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ localización</button>
+    {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:220,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
+      {avail.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más localizaciones</div>}
+      {avail.map(ed=>{const c=GC[ed.gremi]||"#9a8a68";return(<div key={ed.id} onClick={()=>{onAdd(ed.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:c,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=c+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[ed.gremi]||"◆"} {ed.nom}</div>);})}
+    </div>}
+  </div>);
 }
 
 function GuildDrop({value,opts,onChange,cm}){
@@ -842,7 +856,7 @@ function App({user,onUsersPanel}){
               <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
             </span>);})}
-            {effectiveUser.rol==="dm"&&<select onChange={e=>{if(!e.target.value)return;const eidx=eds.findIndex(ed=>ed.id===e.target.value);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes);if(!ids.includes(item.id))updE(eidx,"personajes",[...ids,item.id].join(", "));e.target.value="";}} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",outline:"none",opacity:.7}} value=""><option value="">+ localización</option>{eds.filter(ed=>!parsePers(ed.personajes).includes(item.id)).sort((a,b)=>a.nom.localeCompare(b.nom)).map(ed=><option key={ed.id} value={ed.id}>{ed.nom}</option>)}</select>}
+            {effectiveUser.rol==="dm"&&<AddLocDrop eds={eds} itemId={item.id} onAdd={eid=>{const eidx=eds.findIndex(ed=>ed.id===eid);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes);if(!ids.includes(item.id))updE(eidx,"personajes",[...ids,item.id].join(", "));}}/>}
             </>)
           :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
           {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
