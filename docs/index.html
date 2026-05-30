@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.0.0";const BUILD_HASH="45df779";
+const VERSION="4.0.0";const BUILD_HASH="8a7cc7d";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -169,7 +169,7 @@ function renderMd(md){
 }
 </script>
 <script type="text/babel" charset="UTF-8">
-function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar}){
+function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar,canSeeDimir}){
   const arr=parsePers(value);
   const idToChar=useMemo(()=>{const m={};(chars||[]).forEach(c=>{if(c.id)m[c.id]=c;});return m;},[chars]);
   const visible=filterVisible?arr.filter(id=>{const ch=idToChar[id];return!ch||visibleToUser(ch.visible,filterVisible);}):arr;
@@ -178,7 +178,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
     <div style={{display:"flex",flexWrap:"wrap",gap:4,alignItems:"center"}}>
       {visible.map((id,i)=>{
         const ch=idToChar[id];const nom=ch?ch.nom:id;
-        const col=(ch?.tags||[])[0]?GC[ch.tags[0]]||"#8a7a5a":"#8a7a5a";
+        const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#8a7a5a":"#8a7a5a";
         return(<span key={id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
           <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default",textDecoration:onNavToChar&&ch?"underline dotted":"none"}}>{nom}</span>
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
@@ -584,7 +584,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar}/></div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar} canSeeDimir={canSeeDimir}/></div>
       {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
@@ -796,7 +796,7 @@ function App({user,onUsersPanel}){
             ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
             :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
             {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}
-            {charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
+            {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const col=GC[sg]||"#8a7a5a";return(<span key={e.id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
               <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
             </span>);})}
