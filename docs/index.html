@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.16.0";
+const VERSION="3.17.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -446,9 +446,9 @@ function SesionesPanel({isMob}){
   if(page)return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
       <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
-        <span onClick={()=>setPage(null)} style={{fontSize:10,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".08em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
-        <span style={{fontSize:10,color:"#6a5a40",fontFamily:"'Cinzel',serif",flexShrink:0}}> / </span>
-        <span style={{fontSize:10,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".06em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
+        <span onClick={()=>setPage(null)} style={{fontSize:13,color:GOLD,fontFamily:"'Cinzel',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
+        <span style={{fontSize:13,color:"#6a5a40",fontFamily:"'Cinzel',serif",flexShrink:0}}> / </span>
+        <span style={{fontSize:13,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
