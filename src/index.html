@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.15.0";
+const VERSION="3.16.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -188,6 +188,7 @@ async function loadData(key,def,imgKey){
     const fallback=nom=>normMap[normStr(nom)]?GH_BASE+normMap[normStr(nom)]:"";
     data=data.map(x=>{let img=x[imgKey]||fallback(x.nom);if(img&&!img.startsWith("http")){const ok=validPfx.some(p=>img.startsWith(p));if(!ok)img=fallback(x.nom);}return{...x,[imgKey]:img};});
   }
+  if(Array.isArray(data)) data=data.map(x=>x.id?x:{...x,id:genId()});
   return data;
 }
 
@@ -200,6 +201,7 @@ function arrToVis(arr){if(!arr||arr.length===0)return"Nadie";if(arr.includes("To
 function mc(item,tab,vt){if(tab==="aventino")return GC[item.gremi]||"#8a7a5a";if(tab==="handouts")return PC[item.propietari]||"#8a7a5a";const t=vt||(item.tags||[]);return t.length?GC[t[0]]||"#8a7a5a":"#8a7a5a";}
 function initials(n){return(n||"?").split(" ").filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join("");}
 function parsePers(p){if(!p)return[];if(Array.isArray(p))return p;return p.split(/[,\/]/).map(s=>s.trim()).filter(Boolean);}
+function genId(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
 function renderMd(md){
   if(!md)return"";
   const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
@@ -240,23 +242,25 @@ function renderMd(md){
   return html;
 }
 
-function PersonajesTagSel({value,onChange,chars,readOnly,onNavToChar}){
+function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar}){
   const arr=parsePers(value);
-  const available=(chars||[]).filter(c=>!arr.includes(c.nom)).sort((a,b)=>a.nom.localeCompare(b.nom));
+  const idToChar=useMemo(()=>{const m={};(chars||[]).forEach(c=>{if(c.id)m[c.id]=c;});return m;},[chars]);
+  const visible=filterVisible?arr.filter(id=>{const ch=idToChar[id];return!ch||visibleToUser(ch.visible,filterVisible);}):arr;
+  const available=(chars||[]).filter(c=>c.id&&!arr.includes(c.id)).sort((a,b)=>a.nom.localeCompare(b.nom));
   return(
     <div style={{display:"flex",flexWrap:"wrap",gap:4,alignItems:"center"}}>
-      {arr.map((nom,i)=>{
-        const ch=chars?.find(x=>x.nom===nom);
+      {visible.map((id,i)=>{
+        const ch=idToChar[id];const nom=ch?ch.nom:id;
         const col=(ch?.tags||[])[0]?GC[ch.tags[0]]||"#8a7a5a":"#8a7a5a";
-        return(<span key={i} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
-          <span onClick={onNavToChar?()=>onNavToChar(nom):undefined} style={{cursor:onNavToChar?"pointer":"default",textDecoration:onNavToChar?"underline dotted":"none"}}>{nom}</span>
-          {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>j!==i))}>×</button>}
+        return(<span key={id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
+          <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default",textDecoration:onNavToChar&&ch?"underline dotted":"none"}}>{nom}</span>
+          {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
         </span>);
       })}
-      {arr.length===0&&<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
-      {!readOnly&&<select onChange={e=>{if(e.target.value)onChange([...arr,e.target.value]);e.target.value="";}} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",outline:"none"}}>
+      {visible.length===0&&<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
+      {!readOnly&&<select onChange={e=>{if(e.target.value)onChange([...arr,e.target.value]);e.target.value="";}} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",outline:"none"}} value="">
         <option value="">+ añadir...</option>
-        {available.map(c=><option key={c.nom} value={c.nom}>{c.nom}</option>)}
+        {available.map(c=><option key={c.id} value={c.id}>{c.nom}</option>)}
       </select>}
     </div>
   );
@@ -562,13 +566,17 @@ function SetupScreen({onConnect}){
 
 function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
-  const securePers=useCallback(p=>{if(!isPlayer)return parsePers(p);return parsePers(p).filter(nom=>{const ch=chars?.find(c=>c.nom===nom);return!ch||visibleToUser(ch.visible,playerName);});},[isPlayer,chars,playerName]);
+  const securePers=useCallback(p=>{
+    const ids=parsePers(p);
+    const filtered=isPlayer?ids.filter(id=>{const ch=chars?.find(c=>c.id===id);return!ch||visibleToUser(ch.visible,playerName);}):ids;
+    return filtered.map(id=>{const ch=chars?.find(c=>c.id===id);return ch?ch.nom:id;});
+  },[isPlayer,chars,playerName]);
   const [q,setQ]=useState("");const [fg,setFg]=useState("all");
   const [sort,setSort]=useState("none");
   useEffect(()=>{
-    if(!navTarget?.nom)return;
+    if(!navTarget?.id)return;
     setQ("");setFg("all");setSort("none");
-    const idx=edificis.findIndex(e=>e.nom===navTarget.nom);
+    const idx=edificis.findIndex(e=>e.id===navTarget.id);
     if(idx>=0){onSelect(idx);setShowD(true);}
   },[navTarget]);
   const [panelW,setPanelW]=useState(38);
@@ -621,7 +629,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={isPlayer?securePers(item.personajes):item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} onNavToChar={onNavToChar}/></div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar}/></div>
       {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
@@ -719,13 +727,13 @@ function App({user,onUsersPanel}){
   const [aventNavTarget,setAventNavTarget]=useState(null);
   const effectiveUser=useMemo(()=>previewAs?{rol:"jugador",personatge:previewAs,email:"preview",uid:"preview"}:user,[previewAs,user]);
   const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("aventino");};
-  const navToChar=useCallback(nom=>{
+  const navToChar=useCallback(id=>{
     setTab("chars");setQ("");setFilt("all");setSort("none");setShowD(true);
-    const idx=cs.findIndex(x=>x.nom===nom);setSel(idx>=0?idx:null);
+    const idx=cs.findIndex(x=>x.id===id);setSel(idx>=0?idx:null);
   },[cs]);
-  const navToEdifici=useCallback(nom=>{
+  const navToEdifici=useCallback(id=>{
     setTab("aventino");setSel(null);setShowD(false);
-    setAventNavTarget({nom,key:Date.now()});
+    setAventNavTarget({id,key:Date.now()});
   },[]);
   const saveTimer=useRef(null);
   const startListDrag=useCallback(e=>{
@@ -737,7 +745,26 @@ function App({user,onUsersPanel}){
   },[listW,mob]);
 
   useEffect(()=>{const chk=()=>setMob(window.innerWidth<580);chk();window.addEventListener("resize",chk);return()=>window.removeEventListener("resize",chk);},[]);
-  useEffect(()=>{(async()=>{try{setHs(await loadData("handouts",HANDOUTS,"img"));setCs(await loadData("chars",CHARS,"avatar"));setEds(await loadData("edificis",EDIFICIS_DEFAULT,"avatarCustom"));setGds(await loadData("gremios",{}));}catch(e){console.error(e);}})();},[]);
+  useEffect(()=>{(async()=>{try{
+    const chars=await loadData("chars",CHARS,"avatar");
+    const hs=await loadData("handouts",HANDOUTS,"img");
+    let eds=await loadData("edificis",EDIFICIS_DEFAULT,"avatarCustom");
+    // migrar personajes de noms a IDs (idempotent)
+    const idSet=new Set(chars.map(c=>c.id));
+    const nameToId={};chars.forEach(c=>{nameToId[c.nom]=c.id;});
+    let edsMigrated=false;
+    eds=eds.map(e=>{
+      const parts=parsePers(e.personajes);
+      if(!parts.length)return e;
+      const migrated=parts.map(p=>idSet.has(p)?p:(nameToId[p]||p));
+      const newStr=migrated.join(", ");
+      if(newStr!==e.personajes){edsMigrated=true;return{...e,personajes:newStr};}
+      return e;
+    });
+    setCs(chars);setHs(hs);setEds(eds);
+    if(edsMigrated)await saveData("edificis",eds);
+    setGds(await loadData("gremios",{}));
+  }catch(e){console.error(e);}})();},[]);
 
   const saveKey=useCallback((key,data)=>{
     setSaved("⏳");clearTimeout(saveTimer.current);
@@ -749,12 +776,12 @@ function App({user,onUsersPanel}){
   const updE=(i,f,v)=>{let e;if(f==="__del__"){e=eds.filter((_,j)=>j!==i);}else{e=eds.map((x,j)=>j===i?{...x,[f]:v}:x);}setEds(e);saveKey("edificis",e);};
   const updG=(gremi,field,val)=>{const nd={...gds,[gremi]:{...(gds[gremi]||{}),[field]:val}};setGds(nd);saveKey("gremios",nd);};
 
-  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
-  const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
-  const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
+  const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:"",id:genId()}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
+  const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:"",id:genId()}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
+  const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:"",id:genId()}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
   const items=tab==="handouts"?hs:cs;
-  const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.nom===fi.nom):cs.findIndex(x=>x.nom===fi.nom),[hs,cs,tab]);
+  const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.id===fi.id):cs.findIndex(x=>x.id===fi.id),[hs,cs,tab]);
   const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
 
   const canSeeDimir=useMemo(()=>effectiveUser.rol==="dm"||(cs.find(c=>c.nom===effectiveUser.personatge)?.tags||[]).includes("Dimir"),[effectiveUser,cs]);
@@ -778,7 +805,7 @@ function App({user,onUsersPanel}){
   const origI=item?getOI(item):-1;
   const ac=item?mc(item,tab,tab==="chars"?secureT(item.tags,item.nom):undefined):GOLD;
   const isPJ=item&&PJS.includes(item.nom);
-  const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.nom)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
+  const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.id)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);setImgZoom(false);}
   function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
@@ -824,7 +851,7 @@ function App({user,onUsersPanel}){
         <div style={{fontSize:9,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:5,paddingLeft:4}}>📍 LOCALIZACIONES</div>
         <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
           {charEdificis.length===0?<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>
-            :charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.nom} onClick={()=>navToEdifici(e.nom)} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col,cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>);})}
+            :charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.nom} onClick={()=>navToEdifici(e.id)} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col,cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>);})}
         </div>
       </div>}
       {tab==="chars"&&effectiveUser.rol==="dm"&&<div style={{display:"flex",flexDirection:"column",gap:6}}>
@@ -855,7 +882,7 @@ function App({user,onUsersPanel}){
           {conquistes.length===0
             ?<p style={{textAlign:"center",fontFamily:"'Crimson Text',serif",fontStyle:"italic",color:"#9a8a68",fontSize:17,margin:0,lineHeight:1.6}}>Sargento creemos en usted,<br/>¡siga intentándolo!</p>
             :<div style={{display:"flex",flexWrap:"wrap",gap:16,justifyContent:"center"}}>
-              {conquistes.map(c=>{const csrc=c.avatar||c.img||"";const ct=secureT(c.tags,c.nom);const ccol=GC[ct[0]]||"#8a7a5a";return(<div key={c.nom} onClick={()=>navToChar(c.nom)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:7,width:90,cursor:"pointer"}} title={c.nom}>
+              {conquistes.map(c=>{const csrc=c.avatar||c.img||"";const ct=secureT(c.tags,c.nom);const ccol=GC[ct[0]]||"#8a7a5a";return(<div key={c.nom} onClick={()=>navToChar(c.id)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:7,width:90,cursor:"pointer"}} title={c.nom}>
                 {csrc?<img src={csrc} alt={c.nom} onError={e=>{e.target.style.display="none"}} style={{width:78,height:78,borderRadius:"50%",objectFit:"cover",objectPosition:"center top",border:"2px solid #c4303066",transition:"transform .15s",boxShadow:"0 2px 10px #0006"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}/>
                   :<div style={{width:78,height:78,borderRadius:"50%",background:ccol+"18",border:"2px solid "+ccol+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:26,fontWeight:"bold",color:ccol,fontFamily:"'Cinzel',serif",transition:"transform .15s"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}>{initials(c.nom)}</div>}
                 <span style={{fontSize:11,color:"#c8b880",fontFamily:"'Cinzel',serif",textAlign:"center",lineHeight:1.3,letterSpacing:".03em",wordBreak:"break-word"}}>{c.nom.split(" ")[0]}</span>
