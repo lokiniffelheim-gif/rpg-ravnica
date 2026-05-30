@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.12.0";
+const VERSION="3.13.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
@@ -594,39 +594,39 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const ac=item?GC[secureG(item.gremi)]||GOLD:GOLD;
   const upd=(f,v)=>{if(origI<0)return;onUpdate(origI,f,v);};
 
+  const [imgZoom,setImgZoom]=useState(false);
   const edImgSrc=item?(item.avatarCustom||GUILD_SVG_MAP[secureG(item.gremi)]||""):"";
-  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:isMob?"column":"row",overflow:"hidden",position:"relative",...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
-
-    <div style={{width:isMob?"100%":"33%",height:isMob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:isMob?"none":"1px solid "+BORDER,borderBottom:isMob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
-      {edImgSrc
-        ?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}}/>
-        :<span style={{fontSize:48,color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{GS[secureG(item.gremi)]||"◆"}</span>
-      }
+  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",background:BG,...(isMob?{position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:10}:{})}}>
+    {imgZoom&&edImgSrc&&ReactDOM.createPortal(
+      <div onClick={()=>setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
+        <button onClick={e=>{e.stopPropagation();setImgZoom(false);}} style={{position:"absolute",top:16,right:20,background:"#ffffff18",border:"1px solid #ffffff33",borderRadius:"50%",color:"#fff",fontSize:20,width:38,height:38,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1,zIndex:1}}>×</button>
+        <img src={edImgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e"}} onClick={e=>e.stopPropagation()}/>
+      </div>,document.body)}
+    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
+      {edImgSrc?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+        :<div style={{padding:"28px 0",fontSize:56,color:ac+"40",userSelect:"none",textAlign:"center",width:"100%"}}>{GS[secureG(item.gremi)]||"◆"}</div>}
+      {isMob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff22",borderRadius:3,color:"#f8eecc",fontSize:11,padding:"3px 10px",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
-
-    {/* Columna dreta — info */}
-    <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
-      {isMob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← VOLVER</button>}
-      <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-        <div style={{flex:1}}><Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/></div>
-        <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-          {!isPlayer&&<button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
-          {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+    <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
+      <div style={{flex:1,minWidth:0}}>
+        <Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/>
+        <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
+          {isPlayer?<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>:<GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>}
+          <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
+          {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
         </div>
       </div>
-      <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
-        {isPlayer
-          ?<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>
-          :<GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>}
-        <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
-        {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
+      <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2}}>
+        {!isPlayer&&<button onClick={()=>{if(!window.confirm('Eliminar "'+item.nom+'"?'))return;onUpdate(origI,"__del__",null);onSelect(null);setShowD(false);}} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
+        {!isMob&&<button onClick={()=>{onSelect(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
       </div>
+    </div>
+    <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={isPlayer?securePers(item.personajes):item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} onNavToChar={onNavToChar}/></div>
+      {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:8,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={isPlayer?securePers(item.personajes):item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} onNavToChar={onNavToChar}/></div>
-      {item.conflicto&&<div style={{padding:"4px 8px",borderRadius:3,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:10,color:"#c43030",fontFamily:"Cinzel,serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:13,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
-      <Rule/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
-      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:8}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
+      {!isPlayer&&<><Rule/><div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
     </div>
   </div>):null;
 
@@ -709,7 +709,7 @@ function App({user,onUsersPanel}){
   const [tab,setTab]=useState("aventino");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("none");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
-  const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});
+  const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
   const [listW,setListW]=useState(36);
   const [previewAs,setPreviewAs]=useState(null);
@@ -778,8 +778,8 @@ function App({user,onUsersPanel}){
   const isPJ=item&&PJS.includes(item.nom);
   const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.nom)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
-  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);}
-  function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);}
+  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("none");setSel(null);setShowD(false);setImgZoom(false);}
+  function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
   const syncCol=saved==="⏳"?"#8a7a5a":saved?"#c09040":db?"#5a9a3a":"#6a5a40";
@@ -787,65 +787,68 @@ function App({user,onUsersPanel}){
 
   const imgSrc=item?(item.img||item.avatar||""):"";
   const isOwnChar=effectiveUser.rol==="dm"||(tab==="chars"&&item?.nom===effectiveUser.personatge);
-  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:mob?"column":"row",overflow:"hidden",position:"relative",...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,background:BG,zIndex:10}:{})}}>
-
-    <div style={{width:mob?"100%":"33%",height:mob?200:"auto",flexShrink:0,position:"relative",background:ac+"12",borderRight:mob?"none":"1px solid "+BORDER,borderBottom:mob?"1px solid "+BORDER:"none",overflow:"hidden",display:"flex",alignItems:"center",justifyContent:"center"}}>
-      {imgSrc
-        ?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block"}}/>
-        :<span style={{fontSize:48,fontWeight:"bold",color:ac+"44",fontFamily:"'Cinzel',serif",userSelect:"none"}}>{item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</span>
-      }
+  const Detail=item?(<div className="rv-detail" style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",position:"relative",background:BG,...(mob?{position:"absolute",top:0,left:0,right:0,bottom:0,zIndex:10}:{})}}>
+    {imgZoom&&imgSrc&&ReactDOM.createPortal(
+      <div onClick={()=>setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
+        <button onClick={e=>{e.stopPropagation();setImgZoom(false);}} style={{position:"absolute",top:16,right:20,background:"#ffffff18",border:"1px solid #ffffff33",borderRadius:"50%",color:"#fff",fontSize:20,width:38,height:38,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1,zIndex:1}}>×</button>
+        <img src={imgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e"}} onClick={e=>e.stopPropagation()}/>
+      </div>,document.body)}
+    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
+      {imgSrc?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center top",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+        :<div style={{padding:"28px 0",fontSize:52,fontWeight:"bold",color:ac+"40",fontFamily:"'Cinzel',serif",userSelect:"none",textAlign:"center",width:"100%",letterSpacing:".1em"}}>{tab==="handouts"?"📜":item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</div>}
+      {mob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff22",borderRadius:3,color:"#f8eecc",fontSize:11,padding:"3px 10px",cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
-
-    {/* Columna dreta — info */}
-    <div style={{flex:1,overflowY:"auto",padding:"16px 18px",display:"flex",flexDirection:"column",gap:10,minWidth:0}}>
-      {mob&&<button onClick={()=>setShowD(false)} style={{background:"none",border:"none",cursor:"pointer",color:GOLD,fontSize:13,padding:0,fontFamily:"'Cinzel',serif",letterSpacing:".06em",alignSelf:"flex-start",marginBottom:2}}>← VOLVER</button>}
-      <div style={{display:"flex",alignItems:"flex-start",gap:6}}>
-        <div style={{flex:1,minWidth:0}}><Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/></div>
-        <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:4}}>
-          {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
-          {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
+    <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
+      <div style={{flex:1,minWidth:0}}>
+        <Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
+        <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
+          {tab==="chars"?(<>{secureT(item.tags,item.nom).map((t,ti)=>effectiveUser.rol==="jugador"
+            ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
+            :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
+            {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}</>)
+          :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
+          {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
         </div>
       </div>
-      <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center"}}>
-        {tab==="chars"?(<>{secureT(item.tags,item.nom).map((t,ti)=>effectiveUser.rol==="jugador"
-          ?<span key={ti} style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[t]} {t}</span>
-          :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
-          {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",opacity:.7}}>+ gremio</button>}</>)
-        :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
-        {isPJ&&<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:ac+"25",border:"1px solid "+ac+"55",color:ac,fontFamily:"'Cinzel',serif",cursor:"default"}}>PJ</span>}
+      <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2}}>
+        {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
+        {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
       </div>
+    </div>
+    <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
       {tab==="chars"&&<div>
-        <div style={{fontSize:9,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4,paddingLeft:8}}>📍 LOCALIZACIONES</div>
-        <div style={{display:"flex",flexWrap:"wrap",gap:4,paddingLeft:4}}>
-          {charEdificis.length===0
-            ?<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>
+        <div style={{fontSize:9,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:5,paddingLeft:4}}>📍 LOCALIZACIONES</div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:4}}>
+          {charEdificis.length===0?<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>
             :charEdificis.map(e=>{const col=GC[e.gremi]||"#8a7a5a";return(<span key={e.nom} onClick={()=>navToEdifici(e.nom)} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col,cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>);})}
         </div>
       </div>}
-      {tab==="chars"&&effectiveUser.rol==="dm"&&(<div style={{display:"flex",flexDirection:"column",gap:6}}>
-        <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center",alignSelf:"flex-start"}}>
-          <span style={{opacity:.5,fontSize:11}}>🎮</span>
-          <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
-          <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
+      {tab==="chars"&&effectiveUser.rol==="dm"&&<div style={{display:"flex",flexDirection:"column",gap:6}}>
+        <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
+          <div style={{fontSize:12,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center"}}>
+            <span style={{opacity:.5,fontSize:11}}>🎮</span>
+            <span style={{color:"#baa880",fontFamily:"'Cinzel',serif",fontSize:9,letterSpacing:".06em"}}>CONTROL</span>
+            <span style={{color:"#ede3c8",fontFamily:"'Crimson Text',serif",fontSize:13}}>{item.controlledby}</span>
+          </div>
         </div>
         <div><div style={{fontSize:9,color:"#baa880",fontFamily:"'Cinzel',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
           <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
         </div>
-      </div>)}
+      </div>}
       <Rule color={ac}/>
-      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
+      <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
-      {tab==="chars"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>RANGO GREMIAL</div>
+      {tab==="chars"&&<div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>RANGO GREMIAL</div>
         <RangoTable value={item.rangoGremial} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
-      {tab==="chars"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
+      {tab==="chars"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:10,color:GC["Dimir"],fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
         <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {effectiveUser.rol==="dm"&&<><Rule/>
-      <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:8}}>NOTAS DEL DM</div>
-        <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
-      </div></>}
+        <div><div style={{fontSize:10,color:"#9a8a68",fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>NOTAS DEL DM</div>
+          <Field value={item.info||item.notes_dm||""} onChange={v=>tab==="handouts"?updH(origI,"notes_dm",v):updC(origI,"info",v)} multi={true} accent={GOLD}/>
+        </div></>}
     </div>
   </div>):null;
 
