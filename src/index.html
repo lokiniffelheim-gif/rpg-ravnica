@@ -865,7 +865,7 @@ function App({user,onUsersPanel}){
           <VisibleSelect value={item.visible||"Tots"} onChange={v=>updC(origI,"visible",v)}/>
         </div>
       </div>}
-      <Rule color={ac}/>
+      {(tab!=="chars"||effectiveUser.rol==="dm")&&<Rule color={ac}/>}
       <div><div style={{fontSize:10,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
