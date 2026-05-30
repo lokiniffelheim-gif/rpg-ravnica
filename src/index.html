@@ -245,6 +245,19 @@ function renderMd(md){
   return html;
 }
 
+function AddCharDrop({available,idToChar,onAdd}){
+  const [open,setOpen]=useState(false);
+  const ref=useRef(null);
+  useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
+  return(<div ref={ref} style={{position:"relative",display:"inline-block"}}>
+    <button onClick={()=>setOpen(o=>!o)} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",opacity:.7}}>+ añadir...</button>
+    {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:180,maxHeight:240,overflowY:"auto",padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
+      {available.length===0&&<div style={{padding:"6px 10px",fontSize:11,color:"#7a6858",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>Sin más personajes</div>}
+      {available.map(c=>{const col=(c.tags||[])[0]?GC[c.tags[0]]||"#9a8a68":"#9a8a68";return(<div key={c.id} onClick={()=>{onAdd(c.id);setOpen(false);}} style={{padding:"5px 10px",cursor:"pointer",borderRadius:3,fontSize:11,fontFamily:"'Cinzel',serif",letterSpacing:".03em",color:col,transition:"background .1s"}} onMouseEnter={e=>e.currentTarget.style.background=col+"1a"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>{GS[c.tags?.[0]]||"◆"} {c.nom}</div>);})}
+    </div>}
+  </div>);
+}
+
 function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar}){
   const arr=parsePers(value);
   const idToChar=useMemo(()=>{const m={};(chars||[]).forEach(c=>{if(c.id)m[c.id]=c;});return m;},[chars]);
@@ -261,10 +274,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
         </span>);
       })}
       {visible.length===0&&<span style={{fontSize:12,color:"#7a6858",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>—</span>}
-      {!readOnly&&<select onChange={e=>{if(e.target.value)onChange([...arr,e.target.value]);e.target.value="";}} style={{fontSize:10,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Cinzel',serif",letterSpacing:".04em",outline:"none"}} value="">
-        <option value="">+ añadir...</option>
-        {available.map(c=><option key={c.id} value={c.id}>{c.nom}</option>)}
-      </select>}
+      {!readOnly&&<AddCharDrop available={available} idToChar={idToChar} onAdd={id=>onChange([...arr,id])}/>}
     </div>
   );
 }
@@ -862,9 +872,9 @@ function App({user,onUsersPanel}){
         </div>
       </div>
       <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2,alignItems:"center"}}>
+        {tab==="chars"&&effectiveUser.rol==="dm"&&!item.nom.startsWith("Wundyr Somo")&&<button onClick={()=>updC(origI,"wundyrHeart",!item.wundyrHeart)} title="Proeza de Wundyr" style={{background:"none",border:"none",cursor:"pointer",fontSize:17,lineHeight:1,padding:"0 2px",opacity:item.wundyrHeart?1:.35,transition:"opacity .15s"}}>{item.wundyrHeart?"❤️":"🤍"}</button>}
         {effectiveUser.rol==="dm"&&<button onClick={del} style={{background:"none",border:"1px solid #c4303044",borderRadius:3,cursor:"pointer",color:"#c43030",fontSize:13,padding:"3px 7px"}}>🗑</button>}
         {!mob&&<button onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"#9a8a68",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
-        {tab==="chars"&&effectiveUser.rol==="dm"&&!item.nom.startsWith("Wundyr Somo")&&<button onClick={()=>updC(origI,"wundyrHeart",!item.wundyrHeart)} title="Proeza de Wundyr" style={{background:"none",border:"none",cursor:"pointer",fontSize:17,lineHeight:1,padding:"0 2px",opacity:item.wundyrHeart?1:.35,transition:"opacity .15s"}}>{item.wundyrHeart?"❤️":"🤍"}</button>}
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
