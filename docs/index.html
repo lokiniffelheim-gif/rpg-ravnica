@@ -676,7 +676,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
 }
 
 const GREMI_SLUG={Azorius:"azorius",Boros:"boros",Dimir:"dimir",Golgari:"golgari",Gruul:"gruul",Izzet:"izzet",Orzhov:"orzhov",Rakdos:"rakdos",Selesnya:"selesnya",Simic:"simic",Guildless:"guildless"};
-function GremiosPanel({isPlayer,canSeeDimir}){
+function GremiosPanel({canSeeDimir,isMob}){
   const gremis=canSeeDimir?AG:AG.filter(g=>g!=="Dimir");
   const [sel,setSel]=useState(null);
   const [mdContent,setMdContent]=useState(null);
@@ -689,18 +689,26 @@ function GremiosPanel({isPlayer,canSeeDimir}){
     const slug=GREMI_SLUG[item]||item.toLowerCase();
     fetch("assets/data/gremios/"+slug+".md").then(r=>r.ok?r.text():Promise.reject()).then(t=>setMdContent(t)).catch(()=>setMdContent("*(No hi ha informació disponible)*")).finally(()=>setLoading(false));
   },[item]);
+  if(item)return(
+    <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
+      <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:12}}>
+        <button onClick={()=>setSel(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:11,flexShrink:0}}>← TORNAR</button>
+        <span style={{fontSize:12,color:ac,fontFamily:"'Cinzel',serif",letterSpacing:".08em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{GS[item]} {item.toUpperCase()}</span>
+      </div>
+      <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+        {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:40,fontFamily:"'Crimson Text',serif",fontSize:15}}>Cargando...</div>}
+        {!loading&&mdContent&&<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.85,color:"#e0d4b8",maxWidth:740}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
+      </div>
+    </div>
+  );
   return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}}>
-    <div style={{width:item?"32%":"100%",display:"flex",flexDirection:"column",borderRight:item?"1px solid "+BORDER:"none",flexShrink:0,overflowY:"auto"}}>
-      {gremis.map((g,i)=>{const c=GC[g],isSel=sel===i;return(<div key={g} onClick={()=>setSel(i===sel?null:i)} className="rv-row" style={{padding:"12px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
+    <div style={{width:"100%",display:"flex",flexDirection:"column",overflowY:"auto"}}>
+      {gremis.map((g,i)=>{const c=GC[g];return(<div key={g} onClick={()=>setSel(i)} className="rv-row" style={{padding:"12px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:"transparent",borderLeft:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
         <div style={{width:36,height:36,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:c,flexShrink:0}}>{GS[g]}</div>
-        <span style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",fontFamily:"'Cinzel',serif",letterSpacing:".04em",fontWeight:isSel?700:500,flex:1}}>{g}</span>
-        <span style={{color:isSel?c:BORDER,fontSize:14}}>›</span>
+        <span style={{fontSize:14,color:"#e0d4b8",fontFamily:"'Cinzel',serif",letterSpacing:".04em",flex:1}}>{g}</span>
+        <span style={{color:BORDER,fontSize:14}}>›</span>
       </div>);})}
     </div>
-    {item&&<div style={{flex:1,overflowY:"auto",padding:"20px 24px"}}>
-      {loading&&<div style={{color:"#9a8a68",textAlign:"center",padding:40,fontFamily:"'Crimson Text',serif",fontSize:15}}>Cargando...</div>}
-      {!loading&&mdContent&&<div style={{fontFamily:"'Crimson Text',serif",fontSize:16,lineHeight:1.85,color:"#e0d4b8",maxWidth:760,"--ac":ac}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
-    </div>}
   </div>);
 }
 
@@ -884,7 +892,7 @@ function App({user,onUsersPanel}){
       </div>
     </div>
     {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
-    :tab==="gremios"?<GremiosPanel isPlayer={effectiveUser.rol==="jugador"} canSeeDimir={canSeeDimir}/>
+    :tab==="gremios"?<GremiosPanel canSeeDimir={canSeeDimir} isMob={mob}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
