@@ -26,7 +26,7 @@ Cada document de sessió ha de contenir els següents blocs en ordre:
 1. **Capçalera** — Títol, arc, nivell
 2. **Context per al master** — Només informació de sessions anteriors: resum del que ha passat, estat dels PJs en entrar a la sessió (taula sap/no sap), i secrets establerts prèviament. Cap informació nova d'aquesta sessió.
 3. **Elements de setting nous** — Si hi ha localitzacions o NPCs nous, descriure'ls amb detall aquí
-4. **Estructura de la sessió** — Llista numerada de parts amb temps estimat
+4. **Estructura de la sessió** — Llista numerada de parts amb temps estimat i una línia final amb el **temps total de sessió**
 5. **Parts de la sessió** — Cada part amb el seu propi bloc, seguit de les seves notes d'absència
 6. **NPCs presents** — Taula amb NPC, ubicació i rol en aquesta sessió
 7. **Fils oberts al final de la sessió** — Llista de tot el que queda sense resoldre
