@@ -615,7 +615,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
                 <span style={{fontSize:13,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
-                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0=(ch?.tags||[])[0];const col=t0?GC[t0]||"#baa880":"#baa880";return<span key={nom} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
+                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#baa880":"#baa880";return<span key={nom} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
                 {e.conflicto&&<span style={{fontSize:10,color:"#c4303099",fontFamily:"'Cinzel',serif"}}>⚔ {e.conflicto}</span>}
               </div>
             </div>
@@ -947,7 +947,7 @@ function App({user,onUsersPanel}){
                 <div style={{fontSize:14,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:9,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Cinzel',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
                   {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
-                  {xlocs.map(e=>{const ec=GC[e.gremi]||"#8a7a5a";return<span key={e.id} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:ec+"20",color:ec,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[e.gremi]||"◆"} {e.nom}</span>;})}
+                  {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:ec+"20",color:ec,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
                   {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:BG3,color:"#9a8a68",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                 </div>
               </div>
