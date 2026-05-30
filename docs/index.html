@@ -57,7 +57,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.0.0";const BUILD_HASH="8a7cc7d";
+const VERSION="4.0.0";const BUILD_HASH="cd29fc3";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
@@ -915,7 +915,8 @@ function App({user,onUsersPanel}){
             const blob=new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
             const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`ravnica-${new Date().toISOString().slice(0,10)}.txt`;a.click();
           }} style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>📦</button>}
-<button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
+          {user.rol==="dm"&&<label title="Importar JSON migrat" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer",display:"inline-flex",alignItems:"center"}}><input type="file" accept=".json" style={{display:"none"}} onChange={async e=>{const f=e.target.files[0];if(!f)return;const t=await f.text();const d=JSON.parse(t);if(d.chars&&db)await saveData("chars",d.chars);if(d.handouts&&db)await saveData("handouts",d.handouts);if(d.edificis&&db)await saveData("edificis",d.edificis);if(d.chars)setCs(d.chars);if(d.handouts)setHs(d.handouts);if(d.edificis)setEds(d.edificis);alert("Importació completada!");e.target.value="";}}/><span>📥</span></label>}
+          <button onClick={doSignOut} title="Cerrar sesión" style={{fontSize:11,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"#9a8a68",cursor:"pointer"}}>⊘</button>
         </div>
       </div>
       <div style={{display:"flex",gap:1}}>
