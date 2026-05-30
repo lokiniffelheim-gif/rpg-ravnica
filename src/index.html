@@ -757,15 +757,6 @@ function App({user,onUsersPanel}){
   const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.nom===fi.nom):cs.findIndex(x=>x.nom===fi.nom),[hs,cs,tab]);
   const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
 
-  const fltd=useMemo(()=>{
-    const lq=q.toLowerCase();
-    let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||secureT(x.tags,x.nom).includes(filt):filt==="all"||x.propietari===filt;return ms&&mf;});
-    if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
-    else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
-    if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
-    return r;
-  },[items,q,filt,sort,tab,effectiveUser]);
-
   const canSeeDimir=useMemo(()=>effectiveUser.rol==="dm"||(cs.find(c=>c.nom===effectiveUser.personatge)?.tags||[]).includes("Dimir"),[effectiveUser,cs]);
   const secureT=useCallback((tags,charNom)=>{
     if(effectiveUser.rol==="dm")return tags||[];
@@ -773,6 +764,15 @@ function App({user,onUsersPanel}){
     if(canSeeDimir&&!PJS.includes(charNom))return tags||[];
     const f=(tags||[]).filter(t=>t!=="Dimir");return f.length?f:["Guildless"];
   },[effectiveUser,canSeeDimir]);
+
+  const fltd=useMemo(()=>{
+    const lq=q.toLowerCase();
+    let r=items.filter(x=>{const ms=!lq||x.nom.toLowerCase().includes(lq)||(x.contingut||"").toLowerCase().includes(lq)||(x.bio||"").toLowerCase().includes(lq)||(x.info||"").toLowerCase().includes(lq);const mf=tab==="chars"?filt==="all"||secureT(x.tags,x.nom).includes(filt):filt==="all"||x.propietari===filt;return ms&&mf;});
+    if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
+    else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
+    if(effectiveUser.rol==="jugador"){r=r.filter(x=>visibleToUser(x.visible,effectiveUser.personatge));if(tab==="handouts")r=r.filter(x=>x.propietari!=="Solo DM");}
+    return r;
+  },[items,q,filt,sort,tab,effectiveUser,secureT]);
 
   const item=sel!==null&&sel<fltd.length?fltd[sel]:null;
   const origI=item?getOI(item):-1;
