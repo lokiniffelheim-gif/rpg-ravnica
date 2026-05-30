@@ -572,7 +572,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     const filtered=isPlayer?ids.filter(id=>{const ch=chars?.find(c=>c.id===id);return!ch||visibleToUser(ch.visible,playerName);}):ids;
     return filtered.map(id=>{const ch=chars?.find(c=>c.id===id);return ch?ch.nom:id;});
   },[isPlayer,chars,playerName]);
-  const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fa,setFa]=useState("all");
+  const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fa,setFa]=useState("actius");
   const [sort,setSort]=useState("none");
   useEffect(()=>{
     if(!navTarget?.id)return;
