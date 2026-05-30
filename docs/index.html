@@ -616,7 +616,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
                 <span style={{fontSize:13,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
-                {securePers(e.personajes).length>0&&<span style={{fontSize:10,color:"#baa880",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👤 {securePers(e.personajes).join(", ")}</span>}
+                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0=(ch?.tags||[])[0];const col=t0?GC[t0]||"#baa880":"#baa880";return<span key={nom} style={{fontSize:10,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Cinzel',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
                 {e.conflicto&&<span style={{fontSize:10,color:"#c4303099",fontFamily:"'Cinzel',serif"}}>⚔ {e.conflicto}</span>}
               </div>
             </div>
