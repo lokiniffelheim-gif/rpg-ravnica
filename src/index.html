@@ -57,9 +57,8 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="3.13.0";
+const VERSION="3.14.0";
 const GOLD="#c09040",BG="#13110e",BG2="#1a1812",BG3="#221f18",BORDER="#4a4035";
-const NVC={"Lv0":"#8a7a5a","Lv1":"#5b9fd4","Lv2":"#c44aaa","Lv3":"#d4621a"};
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 const GH_BASE="assets/img/";
@@ -564,7 +563,7 @@ function SetupScreen({onConnect}){
 function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const securePers=useCallback(p=>{if(!isPlayer)return parsePers(p);return parsePers(p).filter(nom=>{const ch=chars?.find(c=>c.nom===nom);return!ch||visibleToUser(ch.visible,playerName);});},[isPlayer,chars,playerName]);
-  const [q,setQ]=useState("");const [fg,setFg]=useState("all");const [fn,setFn]=useState("all");
+  const [q,setQ]=useState("");const [fg,setFg]=useState("all");
   const [sort,setSort]=useState("none");
   useEffect(()=>{
     if(!navTarget?.nom)return;
@@ -581,14 +580,13 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
   },[panelW,isMob]);
   const gremis=useMemo(()=>[...new Set(edificis.map(e=>e.gremi))].filter(Boolean).sort(),[edificis]);
-  const nivells=useMemo(()=>[...new Set(edificis.map(e=>e.nivel))].filter(Boolean).sort(),[edificis]);
   const filtered=useMemo(()=>{
     const lq=q.toLowerCase();
-    let r=edificis.filter(e=>{const ps=parsePers(e.personajes).join(" ");const ms=!lq||e.nom.toLowerCase().includes(lq)||ps.toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||secureG(e.gremi)===fg)&&(fn==="all"||e.nivel===fn)&&(!isPlayer||e.activo);});
+    let r=edificis.filter(e=>{const ps=parsePers(e.personajes).join(" ");const ms=!lq||e.nom.toLowerCase().includes(lq)||ps.toLowerCase().includes(lq)||(e.conflicto||"").toLowerCase().includes(lq);return ms&&(fg==="all"||secureG(e.gremi)===fg)&&(!isPlayer||e.activo);});
     if(sort==="asc")r=[...r].sort((a,b)=>a.nom.localeCompare(b.nom));
     else if(sort==="desc")r=[...r].sort((a,b)=>b.nom.localeCompare(a.nom));
     return r;
-  },[edificis,q,fg,fn,sort]);
+  },[edificis,q,fg,sort]);
   const cycleSort=()=>setSort(s=>s==="none"?"asc":s==="asc"?"desc":"none");
 
   const item=sel!==null&&sel<filtered.length?filtered[sel]:null;
@@ -613,7 +611,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         <Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/>
         <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
           {isPlayer?<span style={{fontSize:11,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Cinzel',serif"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>:<GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>}
-          <span style={{fontSize:11,padding:"2px 8px",borderRadius:10,fontFamily:"'Cinzel',serif",background:(NVC[item.nivel]||"#888")+"20",border:"1px solid "+(NVC[item.nivel]||"#888")+"44",color:NVC[item.nivel]||"#888"}}>{item.nivel}</span>
+
           {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
         </div>
       </div>
@@ -643,21 +641,18 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#9a8a68"}}>{GS[g]} {g}</button>)}
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-          <button className="rv-filter" onClick={()=>setFn("all")} style={{background:fn==="all"?GOLD+"22":"transparent",border:"1px solid "+(fn==="all"?GOLD+"88":BORDER),color:fn==="all"?GOLD:"#9a8a68"}}>TODOS</button>
-          {nivells.map(n=><button key={n} className="rv-filter" onClick={()=>setFn(n===fn?"all":n)} style={{background:fn===n?(NVC[n]||"#888")+"1a":"transparent",border:"1px solid "+(fn===n?(NVC[n]||"#888")+"66":(NVC[n]||"#888")+"22"),color:fn===n?NVC[n]||"#888":"#9a8a68"}}>{n}</button>)}
           <SortBtn sort={sort} onSort={cycleSort}/>
           <span style={{marginLeft:"auto",fontSize:10,color:"#7a6858",fontFamily:"'Cinzel',serif"}}>{filtered.length}E</span>
         </div>
       </div>
       <div style={{overflowY:"auto",flex:1}}>
         {filtered.length===0&&<div style={{padding:30,color:"#9a8a68",fontSize:15,textAlign:"center",fontStyle:"italic",fontFamily:"'Crimson Text',serif"}}>Sin edificios encontrados...</div>}
-        {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i,nc=NVC[e.nivel]||"#8a7a5a";
+        {filtered.map((e,i)=>{const sg=secureG(e.gremi),c=GC[sg]||"#8a7a5a",isSel=!isMob&&sel===i;
           return(<div key={i} onClick={()=>{onSelect(i===sel&&!isMob?null:i);setShowD(true);}} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:e.activo?"transparent":"#0d0b09",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,opacity:e.activo?1:.45,transition:"background .1s"}}>
             <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
                 <span style={{fontSize:13,color:isSel?"#f8eecc":"#e0d4b8",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Cinzel',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
-                <span style={{fontSize:9,padding:"1px 5px",borderRadius:8,background:nc+"18",color:nc,fontFamily:"'Cinzel',serif",flexShrink:0}}>{e.nivel}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
                 {securePers(e.personajes).length>0&&<span style={{fontSize:10,color:"#baa880",fontFamily:"'Crimson Text',serif",fontStyle:"italic"}}>👤 {securePers(e.personajes).join(", ")}</span>}
@@ -758,7 +753,7 @@ function App({user,onUsersPanel}){
 
   const newH=()=>{const h=[...hs,{nom:"Nuevo objeto",propietari:"Compartido",visible:"Tots",contingut:"",notes_dm:"",img:""}];setHs(h);saveKey("handouts",h);setTab("handouts");setQ("");setFilt("all");setSort("none");setSel(h.length-1);setShowD(true);};
   const newC=()=>{const c=[...cs,{nom:"Nuevo personaje",bio:"",info:"",tags:["Guildless"],controlledby:"DM",visible:"Tots",avatar:""}];setCs(c);saveKey("chars",c);setTab("chars");setQ("");setFilt("all");setSort("none");setSel(c.length-1);setShowD(true);};
-  const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",nivel:"Lv0",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
+  const newE=()=>{const e=[...eds,{nom:"Nuevo edificio",gremi:"Guildless",personajes:"",reglas:"",conflicto:"",ideas:"",activo:true,avatarCustom:"",avatar:""}];setEds(e);saveKey("edificis",e);setSel(e.length-1);setShowD(true);};
 
   const items=tab==="handouts"?hs:cs;
   const getOI=useCallback(fi=>tab==="handouts"?hs.findIndex(x=>x.nom===fi.nom):cs.findIndex(x=>x.nom===fi.nom),[hs,cs,tab]);
