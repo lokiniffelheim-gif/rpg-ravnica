@@ -79,6 +79,12 @@ function _contrast(hex1,hex2){const l1=_lum(hex1),l2=_lum(hex2);return(Math.max(
 // Retorna el color de text (#1a1008 o #f0ebe0) amb millor contrast contra bg
 function textOnBg(bgHex){return _contrast("#f0ebe0",bgHex)>_contrast("#1a1008",bgHex)?"#f0ebe0":"#1a1008";}
 // Alpha per al degradat segons el tema actiu
+// Gradient bicolor per al panell de detall: c1 esquerra, c2 dreta (colors de mana del gremi)
+function guildManaGradient(g){
+  const mc=GUILD_MANA[g]||["C","C"];
+  const c1=MANA_HEX[mc[0]]||"#C6C5C5",c2=MANA_HEX[mc[1]||mc[0]]||c1;
+  return`linear-gradient(to bottom,${c1}55 0%,transparent 100%) left/50% 100% no-repeat,linear-gradient(to bottom,${c2}55 0%,transparent 100%) right/50% 100% no-repeat`;
+}
 const _prefetchCache=new Set();
 function prefetchImg(src){if(!src||_prefetchCache.has(src))return;_prefetchCache.add(src);const i=new Image();i.src=src;}
 function pillAlpha(){return(localStorage.getItem("rv-theme")||"light")==="dark"?"40":"60";}
@@ -118,7 +124,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.16.4";const BUILD_HASH="";
+const VERSION="4.16.5";const BUILD_HASH="";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -640,10 +646,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
   const origI=item?edificis.findIndex(e=>e.nom===item.nom):-1;
   const ac=item?GC[secureG(item.gremi)]||GOLD:GOLD;
   const upd=(f,v)=>{if(origI<0)return;onUpdate(origI,f,v);};
-  const col2Av=item&&item.conflicto&&item.conflicto!=="Guildless"?GC[item.conflicto]:null;
-  const imgBgAv=col2Av
-    ?`linear-gradient(to bottom,${ac}55 0%,transparent 100%) left/50% 100% no-repeat,linear-gradient(to bottom,${col2Av}55 0%,transparent 100%) right/50% 100% no-repeat`
-    :`linear-gradient(to bottom,${ac}40 0%,transparent 100%)`;
+  const imgBgAv=item?guildManaGradient(secureG(item.gremi)):"transparent";
 
   const [imgZoom,setImgZoom]=useState(false);
   const edImgSrc=item?(IMG_INDEX.edificis[item.id]||GUILD_SVG_MAP[secureG(item.gremi)]||""):"";
@@ -877,7 +880,19 @@ function App({user,onUsersPanel}){
   const origI=item?getOI(item):-1;
   const ac=item?mc(item,tab,tab==="chars"?secureT(item.tags,item.nom):undefined):GOLD;
   const isPJ=item&&PJS.includes(item.nom);
-  const imgBgCh=useMemo(()=>{if(!item)return"transparent";if(tab==="chars"){const vt=secureT(item.tags,item.nom);const c1=GC[vt[0]]||"#8a7a5a";const c2=vt[1]?GC[vt[1]]:null;return c2?`linear-gradient(to bottom,${c1}55 0%,transparent 100%) left/50% 100% no-repeat,linear-gradient(to bottom,${c2}55 0%,transparent 100%) right/50% 100% no-repeat`:`linear-gradient(to bottom,${c1}40 0%,transparent 100%)`;}if(tab==="handouts"){const c=PC[item.propietari]||"#8a7a5a";return`linear-gradient(to bottom,${c}40 0%,transparent 100%)`;}return"transparent";},[item,tab,eds]);
+  const imgBgCh=useMemo(()=>{
+    if(!item)return"transparent";
+    if(tab==="chars"){
+      const vt=secureT(item.tags,item.nom);
+      const g=vt.filter(t=>t!=="Guildless").sort()[0]||"Guildless";
+      return guildManaGradient(g);
+    }
+    if(tab==="handouts"){
+      const g=resolvePropietari(item.propietari,cs).guild;
+      return guildManaGradient(g);
+    }
+    return"transparent";
+  },[item,tab,cs]);
   const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.id)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);if(t!=="gremios"){setGremioTarget(null);setPrevGremioState(null);}}
