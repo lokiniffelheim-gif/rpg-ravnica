@@ -10,8 +10,15 @@ App de gestió de campanya RPG (Pathfinder 2e, ambientació Ravnica/MtG). SPA Re
 
 - **Font editable:** `src/index.html` (JSX inline) — **MAI editar `docs/index.html` directament**
 - **Build:** `node build.js` → genera `docs/index.html`
-- **Deploy:** `git push` → GitHub Pages actualitza automàticament
+- **Deploy:** `git push` → GitHub Actions fa el build i desplega automàticament a `gh-pages`
 - **Versió actual:** consultar `git log --oneline -1` o `const VERSION` a `src/index.html` línia ~65
+
+### Entorns
+| Branch | URL | Ús |
+|---|---|---|
+| `main` | `lokiniffelheim-gif.github.io/rpg-ravnica/` | **Producció** |
+| `develop` | `.../rpg-ravnica/pre/` | Proves pre-producció |
+| `feature/xxx` | `.../rpg-ravnica/dev/xxx/` | Desenvolupament experimental |
 
 ---
 
@@ -24,7 +31,7 @@ Cada canvi de codi segueix aquest ordre **sempre**, sense excepcions:
 3. `node build.js`
 4. `git add src/index.html docs/`
 5. `git commit -m "tipus(vX.Y.Z): descripció"`
-6. `git push`
+6. `git push` → GitHub Actions desplega automàticament (no cal cap pas addicional)
 
 ### Versioning semàntic
 | Tipus de canvi | Bump |
@@ -53,7 +60,7 @@ L'app mostra `#{id}` sota el nom de cada ítem al panell lateral **(només DM)**
 3. Build i commit:
 ```
 node build.js
-git add docs/assets/img/ docs/assets/data/
+git add src/index.html docs/assets/img/ docs/assets/data/
 git commit -m "feat: imatge {Nom}"
 git push
 ```
@@ -125,6 +132,7 @@ L'app té dos temes: *Pergamí Maleït* (light) i *Cripta Profunda* (dark).
 
 - Les imatges dels personatges s'emmagatzemen a `docs/assets/img/personajes/{id}.{ext}`
 - Les imatges dels edificis a `docs/assets/img/Aventino/{id}.{ext}`
-- Els camps al JSON: `avatar` (chars), `avatarCustom` (edificis), `img` (handouts)
+- Els camps al JSON: `avatar` (chars), `img` (handouts) — `avatarCustom` eliminat (legacy)
+- Edificis: imatge per ID via `IMG_INDEX.edificis[id]` — no hi ha camp al registre Firebase
 - El marc de quadre fantàstic (`.rv-frame`) s'aplica automàticament a totes les imatges de detall
-- La zona d'imatge del detall té un degradat de color del gremi (esquerra) i conflicte (dreta)
+- La zona d'imatge del detall té un degradat bicolor dels colors de mana del gremi (c1 esquerra, c2 dreta)
