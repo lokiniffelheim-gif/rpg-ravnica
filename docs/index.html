@@ -62,7 +62,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.11.2";const BUILD_HASH="ef5200c";
+const VERSION="4.12.0";const BUILD_HASH="a9f7a02";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -605,8 +605,6 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
-      <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar} canSeeDimir={canSeeDimir}/></div>
-      <Rule color={ac}/>
       <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
       {!isPlayer&&<><Rule/><div><div style={{fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
     </div>
@@ -634,10 +632,14 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
                 <span style={{fontSize:17,color:isSel?"var(--text)":"var(--text2)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
               </div>
-              <div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
-                <span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:c+"20",color:c,fontFamily:"'Metamorphous',serif",letterSpacing:".03em",flexShrink:0}}>{GS[sg]||"◆"} {sg}</span>
-                {e.conflicto&&e.conflicto!=="Guildless"&&<><span style={{fontSize:11,color:"#c4303099",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>VS</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:"#c4303018",color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",flexShrink:0}}>⚔ {e.conflicto}</span></>}
-                {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:col+"20",color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
+              <div style={{display:"flex",flexDirection:"column",gap:3}}>
+                <div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
+                  <span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:c+"20",color:c,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sg]||"◆"} {sg}</span>
+                  {e.conflicto&&e.conflicto!=="Guildless"&&<><span style={{fontSize:11,color:"#c4303099",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>VS</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:"#c4303018",color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>⚔ {e.conflicto}</span></>}
+                </div>
+                {securePers(e.personajes).length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
+                  {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:col+"20",color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
+                </div>}
               </div>
             </div>
             <span style={{color:isSel?c:BORDER,fontSize:18,flexShrink:0}}>›</span>
@@ -981,10 +983,14 @@ function App({user,onUsersPanel}){
               <Avatar nom={x.nom} avatar={x.avatar} img={x.img} size={34} color={c} tab={tab}/>
               <div style={{flex:1,minWidth:0}}>
                 <div style={{fontSize:18,color:isSel?"var(--text)":"var(--text2)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:12,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Metamorphous',serif",verticalAlign:"middle"}}>PJ</span>}</div>
-                <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
-                  {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
-                  {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:ec+"20",color:ec,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
-                  {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
+                <div style={{display:"flex",flexDirection:"column",gap:3,marginTop:3}}>
+                  <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
+                    {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
+                    {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
+                  </div>
+                  {xlocs.length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
+                    {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:ec+"20",color:ec,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
+                  </div>}
                 </div>
               </div>
               <span style={{color:isSel?c:BORDER,fontSize:18,flexShrink:0}}>›</span>
