@@ -24,6 +24,8 @@ html,body{height:100%;background:var(--bg-body)}
 .rv-pill-x{background:none;border:none;cursor:pointer;color:inherit;font-size:13px;line-height:1;padding:0 0 0 2px;opacity:.6}
 .rv-nav-hint{font-size:.7em;opacity:.5;margin-left:2px;vertical-align:middle}
 @media(pointer:coarse){.rv-nav-hint{display:none}}
+.rv-clickable{cursor:pointer;transition:filter .15s}
+.rv-clickable:hover{filter:brightness(1.3)}
 .rv-pill-x:hover{opacity:1;color:var(--gold)}
 .rv-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:4px;z-index:200;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .rv-check-row{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:3px;cursor:pointer;font-size:16px;font-family:'IM Fell English',Georgia,serif;color:var(--text);transition:background .1s}
@@ -114,7 +116,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.16.1";const BUILD_HASH="0cd28f1";
+const VERSION="4.16.2";const BUILD_HASH="6e8c4f0";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -239,7 +241,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
         const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#8a7a5a":"#8a7a5a";
         const ps0=t0?guildPillStyle(t0):{background:"#8a7a5a30",border:"1px solid #8a7a5a55",textColor:"var(--text)"};const lbl0=t0?guildLabel(t0):null;
         return(<span key={id} className="rv-pill" style={{background:ps0.background,border:ps0.border,color:ps0.textColor}}>
-          <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default"}}>{lbl0?`${lbl0.pre} ${nom}${lbl0.post?" "+lbl0.post:""}`:nom}{onNavToChar&&ch&&<span className="rv-nav-hint">›</span>}</span>
+          <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} className={onNavToChar&&ch?"rv-clickable":undefined}>{lbl0?`${lbl0.pre} ${nom}${lbl0.post?" "+lbl0.post:""}`:nom}{onNavToChar&&ch&&<span className="rv-nav-hint">›</span>}</span>
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
         </span>);
       })}
@@ -375,7 +377,7 @@ function GuildNavPill({value,opts,cm,onChange,onNav,onRemove,emptyLabel,emptyOpt
   const mc0=GUILD_MANA[value]||["C"];const c1=MANA_HEX[mc0[0]]||"#8a7a5a";
   useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
   return(<span ref={ref} style={{position:"relative",display:"inline-flex",alignItems:"center",fontSize:17,borderRadius:10,background:ps.background,border:ps.border,color:ps.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>
-    <span onClick={onNav} style={{padding:"2px 4px 2px 8px",cursor:onNav?"pointer":"default"}}>{lbl.pre} {shownName}{lbl.post?" "+lbl.post:""}{onNav&&<span className="rv-nav-hint">›</span>}</span>
+    <span onClick={onNav} className={onNav?"rv-clickable":undefined} style={{padding:"2px 4px 2px 8px"}}>{lbl.pre} {shownName}{lbl.post?" "+lbl.post:""}{onNav&&<span className="rv-nav-hint">›</span>}</span>
     {onChange&&<span onClick={e=>{e.stopPropagation();setOpen(o=>!o);}} style={{padding:"2px 7px 2px 2px",cursor:"pointer",opacity:.6,fontSize:13}}>▾</span>}
     {onRemove&&<button onClick={e=>{e.stopPropagation();onRemove();}} className="rv-pill-x" style={{color:c1,padding:"0 6px 0 0"}}>×</button>}
     {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:150,padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
@@ -400,7 +402,7 @@ function HandoutPropietariSel({value,cs,onChange,readOnly,onNavToChar}){
   const pjs=pjChars(cs);
   const handleSelect=v=>{onChange(v);setOpen(false);};
   return(<span ref={ref} style={{position:"relative",display:"inline-flex",alignItems:"center",fontSize:17,borderRadius:10,background:ps.background,border:ps.border,color:ps.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>
-    <span onClick={!readOnly&&resolved.ch?()=>onNavToChar(resolved.id):undefined} style={{padding:"2px 4px 2px 8px",cursor:(!readOnly||resolved.ch)?"pointer":"default"}}>
+    <span onClick={resolved.ch?()=>onNavToChar(resolved.id):undefined} className={resolved.ch?"rv-clickable":undefined} style={{padding:"2px 4px 2px 8px"}}>
       {lbl.pre} {resolved.nom}{lbl.post?" "+lbl.post:""}
       {resolved.ch&&readOnly&&<span className="rv-nav-hint">›</span>}
     </span>
@@ -675,7 +677,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
         </div>
         {securePers(item.personajes).length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center",marginTop:6}}>
-          {securePers(item.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const psp=t0?guildPillStyle(t0):{background:"#5a3a2030 padding-box,#5a3a2030 border-box",border:"1px solid transparent",textColor:"var(--text)"};const lblp=t0?guildLabel(t0):null;return(<span key={nom} onClick={onNavToChar&&ch?()=>onNavToChar(ch.id):undefined} style={{fontSize:14,padding:"2px 8px",borderRadius:8,background:psp.background,border:psp.border,color:psp.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em",cursor:onNavToChar&&ch?"pointer":"default"}}>{lblp?`${lblp.pre} ${nom}${lblp.post?" "+lblp.post:""}` :"👤 "+nom}{onNavToChar&&ch&&<span className="rv-nav-hint">›</span>}</span>);})}
+          {securePers(item.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const psp=t0?guildPillStyle(t0):{background:"#5a3a2030 padding-box,#5a3a2030 border-box",border:"1px solid transparent",textColor:"var(--text)"};const lblp=t0?guildLabel(t0):null;return(<span key={nom} onClick={onNavToChar&&ch?()=>onNavToChar(ch.id):undefined} className={onNavToChar&&ch?"rv-clickable":undefined} style={{fontSize:14,padding:"2px 8px",borderRadius:8,background:psp.background,border:psp.border,color:psp.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{lblp?`${lblp.pre} ${nom}${lblp.post?" "+lblp.post:""}` :"👤 "+nom}{onNavToChar&&ch&&<span className="rv-nav-hint">›</span>}</span>);})}
         </div>}
       </div>
       <div style={{display:"flex",gap:4,flexShrink:0,paddingTop:2}}>
@@ -915,7 +917,7 @@ function App({user,onUsersPanel}){
           </div>
           {tab==="chars"&&(charEdificis.length>0||effectiveUser.rol==="dm")&&<div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
             {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const pse=guildPillStyle(sg);const lble=guildLabel(sg);return(<span key={e.id} className="rv-pill" style={{...pse,color:pse.textColor,fontSize:14}}>
-              <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer"}}>{lble.pre} {e.nom}{lble.post?" "+lble.post:""}<span className="rv-nav-hint">›</span></span>
+              <span onClick={()=>navToEdifici(e.id)} className="rv-clickable">{lble.pre} {e.nom}{lble.post?" "+lble.post:""}<span className="rv-nav-hint">›</span></span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
             </span>);})}
             {effectiveUser.rol==="dm"&&<AddLocDrop eds={eds} itemId={item.id} onAdd={eid=>{const eidx=eds.findIndex(ed=>ed.id===eid);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes);if(!ids.includes(item.id))updE(eidx,"personajes",[...ids,item.id].join(", "));}}/>}
@@ -1072,7 +1074,7 @@ function App({user,onUsersPanel}){
                     {tab==="chars"?secureT(x.tags,x.nom).map(t=>{const pst=guildPillStyle(t);const lblt=guildLabel(t);return<span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:pst.background,border:pst.border,color:pst.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblt.pre} {t}{lblt.post?" "+lblt.post:""}</span>;}):x.propietari&&(()=>{
   const rp=resolvePropietari(x.propietari,cs);const psh=guildPillStyle(rp.guild);const lblh=guildLabel(rp.guild);
   const clickable=!!rp.ch;
-  return<span onClick={clickable?()=>navToChar(rp.id):undefined} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psh.background,border:psh.border,color:psh.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em",cursor:clickable?"pointer":"default",transition:"filter .15s"}} onMouseEnter={e=>{if(clickable)e.currentTarget.style.filter="brightness(1.25)";}} onMouseLeave={e=>e.currentTarget.style.filter=""}>{lblh.pre} {rp.nom}{lblh.post?" "+lblh.post:""}{clickable&&<span className="rv-nav-hint">›</span>}</span>;
+  return<span onClick={clickable?()=>navToChar(rp.id):undefined} className={clickable?"rv-clickable":undefined} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psh.background,border:psh.border,color:psh.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblh.pre} {rp.nom}{lblh.post?" "+lblh.post:""}{clickable&&<span className="rv-nav-hint">›</span>}</span>;
 })()}
                     {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                   </div>
