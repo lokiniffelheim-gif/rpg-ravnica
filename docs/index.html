@@ -69,7 +69,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.13.4";const BUILD_HASH="a5af210";
+const VERSION="4.13.5";const BUILD_HASH="73af7f1";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -592,7 +592,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
             onChange={isPlayer?null:v=>upd("gremi",v)}
             onNav={onNavToGremi?()=>onNavToGremi(secureG(item.gremi)):null}/>
           {(()=>{const secConf=item.conflicto&&item.conflicto!=="Guildless"?(canSeeDimir||item.conflicto!=="Dimir"?item.conflicto:"Guildless"):null;const visConf=secConf&&secConf!=="Guildless";return(<>
-            {visConf&&<span style={{fontSize:16,color:"#c43030",padding:"2px 2px",lineHeight:"1.2",display:"inline-flex",alignItems:"center",alignSelf:"center"}}>⚔</span>}
+            {visConf&&<span style={{fontSize:17,color:"#c43030",padding:"2px 4px",display:"inline-flex",alignItems:"center",alignSelf:"center",lineHeight:"normal"}}>⚔</span>}
             {!isPlayer
               ?<GuildNavPill value={item.conflicto||"Guildless"} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} conflict
                   onChange={v=>upd("conflicto",v==="Guildless"?null:v)}
@@ -644,7 +644,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
               <div style={{display:"flex",flexDirection:"column",gap:3}}>
                 <div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
                   <span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:c+"20",color:c,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sg]||"◆"} {sg}</span>
-                  {(()=>{const sc=e.conflicto&&e.conflicto!=="Guildless"?(canSeeDimir||e.conflicto!=="Dimir"?e.conflicto:"Guildless"):null;if(!sc||sc==="Guildless")return null;const cc=GC[sc]||"#8a7a5a";return(<><span style={{fontSize:16,color:"#c43030",padding:"1px 2px",lineHeight:"1.2",display:"inline-flex",alignItems:"center",alignSelf:"center"}}>⚔</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:cc+"20",color:cc,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sc]||"◆"} {sc}</span></>);})()}
+                  {(()=>{const sc=e.conflicto&&e.conflicto!=="Guildless"?(canSeeDimir||e.conflicto!=="Dimir"?e.conflicto:"Guildless"):null;if(!sc||sc==="Guildless")return null;const cc=GC[sc]||"#8a7a5a";return(<><span style={{fontSize:16,color:"#c43030",padding:"1px 3px",display:"inline-flex",alignItems:"center",alignSelf:"center",lineHeight:"normal"}}>⚔</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:cc+"20",color:cc,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sc]||"◆"} {sc}</span></>);})()}
                 </div>
                 {securePers(e.personajes).length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
                   {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:col+"20",color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
