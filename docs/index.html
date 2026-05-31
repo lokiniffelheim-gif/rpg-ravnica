@@ -65,7 +65,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.6.0";const BUILD_HASH="fee1354";
+const VERSION="4.6.0";const BUILD_HASH="5069653";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
@@ -900,7 +900,7 @@ function App({user,onUsersPanel}){
             <button onClick={()=>setShowPreviewSel(s=>!s)} aria-label="Previsualitza com a jugador" aria-expanded={showPreviewSel} style={{fontSize:17,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"var(--text2)",cursor:"pointer"}}>👁</button>
             {showPreviewSel&&ReactDOM.createPortal(<div role="menu" aria-label="Seleccionar jugador" onKeyDown={e=>e.key==="Escape"&&setShowPreviewSel(false)} style={{position:"fixed",top:50,right:8,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:9999,padding:4,minWidth:180,boxShadow:"0 4px 16px #0007"}}>
               {previewAs&&<button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);setShowPreviewSel(false);}} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:GOLD+"22",border:"none",borderBottom:"1px solid "+BORDER,color:GOLD,cursor:"pointer",fontFamily:"'Metamorphous',serif",fontSize:17,borderRadius:"3px 3px 0 0",letterSpacing:".05em",marginBottom:2}}>← VOLVER AL DM</button>}
-              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"#2d1a0a",cursor:"pointer",fontFamily:"'IM Fell English',serif",fontSize:18,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
+              {PJS.map(p=><button key={p} onClick={()=>enterPreview(p)} style={{display:"block",width:"100%",textAlign:"left",padding:"6px 10px",background:previewAs===p?GOLD+"18":"transparent",border:"none",color:previewAs===p?GOLD:"var(--text)",cursor:"pointer",fontFamily:"'IM Fell English',serif",fontSize:18,borderRadius:3,fontWeight:previewAs===p?700:400}} onMouseEnter={e=>e.currentTarget.style.background=BG3} onMouseLeave={e=>e.currentTarget.style.background=previewAs===p?GOLD+"18":"transparent"}>{p}</button>)}
             </div>,document.body)}
           </div>)}
 {onUsersPanel&&<button onClick={onUsersPanel} aria-label="Gestión de usuarios" style={{fontSize:17,padding:"2px 7px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"var(--text2)",cursor:"pointer"}}>👥</button>}
