@@ -61,7 +61,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.6.0";const BUILD_HASH="cae6560";
+const VERSION="4.6.0";const BUILD_HASH="a2b204b";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
@@ -396,7 +396,7 @@ function SesionesPanel({isMob}){
         return(<div key={i} role="button" tabIndex={0} aria-pressed={isSel} onClick={()=>setSel(i===sel&&!isMob?null:i)} onKeyDown={e=>(e.key==="Enter"||e.key===" ")&&setSel(i===sel&&!isMob?null:i)} className="rv-row" style={{padding:"10px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
           <div style={{width:34,height:34,borderRadius:8,background:c+"18",border:"1px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:18,color:c,flexShrink:0}}>{GS[act.gremi]||"◆"}</div>
           <div style={{flex:1,minWidth:0}}>
-            <div style={{fontSize:18,color:isSel?"#1a0e0a":"#3a2210",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontWeight:isSel?600:400}}>{act.nom}</div>
+            <div style={{fontSize:18,color:isSel?"var(--text)":"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontWeight:isSel?600:400}}>{act.nom}</div>
             <div style={{fontSize:18,color:c,fontFamily:"'Metamorphous',serif",letterSpacing:".04em",marginTop:2}}>{GS[act.gremi]} {act.gremi}</div>
           </div>
           <span style={{color:isSel?c:BORDER,fontSize:18,flexShrink:0}}>›</span>
@@ -621,7 +621,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
             <EdificiAvatar gremi={sg} nom={e.nom} size={36} avatarCustom={e.avatarCustom}/>
             <div style={{flex:1,minWidth:0}}>
               <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:2}}>
-                <span style={{fontSize:17,color:isSel?"#1a0e0a":"#3a2210",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
+                <span style={{fontSize:17,color:isSel?"var(--text)":"var(--text2)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500,flex:1,minWidth:0}}>{e.nom}</span>
               </div>
               <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
                 {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:18,padding:"1px 5px",borderRadius:8,background:col+"20",color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
@@ -957,7 +957,7 @@ function App({user,onUsersPanel}){
             return(<div key={i} role="button" tabIndex={0} aria-pressed={isSel} onClick={()=>pick(i)} onKeyDown={e=>(e.key==="Enter"||e.key===" ")&&pick(i)} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
               <Avatar nom={x.nom} avatar={x.avatar} img={x.img} size={34} color={c} tab={tab}/>
               <div style={{flex:1,minWidth:0}}>
-                <div style={{fontSize:18,color:isSel?"#1a0e0a":"#3a2210",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:12,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Metamorphous',serif",verticalAlign:"middle"}}>PJ</span>}</div>
+                <div style={{fontSize:18,color:isSel?"var(--text)":"var(--text2)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:12,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Metamorphous',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",gap:3,marginTop:3,flexWrap:"wrap"}}>
                   {tab==="chars"?secureT(x.tags,x.nom).map(t=><span key={t} style={{fontSize:18,padding:"1px 5px",borderRadius:8,background:GC[t]+"20",color:GC[t],fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[t]} {t}</span>):x.propietari&&<span style={{fontSize:18,padding:"1px 5px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
                   {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:18,padding:"1px 5px",borderRadius:8,background:ec+"20",color:ec,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
