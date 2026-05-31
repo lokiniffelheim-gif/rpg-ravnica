@@ -43,10 +43,7 @@ html,body{height:100%;background:var(--bg-body)}
 .rv-detail{animation:fadeUp .16s ease}
 .syncing{animation:pulse 1.5s infinite}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:2px}
-.rv-frame{position:relative;overflow:hidden}
-.rv-frame::before{content:"";position:absolute;inset:0;border:6px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,#c0945a,#8b5a2a,#e8c070,#8b5a2a,#c0945a) border-box;pointer-events:none;z-index:2}
-.rv-frame::after{content:"";position:absolute;inset:6px;box-shadow:inset 0 0 12px rgba(0,0,0,.5),inset 0 0 3px rgba(0,0,0,.8);pointer-events:none;z-index:3}
-.rv-frame img{display:block;width:100%}
+.rv-frame{display:block;border:6px solid transparent;background-image:linear-gradient(var(--bg2),var(--bg2)),linear-gradient(135deg,#c0945a 0%,#8b5a2a 25%,#e8c070 50%,#8b5a2a 75%,#c0945a 100%);background-origin:border-box;background-clip:padding-box,border-box;box-shadow:inset 0 0 18px rgba(0,0,0,.45),0 6px 28px rgba(0,0,0,.4);width:100%;max-height:280px;object-fit:contain;cursor:zoom-in}
 @media(prefers-reduced-motion:reduce){.rv-detail{animation:none}.syncing{animation:none;opacity:.7}.rv,*{transition-duration:.01ms!important}}</style>
 </head>
 <body>
@@ -65,7 +62,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.6.0";const BUILD_HASH="251c644";
+const VERSION="4.6.0";const BUILD_HASH="be67531";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
@@ -216,7 +213,7 @@ function AddCharDrop({available,idToChar,onAdd}){
 function Toggle({value,onChange}){
   return(<div style={{display:"inline-flex",alignItems:"center",gap:7,cursor:"pointer"}} onClick={e=>{e.stopPropagation();onChange(!value);}}>
     <div style={{width:36,height:20,borderRadius:10,background:value?"#5a9a3a":"#3a3020",position:"relative",transition:"background .2s",flexShrink:0}}>
-      <div style={{position:"absolute",top:3,left:value?19:3,width:14,height:14,borderRadius:"50%",background:"#f0e4c8",transition:"left .2s"}}/>
+      <div style={{position:"absolute",top:3,left:value?19:3,width:14,height:14,borderRadius:"50%",background:"var(--gold-text)",transition:"left .2s"}}/>
     </div>
     <span style={{fontSize:17,color:value?"#5a9a3a":"#7a5a3a",fontFamily:"'Metamorphous',serif",letterSpacing:".05em"}}>{value?"ACTIU":"INACTIU"}</span>
   </div>);
@@ -480,8 +477,8 @@ function UserMgmt({onClose}){
         {sorted.map(u=>{const pendent=isPendent(u);return(
           <div key={u.uid} style={{borderBottom:"1px solid "+BORDER,paddingBottom:12,marginBottom:12}}>
             <div style={{display:"flex",alignItems:"center",gap:6,marginBottom:6}}>
-              <span style={{fontSize:17,color:pendent?"#8b1c1c":"#5a3a20",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",flex:1}}>{u.email}</span>
-              {pendent&&<span style={{fontSize:12,padding:"1px 6px",borderRadius:8,background:"#8b1c1c20",border:"1px solid #8b1c1c44",color:"#8b1c1c",fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>PENDENT</span>}
+              <span style={{fontSize:17,color:pendent?GOLD:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",flex:1}}>{u.email}</span>
+              {pendent&&<span style={{fontSize:12,padding:"1px 6px",borderRadius:8,background:GOLD+"20",border:"1px solid "+GOLD+"44",color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>PENDENT</span>}
             </div>
             <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
               <select aria-label={"Rol de "+u.email} value={u.rol||""} onChange={e=>upd(u.uid,"rol",e.target.value||null)} style={{fontSize:18,padding:"4px 8px",borderRadius:3,border:"1px solid "+BORDER,background:BG,color:"var(--text)",cursor:"pointer",fontFamily:"'Metamorphous',serif"}}>
@@ -514,7 +511,7 @@ function SetupScreen({onConnect}){
   return(<div style={{height:"100vh",background:BG,display:"flex",alignItems:"center",justifyContent:"center",padding:20}}>
     <div style={{maxWidth:480,width:"100%"}}>
       <div style={{textAlign:"center",marginBottom:24}}><div style={{fontSize:28,marginBottom:6}}>⚜</div><div style={{fontFamily:"'Metamorphous',serif",fontSize:18,color:"var(--text)",letterSpacing:".06em",marginBottom:4}}>Los archivos de Ravnica v{VERSION}</div></div>
-      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:17,color:"var(--text2)",lineHeight:1.7,fontFamily:"'IM Fell English',serif"}}><strong style={{color:"#6a0e0e",fontFamily:"'Metamorphous',serif",fontSize:17,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
+      <div style={{background:BG2,border:"1px solid "+BORDER,borderRadius:4,padding:"12px 14px",marginBottom:14,fontSize:17,color:"var(--text2)",lineHeight:1.7,fontFamily:"'IM Fell English',serif"}}><strong style={{color:GOLD,fontFamily:"'Metamorphous',serif",fontSize:17,letterSpacing:".06em"}}>CÓMO CONFIGURAR</strong><br/>1. <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer" style={{color:GOLD}}>console.firebase.google.com</a> → crea proyecto → Firestore en modo test<br/>2. Configuración → app web → copia el config → pega a continuación</div>
       <textarea className="setup-input" style={{minHeight:55,resize:"vertical"}} placeholder="Enganxa el firebaseConfig = { apiKey: ... }" onPaste={hp} readOnly/>
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:5,marginBottom:12}}>{fields.map(({k,l})=><div key={k}><div style={{fontSize:12,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".06em",marginBottom:2}}>{l.toUpperCase()}</div><input className="setup-input" style={{marginBottom:0}} value={cfg[k]||""} onChange={e=>setCfg(p=>({...p,[k]:e.target.value}))} placeholder={l}/></div>)}</div>
       {error&&<div style={{color:"#c43030",fontSize:18,marginBottom:10,padding:"6px 10px",background:"#c4303015",borderRadius:3,border:"1px solid #c4303033"}}>{error}</div>}
@@ -576,8 +573,8 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       <div role="dialog" aria-modal="true" aria-label="Imatge ampliada" tabIndex={-1} onClick={()=>setImgZoom(false)} onKeyDown={e=>e.key==="Escape"&&setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
         <img src={edImgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e",cursor:"zoom-out"}} onClick={()=>setImgZoom(false)}/>
       </div>,document.body)}
-    <div className={edImgSrc?"rv-frame":""} style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
-      {edImgSrc?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.parentElement.classList.remove("rv-frame");e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
+      {edImgSrc?<img className="rv-frame" src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:56,color:ac+"40",userSelect:"none",textAlign:"center",width:"100%"}}>{GS[secureG(item.gremi)]||"◆"}</div>}
       {isMob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff44",borderRadius:3,color:"#e8dcc8",fontSize:17,padding:"3px 10px",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
@@ -599,7 +596,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
       <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar} canSeeDimir={canSeeDimir}/></div>
-      {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:18,color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:17,color:"#d46060",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
+      {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:18,color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:17,color:"#c47070",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
       <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
       {!isPlayer&&<><Rule/><div><div style={{fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
@@ -804,8 +801,8 @@ function App({user,onUsersPanel}){
       <div role="dialog" aria-modal="true" aria-label="Imatge ampliada" tabIndex={-1} onClick={()=>setImgZoom(false)} onKeyDown={e=>e.key==="Escape"&&setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
         <img src={imgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e",cursor:"zoom-out"}} onClick={()=>setImgZoom(false)}/>
       </div>,document.body)}
-    <div className={imgSrc?"rv-frame":""} style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
-      {imgSrc?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.parentElement.classList.remove("rv-frame");e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center top",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
+      {imgSrc?<img className="rv-frame" src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center top"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:52,fontWeight:"bold",color:ac+"40",fontFamily:"'Metamorphous',serif",userSelect:"none",textAlign:"center",width:"100%",letterSpacing:".1em"}}>{tab==="handouts"?"📜":item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</div>}
       {mob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff44",borderRadius:3,color:"#e8dcc8",fontSize:17,padding:"3px 10px",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
