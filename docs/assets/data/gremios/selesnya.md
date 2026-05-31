@@ -10,8 +10,6 @@ El Cónclave Selesnya es una comunidad religiosa y agrícola organizada en torno
 
 En términos prácticos: son los que alimentan a Ravnica. Sus granjas, huertos y comunas producen la mayor parte de los alimentos de la ciudad. También son pacifistas declarados, aunque su definición de pacifismo es considerablemente flexible cuando sus comunidades se ven amenazadas.
 
-Son el gremio más numeroso en términos de miembros civiles y uno de los más incomprendidos: vistos como ingenuos por unos y como una amenaza de endoctrinamiento masivo por otros.
-
 ---
 
 ## Estructura
@@ -20,58 +18,47 @@ Son el gremio más numeroso en términos de miembros civiles y uno de los más i
 - **Los Sagitarios** — Líderes militares del cónclave. El Selesnya tiene ejército, aunque no le gusta admitirlo.
 - **Los Horncallers** — Invocadores especializados en llamar y controlar bestias. Figuras de respeto en las comunidades.
 - **Los Llenadores** — Agricultores y artesanos. El corazón económico del gremio.
-- **Los Neófitos** — Nuevos miembros, en proceso de integración a la conciencia colectiva.
-- **Randal** — Figura local en el Aventino, gestiona la Misión Selesnya del barrio. Humano fanático con buenas intenciones y cero sentido del humor.
+- **Los Neófitos** — Nuevos miembros, en proceso de integración a la vida comunitaria.
 
 ---
 
 ## Intereses y objetivos
 
 - Mantener y expandir el suministro de alimentos de Ravnica.
-- Incorporar más miembros a la comunidad y, por extensión, a la influencia de Mat'Selesnya.
+- Incorporar más miembros a la comunidad, expandiendo la influencia de Mat'Selesnya.
 - Defender sus comunas de la expansión urbana y gremial.
-- Post-guerra: reconstruir las comunas dañadas durante el conflicto.
-- Hay una tensión interna entre quienes creen que la integración debe ser voluntaria y quienes consideran que el bien colectivo justifica métodos más... persuasivos.
-
----
-
-## Enemigos y tensiones
-
-| Gremio | Relación |
-|--------|----------|
-| Gruul | Desprecio filosófico mutuo. Los Gruul ven la comunidad Selesnya como domesticación. Los Selesnya ven a los Gruul como naturaleza desperdiciada. |
-| Rakdos | Rechazo absoluto. El individualismo caótico Rakdos es el opuesto de la unidad Selesnya. |
-| Golgari | Incomprensión. Ambos trabajan con la naturaleza pero con filosofías irreconciliables sobre la muerte. |
-| Azorius | Coexistencia tensa. Los Selesnya obedecen las leyes pero no las respetan especialmente. |
-| Simic | Desconfianza. Los Selesnya creen que la naturaleza debe crecer a su propio ritmo, no ser manipulada. |
 
 ---
 
 ## Magia
 
-- **Magia de naturaleza y crecimiento** — Acelerar o detener el crecimiento vegetal, curar heridas, restaurar terrenos.
+- **Magia de naturaleza y crecimiento** — Acelerar el crecimiento vegetal, curar heridas, restaurar terrenos.
 - **Invocación de bestias** — Llamar y vincular criaturas de la naturaleza.
-- **Magia de unidad** — Hechizos que potencian grupos, crean conexiones mentales temporales, sincronizan acciones.
-- **Magia de purificación** — Eliminar venenos, maldiciones, influencias mágicas negativas.
-- **Dríadas y espíritus del bosque** — Entidades a las que los Selesnya pueden comunicarse y ocasionalmente vincular.
+- **Magia de unidad** — Hechizos que potencian grupos y sincronizan acciones colectivas.
+- **Magia de purificación** — Eliminar venenos, maldiciones e influencias mágicas negativas.
 
 ---
 
 ## Seguidores habituales
 
-- Elfos (especialmente del Cónclave)
-- Humanos de comunidades agrarias
-- Centauros (a veces, los más inclinados hacia la comunidad)
-- Loxodones (elefantes humanoides, profundamente espirituales)
-- Dríadas y hamadríadas
-- Bestias diversas vinculadas a los Horncallers
+Elfos del Cónclave. Humanos de comunidades agrarias. Loxodones, profundamente espirituales. Dríadas y hamadríadas. Bestias diversas vinculadas a los Horncallers.
+
+---
+
+## Relaciones con otros gremios
+
+| Gremio | Relación |
+|--------|----------|
+| Gruul | Desprecio filosófico mutuo. Los Gruul ven la comunidad Selesnya como domesticación. |
+| Rakdos | Rechazo absoluto. El individualismo caótico Rakdos es su opuesto filosófico. |
+| Golgari | Incomprensión sobre el papel de la muerte en la naturaleza. |
+| Simic | Desconfianza. Los Selesnya creen que la naturaleza debe crecer a su propio ritmo. |
+| Azorius | Coexistencia tensa. Obedecen las leyes pero no las respetan especialmente. |
 
 ---
 
 ## Cómo se ven a sí mismos
-
-Como el recordatorio vivo de que Ravnica fue, antes que una ciudad, un mundo. Que la conexión entre seres es la única fuente real de fortaleza. Que la soledad que siente cada ravnicano en el fondo de su alma tiene cura, si uno se deja.
+Como el recordatorio vivo de que Ravnica fue, antes que una ciudad, un mundo. La conexión entre seres es la única fuente real de fortaleza.
 
 ## Cómo los ve el resto
-
-Con una mezcla de afecto y desconfianza. Les compran la lechuga encantados. No quieren que les cuenten más cosas sobre Mat'Selesnya. Existe una sospecha, no del todo injustificada, de que "unirse al Cónclave" implica perder algo difícil de recuperar.
+Con una mezcla de afecto y desconfianza. Les compran la lechuga encantados. No quieren que les cuenten más cosas sobre Mat'Selesnya.
