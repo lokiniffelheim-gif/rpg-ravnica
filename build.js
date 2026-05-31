@@ -97,16 +97,18 @@ function buildImgIndex() {
     handouts: 'assets/img/objetos/',
   };
   const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
+
   const index = {};
   for (const [key, dir] of Object.entries(DIRS)) {
     index[key] = {};
     if (!fs.existsSync(dir)) continue;
     for (const f of fs.readdirSync(dir)) {
       if (IGNORE.test(f)) continue;
-      const id = f.replace(/\.[^.]+$/, ''); // treu extensió
+      const id = f.replace(/\.[^.]+$/, '');
       index[key][id] = PREFIXES[key] + f;
     }
   }
+
   const dest = path.join(__dirname, 'docs/assets/data/img-index.json');
   fs.writeFileSync(dest, JSON.stringify(index), 'utf8');
   const total = Object.values(index).reduce((s,o)=>s+Object.keys(o).length, 0);
