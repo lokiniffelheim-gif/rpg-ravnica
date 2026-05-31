@@ -98,14 +98,15 @@ function buildImgIndex() {
   };
   const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
 
+  // index per nom-de-fitxer (sense extensió) — pot ser ID o nom d'ítem
   const index = {};
   for (const [key, dir] of Object.entries(DIRS)) {
     index[key] = {};
     if (!fs.existsSync(dir)) continue;
     for (const f of fs.readdirSync(dir)) {
       if (IGNORE.test(f)) continue;
-      const id = f.replace(/\.[^.]+$/, '');
-      index[key][id] = PREFIXES[key] + f;
+      const key2 = f.replace(/\.[^.]+$/, '');
+      index[key][key2] = PREFIXES[key] + f;
     }
   }
 
