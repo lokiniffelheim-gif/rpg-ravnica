@@ -1,4 +1,4 @@
-# 🪨 LOS SIN GREMI — La Plebe
+# 🪨 LOS GUILDLESS — La Plebe
 
 > *"Los gremios construyeron esta ciudad. Nosotros la habitamos."*
 
@@ -6,9 +6,9 @@
 
 ## Quiénes son
 
-Los Sin Gremi no son una organización. No tienen líder, ni sede, ni insignia, ni agenda unificada. Son todos los que han caído entre las grietas del sistema gremial: los que nunca fueron reclamados por ningún gremi, los que fueron expulsados, los que huyeron, los que eligieron no pertenecer.
+Los guildless, o sin Gremio, no son una organización. No tienen líder, ni sede, ni insignia, ni agenda unificada. Son todos los que han caído entre las grietas del sistema gremial: los que nunca fueron reclamados por ningún gremi, los que fueron expulsados, los que huyeron, los que eligieron no pertenecer.
 
-En una ciudad donde la identidad gremial lo determina todo —tu trabajo, tu barrio, tu acceso a servicios, tu protección legal— no tener gremi es, técnicamente, no existir. Los Sin Gremi existen de todas formas. Son la mayoría silenciosa de Ravnica, el tejido invisible sobre el que se sostiene todo lo demás.
+En una ciudad donde la identidad gremial lo determina todo —tu trabajo, tu barrio, tu acceso a servicios, tu protección legal— no tener gremi es, técnicamente, no existir. Los sin gremio existen de todas formas. Son la mayoría silenciosa de Ravnica, el tejido invisible sobre el que se sostiene todo lo demás.
 
 ---
 
@@ -16,7 +16,7 @@ En una ciudad donde la identidad gremial lo determina todo —tu trabajo, tu bar
 
 - **Los desplazados** — Perdieron su afiliación, su familia o su barrio por conflictos o catástrofes. Muchos nunca se recuperaron.
 - **Los expulsados** — Miembros de gremis echados por deuda, traición o simple inconveniencia.
-- **Los herederos de nada** — Hijos de Sin Gremi, nacidos fuera del sistema sin ningún camino claro para entrar.
+- **Los herederos de nada** — Hijos de guildless, nacidos fuera del sistema sin ningún camino claro para entrar.
 - **Los libres por elección** — Una minoría que rechaza activamente la afiliación gremial. Vistos como excéntricos en el mejor caso.
 - **Los invisibles** — Trabajadores, mendigos, artesanos menores, vendedores ambulantes. El motor económico informal de Ravnica.
 
