@@ -39,37 +39,38 @@ Cada canvi de codi segueix aquest ordre **sempre**, sense excepcions:
 
 ## 2. Workflow d'imatges de landing
 
-Quan hi ha fitxers nous a `docs/assets/img/landing/` (ignorar `desktop.ini`):
+Les imatges **no depenen de Firebase**. L'app les carrega per ID des de `docs/assets/data/img-index.json`, generat automàticament per `build.js`.
 
-### Pas 1 — Identificar el registre
-Buscar el registre corresponent a `docs/assets/data/chars.json` o `edificis.json` pel nom del fitxer (sense extensió):
-- Personatge → camp `avatar`
-- Edifici → camp `avatarCustom`
-- Handout → camp `img`
+### Com funciona
+- `build.js` escaneja `personajes/`, `Aventino/`, `objetos/` i genera `img-index.json`: `{id → path}`
+- L'app consulta `IMG_INDEX.chars[item.id]`, `IMG_INDEX.edificis[item.id]`, etc.
+- Si no hi ha imatge per aquell ID → no mostra res (sense fallback complex)
 
-### Pas 2a — Si el registre JA TÉ path d'imatge (sobreescriptura)
-- Copiar la nova foto al **mateix path exacte** (sobreescriu el fitxer existent)
-- No cal tocar Firebase — el path és el mateix
+### Workflow quan hi ha imatges noves a `docs/assets/img/landing/`
+
+**Pas 1 — Identificar a quin element pertany**
+- Pel nom del fitxer (sense extensió), buscar a `docs/assets/data/chars.json` el personatge, edifici o handout corresponent
+- Si no hi ha match: preguntar a l'usuari
+
+**Pas 2 — Obtenir l'ID del registre**
+- Buscar el camp `id` del registre a `chars.json`
+- Si no en té: generar-ne un amb `Date.now().toString(36) + Math.random().toString(36).slice(2,8)` i afegir-lo al JSON
+
+**Pas 3 — Copiar la imatge amb nom = ID**
+- chars → `docs/assets/img/personajes/{id}.{ext}`
+- edificis → `docs/assets/img/Aventino/{id}.{ext}`
+- handouts → `docs/assets/img/objetos/{id}.{ext}`
 - Eliminar de `landing/`
 
-### Pas 2b — Si el registre NO TÉ path (personatge/edifici nou sense foto)
-- Carpetes destí: chars → `personajes/`, edificis → `Aventino/`, handouts → `objetos/`
-- Nom del fitxer: generar ID amb format `Date.now().toString(36) + Math.random().toString(36).slice(2,8)` i afegir-lo al camp `id` del registre si no en té
-- Copiar com `{id}.{ext_original}`
-- Actualitzar el camp `avatar`/`avatarCustom`/`img` al JSON corresponent
-- Eliminar de `landing/`
-
-### Pas 2c — Si no hi ha match
-Preguntar a l'usuari a quin registre correspon.
-
-### Pas 3 — Commit
+**Pas 4 — Build i commit**
 ```
-git add docs/assets/img/ docs/assets/data/
-git commit -m "feat: imatge {Nom} — {descripció}"
+node build.js   ← regenera img-index.json automàticament
+git add docs/assets/img/ docs/assets/data/ src/index.html
+git commit -m "feat: imatge {Nom}"
 git push
 ```
 
-**Regla clau:** Sobreescriure el fitxer existent = mai cal actualitzar Firebase. Només cal importar quan és un registre completament nou sense foto prèvia.
+**Regla clau:** Els camps `avatar`/`avatarCustom`/`img` de Firebase/JSON s'ignoren per a imatges. L'únic que importa és que el fitxer existeixi amb el nom correcte (`{id}.ext`) a la carpeta correcta.
 
 ---
 
