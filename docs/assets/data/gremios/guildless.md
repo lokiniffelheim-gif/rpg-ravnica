@@ -6,7 +6,7 @@
 
 ## Quiénes son
 
-Los guildless, o sin Gremio, no son una organización. No tienen líder, ni sede, ni insignia, ni agenda unificada. Son todos los que han caído entre las grietas del sistema gremial: los que nunca fueron reclamados por ningún gremi, los que fueron expulsados, los que huyeron, los que eligieron no pertenecer.
+Los Guildless, o sin gremio, no son una organización. No tienen líder, ni sede, ni insignia, ni agenda unificada. Son todos los que han caído entre las grietas del sistema gremial: los que nunca fueron reclamados por ningún gremi, los que fueron expulsados, los que huyeron, los que eligieron no pertenecer.
 
 En una ciudad donde la identidad gremial lo determina todo —tu trabajo, tu barrio, tu acceso a servicios, tu protección legal— no tener gremi es, técnicamente, no existir. Los sin gremio existen de todas formas. Son la mayoría silenciosa de Ravnica, el tejido invisible sobre el que se sostiene todo lo demás.
 
