@@ -61,7 +61,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.7.0";const BUILD_HASH="d09bf9b";
+const VERSION="4.6.0";const BUILD_HASH="5848e59";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
@@ -613,7 +613,6 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
           <SortBtn sort={sort} onSort={cycleSort}/>
           {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#6a4a2a"}}>{GS[g]} {g}</button>)}
           {!isPlayer&&<button className="rv-filter" onClick={()=>setFa(fa==="all"?"actius":fa==="actius"?"inactius":"all")} style={{background:fa==="actius"?"#5a9a3a22":fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":fa==="inactius"?"#88888888":BORDER),color:fa==="actius"?"#5a9a3a":fa==="inactius"?"#aaa":"#6a4a2a"}}>{fa==="actius"?"● ACTIUS":fa==="inactius"?"○ INACTIUS":"● ESTAT"}</button>}
-          <span style={{marginLeft:"auto",fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}}>{filtered.length}E</span>
         </div>
       </div>
       <div style={{overflowY:"auto",flex:1}}>
@@ -888,8 +887,8 @@ function App({user,onUsersPanel}){
         <div><h1 className="rv-head" style={{fontSize:mob?13:15,color:"var(--text)",letterSpacing:".07em",fontWeight:"inherit",display:"inline",margin:0}}>Los archivos de Ravnica</h1>{!mob&&<span style={{fontSize:18,color:"var(--text2)",fontStyle:"italic",fontFamily:"'IM Fell English',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:18,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
         <span role="status" aria-live="polite" style={{fontSize:18,color:syncCol,marginLeft:4,fontFamily:"'Metamorphous',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
-          {!mob&&<span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
-          {!mob&&<span style={{fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
+          {effectiveUser.rol==="dm"&&!mob&&<span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
+          {effectiveUser.rol==="dm"&&!mob&&<span style={{fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}} title={user.email}>DM</span>}
           {user.rol==="dm"&&(<div style={{position:"relative"}}>
             <button onClick={()=>setShowPreviewSel(s=>!s)} aria-label="Previsualitza com a jugador" aria-expanded={showPreviewSel} style={{fontSize:17,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"var(--text2)",cursor:"pointer"}}>👁</button>
             {showPreviewSel&&ReactDOM.createPortal(<div role="menu" aria-label="Seleccionar jugador" onKeyDown={e=>e.key==="Escape"&&setShowPreviewSel(false)} style={{position:"fixed",top:50,right:8,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:9999,padding:4,minWidth:180,boxShadow:"0 4px 16px #0007"}}>
