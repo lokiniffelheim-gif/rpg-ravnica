@@ -20,6 +20,14 @@ App de gestió de campanya RPG (Pathfinder 2e, ambientació Ravnica/MtG). SPA Re
 | `develop` | `.../rpg-ravnica/pre/` | Proves pre-producció |
 | `feature/xxx` | `.../rpg-ravnica/dev/xxx/` | Desenvolupament experimental |
 
+### Inici de sessió (OBLIGATORI)
+A cada sessió nova, crear un branch de treball abans de fer cap canvi:
+```
+git checkout main && git pull
+git checkout -b feature/descripcio-breu
+```
+Quan els canvis siguin aprovats, fer merge a `main` i esborrar el branch.
+
 ---
 
 ## 1. Workflow de versions i commits (OBLIGATORI)
