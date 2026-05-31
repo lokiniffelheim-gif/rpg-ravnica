@@ -74,8 +74,10 @@ function _lum(hex){const r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(
 function _contrast(hex1,hex2){const l1=_lum(hex1),l2=_lum(hex2);return(Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);}
 // Retorna el color de text (#1a1008 o #f0ebe0) amb millor contrast contra bg
 function textOnBg(bgHex){return _contrast("#f0ebe0",bgHex)>_contrast("#1a1008",bgHex)?"#f0ebe0":"#1a1008";}
+// Alpha per al degradat segons el tema actiu
+function pillAlpha(){return(localStorage.getItem("rv-theme")||"light")==="dark"?"40":"60";}
 // Retorna {background, color} per a una pill de gremi
-function guildPillStyle(g,alpha="40"){
+function guildPillStyle(g,alpha){if(alpha===undefined)alpha=pillAlpha();
   const mc=GUILD_MANA[g]||["C"];
   const c1=MANA_HEX[mc[0]]||"#C6C5C5",c2=mc[1]?MANA_HEX[mc[1]]:null;
   const bg=c2?`linear-gradient(to right,${c1}${alpha},transparent 50%,${c2}${alpha})`:`${c1}${alpha}`;
@@ -92,7 +94,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.15.2";const BUILD_HASH="";
+const VERSION="4.15.3";const BUILD_HASH="";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -214,7 +216,7 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
       {visible.map((id,i)=>{
         const ch=idToChar[id];const nom=ch?ch.nom:id;
         const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#8a7a5a":"#8a7a5a";
-        const ps0=t0?guildPillStyle(t0,"30"):{background:"#8a7a5a30",border:"1px solid #8a7a5a55",textColor:"var(--text)"};const lbl0=t0?guildLabel(t0):null;
+        const ps0=t0?guildPillStyle(t0):{background:"#8a7a5a30",border:"1px solid #8a7a5a55",textColor:"var(--text)"};const lbl0=t0?guildLabel(t0):null;
         return(<span key={id} className="rv-pill" style={{background:ps0.background,border:ps0.border,color:ps0.textColor}}>
           <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default",textDecoration:onNavToChar&&ch?"underline dotted":"none"}}>{lbl0?`${lbl0.pre} ${nom}${lbl0.post?" "+lbl0.post:""}`:nom}</span>
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
@@ -651,7 +653,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
           <SortBtn sort={sort} onSort={cycleSort}/>
-          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=>{const psfg=guildPillStyle(g,"20");const lblfg=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?psfg.background:"transparent",border:fg===g?psfg.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfg.pre} {g}{lblfg.post?" "+lblfg.post:""}</button>;})}
+          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=>{const psfg=guildPillStyle(g,pillAlpha());const lblfg=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?psfg.background:"transparent",border:fg===g?psfg.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfg.pre} {g}{lblfg.post?" "+lblfg.post:""}</button>;})}
           {!isPlayer&&<button className="rv-filter" onClick={()=>setFa(fa==="all"?"actius":fa==="actius"?"inactius":"all")} style={{background:fa==="actius"?"#5a9a3a22":fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":fa==="inactius"?"#88888888":BORDER),color:fa==="actius"?"#5a9a3a":fa==="inactius"?"#aaa":"#6a4a2a"}}>{fa==="actius"?"● ACTIUS":fa==="inactius"?"○ INACTIUS":"● ESTAT"}</button>}
         </div>
       </div>
@@ -666,7 +668,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
               </div>
               <div style={{display:"flex",flexDirection:"column",gap:3}}>
                 <div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
-                  {(()=>{const psl=guildPillStyle(sg,"28");const lbll=guildLabel(sg);return<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psl.background,border:psl.border,color:psl.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lbll.pre} {sg}{lbll.post?" "+lbll.post:""}</span>;})()}
+                  {(()=>{const psl=guildPillStyle(sg);const lbll=guildLabel(sg);return<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psl.background,border:psl.border,color:psl.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lbll.pre} {sg}{lbll.post?" "+lbll.post:""}</span>;})()}
                   {(()=>{const sc=e.conflicto&&e.conflicto!=="Guildless"?(canSeeDimir||e.conflicto!=="Dimir"?e.conflicto:"Guildless"):null;if(!sc||sc==="Guildless")return null;const cc=GC[sc]||"#8a7a5a";return(<><span style={{fontSize:32,color:"#c43030",padding:"1px 0",display:"inline-flex",alignItems:"center",alignSelf:"center",lineHeight:"normal"}}>⚔</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:cc+"20",color:cc,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sc]||"◆"} {sc}</span></>);})()}
                 </div>
                 {securePers(e.personajes).length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
@@ -868,7 +870,7 @@ function App({user,onUsersPanel}){
             :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
           </div>
           {tab==="chars"&&(charEdificis.length>0||effectiveUser.rol==="dm")&&<div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
-            {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const pse=guildPillStyle(sg,"30");const lble=guildLabel(sg);return(<span key={e.id} className="rv-pill" style={{...pse,color:pse.textColor,fontSize:14}}>
+            {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const pse=guildPillStyle(sg);const lble=guildLabel(sg);return(<span key={e.id} className="rv-pill" style={{...pse,color:pse.textColor,fontSize:14}}>
               <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{lble.pre} {e.nom}{lble.post?" "+lble.post:""}</span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
             </span>);})}
@@ -1010,7 +1012,7 @@ function App({user,onUsersPanel}){
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <SortBtn sort={sort} onSort={cycleSort}/>
-            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=>{const psfc=guildPillStyle(g,"20");const lblfc=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?psfc.background:"transparent",border:filt===g?psfc.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfc.pre} {g}{lblfc.post?" "+lblfc.post:""}</button>;})
+            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=>{const psfc=guildPillStyle(g,pillAlpha());const lblfc=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?psfc.background:"transparent",border:filt===g?psfc.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfc.pre} {g}{lblfc.post?" "+lblfc.post:""}</button>;})
             :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#6a4a2a"}}>{p}</button>)}
           </div>
         </div>
@@ -1023,11 +1025,11 @@ function App({user,onUsersPanel}){
                 <div style={{fontSize:18,color:isSel?"var(--text)":"var(--text2)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:"'Metamorphous',serif",letterSpacing:".03em",fontWeight:isSel?700:500}}>{x.nom}{PJS.includes(x.nom)&&<span style={{marginLeft:5,fontSize:12,background:c+"1a",color:c,borderRadius:2,padding:"1px 4px",fontFamily:"'Metamorphous',serif",verticalAlign:"middle"}}>PJ</span>}</div>
                 <div style={{display:"flex",flexDirection:"column",gap:3,marginTop:3}}>
                   <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-                    {tab==="chars"?secureT(x.tags,x.nom).map(t=>{const pst=guildPillStyle(t,"28");const lblt=guildLabel(t);return<span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:pst.background,border:pst.border,color:pst.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblt.pre} {t}{lblt.post?" "+lblt.post:""}</span>;}):x.propietari&&<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
+                    {tab==="chars"?secureT(x.tags,x.nom).map(t=>{const pst=guildPillStyle(t);const lblt=guildLabel(t);return<span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:pst.background,border:pst.border,color:pst.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblt.pre} {t}{lblt.post?" "+lblt.post:""}</span>;}):x.propietari&&<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:(PC[x.propietari]||"#888")+"20",color:PC[x.propietari]||"#888",fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{x.propietari}</span>}
                     {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                   </div>
                   {xlocs.length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-                    {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const psx=guildPillStyle(sg,"28");const lblx=guildLabel(sg);return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:psx.background,border:psx.border,color:psx.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{lblx.pre} {e.nom}{lblx.post?" "+lblx.post:""}</span>;})}
+                    {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const psx=guildPillStyle(sg);const lblx=guildLabel(sg);return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:psx.background,border:psx.border,color:psx.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{lblx.pre} {e.nom}{lblx.post?" "+lblx.post:""}</span>;})}
                   </div>}
                 </div>
               </div>
