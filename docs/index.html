@@ -62,7 +62,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.8.3";const BUILD_HASH="f7be31b";
+const VERSION="4.8.3";const BUILD_HASH="c784a2c";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -280,17 +280,22 @@ function VisibleSelect({value,onChange}){
   </div>);
 }
 
-function Field({value,onChange,multi,accent,ph,readOnly}){
+function Field({value,onChange,multi,accent,ph,readOnly,heading}){
   ph=ph||"";
   const [ed,setEd]=useState(false);const [draft,setDraft]=useState(value||"");
   const ref=useRef(null);
   useEffect(()=>setDraft(value||""),[value]);
   useEffect(()=>{if(!ed)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target)){onChange(draft);setEd(false);}};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[ed,draft,onChange]);
   const commit=()=>{onChange(draft);setEd(false);};
-  const s={width:"100%",padding:"5px 8px",borderRadius:3,border:"1.5px solid "+(accent||GOLD)+"66",background:BG,color:"var(--text)",WebkitTextFillColor:"var(--text)",fontFamily:"'IM Fell English',Georgia,serif",fontSize:17,outline:"none",lineHeight:1.75,opacity:1};
+  const fs=heading?22:18;const lh=heading?1.2:1.8;const ff=heading?"'Metamorphous',serif":"'IM Fell English',Georgia,serif";
+  const s={width:"100%",padding:"5px 8px",borderRadius:3,border:"1.5px solid "+(accent||GOLD)+"66",background:BG,color:"var(--text)",WebkitTextFillColor:"var(--text)",fontFamily:ff,fontSize:fs,outline:"none",lineHeight:lh,opacity:1,letterSpacing:heading?".04em":"normal"};
   if(readOnly||!ed)return(<div className={readOnly?"":"rv-editable"} tabIndex={readOnly?undefined:0} role={readOnly?undefined:"button"} aria-label={readOnly?undefined:(value||ph||"Camp editable")} onClick={readOnly?undefined:()=>setEd(true)} onKeyDown={readOnly?undefined:e=>(e.key==="Enter"||e.key===" ")&&setEd(true)} style={{position:"relative",minHeight:24,cursor:readOnly?"default":undefined}}>
     {!readOnly&&<span style={{position:"absolute",top:4,right:6,fontSize:18,color:GOLD,opacity:.4,pointerEvents:"none"}}>✎</span>}
-    {value?<p style={{margin:0,fontSize:17,lineHeight:1.75,color:"var(--text)",whiteSpace:"pre-line",paddingRight:readOnly?0:14}}>{value}</p>:<p style={{margin:0,fontSize:18,color:"var(--text2)",fontStyle:"italic"}}>{ph||"—"}</p>}
+    {value
+      ?heading
+        ?<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,letterSpacing:".04em",paddingRight:readOnly?0:20}}>{value}</p>
+        :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
+      :<p style={{margin:0,fontSize:heading?fs:18,color:"var(--text2)",fontStyle:"italic",fontFamily:ff}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
 }
@@ -580,7 +585,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     </div>
     <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
       <div style={{flex:1,minWidth:0}}>
-        <Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/>
+        <Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer} heading/>
         <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
           {isPlayer
             ?<span onClick={onNavToGremi?()=>onNavToGremi(secureG(item.gremi)):undefined} title={onNavToGremi?"Veure gremi":undefined} style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Metamorphous',serif",cursor:onNavToGremi?"pointer":"default",textDecoration:onNavToGremi?"underline dotted":"none"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>
@@ -596,9 +601,9 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
     </div>
     <div style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
       <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:6,paddingLeft:4,opacity:.8}}>👤 PERSONAJES</div><PersonajesTagSel value={item.personajes} onChange={v=>upd("personajes",v)} chars={chars} readOnly={isPlayer} filterVisible={isPlayer?playerName:null} onNavToChar={onNavToChar} canSeeDimir={canSeeDimir}/></div>
-      {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:18,color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:17,color:"#c47070",fontFamily:"Georgia,serif",lineHeight:1.6,margin:0}}>{item.conflicto}</p></div>}
+      {item.conflicto&&<div style={{padding:"6px 10px",borderRadius:4,background:"#c4303015",border:"1px solid #c4303033"}}><div style={{fontSize:18,color:"#c43030",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,opacity:.8}}>⚔ CONFLICTE</div><p style={{fontSize:18,color:"#c47070",fontFamily:"'IM Fell English',serif",lineHeight:1.75,margin:0}}>{item.conflicto}</p></div>}
       <Rule color={ac}/>
-      <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4,opacity:.8}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
+      <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>📝 DESCRIPCIÓN</div><Field value={item.descripcion||""} onChange={v=>upd("descripcion",v)} multi={true} accent={ac} readOnly={isPlayer}/></div>
       {!isPlayer&&<><Rule/><div><div style={{fontSize:18,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:3,paddingLeft:4}}>💡 NOTES DM</div><Field value={item.ideas||""} onChange={v=>upd("ideas",v)} multi={true} accent={GOLD}/></div></>}
     </div>
   </div>):null;
@@ -808,7 +813,7 @@ function App({user,onUsersPanel}){
     </div>
     <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
       <div style={{flex:1,minWidth:0}}>
-        <Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
+        <Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"} heading/>
         <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
           {tab==="chars"?(<>{secureT(item.tags,item.nom).map((t,ti)=>effectiveUser.rol==="jugador"
             ?<span key={ti} onClick={()=>navToGremi(t)} title="Veure gremi" style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Metamorphous',serif",cursor:"pointer",textDecoration:"underline dotted"}}>{GS[t]} {t}</span>
@@ -836,7 +841,7 @@ function App({user,onUsersPanel}){
           <div style={{fontSize:18,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center"}}>
             <span style={{opacity:.5,fontSize:11}}>🎮</span>
             <span style={{color:"var(--text2)",fontFamily:"'Metamorphous',serif",fontSize:12,letterSpacing:".06em"}}>CONTROL</span>
-            <span style={{color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:13}}>{item.controlledby}</span>
+            <span style={{color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:16}}>{item.controlledby}</span>
           </div>
         </div>
         <div><div style={{fontSize:12,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".1em",marginBottom:4}}>CONOCE A:</div>
@@ -844,13 +849,13 @@ function App({user,onUsersPanel}){
         </div>
       </div>}
       {tab==="chars"&&effectiveUser.rol==="dm"&&<Rule color={ac}/>}
-      <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
+      <div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>{tab==="handouts"?"DESCRIPCIÓN":"BIO E HISTORIA"}</div>
         <Field value={item.bio||item.contingut||""} onChange={v=>tab==="handouts"?updH(origI,"contingut",v):updC(origI,"bio",v)} multi={true} accent={ac} readOnly={tab==="handouts"?effectiveUser.rol!=="dm":!isOwnChar}/>
       </div>
-      {tab==="chars"&&item.controlledby!=="DM"&&<div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>RANGO GREMIAL</div>
+      {tab==="chars"&&item.controlledby!=="DM"&&<div><div style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>RANGO GREMIAL</div>
         <RangoTable value={item.rangoGremial} onChange={v=>updC(origI,"rangoGremial",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
-      {tab==="chars"&&item.controlledby!=="DM"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:18,color:GC["Dimir"],fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4,opacity:.8}}>👁 RANGO DE LAS SOMBRAS</div>
+      {tab==="chars"&&item.controlledby!=="DM"&&(effectiveUser.rol==="dm"||effectiveUser.personatge===item.nom)&&(item.tags||[]).includes("Dimir")&&<div><div style={{fontSize:18,color:GC["Dimir"],fontFamily:"'Metamorphous',serif",letterSpacing:".12em",marginBottom:4,paddingLeft:4}}>👁 RANGO DE LAS SOMBRAS</div>
         <RangoTable value={item.rangoSombras} onChange={v=>updC(origI,"rangoSombras",v)} accent={GC["Dimir"]} readOnly={effectiveUser.rol!=="dm"}/>
       </div>}
       {tab==="chars"&&item.nom.startsWith("Wundyr Somo")&&<><Rule/>
