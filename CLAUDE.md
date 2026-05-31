@@ -37,44 +37,20 @@ Cada canvi de codi segueix aquest ordre **sempre**, sense excepcions:
 
 ---
 
-## 2. Workflow d'imatges de landing (AUTOMÀTIC — revisar a cada prompt)
+## 2. Workflow d'imatges
 
-**A l'inici de cada prompt**, comprovar si hi ha fitxers nous a `docs/assets/img/landing/` (ignorar `desktop.ini`). Si n'hi ha, processar-los immediatament sense esperar que l'usuari ho demani.
+Les imatges **no depenen de Firebase**. `build.js` escaneja les carpetes i genera `img-index.json` (`{id → path}`). L'app consulta `IMG_INDEX[cat][item.id]` — si no hi ha fitxer, no mostra res.
 
-### Com funciona el sistema
-- `build.js` escaneja `personajes/`, `Aventino/`, `objetos/` i genera `img-index.json`: `{id → path}`
-- L'app consulta `IMG_INDEX.chars[item.id]` etc. — **completament independent de Firebase**
-- Si no hi ha imatge per aquell ID → no mostra res
+### Obtenir l'ID d'un ítem
+L'app mostra `#{id}` sota el nom de cada ítem al panell lateral **(només DM)**, seleccionable directament. És l'ID de Firebase, l'únic vàlid.
 
-### Processament de cada imatge nova
-
-L'usuari deixa les imatges amb **el nom de l'ítem** (p.ex. `Pandora, Espíritu Servicial.jpeg`).
-
-```javascript
-// Pas 1 — Buscar el registre pel nom (sense extensió)
-// Ordre de cerca: chars.json → edificis de chars.json → handouts
-node -e "
-const fs = require('fs');
-const nom = 'NOM_FITXER_SENSE_EXTENSIO';
-const chars = JSON.parse(fs.readFileSync('docs/assets/data/chars.json','utf8'));
-const p = chars.find(c => c.nom === nom);
-if(p) console.log('CHAR id:', p.id);
-// TODO: buscar també a edificis/handouts si cal
-"
-```
-
-**Pas 2 — Si no té ID**: generar-ne un i afegir-lo al JSON:
-```javascript
-const id = Date.now().toString(36) + Math.random().toString(36).slice(2,8);
-// Actualitzar docs/assets/data/chars.json amb {id} al registre corresponent
-```
-
-**Pas 3 — Copiar amb nom = ID i eliminar de landing/**
-- chars → `docs/assets/img/personajes/{id}.{ext}`
-- edificis → `docs/assets/img/Aventino/{id}.{ext}`
-- handouts → `docs/assets/img/objetos/{id}.{ext}`
-
-**Pas 4 — Build i commit** (sense bump de versió si és només imatge)
+### Afegir o canviar una imatge
+1. Obtenir l'ID de l'ítem des de l'app (`#{id}`)
+2. Posar la imatge a la carpeta correcta amb nom `{id}.{ext}`:
+   - chars → `docs/assets/img/personajes/{id}.{ext}`
+   - edificis → `docs/assets/img/Aventino/{id}.{ext}`
+   - handouts → `docs/assets/img/objetos/{id}.{ext}`
+3. Build i commit:
 ```
 node build.js
 git add docs/assets/img/ docs/assets/data/
@@ -82,9 +58,7 @@ git commit -m "feat: imatge {Nom}"
 git push
 ```
 
-**Si no hi ha match**: preguntar a l'usuari a quin registre correspon.
-
-**Regla clau:** Mai tocar Firebase per imatges. L'únic que compta és `{id}.ext` a la carpeta correcta + `node build.js`.
+**Regla clau:** L'ID de Firebase (visible a l'app) és el que compta. El de `chars.json` local pot diferir.
 
 ---
 
