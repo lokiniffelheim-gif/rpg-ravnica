@@ -336,7 +336,6 @@ function GuildNavPill({value,opts,cm,onChange,onNav,onRemove,emptyLabel,emptyOpt
   </span>);
 }
 function GuildDrop({value,opts,onChange,cm}){return <GuildNavPill value={value} opts={opts} cm={cm} onChange={onChange}/>;}
-}
 
 function Sel({value,opts,onChange,cm}){
   return <GuildDrop value={value} opts={opts} onChange={onChange} cm={cm}/>;
