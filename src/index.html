@@ -9,30 +9,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Metamorphous&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#f0e4cc}
-.rv{font-family:'IM Fell English',Georgia,serif;background:#ffffff;color:#2d1a0a;height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:18px}
+:root{--bg:#ffffff;--bg2:#f8f3ea;--bg3:#f0e8d8;--bg-body:#f0e4cc;--gold:#8b1c1c;--gold-dark:#6a1010;--gold-text:#f5e8cc;--border:#c0945a;--border2:#a08050;--text:#1a0a04;--text2:#5a3820;--text3:#8a6040;--hover:#e8d8b8;--check-hover:#c0a878;--check-bg:#f5e8cc;--setup-bg:#ede0b8;--input-ph:#5a3820}
+.rv.dark{--bg:#0e0d0b;--bg2:#1a1814;--bg3:#242018;--bg-body:#0a0908;--gold:#9b2020;--gold-dark:#7a1010;--gold-text:#e8dcc8;--border:#3a3028;--border2:#4a3a28;--text:#e8dcc8;--text2:#a09070;--text3:#706050;--hover:#2a2420;--check-hover:#2a2420;--check-bg:#242018;--setup-bg:#1a1814;--input-ph:#706050}
+html,body{height:100%;background:var(--bg-body)}
+.rv{font-family:'IM Fell English',Georgia,serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:18px;transition:background .3s,color .3s}
 .rv-head{font-family:'Metamorphous',serif;font-weight:400;letter-spacing:.05em}
-.rv-row:hover{background:#e8d8b8!important}
-.rv-btn-gold{background:#8b1c1c;color:#f5e8cc;border:1px solid #6a1010;cursor:pointer;font-family:'Metamorphous',serif;font-size:13px;letter-spacing:.08em;padding:5px 14px;border-radius:3px;transition:filter .15s}
-.rv-btn-gold:hover{background:#6a1010}
+.rv-row:hover{background:var(--hover)!important}
+.rv-btn-gold{background:var(--gold);color:var(--gold-text);border:1px solid var(--gold-dark);cursor:pointer;font-family:'Metamorphous',serif;font-size:13px;letter-spacing:.08em;padding:5px 14px;border-radius:3px;transition:filter .15s}
+.rv-btn-gold:hover{background:var(--gold-dark)}
 .rv-editable{cursor:text;padding:4px 8px;border-radius:3px;border:1px solid transparent;transition:border-color .15s}
-.rv-editable:hover{border-color:#a08050;background:#f5f0e4}
-.rv-filter{font-size:12px;padding:2px 8px;border-radius:10px;cursor:pointer;font-family:'Metamorphous',serif;letter-spacing:.04em;border:1px solid transparent;transition:all .1s;background:transparent;font-weight:400;color:#3a1a0a}
+.rv-editable:hover{border-color:var(--border2);background:var(--bg3)}
+.rv-filter{font-size:12px;padding:2px 8px;border-radius:10px;cursor:pointer;font-family:'Metamorphous',serif;letter-spacing:.04em;border:1px solid transparent;transition:all .1s;background:transparent;font-weight:400;color:var(--text2)}
 .rv-pill{display:inline-flex;align-items:center;gap:3px;font-size:12px;padding:2px 6px;border-radius:6px;font-family:'Metamorphous',serif;letter-spacing:.03em}
 .rv-pill-x{background:none;border:none;cursor:pointer;color:inherit;font-size:13px;line-height:1;padding:0 0 0 2px;opacity:.6}
-.rv-pill-x:hover{opacity:1;color:#8b1c1c}
-.rv-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:#f8f3ea;border:1px solid #a08050;border-radius:4px;z-index:200;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
-.rv-check-row{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:3px;cursor:pointer;font-size:16px;font-family:'IM Fell English',Georgia,serif;color:#2d1a0a;transition:background .1s}
-.rv-check-row:hover{background:#c0a878}
-.rv-check-row input[type=checkbox]{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid #5a3820;border-radius:2px;background:#f5e8cc;cursor:pointer;flex-shrink:0;position:relative}
-.rv-check-row input[type=checkbox]:checked{background:#8b1c1c;border-color:#8b1c1c}
-.rv-check-row input[type=checkbox]:checked::after{content:'✓';position:absolute;top:-1px;left:2px;font-size:13px;color:#f5e8cc}
+.rv-pill-x:hover{opacity:1;color:var(--gold)}
+.rv-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--bg2);border:1px solid var(--border2);border-radius:4px;z-index:200;padding:4px;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.rv-check-row{display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:3px;cursor:pointer;font-size:16px;font-family:'IM Fell English',Georgia,serif;color:var(--text);transition:background .1s}
+.rv-check-row:hover{background:var(--check-hover)}
+.rv-check-row input[type=checkbox]{appearance:none;-webkit-appearance:none;width:14px;height:14px;border:1px solid var(--text2);border-radius:2px;background:var(--check-bg);cursor:pointer;flex-shrink:0;position:relative}
+.rv-check-row input[type=checkbox]:checked{background:var(--gold);border-color:var(--gold)}
+.rv-check-row input[type=checkbox]:checked::after{content:'✓';position:absolute;top:-1px;left:2px;font-size:13px;color:var(--gold-text)}
 .rv-check-row input[type=checkbox]:disabled{opacity:.4;cursor:default}
-.rv input,.rv textarea,.rv select{-webkit-appearance:none!important;appearance:none!important;background-color:#ffffff!important;background:#ffffff!important;color:#2d1a0a!important;-webkit-text-fill-color:#2d1a0a!important;border-radius:3px!important;opacity:1!important;font-family:'IM Fell English',Georgia,serif!important;font-size:17px!important;border-color:#a08050!important}
-.rv input::placeholder,.rv textarea::placeholder{color:#5a3820!important;-webkit-text-fill-color:#5a3820!important;opacity:1!important}
+.rv input,.rv textarea,.rv select{-webkit-appearance:none!important;appearance:none!important;background-color:var(--bg)!important;background:var(--bg)!important;color:var(--text)!important;-webkit-text-fill-color:var(--text)!important;border-radius:3px!important;opacity:1!important;font-family:'IM Fell English',Georgia,serif!important;font-size:17px!important;border-color:var(--border2)!important}
+.rv input::placeholder,.rv textarea::placeholder{color:var(--input-ph)!important;-webkit-text-fill-color:var(--input-ph)!important;opacity:1!important}
 .rv input[type=checkbox]{width:14px!important;height:14px!important;font-size:unset!important}
-.setup-input{width:100%;padding:8px 12px;border-radius:4px;border:1px solid #a08050;background:#ede0b8;color:#180a04;font-family:'IM Fell English',serif;font-size:16px;outline:none;margin-bottom:8px}
-.setup-input:focus{border-color:#8b1c1c66}
+.setup-input{width:100%;padding:8px 12px;border-radius:4px;border:1px solid var(--border2);background:var(--setup-bg);color:var(--text);font-family:'IM Fell English',serif;font-size:16px;outline:none;margin-bottom:8px}
+.setup-input:focus{border-color:var(--gold)}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:#a08050;border-radius:2px}
@@ -58,7 +60,9 @@ const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos",
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#cccccc","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
 const VERSION="4.3.0";const BUILD_HASH="";
-const GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
+const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
+let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
+function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
 const TABS=[{id:"aventino",icon:"🏛",label:"Aventino"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 
@@ -670,6 +674,8 @@ function GremiosPanel({canSeeDimir,isMob}){
 }
 
 function App({user,onUsersPanel}){
+  const [dark,setDark]=useState(()=>{const t=localStorage.getItem("rv-theme")||"light";if(t==="dark"){applyTheme("dark");return true;}return false;});
+  const toggleTheme=()=>{const next=dark?"light":"dark";applyTheme(next);setDark(!dark);};
   const [tab,setTab]=useState("aventino");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("asc");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
@@ -855,21 +861,21 @@ function App({user,onUsersPanel}){
     </div>
   </div>):null;
 
-  return(<div className="rv" style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
+  return(<div className={"rv"+(dark?" dark":"")} style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
     <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.12,zIndex:0,pointerEvents:"none"}}/>
     {previewAs&&<div style={{position:"relative",zIndex:1,background:"#8b1c1c",color:"#0f0e0c",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
       <span style={{fontSize:17,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
       <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:17,padding:"3px 12px",borderRadius:3,border:"1px solid #0f0e0c55",background:"#0f0e0c22",color:"#0f0e0c",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
     <div style={{backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
-      <div style={{position:"absolute",inset:0,background:"linear-gradient(to bottom, #f5e8ccb8 0%, #f5e8ccdd 55%, #f5e8cc 100%)",pointerEvents:"none"}}/>
+      <div style={{position:"absolute",inset:0,background:dark?"linear-gradient(to bottom, #0e0d0bb8 0%, #0e0d0bdd 55%, #0e0d0b 100%)":"linear-gradient(to bottom, #f5e8ccb8 0%, #f5e8ccdd 55%, #f5e8cc 100%)",pointerEvents:"none"}}/>
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-        <div style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+GOLD+"66",background:GOLD+"0f",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><span style={{fontSize:18,lineHeight:1}}>⚜</span></div>
-        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"#1a0e0a",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:18,color:"#6a4020",fontStyle:"italic",fontFamily:"'IM Fell English',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:18,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
+        <button onClick={toggleTheme} title={dark?"Canviar a mode clar":"Canviar a mode fosc"} style={{width:26,height:26,borderRadius:"50%",border:"1px solid "+GOLD+"88",background:GOLD+"18",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,cursor:"pointer",transition:"all .2s",padding:0}}><span style={{fontSize:18,lineHeight:1}}>{dark?"☀":"☽"}</span></button>
+        <div><span className="rv-head" style={{fontSize:mob?13:15,color:"var(--text)",letterSpacing:".07em"}}>Los archivos de Ravnica</span>{!mob&&<span style={{fontSize:18,color:"var(--text2)",fontStyle:"italic",fontFamily:"'IM Fell English',serif",marginLeft:10}}>v{VERSION}{BUILD_HASH&&<span style={{fontSize:18,opacity:.6,marginLeft:4}}>#{BUILD_HASH}</span>}</span>}</div>
         <span style={{fontSize:18,color:syncCol,marginLeft:4,fontFamily:"'Metamorphous',serif",letterSpacing:".05em"}}>{syncLabel}</span>
         <div style={{marginLeft:"auto",display:"flex",gap:6,alignItems:"center",position:"relative"}}>
-          {!mob&&<span style={{fontSize:17,color:"#6a4020",fontFamily:"'Metamorphous',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
+          {!mob&&<span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif"}}>{hs.length}H · {cs.length}P · {eds.length}E</span>}
           {!mob&&<span style={{fontSize:18,color:"#7a5a3a",fontFamily:"'Metamorphous',serif"}} title={user.email}>{user.rol==="dm"?"DM":user.personatge?.split(" ")[0]||user.email.split("@")[0]}</span>}
           {user.rol==="dm"&&(<div style={{position:"relative"}}>
             <button onClick={()=>setShowPreviewSel(s=>!s)} title="Previsualitza com a jugador" style={{fontSize:17,padding:"2px 7px",border:"1px solid "+(previewAs?GOLD+"88":BORDER),borderRadius:3,background:previewAs?GOLD+"22":"transparent",color:previewAs?GOLD:"#6a4a2a",cursor:"pointer"}}>👁</button>
