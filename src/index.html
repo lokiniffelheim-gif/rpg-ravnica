@@ -66,10 +66,33 @@ const GUILD_SVG_MAP = {"Azorius": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR
 
 const GC={Azorius:"#5b9fd4",Boros:"#d4621a",Dimir:"#7b6fd4",Golgari:"#5a9a3a",Gruul:"#c46a1a",Izzet:"#c44aaa",Orzhov:"#888888",Rakdos:"#c43030",Selesnya:"#4a9a4a",Simic:"#1a9a7a",Guildless:"#8a7a5a"};
 const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet:"∞",Orzhov:"✝",Rakdos:"♦",Selesnya:"✿",Simic:"⌬",Guildless:"◆"};
+// Colors de mana oficials MTG (comunitat) i assignació per gremi
+const MANA_HEX={W:"#F9FAF4",U:"#0E68AB",B:"#150B00",R:"#D3202A",G:"#00733E",C:"#C6C5C5"};
+const MANA_SYM={W:"☀",U:"💧",B:"💀",R:"🔥",G:"🌿",C:"◇"};
+const GUILD_MANA={Azorius:["W","U"],Dimir:["U","B"],Rakdos:["B","R"],Gruul:["R","G"],Selesnya:["G","W"],Orzhov:["W","B"],Izzet:["U","R"],Golgari:["B","G"],Boros:["R","W"],Simic:["G","U"],Guildless:["C"]};
+function _lum(hex){const r=parseInt(hex.slice(1,3),16)/255,g=parseInt(hex.slice(3,5),16)/255,b=parseInt(hex.slice(5,7),16)/255;const toL=c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);return .2126*toL(r)+.7152*toL(g)+.0722*toL(b);}
+function _contrast(hex1,hex2){const l1=_lum(hex1),l2=_lum(hex2);return(Math.max(l1,l2)+.05)/(Math.min(l1,l2)+.05);}
+// Retorna el color de text (#1a1008 o #f0ebe0) amb millor contrast contra bg
+function textOnBg(bgHex){return _contrast("#f0ebe0",bgHex)>_contrast("#1a1008",bgHex)?"#f0ebe0":"#1a1008";}
+// Retorna {background, color} per a una pill de gremi
+function guildPillStyle(g,alpha="40"){
+  const mc=GUILD_MANA[g]||["C"];
+  const c1=MANA_HEX[mc[0]]||"#C6C5C5",c2=mc[1]?MANA_HEX[mc[1]]:null;
+  const bg=c2?`linear-gradient(to right,${c1}${alpha},transparent 50%,${c2}${alpha})`:`${c1}${alpha}`;
+  // El text recau al centre (zona transparent) — calcular contrast contra bg de la pàgina
+  // Usem color neutre que funcioni a tots dos temes
+  return{background:bg,border:`1px solid ${c1}88`,textColor:"var(--text)"};
+}
+// Etiqueta completa d'un gremi: sym1 Nom sym2
+function guildLabel(g){
+  const mc=GUILD_MANA[g]||["C"];
+  const s1=MANA_SYM[mc[0]]||"◇",s2=mc[1]?MANA_SYM[mc[1]]:null;
+  return{pre:s1,name:g,post:s2};
+}
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.14.1";const BUILD_HASH="";
+const VERSION="4.15.0";const BUILD_HASH="";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -191,8 +214,9 @@ function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToCh
       {visible.map((id,i)=>{
         const ch=idToChar[id];const nom=ch?ch.nom:id;
         const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#8a7a5a":"#8a7a5a";
-        return(<span key={id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
-          <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default",textDecoration:onNavToChar&&ch?"underline dotted":"none"}}>{nom}</span>
+        const ps0=t0?guildPillStyle(t0,"30"):{background:"#8a7a5a30",border:"1px solid #8a7a5a55",textColor:"var(--text)"};const lbl0=t0?guildLabel(t0):null;
+        return(<span key={id} className="rv-pill" style={{background:ps0.background,border:ps0.border,color:ps0.textColor}}>
+          <span onClick={onNavToChar&&ch?()=>onNavToChar(id):undefined} style={{cursor:onNavToChar&&ch?"pointer":"default",textDecoration:onNavToChar&&ch?"underline dotted":"none"}}>{lbl0?`${lbl0.pre} ${nom}${lbl0.post?" "+lbl0.post:""}`:nom}</span>
           {!readOnly&&<button className="rv-pill-x" onClick={()=>onChange(arr.filter((_,j)=>arr[j]!==id))}>×</button>}
         </span>);
       })}
@@ -321,11 +345,11 @@ function AddLocDrop({eds,itemId,onAdd}){
 
 function GuildNavPill({value,opts,cm,onChange,onNav,onRemove,emptyLabel,emptyOpt,conflict}){
   const [open,setOpen]=useState(false);const ref=useRef(null);
-  const col=(cm&&cm[value])||"#8a7a5a";
-  const bg=col+"22";const border=col+"55";
+  const ps=guildPillStyle(value);
+  const lbl=guildLabel(value);
   useEffect(()=>{if(!open)return;const h=e=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);};document.addEventListener("mousedown",h);return()=>document.removeEventListener("mousedown",h);},[open]);
-  return(<span ref={ref} style={{position:"relative",display:"inline-flex",alignItems:"center",fontSize:17,borderRadius:10,background:bg,border:"1px solid "+border,color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>
-    <span onClick={onNav} style={{padding:"2px 4px 2px 8px",cursor:onNav?"pointer":"default",textDecoration:onNav?"underline dotted":"none"}}>{GS[value]||"◆"} {value}</span>
+  return(<span ref={ref} style={{position:"relative",display:"inline-flex",alignItems:"center",fontSize:17,borderRadius:10,background:ps.background,border:ps.border,color:ps.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".04em"}}>
+    <span onClick={onNav} style={{padding:"2px 4px 2px 8px",cursor:onNav?"pointer":"default",textDecoration:onNav?"underline dotted":"none"}}>{lbl.pre} {lbl.name}{lbl.post?" "+lbl.post:""}</span>
     {onChange&&<span onClick={e=>{e.stopPropagation();setOpen(o=>!o);}} style={{padding:"2px 7px 2px 2px",cursor:"pointer",opacity:.6,fontSize:13}}>▾</span>}
     {onRemove&&<button onClick={e=>{e.stopPropagation();onRemove();}} className="rv-pill-x" style={{color:col,padding:"0 6px 0 0"}}>×</button>}
     {open&&<div style={{position:"absolute",top:"calc(100% + 4px)",left:0,background:BG2,border:"1px solid "+BORDER,borderRadius:4,zIndex:200,minWidth:150,padding:4,boxShadow:"0 4px 16px rgba(0,0,0,.7)"}}>
@@ -627,7 +651,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
         </div>
         <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
           <SortBtn sort={sort} onSort={cycleSort}/>
-          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=><button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?GC[g]+"1a":"transparent",border:"1px solid "+(fg===g?GC[g]+"66":GC[g]+"22"),color:fg===g?GC[g]:"#6a4a2a"}}>{GS[g]} {g}</button>)}
+          {gremis.filter(g=>canSeeDimir||g!=="Dimir").map(g=>{const psfg=guildPillStyle(g,"20");const lblfg=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFg(g===fg?"all":g)} style={{background:fg===g?psfg.background:"transparent",border:fg===g?psfg.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfg.pre} {g}{lblfg.post?" "+lblfg.post:""}</button>;})}
           {!isPlayer&&<button className="rv-filter" onClick={()=>setFa(fa==="all"?"actius":fa==="actius"?"inactius":"all")} style={{background:fa==="actius"?"#5a9a3a22":fa==="inactius"?"#88888822":"transparent",border:"1px solid "+(fa==="actius"?"#5a9a3a88":fa==="inactius"?"#88888888":BORDER),color:fa==="actius"?"#5a9a3a":fa==="inactius"?"#aaa":"#6a4a2a"}}>{fa==="actius"?"● ACTIUS":fa==="inactius"?"○ INACTIUS":"● ESTAT"}</button>}
         </div>
       </div>
@@ -646,7 +670,7 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
                   {(()=>{const sc=e.conflicto&&e.conflicto!=="Guildless"?(canSeeDimir||e.conflicto!=="Dimir"?e.conflicto:"Guildless"):null;if(!sc||sc==="Guildless")return null;const cc=GC[sc]||"#8a7a5a";return(<><span style={{fontSize:32,color:"#c43030",padding:"1px 0",display:"inline-flex",alignItems:"center",alignSelf:"center",lineHeight:"normal"}}>⚔</span><span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:cc+"20",color:cc,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{GS[sc]||"◆"} {sc}</span></>);})()}
                 </div>
                 {securePers(e.personajes).length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-                  {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const col=t0?GC[t0]||"#5a3a20":"#5a3a20";return<span key={nom} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:col+"20",color:col,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{t0?GS[t0]||"◆":"👤"} {nom}</span>;})}
+                  {securePers(e.personajes).map(nom=>{const ch=chars?.find(c=>c.nom===nom);const t0raw=(ch?.tags||[])[0];const t0=t0raw&&(canSeeDimir||t0raw!=="Dimir")?t0raw:t0raw?"Guildless":undefined;const psn=t0?guildPillStyle(t0,"28"):{background:"#5a3a2028",border:"1px solid #5a3a2055",textColor:"var(--text)"};const lbln=t0?guildLabel(t0):null;return<span key={nom} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:psn.background,border:psn.border,color:psn.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{lbln?`${lbln.pre} ${nom}${lbln.post?" "+lbln.post:""}` :"👤 "+nom}</span>;})}
                 </div>}
               </div>
             </div>
@@ -844,8 +868,8 @@ function App({user,onUsersPanel}){
             :(<Sel value={item.propietari} opts={[...PJS,"Compartido","Solo DM"]} onChange={v=>updH(origI,"propietari",v)} cm={PC}/>)}
           </div>
           {tab==="chars"&&(charEdificis.length>0||effectiveUser.rol==="dm")&&<div style={{display:"flex",gap:4,flexWrap:"wrap",alignItems:"center"}}>
-            {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const col=GC[sg]||"#8a7a5a";return(<span key={e.id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col,fontSize:14}}>
-              <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>
+            {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const pse=guildPillStyle(sg,"30");const lble=guildLabel(sg);return(<span key={e.id} className="rv-pill" style={{...pse,color:pse.textColor,fontSize:14}}>
+              <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{lble.pre} {e.nom}{lble.post?" "+lble.post:""}</span>
               {effectiveUser.rol==="dm"&&<button className="rv-pill-x" onClick={()=>{const eidx=eds.findIndex(ed=>ed.id===e.id);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes).filter(id=>id!==item.id);updE(eidx,"personajes",ids.join(", "));}}>×</button>}
             </span>);})}
             {effectiveUser.rol==="dm"&&<AddLocDrop eds={eds} itemId={item.id} onAdd={eid=>{const eidx=eds.findIndex(ed=>ed.id===eid);if(eidx<0)return;const ids=parsePers(eds[eidx].personajes);if(!ids.includes(item.id))updE(eidx,"personajes",[...ids,item.id].join(", "));}}/>}
@@ -986,7 +1010,7 @@ function App({user,onUsersPanel}){
           </div>
           <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
             <SortBtn sort={sort} onSort={cycleSort}/>
-            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=><button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?GC[g]+"1a":"transparent",border:"1px solid "+(filt===g?GC[g]+"66":GC[g]+"22"),color:filt===g?GC[g]:"#6a4a2a"}}>{GS[g]} {g}</button>)
+            {tab==="chars"?AG.filter(g=>(canSeeDimir||g!=="Dimir")&&cs.some(c=>(c.tags||[]).includes(g))).map(g=>{const psfc=guildPillStyle(g,"20");const lblfc=guildLabel(g);return<button key={g} className="rv-filter" onClick={()=>setFilt(g===filt?"all":g)} style={{background:filt===g?psfc.background:"transparent",border:filt===g?psfc.border:"1px solid "+(GC[g]||"#8a7a5a")+"22",color:"var(--text)"}}>{lblfc.pre} {g}{lblfc.post?" "+lblfc.post:""}</button>;})
             :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#6a4a2a"}}>{p}</button>)}
           </div>
         </div>
@@ -1003,7 +1027,7 @@ function App({user,onUsersPanel}){
                     {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                   </div>
                   {xlocs.length>0&&<div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
-                    {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const ec=GC[sg]||"#8a7a5a";return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:ec+"20",color:ec,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{GS[sg]||"◆"} {e.nom}</span>;})}
+                    {xlocs.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const psx=guildPillStyle(sg,"28");const lblx=guildLabel(sg);return<span key={e.id} style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:psx.background,border:psx.border,color:psx.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".02em"}}>{lblx.pre} {e.nom}{lblx.post?" "+lblx.post:""}</span>;})}
                   </div>}
                 </div>
               </div>
