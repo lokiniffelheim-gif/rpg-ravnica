@@ -85,8 +85,37 @@ function buildManifest() {
   console.log(`Manifest: ${acts.length} actes`);
 }
 
+function buildImgIndex() {
+  const DIRS = {
+    chars:    path.join(__dirname, 'docs/assets/img/personajes'),
+    edificis: path.join(__dirname, 'docs/assets/img/Aventino'),
+    handouts: path.join(__dirname, 'docs/assets/img/objetos'),
+  };
+  const PREFIXES = {
+    chars:    'assets/img/personajes/',
+    edificis: 'assets/img/Aventino/',
+    handouts: 'assets/img/objetos/',
+  };
+  const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
+  const index = {};
+  for (const [key, dir] of Object.entries(DIRS)) {
+    index[key] = {};
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (IGNORE.test(f)) continue;
+      const id = f.replace(/\.[^.]+$/, ''); // treu extensió
+      index[key][id] = PREFIXES[key] + f;
+    }
+  }
+  const dest = path.join(__dirname, 'docs/assets/data/img-index.json');
+  fs.writeFileSync(dest, JSON.stringify(index), 'utf8');
+  const total = Object.values(index).reduce((s,o)=>s+Object.keys(o).length, 0);
+  console.log(`Img index: ${total} imatges (chars:${Object.keys(index.chars).length} edificis:${Object.keys(index.edificis).length} handouts:${Object.keys(index.handouts).length})`);
+}
+
 build();
 buildManifest();
+buildImgIndex();
 
 if (process.argv.includes('--watch')) {
   console.log('Watching', SRC, '...');
