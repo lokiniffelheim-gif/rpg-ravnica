@@ -18,6 +18,7 @@ html,body{height:100%;background:var(--bg-body)}
 .rv-btn-gold{background:var(--gold);color:var(--gold-text);border:1px solid var(--gold-dark);cursor:pointer;font-family:'Metamorphous',serif;font-size:13px;letter-spacing:.08em;padding:5px 14px;border-radius:3px;transition:filter .15s}
 .rv-btn-gold:hover{background:var(--gold-dark)}
 .rv-editable{cursor:text;padding:4px 8px;border-radius:3px;border:1px solid transparent;transition:border-color .15s}
+.rv-md-body>*:first-child{margin-top:0}.rv-md-body>*:last-child{margin-bottom:0}.rv-md-body p{margin:0 0 .6em}.rv-md-body ul,.rv-md-body ol{margin:.3em 0 .6em;padding-left:1.4em}.rv-md-body h1,.rv-md-body h2,.rv-md-body h3,.rv-md-body h4{margin:.7em 0 .3em}
 .rv-editable:hover{border-color:var(--border2);background:var(--bg3)}
 .rv-filter{font-size:12px;padding:2px 8px;border-radius:10px;cursor:pointer;font-family:'Metamorphous',serif;letter-spacing:.04em;border:1px solid transparent;transition:all .1s;background:transparent;font-weight:400;color:var(--text2)}
 .rv-pill{display:inline-flex;align-items:center;gap:3px;font-size:12px;padding:2px 6px;border-radius:6px;font-family:'Metamorphous',serif;letter-spacing:.03em}
@@ -124,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.16.7";const BUILD_HASH="";
+const VERSION="4.17.0";const BUILD_HASH="";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -356,7 +357,9 @@ function Field({value,onChange,multi,accent,ph,readOnly,heading}){
     {value
       ?heading
         ?<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,letterSpacing:".04em",paddingRight:readOnly?0:20}}>{value}</p>
-        :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
+        :multi
+          ?<div style={{fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,paddingRight:readOnly?0:20}} className="rv-md-body" dangerouslySetInnerHTML={{__html:renderMd(value)}}/>
+          :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
       :<p style={{margin:0,fontSize:heading?fs:18,color:"var(--text2)",fontStyle:"italic",fontFamily:ff}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
