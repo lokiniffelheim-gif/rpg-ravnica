@@ -1,0 +1,48 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - 'feature/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build
+        run: node build.js
+
+      - name: Resolve destination directory
+        id: dest
+        run: |
+          REF="${{ github.ref_name }}"
+          if [ "$REF" = "main" ]; then
+            echo "dir=." >> $GITHUB_OUTPUT
+          elif [ "$REF" = "develop" ]; then
+            echo "dir=pre" >> $GITHUB_OUTPUT
+          else
+            # feature/pills-refactor → dev/pills-refactor
+            SLUG="${REF#feature/}"
+            SLUG="${SLUG//\//-}"
+            echo "dir=dev/$SLUG" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          destination_dir: ${{ steps.dest.outputs.dir }}
+          keep_files: true
+          commit_message: "deploy(${{ github.ref_name }}): ${{ github.sha }}"
