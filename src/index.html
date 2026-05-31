@@ -521,7 +521,7 @@ function SetupScreen({onConnect}){
   </div>);
 }
 
-function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar}){
+function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar,onNavToGremi}){
   const secureG=useCallback(g=>(canSeeDimir||g!=="Dimir")?g:"Guildless",[canSeeDimir]);
   const securePers=useCallback(p=>{
     const ids=parsePers(p);
@@ -580,7 +580,9 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       <div style={{flex:1,minWidth:0}}>
         <Field value={item.nom} onChange={v=>upd("nom",v)} accent={ac} readOnly={isPlayer}/>
         <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
-          {isPlayer?<span style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Metamorphous',serif"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>:<GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>}
+          {isPlayer
+            ?<span onClick={onNavToGremi?()=>onNavToGremi(secureG(item.gremi)):undefined} title={onNavToGremi?"Veure gremi":undefined} style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[secureG(item.gremi)]||"#8a7a5a")+"22",border:"1px solid "+(GC[secureG(item.gremi)]||"#8a7a5a")+"55",color:GC[secureG(item.gremi)]||"#8a7a5a",fontFamily:"'Metamorphous',serif",cursor:onNavToGremi?"pointer":"default",textDecoration:onNavToGremi?"underline dotted":"none"}}>{GS[secureG(item.gremi)]||"◆"} {secureG(item.gremi)}</span>
+            :<span style={{display:"inline-flex",alignItems:"center",gap:3}}><GuildDrop value={secureG(item.gremi)} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} onChange={v=>upd("gremi",v)} cm={GC}/>{onNavToGremi&&<button onClick={()=>onNavToGremi(secureG(item.gremi))} title="Veure gremi" style={{background:"none",border:"none",cursor:"pointer",color:GC[secureG(item.gremi)]||"#8a7a5a",fontSize:14,padding:"0 2px",lineHeight:1,opacity:.7}}>→</button>}</span>}}
 
           {!isPlayer&&<Toggle value={item.activo} onChange={v=>upd("activo",v)}/>}
         </div>
@@ -641,9 +643,11 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
 }
 
 const GREMI_SLUG={Azorius:"azorius",Boros:"boros",Dimir:"dimir",Golgari:"golgari",Gruul:"gruul",Izzet:"izzet",Orzhov:"orzhov",Rakdos:"rakdos",Selesnya:"selesnya",Simic:"simic",Guildless:"guildless"};
-function GremiosPanel({canSeeDimir,isMob}){
+function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
   const gremis=canSeeDimir?AG:AG.filter(g=>g!=="Dimir");
-  const [sel,setSel]=useState(null);
+  const initIdx=initGremi?gremis.indexOf(initGremi):-1;
+  const [sel,setSel]=useState(initIdx>=0?initIdx:null);
+  const [fromNav]=useState(initIdx>=0);
   const [mdContent,setMdContent]=useState(null);
   const [loading,setLoading]=useState(false);
   const item=sel!==null?gremis[sel]:null;
@@ -657,7 +661,7 @@ function GremiosPanel({canSeeDimir,isMob}){
   if(item)return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
       <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:12}}>
-        <button onClick={()=>setSel(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:17,flexShrink:0}}>← VOLVER</button>
+        <button onClick={()=>fromNav&&onVolver?onVolver():setSel(null)} className="rv-btn-gold" style={{padding:"5px 14px",fontSize:17,flexShrink:0}}>← VOLVER</button>
         <span style={{fontSize:18,color:ac,fontFamily:"'Metamorphous',serif",letterSpacing:".08em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{GS[item]} {item.toUpperCase()}</span>
       </div>
       <div style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
@@ -685,6 +689,8 @@ function App({user,onUsersPanel}){
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
+  const [gremioTarget,setGremioTarget]=useState(null);
+  const [prevGremioState,setPrevGremioState]=useState(null);
   const [listW,setListW]=useState(36);
   const [previewAs,setPreviewAs]=useState(null);
   const [showPreviewSel,setShowPreviewSel]=useState(false);
@@ -777,7 +783,9 @@ function App({user,onUsersPanel}){
   const isPJ=item&&PJS.includes(item.nom);
   const charEdificis=useMemo(()=>tab==="chars"&&item?eds.filter(e=>parsePers(e.personajes).includes(item.id)&&(effectiveUser.rol==="dm"||e.activo)):[],[tab,item,eds,effectiveUser]);
 
-  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);}
+  function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);if(t!=="gremios"){setGremioTarget(null);setPrevGremioState(null);}}
+  const navToGremi=g=>{setPrevGremioState({tab,sel,showD});setGremioTarget(g);setTab("gremios");};
+  const volverDeGremi=()=>{if(prevGremioState){setTab(prevGremioState.tab);setSel(prevGremioState.sel);setShowD(prevGremioState.showD);}setPrevGremioState(null);setGremioTarget(null);};
   function pick(i){setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
@@ -802,8 +810,8 @@ function App({user,onUsersPanel}){
         <Field value={item.nom} onChange={v=>tab==="handouts"?updH(origI,"nom",v):updC(origI,"nom",v)} accent={ac} readOnly={effectiveUser.rol!=="dm"}/>
         <div style={{display:"flex",gap:5,flexWrap:"wrap",alignItems:"center",marginTop:7}}>
           {tab==="chars"?(<>{secureT(item.tags,item.nom).map((t,ti)=>effectiveUser.rol==="jugador"
-            ?<span key={ti} style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Metamorphous',serif"}}>{GS[t]} {t}</span>
-            :<GuildTagSel key={ti} value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/>)}
+            ?<span key={ti} onClick={()=>navToGremi(t)} title="Veure gremi" style={{fontSize:17,padding:"2px 8px",borderRadius:10,background:(GC[t]||"#8a7a5a")+"22",border:"1px solid "+(GC[t]||"#8a7a5a")+"55",color:GC[t]||"#8a7a5a",fontFamily:"'Metamorphous',serif",cursor:"pointer",textDecoration:"underline dotted"}}>{GS[t]} {t}</span>
+            :<span key={ti} style={{display:"inline-flex",alignItems:"center",gap:3}}><GuildTagSel value={t} opts={canSeeDimir?AG:AG.filter(g=>g!=="Dimir")} cm={GC} onChange={v=>{const nt=[...(item.tags||[])];nt[ti]=v;updC(origI,"tags",nt);}} onRemove={()=>{const nt=(item.tags||[]).filter((_,j)=>j!==ti);updC(origI,"tags",nt.length?nt:["Guildless"]);}}/><button onClick={()=>navToGremi(t)} title="Veure gremi" style={{background:"none",border:"none",cursor:"pointer",color:GC[t]||"#8a7a5a",fontSize:14,padding:"0 2px",lineHeight:1,opacity:.7}}>→</button></span>)}
             {effectiveUser.rol!=="jugador"&&<button onClick={()=>updC(origI,"tags",[...(item.tags||[]),"Guildless"])} style={{fontSize:18,padding:"2px 7px",borderRadius:10,border:"1px dashed "+GOLD+"55",background:"transparent",color:GOLD,cursor:"pointer",fontFamily:"'Metamorphous',serif",opacity:.7}}>+ gremio</button>}
             {charEdificis.map(e=>{const sg=(canSeeDimir||e.gremi!=="Dimir")?e.gremi:"Guildless";const col=GC[sg]||"#8a7a5a";return(<span key={e.id} className="rv-pill" style={{background:col+"1e",border:"1px solid "+col+"55",color:col}}>
               <span onClick={()=>navToEdifici(e.id)} style={{cursor:"pointer",textDecoration:"underline dotted"}}>{e.nom}</span>
@@ -934,8 +942,8 @@ function App({user,onUsersPanel}){
       </div>
     </header>
     <main style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
-    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} style={{position:"relative",zIndex:1}}/>
-    :tab==="gremios"?<GremiosPanel canSeeDimir={canSeeDimir} isMob={mob}/>
+    {tab==="aventino"?<AventinPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} onNavToGremi={navToGremi} style={{position:"relative",zIndex:1}}/>
+    :tab==="gremios"?<GremiosPanel canSeeDimir={canSeeDimir} isMob={mob} initGremi={gremioTarget} onVolver={prevGremioState?volverDeGremi:null}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}}>
       <div style={{width:mob?"100%":item?`${listW}%`:"100%",display:mob&&showD&&item?"none":"flex",flexDirection:"column",transition:"width .0s"}}>
