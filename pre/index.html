@@ -18,6 +18,7 @@ html,body{height:100%;background:var(--bg-body)}
 .rv-btn-gold{background:var(--gold);color:var(--gold-text);border:1px solid var(--gold-dark);cursor:pointer;font-family:'Metamorphous',serif;font-size:13px;letter-spacing:.08em;padding:5px 14px;border-radius:3px;transition:filter .15s}
 .rv-btn-gold:hover{background:var(--gold-dark)}
 .rv-editable{cursor:text;padding:4px 8px;border-radius:3px;border:1px solid transparent;transition:border-color .15s}
+.rv-md-body>*:first-child{margin-top:0}.rv-md-body>*:last-child{margin-bottom:0}.rv-md-body p{margin:0 0 .6em}.rv-md-body ul,.rv-md-body ol{margin:.3em 0 .6em;padding-left:1.4em}.rv-md-body h1,.rv-md-body h2,.rv-md-body h3,.rv-md-body h4{margin:.7em 0 .3em}
 .rv-editable:hover{border-color:var(--border2);background:var(--bg3)}
 .rv-filter{font-size:12px;padding:2px 8px;border-radius:10px;cursor:pointer;font-family:'Metamorphous',serif;letter-spacing:.04em;border:1px solid transparent;transition:all .1s;background:transparent;font-weight:400;color:var(--text2)}
 .rv-pill{display:inline-flex;align-items:center;gap:3px;font-size:12px;padding:2px 6px;border-radius:6px;font-family:'Metamorphous',serif;letter-spacing:.03em}
@@ -124,7 +125,8 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.16.5";const BUILD_HASH="126ed39";
+const VERSION="4.17.0";const BUILD_HASH="90d9be6";
+const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
@@ -356,7 +358,9 @@ function Field({value,onChange,multi,accent,ph,readOnly,heading}){
     {value
       ?heading
         ?<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,letterSpacing:".04em",paddingRight:readOnly?0:20}}>{value}</p>
-        :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
+        :multi
+          ?<div style={{fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,paddingRight:readOnly?0:20}} className="rv-md-body" dangerouslySetInnerHTML={{__html:renderMd(value)}}/>
+          :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
       :<p style={{margin:0,fontSize:heading?fs:18,color:"var(--text2)",fontStyle:"italic",fontFamily:ff}}>{ph||"—"}</p>}
   </div>);
   return(<div ref={ref}>{multi?<textarea autoFocus value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Escape")commit();}} style={{...s,minHeight:80,resize:"vertical",display:"block"}}/>:<input autoFocus type="text" value={draft} onChange={e=>setDraft(e.target.value)} onKeyDown={e=>{if(e.key==="Enter"||e.key==="Escape")commit();}} style={s}/>}</div>);
@@ -838,6 +842,7 @@ function App({user,onUsersPanel}){
   }catch(e){console.error(e);}})();},[]);
 
   const saveKey=useCallback((key,data)=>{
+    if(IS_DEV_ENV){setSaved("⚗ sessió");setTimeout(()=>setSaved(""),2000);return;}
     setSaved("⏳");clearTimeout(saveTimer.current);
     saveTimer.current=setTimeout(async()=>{try{await saveData(key,data);}catch(e){console.error(e);}setSaved("✦ Guardado");setTimeout(()=>setSaved(""),2500);},600);
   },[]);
@@ -903,7 +908,7 @@ function App({user,onUsersPanel}){
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
   const syncCol=saved==="⏳"?"#8a7a5a":saved?"#8b1c1c":db?"#5a9a3a":"#6a5a40";
-  const syncLabel=saved||(db?"☁ Firebase":"⬡ local");
+  const syncLabel=saved||(IS_DEV_ENV?"⚗ DEV":db?"☁ Firebase":"⬡ local");
 
   const imgSrc=item?(IMG_INDEX[tab==="handouts"?"handouts":"chars"][item.id]||""):"";
   const isOwnChar=effectiveUser.rol==="dm"||(tab==="chars"&&item?.nom===effectiveUser.personatge);
@@ -1140,6 +1145,16 @@ function Root(){
   if(!ready)return Loading;
   if(!user)return <LoginScreen/>;
   if(!user.rol)return <PendingScreen email={user.email}/>;
+  const envPath=window.location.pathname;
+  const isPreviewEnv=/\/(pre|dev)(\/|$)/.test(envPath);
+  if(isPreviewEnv&&user.rol!=="dm")return(
+    <div style={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100vh",gap:16,fontFamily:"'Metamorphous',serif",color:"var(--text)",background:"var(--bg-body)"}}>
+      <div style={{fontSize:48}}>🔒</div>
+      <div style={{fontSize:22,letterSpacing:".08em"}}>Accés restringit</div>
+      <div style={{fontSize:16,color:"var(--text2)"}}>Aquest entorn és només per al DM.</div>
+      <button onClick={()=>auth.signOut()} style={{marginTop:8,padding:"8px 20px",fontSize:16,fontFamily:"'Metamorphous',serif",background:"transparent",border:"1px solid var(--border)",borderRadius:4,color:"var(--text2)",cursor:"pointer"}}>Tancar sessió</button>
+    </div>
+  );
   return(<>
     {showUsers&&<UserMgmt onClose={()=>setShowUsers(false)}/>}
     <App user={user} onUsersPanel={user.rol==="dm"?()=>setShowUsers(true):null}/>
