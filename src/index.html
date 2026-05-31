@@ -165,11 +165,11 @@ function renderMd(md){
     if(/^\s*\|/.test(l)){closeP();closeUl();tBuf.push(l);continue;}
     else flushTable();
     const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),bq=/^> ?(.*)/.exec(l),hr=/^---+$/.test(l);
-    if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Metamorphous',serif;font-size:24px;color:#1a0805;letter-spacing:.06em;margin:0 0 16px;border-bottom:2px solid #c0945a;padding-bottom:8px">${inline(h1[1])}</h1>`;}
+    if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Metamorphous',serif;font-size:24px;color:var(--text);letter-spacing:.06em;margin:0 0 16px;border-bottom:2px solid var(--border);padding-bottom:8px">${inline(h1[1])}</h1>`;}
     else if(h2){closeP();closeUl();html+=`<h2 style="font-family:'Metamorphous',serif;font-size:20px;color:var(--text);letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
-    else if(h3){closeP();closeUl();html+=`<h3 style="font-family:'Metamorphous',serif;font-size:15px;color:#5a3820;letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
-    else if(hr){closeP();closeUl();html+="<hr style='border:none;border-top:1px solid #c0945a;margin:16px 0'>";}
-    else if(bq){closeP();closeUl();html+=`<blockquote style="border-left:3px solid #8b1c1c;margin:12px 0;padding:8px 16px;background:#f8f0e4;color:#5a3820;font-style:italic">${inline(bq[1])}</blockquote>`;}
+    else if(h3){closeP();closeUl();html+=`<h3 style="font-family:'Metamorphous',serif;font-size:15px;color:var(--text2);letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
+    else if(hr){closeP();closeUl();html+="<hr style='border:none;border-top:1px solid var(--border);margin:16px 0'>";}
+    else if(bq){closeP();closeUl();html+=`<blockquote style="border-left:3px solid var(--gold);margin:12px 0;padding:8px 16px;background:var(--bg3);color:var(--text2);font-style:italic">${inline(bq[1])}</blockquote>`;}
     else if(li){closeP();if(!inUl){html+="<ul style='margin:8px 0;padding-left:20px;list-style:none'>";inUl=true;}html+=`<li style="margin:4px 0;padding-left:8px">· ${inline(li[1])}</li>`;}
     else if(!l.trim()){closeUl();closeP();}
     else{closeUl();if(!inP){html+=`<p style="margin:0 0 10px">`;inP=true;}else html+=" ";html+=inline(l);}
