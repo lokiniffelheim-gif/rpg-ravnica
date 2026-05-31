@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.17.0";const BUILD_HASH="90d9be6";
+const VERSION="4.17.1";const BUILD_HASH="c6f7d90";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -1095,8 +1095,7 @@ function App({user,onUsersPanel}){
                   <div style={{display:"flex",gap:3,flexWrap:"wrap",alignItems:"center"}}>
                     {tab==="chars"?secureT(x.tags,x.nom).map(t=>{const pst=guildPillStyle(t);const lblt=guildLabel(t);return<span key={t} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:pst.background,border:pst.border,color:pst.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblt.pre} {t}{lblt.post?" "+lblt.post:""}</span>;}):x.propietari&&(()=>{
   const rp=resolvePropietari(x.propietari,cs);const psh=guildPillStyle(rp.guild);const lblh=guildLabel(rp.guild);
-  const clickable=!!rp.ch;
-  return<span onClick={clickable?()=>navToChar(rp.id):undefined} className={clickable?"rv-clickable":undefined} style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psh.background,border:psh.border,color:psh.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblh.pre} {rp.nom}{lblh.post?" "+lblh.post:""}{clickable&&<span className="rv-nav-hint">›</span>}</span>;
+  return<span style={{fontSize:16,padding:"1px 7px",borderRadius:8,background:psh.background,border:psh.border,color:psh.textColor,fontFamily:"'Metamorphous',serif",letterSpacing:".03em"}}>{lblh.pre} {rp.nom}{lblh.post?" "+lblh.post:""}</span>;
 })()}
                     {cnx&&effectiveUser.rol==="dm"&&<span style={{fontSize:13,padding:"1px 5px",borderRadius:6,background:BG3,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>👁 {cnx}</span>}
                   </div>
