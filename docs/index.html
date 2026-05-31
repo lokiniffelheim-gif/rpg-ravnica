@@ -43,6 +43,10 @@ html,body{height:100%;background:var(--bg-body)}
 .rv-detail{animation:fadeUp .16s ease}
 .syncing{animation:pulse 1.5s infinite}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:2px}
+.rv-frame{position:relative;overflow:hidden}
+.rv-frame::before{content:"";position:absolute;inset:0;border:6px solid transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,linear-gradient(135deg,#c0945a,#8b5a2a,#e8c070,#8b5a2a,#c0945a) border-box;pointer-events:none;z-index:2}
+.rv-frame::after{content:"";position:absolute;inset:6px;box-shadow:inset 0 0 12px rgba(0,0,0,.5),inset 0 0 3px rgba(0,0,0,.8);pointer-events:none;z-index:3}
+.rv-frame img{display:block;width:100%}
 @media(prefers-reduced-motion:reduce){.rv-detail{animation:none}.syncing{animation:none;opacity:.7}.rv,*{transition-duration:.01ms!important}}</style>
 </head>
 <body>
@@ -61,7 +65,7 @@ const GS={Azorius:"⚖",Boros:"☀",Dimir:"👁",Golgari:"☽",Gruul:"⚡",Izzet
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.6.0";const BUILD_HASH="3f635a9";
+const VERSION="4.6.0";const BUILD_HASH="fee1354";
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);}
@@ -572,8 +576,8 @@ function AventinPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       <div role="dialog" aria-modal="true" aria-label="Imatge ampliada" tabIndex={-1} onClick={()=>setImgZoom(false)} onKeyDown={e=>e.key==="Escape"&&setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
         <img src={edImgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e",cursor:"zoom-out"}} onClick={()=>setImgZoom(false)}/>
       </div>,document.body)}
-    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
-      {edImgSrc?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+    <div className={edImgSrc?"rv-frame":""} style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
+      {edImgSrc?<img src={edImgSrc} alt={item.nom} onError={e=>{e.target.parentElement.classList.remove("rv-frame");e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:56,color:ac+"40",userSelect:"none",textAlign:"center",width:"100%"}}>{GS[secureG(item.gremi)]||"◆"}</div>}
       {isMob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff44",borderRadius:3,color:"#e8dcc8",fontSize:17,padding:"3px 10px",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
@@ -800,8 +804,8 @@ function App({user,onUsersPanel}){
       <div role="dialog" aria-modal="true" aria-label="Imatge ampliada" tabIndex={-1} onClick={()=>setImgZoom(false)} onKeyDown={e=>e.key==="Escape"&&setImgZoom(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.92)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center",cursor:"zoom-out"}}>
         <img src={imgSrc} alt={item.nom} style={{maxWidth:"90vw",maxHeight:"90vh",objectFit:"contain",borderRadius:6,boxShadow:"0 16px 64px #000e",cursor:"zoom-out"}} onClick={()=>setImgZoom(false)}/>
       </div>,document.body)}
-    <div style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
-      {imgSrc?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center top",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
+    <div className={imgSrc?"rv-frame":""} style={{flexShrink:0,position:"relative",background:ac+"10",display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
+      {imgSrc?<img src={imgSrc} alt={item.nom} onError={e=>{e.target.parentElement.classList.remove("rv-frame");e.target.style.display="none"}} style={{width:"100%",maxHeight:280,objectFit:"contain",objectPosition:"center top",display:"block",cursor:"zoom-in"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:52,fontWeight:"bold",color:ac+"40",fontFamily:"'Metamorphous',serif",userSelect:"none",textAlign:"center",width:"100%",letterSpacing:".1em"}}>{tab==="handouts"?"📜":item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</div>}
       {mob&&<button onClick={()=>setShowD(false)} style={{position:"absolute",top:8,left:8,background:"#000000bb",border:"1px solid #ffffff44",borderRadius:3,color:"#e8dcc8",fontSize:17,padding:"3px 10px",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>← VOLVER</button>}
     </div>
