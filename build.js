@@ -88,17 +88,16 @@ function buildManifest() {
 function buildImgIndex() {
   const DIRS = {
     chars:    path.join(__dirname, 'docs/assets/img/personajes'),
-    edificis: path.join(__dirname, 'docs/assets/img/Aventino'),
+    edificis: path.join(__dirname, 'docs/assets/img/lugares'),
     handouts: path.join(__dirname, 'docs/assets/img/objetos'),
   };
   const PREFIXES = {
     chars:    'assets/img/personajes/',
-    edificis: 'assets/img/Aventino/',
+    edificis: 'assets/img/lugares/',
     handouts: 'assets/img/objetos/',
   };
   const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
 
-  // index per nom-de-fitxer (sense extensió) — pot ser ID o nom d'ítem
   const index = {};
   for (const [key, dir] of Object.entries(DIRS)) {
     index[key] = {};
@@ -110,10 +109,27 @@ function buildImgIndex() {
     }
   }
 
+  // Carousel Aventino Times: aventino-times_{acto}.{sessio}.ext — ordena numèricament
+  const aventinoDir = path.join(__dirname, 'docs/assets/img/aventino');
+  const aventinoPrefix = 'assets/img/aventino/';
+  index.aventino = [];
+  if (fs.existsSync(aventinoDir)) {
+    const aventinoFiles = fs.readdirSync(aventinoDir)
+      .filter(f => !IGNORE.test(f))
+      .map(f => {
+        const m = f.match(/^aventino-times_(\d+)\.(\d+)\.[^.]+$/);
+        if (!m) return null;
+        return { file: f, acto: parseInt(m[1],10), sessio: parseInt(m[2],10), path: aventinoPrefix + f };
+      })
+      .filter(Boolean)
+      .sort((a,b) => a.acto !== b.acto ? a.acto - b.acto : a.sessio - b.sessio);
+    index.aventino = aventinoFiles.map(x => ({ acto: x.acto, sessio: x.sessio, path: x.path }));
+  }
+
   const dest = path.join(__dirname, 'docs/assets/data/img-index.json');
   fs.writeFileSync(dest, JSON.stringify(index), 'utf8');
-  const total = Object.values(index).reduce((s,o)=>s+Object.keys(o).length, 0);
-  console.log(`Img index: ${total} imatges (chars:${Object.keys(index.chars).length} edificis:${Object.keys(index.edificis).length} handouts:${Object.keys(index.handouts).length})`);
+  const total = Object.values(index).reduce((s,o)=>s+(Array.isArray(o)?o.length:Object.keys(o).length), 0);
+  console.log(`Img index: ${total} imatges (chars:${Object.keys(index.chars).length} edificis:${Object.keys(index.edificis).length} handouts:${Object.keys(index.handouts).length} aventino:${index.aventino.length})`);
 }
 
 build();
