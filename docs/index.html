@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.8";const BUILD_HASH="13e21cd";
+const VERSION="4.19.9";const BUILD_HASH="005eb88";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -832,22 +832,31 @@ const MAP_SUB_TABS=[{id:"cuarto",label:"Cuarto Precinto"},{id:"aventino",label:"
 function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef,onNavigate}){
   const [hov,setHov]=useState(false);
   const [showTip,setShowTip]=useState(false);
+  const [dragPos,setDragPos]=useState(null);
+  const didDrag=useRef(false);
   const c=GC[pin.gremi]||GOLD;
   const lbl=guildLabel(pin.gremi||"Guildless");
-  const ps=guildPillStyle(pin.gremi||"Guildless");
   const mc=GUILD_MANA[pin.gremi||"Guildless"]||["C"];
   const c1=MANA_HEX[mc[0]]||"#C6C5C5",c2=MANA_HEX[mc[1]||mc[0]]||c1;
   const pinBg=`linear-gradient(to right,${c1}cc,${c2}cc)`;
+  const toPercent=(cx,cy)=>{const r=containerRef.current.getBoundingClientRect();return{x:parseFloat(Math.max(0,Math.min(100,(cx-r.left)/r.width*100)).toFixed(2)),y:parseFloat(Math.max(0,Math.min(100,(cy-r.top)/r.height*100)).toFixed(2))};};
   const handleMouseDown=(e)=>{
     if(!editMode)return;
     e.preventDefault();e.stopPropagation();
-    const sx=e.clientX,sy=e.clientY;let moved=false;
-    const onMove=ev=>{if(!moved&&(Math.abs(ev.clientX-sx)>6||Math.abs(ev.clientY-sy)>6))moved=true;};
-    const onUp=ev=>{document.removeEventListener("mousemove",onMove);document.removeEventListener("mouseup",onUp);if(moved)onDragEnd(pin.id,ev);};
+    const sx=e.clientX,sy=e.clientY;didDrag.current=false;
+    const onMove=ev=>{
+      if(!didDrag.current&&(Math.abs(ev.clientX-sx)>6||Math.abs(ev.clientY-sy)>6))didDrag.current=true;
+      if(didDrag.current&&containerRef.current)setDragPos(toPercent(ev.clientX,ev.clientY));
+    };
+    const onUp=ev=>{
+      document.removeEventListener("mousemove",onMove);document.removeEventListener("mouseup",onUp);
+      if(didDrag.current){setDragPos(null);onDragEnd(pin.id,ev);}
+    };
     document.addEventListener("mousemove",onMove);document.addEventListener("mouseup",onUp);
   };
-  const handleClick=(e)=>{e.stopPropagation();if(editMode){onEdit(pin);return;}if(pin.itemId&&onNavigate){onNavigate(pin.itemId);return;}setShowTip(s=>!s);};
-  return(<div style={{position:"absolute",left:pin.x+"%",top:pin.y+"%",transform:"translate(-50%,-50%)",zIndex:10,cursor:editMode?"grab":"pointer"}} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>{setHov(false);if(!editMode)setShowTip(false);}} onClick={handleClick} onMouseDown={handleMouseDown}>
+  const handleClick=(e)=>{e.stopPropagation();if(didDrag.current){didDrag.current=false;return;}if(editMode){onEdit(pin);return;}if(pin.itemId&&onNavigate){onNavigate(pin.itemId);return;}setShowTip(s=>!s);};
+  const px=dragPos?dragPos.x:pin.x,py=dragPos?dragPos.y:pin.y;
+  return(<div style={{position:"absolute",left:px+"%",top:py+"%",transform:"translate(-50%,-50%)",zIndex:dragPos?20:10,cursor:editMode?(dragPos?"grabbing":"grab"):"pointer"}} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>{setHov(false);if(!editMode)setShowTip(false);}} onClick={handleClick} onMouseDown={handleMouseDown}>
     <div style={{width:hov||editMode?22:18,height:hov||editMode?22:18,borderRadius:"50%",background:`${pinBg} padding-box,linear-gradient(to right,${c1},${c2}) border-box`,border:"2px solid transparent",boxShadow:(hov||editMode)?"0 0 8px "+c+"aa":"0 1px 4px #000a",transition:"all .15s",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",gap:1}}>
       <span style={{fontSize:hov||editMode?9:7,lineHeight:1,color:"#fff",textShadow:"0 1px 2px #000a",userSelect:"none"}}>{lbl.pre}</span>
       {lbl.post&&<span style={{fontSize:hov||editMode?9:7,lineHeight:1,color:"#fff",textShadow:"0 1px 2px #000a",userSelect:"none"}}>{lbl.post}</span>}
