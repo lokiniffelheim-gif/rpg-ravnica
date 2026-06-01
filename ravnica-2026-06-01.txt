@@ -1,0 +1,1033 @@
+# LOS ARCHIVOS DE RAVNICA — Exportació per a Claude
+Data: 1/6/2026
+
+## PERSONATGES
+
+### Ezzio Salvatore
+Gremi: Orzhov, Dimir
+Control: Ezzio Salvatore
+Visible a: Tots
+Localitzacions: Casa del prestamista Ozhov
+Bio: Ezzio se crió en el orfanato Orzov , aprendió de jovencito a esconderse de los curas pedófilos. Una vez adulto decidió pagar su deuda a la orden sirviendo para el gremio. Nunca le había gustado el hedonismo y la falsa moral de muchos miembros de la orden, sin embargo aún creía en la doctrina: " sólo necesitan un buen guía ".
+Personatge: https://pathbuilder2e.com/launch.html?build=860593
+
+Rang gremial: {"titulo":"Acólito del Sindicato","bonificaciones":"1x Espíritu Servicial","sueldo":"Modesto"}
+Notes DM: Albert camus contracta alarma Cresh manda pastelitos a los gruul Mimic en la boveda creash manda papeles iluminati.
+
+### Wundyr Somo (Torito)
+Gremi: Boros
+Control: Wundyr Somo
+Visible a: Tots
+Localitzacions: Comisaria Boros
+Bio: Mi palabra es mi espada, mis hermanos son mi gremio y mi guia es mi señora Aurelia. Mediador hasta que observo algun acto malvado. Temperamental cuando no atienden a razones. Impartiré justicia vaya donde vaya.
+Rang gremial: {"titulo":"Sargento de escuadrón","sueldo":"Modesto (actualmente en suspensión administrativa)","bonificaciones":"Escuadrón Boros: 4x Legionarios Boros"}
+
+### Yarog (HorseLuis)
+Gremi: Gruul
+Control: Yarog (HorseLuis)
+Visible a: Tots
+Localitzacions: Campamento Gruul
+Rang gremial: {"titulo":"Campeón del Clan","sueldo":"Frugal","bonificaciones":"4x Anarquistas Gruul"}
+
+### Manjatan
+Gremi: Izzet
+Control: DM
+Visible a: Tots
+
+### Svikull Rusl
+Gremi: Golgari, Dimir
+Control: Svikull Rusl
+Visible a: Tots
+Localitzacions: Callejuelas
+Rang gremial: {"titulo":"Explorador Devkarin","sueldo":"Frugal","bonificaciones":"Provisiones"}
+
+### Marchena
+Gremi: Azorius
+Control: Marchena
+Visible a: Tots
+Localitzacions: Oficina Capilla Azorius
+Rang gremial: {"bonificaciones":"Reclutas Azorius: 4x Funcionarios","sueldo":"Modesto","titulo":"Fiscal del Distrito"}
+
+### Kasz
+Gremi: Rakdos
+Control: DM
+Visible a: Tots
+Localitzacions: Salon de juego Rakdos, Taberna El Cuerno de Oro
+
+### El Vocero
+Gremi: Azorius
+Control: DM
+Visible a: Tots
+Localitzacions: Oficina Capilla Azorius
+Bio: El Vocero es un Homúnculo: estos pequeños seres mágicos son creados por magos Azorius para llevar a cabo tareas sencillas y recados. Gritón y algo malhumorado, el Vocero está atado mágicamente a la Oficina Capilla de la plaza principal del Aventino, desde donde realiza anuncios y presta servicio a sus habitantes. El resto del tiempo lo dedica al mantenimiento de la oficina y a tareas administrativas, aunque en general hace todo lo posible para holgazanear y trabajar lo menos posible.
+Notes DM: Veu: cridaner, malhumorat, burocràtic. Parla com si tot el que li demanes fos un atac personal.
+Clau: fa el mínim imprescindible. Si pot derivar a un altre formulari, ho fa. No és dolent, és funcionari.
+Rol: còmic de relleu. Termòmetre de l'absurd burocràtic del barri.
+
+### Pesha la Tabernera
+Gremi: Rakdos
+Control: DM
+Visible a: Tots
+Localitzacions: Taberna El Cuerno de Oro
+Bio: Pesha es la propietaria de El Cuerno de Oro, la tasca de la plaza del Aventino, y una minotaura con muy malas pulgas. Llegó al barrio un buen día con su tatuaje Rakdos en el brazo, algo de dinero y actitud a raudales, decidida a llevar su propia taberna y a no hablar de un pasado misterioso. Cargar barriles y echar borrachos le ha permitido mantener un impresionante estado de forma física, y aunque llevar su propio negocio es una ocupación a tiempo completo, hay quien dice que la ha visto entrenar junto Iván por las noches.
+Notes DM: Veu: directa, seca, amb sentit de l'humor negre. No ven rondes, ven pau temporal.
+Clau: Rakdos encobert. Entrena amb Iván per les nits. Sap moltes coses del barri.
+Rol: hub social del Aventino. Tothom hi passa. Ella ho recorda tot i no ho diu tot.
+
+### Kotyali la Cazadora
+Gremi: Guildless
+Control: DM
+Visible a: Ezzio Salvatore, Wundyr Somo, Yarog (HorseLuis), Svikull Rusl
+Localitzacions: Mercado de la plaza del Aventino
+Bio: Ver a Kotyali en medio del trajín de las calles de Ravnica es un espectáculo curioso: combina la apariencia salvaje propia de una cazadora centaura -cubierta de pieles y escarificaciones tribales- con el porte de una urbanita acostumbrada a las multitudes y al comercio. Abierta y directa en el trato al prójimo, su amable tono de voz siempre encuentra el camino al corazón de quienes la escuchan, y no es extraño verla reir mientras vende piezas de caza en el mercado. Pero no se debe confundir su actitud con candidez, pues aquellos que lo hacen no tardan en conocer las garras de Céfiro, su fiel halcón de caza....
+Notes DM: Veu: oberta, directa, riu fàcilment. Però la mirada avalua sempre.
+Clau: l'actitud amable és real i calculada alhora. No es contradiu.
+Rol: contacte de mercat i connexió amb el món dels sense gremi. Pot ser portaveu del malestar.
+
+### Shazel Bara, Chaman del clan
+Gremi: Gruul
+Control: DM
+Visible a: Nadie
+Localitzacions: Tienda del shaman Gruul
+Bio: Shazel Bara no predice el futuro. Escucha el presente con más atención de la que la mayoría de la gente dedica a toda su vida. Lleva décadas en la tienda del shamán, acumulando un conocimiento de hierbas, espíritus y ciclos naturales que ningún archivo Izzet podría clasificar correctamente. Los guerreros del clan la respetan con una mezcla de devoción y leve incomodidad: ella sabe cosas que prefieren que no sepa, y lo sabe porque ellos se las cuentan sin darse cuenta, entre petición y petición. No da consejo directamente. Deja que la respuesta emerja de la conversación, como si ya estuviera allí antes de que llegaran.
+Notes DM: Veu: ritual, amb silencis intencionats. Parla del futur com si ja hagués passat.
+Clau: no visible per a ningú fora del clan. Custòdia de la memòria tribal.
+Rol: autoritat espiritual. Pot donar context o profecia a moments clau de l'Arc 4.
+
+### Obez el Prestamista
+Gremi: Orzhov
+Control: DM
+Visible a: Tots
+Localitzacions: Casa del prestamista Ozhov
+Bio: No hay mucho que contar de Obez, pues ha elevado a la categoría de arte la mediocridad. Gordo y perezoso, lo único que le mantiene trabajando en el Sindicato son sus deudas (y las amenazas de aquellos que las quieren ver saldadas). La única fuente de placer que le queda es hundir en la desdicha a aquellos a los que ve felices, lo que junto a una mentalidad retorcida y una actitud paciente le convierte en un excelente prestamista.
+Notes DM: Veu: lenta, xarrupejant, amb plaer visible quan algú té un problema.
+Clau: no és perillós per força física. Ho és per paciència i rencor acumulat.
+Rol: antagonista menor però persistent. Recorda als PJs que el Sindicato té memòria llarga.
+
+### Iván el Cocinero
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Taberna El Cuerno de Oro
+Bio: Puede que la cocina de la taberna no sea exquisita, pero a aquellos que trabajan todo la jornada en talleres, almacenes y mercados, les proporciona un momento de apreciada tranquilidad y bienestar. El encargado de este curioso festín diario es Iván, cocinero del Cuerno de Oro, y dado lo que entra en la cocina y lo que sale en los platos, es quedarse corto (quedad tranquilos, el universo recupera su equilibrio cósmico cuando los comensales visitan el excusado). Si sus gruesos dedos agarrando cuchillos o sus hablar lento y torpe no os ponen nerviosos, quizá sus ojos perturbadoramente abiertos de par en par lo hagan. Que eso no os inquiete, Iván es (casi) siempre un buen muchacho (aunque mejor que no le pidáis recetas).
+Notes DM: Veu: lenta, amable, amb una mirada fixa que inquieta més que cap amenaça.
+Clau: gairebé sempre un bon noi. "Gairebé" és la paraula clau.
+Rol: còmic de relleu i detall de color de la taberna. No el facis perillós tret que calgui.
+
+### Grukurg el Tintador
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Bio: Trabajar duramente en un sitio asfixiante y apestoso catorce horas diarias pone de mal humor a cualquiera, pero si encima eres el propietario y no conoces vacaciones, enfermedad o descanso, tienes a Grukurg. Este ogro se pasa el día curtiendo pieles de toda clase de animales y bestias en su taller, y su actitud oscila entre el trabajo obsesivo y la furia psicótica, dependiendo en gran medida -pero no solamente- de los gases que emanan de las cubas, la cantidad de faena acumulada y los errores de sus empleados.
+Notes DM: Veu: queixosa per defecte, com si tothom li deués alguna cosa.
+Clau: treballa 14 hores al dia i no ho pot deixar. Resentiment justificat.
+Rol: retrat del petit empresari Guildless estrangulat pel sistema.
+
+### Ten el Pescadero
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Mercado de la plaza del Aventino
+Bio: Ten llegó al Aventino siguiendo el rastro de trabajo que dejó la reconstrucción post-guerra y se quedó porque el mercado necesitaba un pescadero y él necesitaba un mercado. Habla poco, pesa con precisión y guarda un orden impecable en su puesto que contrasta con el caos del resto del mercado. Los clientes habituales saben que si Ten tiene algo guardado bajo el mostrador, es porque alguien concreto lo ha encargado, y que preguntar por ello directamente es la única forma de conseguirlo. Lo que nadie sabe con certeza es de dónde viene exactamente el pescado en una ciudad sin mar.
+Notes DM: Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.
+Clau: cadascun representa una comunitat del barri. Escolten i parlen.
+Rol: color de mercat i fonts d'informació de carrer de primer nivell.
+
+### Morai la Capataz
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Otros negocios y tiendas del Aventino
+Bio: Morai montó la constructora con dinero prestado, dos socios que se marcharon antes del primer año y una reputación de que las obras terminan en plazo y dentro del presupuesto, lo cual en Ravnica es tan raro que casi cuenta como poder mágico. No tiene gremio porque nunca ha encontrado uno que le ofreciera más de lo que le exigiría a cambio. Dirige las obras con voz que no necesita elevarse para ser escuchada y una capacidad para calcular cargas estructurales, plazos imposibles y conflictos laborales con la misma mirada práctica. El Gran Computador de Éter la tiene en una posición incómoda: el contrato es el más grande que ha visto, y las condiciones que rodean a sus trabajadores son las peores.
+Notes DM: Veu: pràctica, sense temps per a romanticismes. Parla en termes de feina i resultat.
+Clau: ha construït alguna cosa real sense xarxa gremial. Ho sap i és el seu orgull i la seva feblesa.
+Rol: referent de resiliència de classe treballadora. Involucrada en l'Arc 4 com a veu de l'obra.
+
+### Cresh el Vendedor de Comida Ambulante
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Mercado de la plaza del Aventino
+Bio: Descrito como el empresario menos exitoso de Ravnica, el "emprendedor aventurero" del Aventino, Cresh es más conocido por vender productos “mayormente compuestos de carne” a almas desprevenidas. Ha vendido desde un extraño líquido verde hecho por monjes que vivían en una montaña según una antigua receta, consejos "astrales", lecciones de artes marciales por correo (bajo el alias "Gran Maestro Cresh"), auténticas y genuinas reliquias sagradas, globos de nieve de recuerdo y espacio publicitario en el boletín del gremio de Vendedores de Comida ambulante (del cual ostenta a la vez el cargo de Presidente, Portavoz, Notario y Portero). Su mejor venta son los productos intangibles; la mercancía física tiende a dificultar un poco su modelo de negocio...
+Notes DM: Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.
+Clau: cadascun representa una comunitat del barri. Escolten i parlen.
+Rol: color de mercat i fonts d'informació de carrer de primer nivell.
+
+### Elon Tusk el Mercader de grano
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Mercado de la plaza del Aventino
+Bio: Elon Tusk heredó el negocio de grano de su familia hace tres generaciones, lo que significa que lleva décadas negociando con Selesnya, sorteando bloqueos azorius y explicándole a todo el mundo que no, el precio no baja porque suba la demanda, sino exactamente al contrario. Loxodón de constitución imponente y paciencia comercial casi infinita, conoce cada proveedor, cada ruta de suministro y cada punto de presión del mercado de grano del Aventino. También sabe exactamente cuándo alguien está intentando estafarlo, y tiene la memoria suficiente para no olvidarlo nunca.
+Notes DM: Veu: variada, la de qualsevol venedor de mercat amb la seva especialitat.
+Clau: cadascun representa una comunitat del barri. Escolten i parlen.
+Rol: color de mercat i fonts d'informació de carrer de primer nivell.
+
+### Dhalya Macav la Comerciante
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Mercado de la plaza del Aventino
+Bio: Dhalya es el resultado acumulado de generación tras generación de mercaderes Macav. Toda una vida de aventuras comerciales a lo ancho del plano le ha proporcionado una extensa red de contactos, colaboradores y proveedores, así como un sinfín de anécdotas y vivencias. Si necesitas cualquier cosa, no dudes de que ella puede conseguirlo, pero cuidado, sus tarifas no son aptas para todos los bolsillos. Ya sea con materias primas, objetos de lujo o servicios, es una negociadora brutal, nunca pierde la oportunidad de sacar tajada de cualquier situación y siempre consigue cerrar un buen trato.
+Notes DM: Veu: encantadora, anecdòtica, sempre té una història de quan era a un altre plà.
+Clau: cada anècdota és una negociació. Mai para de treballar.
+Rol: accés a objectes i serveis inusuals. Cara però efectiva. No li gusta qui perd el temps.
+
+### Maeve la Carterista
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Localitzacions: Salon de juego Rakdos
+Bio: La plaza del Aventino, como cualquier zona ajetreada, es conocida por ser un lugar habitual de pequeños robos y hurtos. Lo que no tanta gente conoce es que no sólo los crímenes son pequeños, sino que también existen criminales de esa medida: Maeve es un buen ejemplo de ello. Vivir en un mundo hecho a medida de gigantes no ha hecho más que facilitarle la vida a esta hada y a su banda de carteristas, que disponen de mil lugares donde esconderse, y que convierte cualquier botín en un tesoro. Lo único que evita que se conviertan en una verdadera plaga es su falta de concentración y ambiciones mayores, pero la vida puede ser muy fácil cuando robar tu peso en oro no es solamente una expresión.
+Notes DM: Veu: ràpida, distreta, sempre mirant cap a una altra banda. Canvia de tema quan li convé.
+Clau: mida petita, ambicions proporcionades. No és perillosa però és impredictible.
+Rol: recurs d'informació i accés a objectes recuperats. Pot ser útil o problema depenent del dia.
+
+### Sila, Tribuno de la Legión
+Gremi: Boros
+Control: DM
+Visible a: Wundyr Somo
+Localitzacions: Casa Solar
+Bio: Uno de los más notables políticos y militares Boros en el último siglo, perteneciente al bando de los optimates. Tras distinguirse en la revueltas obreras Gruul, el asedio del fuerte de la Senda Verde contra los Selesnya y la pacificación de los pozos de Sangre Rakdos, los intentos de Sila por arrebatarle el control del ejército que debía combatir a Tajic le llevaron a denunciarle para intentar restaurar una Legión cada vez más mermada y sobrecargada. Pese a contar con el apoyo de varios lugartenientes angelicales de renombre, Tajic contaba con demasiado soporte dentro de la Legión, por lo que Sila se retiró de la vida militar para intentar hacer carrera política. Esa era su intención al menos, hasta que la llegada de la Guerra de la Chispa reavivo su fuego justiciero y le llevo una vez más a ser de nuevo el firme escudo de Ravnica, defensor de los débiles y vengador de agravios.
+Notes DM: Veu: política, calculada. Parla com qui sempre pensa en el proper moviment.
+Clau: vol recuperar la Legió de mans de Tajic. Usa als PJs si li convé.
+Rol: aliat potencial però no de confiança cega. Té la seva agenda.
+
+### Aurelio, Líder del Clan
+Gremi: Gruul
+Control: DM
+Visible a: Ezzio Salvatore, Wundyr Somo, Yarog (HorseLuis)
+Localitzacions: Campamento Gruul
+Bio: Aurelio no quería ser líder del clan. Eso, paradójicamente, es parte de lo que lo convierte en uno bueno. Luchador veterano con un pasado que menciona poco y una presencia que no necesita explicación, asumió el papel cuando quien debería haberlo hecho no pudo. Dirige con el principio de que un líder habla menos de lo que escucha y actúa menos de lo que espera, salvo cuando la situación exige lo contrario, momento en el que actúa antes de que nadie tenga tiempo de discutirlo. La guerra de la chispa lo ha colocado en una posición de autoridad que no pedía, en un momento en que el clan no puede permitirse la fragilidad de un líder inseguro.
+Notes DM: Veu: breu, pesada, cada paraula costa.
+Clau: representa la tradició Gruul davant del buit deixat per Borborygmos en coma.
+Rol: autoritat del clan. La seva aprovació o desaprovació de les accions de Yarog té conseqüències reals.
+
+### Arkady el Alborotador
+Gremi: Gruul
+Control: DM
+Visible a: Tots
+Bio: Arkady no ha tenido una vida fácil: su padre era zapatero y tenía su propio taller; y aunque al principio fue un éxito, más tarde cayó en bancarrota y la familia se encontró viviendo en la pobreza. Fue entonces cuando su padre se convirtió en alcohólico y golpeaba a su mujer e hijo en estado de embriaguez. Tras años de abusos, Arkady y su madre le abandonaron y comenzaron una vida errante, viviendo con vagabundos y sin techo durante la siguiente década. Cuando ya era un adoslecente se mudaron a la casa de un amigo de la familia, un pastor Orzhov, quien más tarde le consiguió una plaza a Arkady en la Escuela Eclesiástica. Aunque se metió en muchas peleas, destacó en el ámbito académico, demostrando su talento en las clases de pintura y teatro, escribiendo su propia poesía, y cantando como niño de coro. Durante su infancia se enfrentó a varios problemas graves de salud: una infección de viruela le dejó cicatrices en la cara; y a la edad de 12 años se lesionó gravemente al ser atropellado por un centauro, probablemente la causa de una discapacidad de por vida en su brazo izquierdo. Gracias a una beca que le permitía estudiar a un precio reducido, se matriculó en el Seminario Espiritual Orzhov. Se unió a los 600 sacerdotes en formación que se alojaban allí, y obtuvo altas calificaciones. Continuó escribiendo poesía: cinco de sus poemas, sobre temas como la naturaleza, la tierra y el patriotismo, se publicaron bajo seudónimo en las revistas dominicales. Sin embargo, a medida que crecía, Arkady perdió el interés por los estudios sacerdotales: sus notas bajaron, y fue confinado repetidamente en una celda por su comportamiento rebelde. El diario del seminario señaló que se declaraba ateo, se retiraba de las oraciones y se negaba a quitarse el sombrero ante los monjes. Se unió a un club de libros prohibidos en la escuela; estuvo especialmente influenciado por libros pro-revolucionarios y textos profanos Rakdos. Arkady se dedicó a la teoría sociopolítica, que entonces estaba en auge en Ravnica, una de las diversas formas de socialismo opuestas a las autoridades Azorius que gobiernan la ciudad. Por la noche, asistía a reuniones obreras secretas y acudía a asambleas Gruul, donde empezó a demostrar un gran poder de oratoria. Finalmente, abandonó el seminario para unirse a una tribu errante Gruul, y nunca regresó.
+Notes DM: Veu: apassionada, oratòria natural, amb cites de teoria política que semblen versos.
+Clau: el passat Orzhov el persegueix i el motiva alhora. Creu en la causa, però no sempre en les persones.
+Rol: agitador del barri. Motor de conflicte social. Pot ser aliat o problema depenent de com el tractin els PJs.
+
+### Ikram la Contrabandista
+Gremi: Golgari
+Control: DM
+Visible a: Tots
+Localitzacions: Herbolario
+Bio: La Guerra de la chispa conmocionó los cimientos de todo el plano, haciendo desaparecer edificios e incluso barriadas enteras, y forzando el desplazamiento de miles de refugiados a zonas más seguras. Para gente como Ikram, quien no parece tener un hogar al que volver, ha implicado buscarse la vida de formas más creativas para poder sobrevivir y medrar en una ciudad que no concede muchas oportunidades (y unos pocos psicotrópicos de contrabando nunca han hecho daño a nadie)
+Notes DM: Veu: tranquil·la, antiga, sense pressa. Parla de la mort com si fos el temps.
+Clau: tres segles de vida fan que res l'impressioni. La seva lleialtat és al cicle, no a les persones.
+Rol: recurs d'informació i verins per a Svikull. Tractar-la amb respecte, mai com a subordinada.
+
+### Bookworm el Consigliere
+Gremi: Golgari
+Control: DM
+Visible a: Svikull Rusl
+Bio: Nadie recuerda su nombre real. El apodo lo ganó décadas atrás, cuando era el único miembro del Enjambre Ochran que prefería los archivos a los contratos de sangre. Eso no lo hacía menos peligroso: simplemente lo hacía más útil. Bookworm conoce la estructura legal de Ravnica con la misma profundidad con que los Devkarin conocen las alcantarillas: en ambos casos, el conocimiento es una forma de movimiento invisible. Asesora a Svikull con paciencia calculada, seleccionando cuidadosamente qué información comparte y en qué orden. No miente. Simplemente decide cuándo es el momento correcto para decir la verdad.
+Notes DM: Veu: acadèmica, precisa, lleugerament pedant.
+Clau: lleial al Enjambre Ochran, no a Svikull personalment. La diferència importa.
+Rol: intermediari polític del Golgari per a Svikull. Dona ordres disfressades de consells.
+
+### Kakí Skýla, Lugarteniente del Enjambre Ochran
+Gremi: Golgari
+Control: DM
+Visible a: Svikull Rusl
+Bio: Kakí Skýla ascendió en el Enjambre Ochran de la única manera que el Enjambre Ochran reconoce: siendo mejor que la persona por encima de ella hasta que esa persona dejó de ser un problema. Tiene cicatrices de venenos que se curó ella misma y de combates que ganó cuando no debería haberlo hecho. Evalúa a las personas con la misma rapidez con que evalúa las rutas de escape y los puntos de vulnerabilidad física: es un hábito, no una elección. Con Svikull mantiene una relación de utilidad mutua que ella controla con más precisión de lo que él probablemente percibe. Si el día en que deje de ser útil llega, ella ya sabrá qué hacer.
+Notes DM: Veu: breu, tallant, sense cortesia innecessària.
+Clau: avalua constantment l'utilitat de Svikull. Si deixa de ser-ho, ho notarà.
+Rol: amenaça latent i jerarquia real per damunt de Svikull dins del Golgari.
+
+### Tajic, Espada de la Legión
+Gremi: Boros
+Control: DM
+Visible a: Tots
+Localitzacions: Casa Solar
+Bio: Como segundo al mando, Tajic se opuso al plan de Aurelia de unirse con los otros gremios en su lucha contra las fuerzas de Bolas. Tajic cree que los Boros sólo pueden confiar en los Boros. Está convencido de que cualquier esfuerzo de paz entre los gremios está condenado al fracaso sin el Pacto del Gremio. Los Boros, argumenta, estarían mejor gastando su energía para hacerse más fuertes y así poder mantener el frágil equilibrio que existe ahora y proteger a los inocentes cuando la balanza se inclina. Aurelia cree que su actitud negativa corre el riesgo de envenenar los corazones de los otros Boros y socavar cualquier esfuerzo de paz.
+Notes DM: Veu: directa, marcial, sense floritures. "Los Boros solos. Siempre."
+Clau: no és el vilà: és un home de principis equivocats. Creu el que diu.
+Rol: antagonista intern dels Boros. En conflicte ideològic permanent amb Aurelia i Sila.
+
+### Sargento Instructor Gough
+Gremi: Boros
+Control: DM
+Visible a: Wundyr Somo
+Localitzacions: Casa Solar
+Bio: Gough "Ojo de Halcón" fue una vez uno de los cuatro caballeros Boros y líder de los Wojek, la fuerza de asalto de élite de la Legión. Sin embargo, Gough no carecía de enemigos: su visión fue afectada por villanos que le consideraban un gigante salvaje, y pensaron que cubriéndole con resina los agujeros de los ojos de su yelmo le podrían derrotar (aunque en realidad esto no disminuyó su capacidad de lanzar jabalinas con precisión mortal). Cegado, dedica sus días a preparar a las nuevas generaciones de cadetes, y pasa el tiempo reflexionando filosóficamente sobre la virtud, el valor y el significado de la palabra "legionario".
+Notes DM: Veu: lenta, reflexiva, amb pauses llargues. Parla com qui ha vist massa coses.
+Clau: cec físicament però no metafòricament. Detecta la veritat instintivament.
+Rol: mentor/pare de Wundyr. La seva saviesa és real, però el sistema que defensa no sempre ho és.
+
+### Informante Secreto
+Gremi: Dimir
+Control: DM
+Visible a: Wundyr Somo
+
+### Mecenas misterioso
+Gremi: Dimir
+Control: DM
+Visible a: Svikull Rusl
+Notes DM: Veu: mai apareix directament. Notes, missatges, intermediaris.
+Clau: invisible per disseny. Si apareix en persona, és que alguna cosa important passa.
+Rol: fil Dimir per a Svikull. Manipula, no ordena.
+
+### Ministrant Tobias Forge
+Gremi: Orzhov
+Control: DM
+Visible a: Ezzio Salvatore
+Localitzacions: Sede Sindical Orzhov del Cuarto Precinto
+Bio: Tobias Forge lleva tres décadas haciendo que las cosas funcionen en silencio. No figura en ninguna lista de poder, no preside ningún consejo, no firma ningún contrato que lleve su nombre en primera línea. Y sin embargo, cuando algo se rompe en el Cuarto Precinto, es él quien lo arregla antes de que nadie se entere de que estaba roto.
+Encontró a Ezzio Salvatore cuando el chico todavía no sabía bien lo que era. Vio algo útil. Quizás algo más. Lo formó, lo cubrió, lo ascendió. Ahora Ezzio es Caballero, y Tobias se pregunta en silencio si ha construido un activo o un problema.
+Sigue siendo leal al Sindicato. Siempre lo será. La pregunta es si el Sindicato seguirá siendo leal a él.
+Notes DM: Veu: pausada, paterna, amb subtext constant. Rarament diu el que vol dir directament.
+Clau: genuïnament vol Ezzio, però el Sistema Orzhov és el que és. La seva lleialtat al Sindicat és absoluta.
+Rol: figura paterna ambigua d'Ezzio. Ha de generar afecte i desconfiança alhora.
+
+### Glenn Danzing, Sicario del Sindicato
+Gremi: Orzhov
+Control: DM
+Visible a: Ezzio Salvatore
+Localitzacions: Sede Sindical Orzhov del Cuarto Precinto
+Bio: Glenn Danzing no tiene historia personal. O al menos, eso es lo que el Sindicato prefiere y lo que él facilita activamente. Lo que existe es un historial profesional impecable: encargos completados, plazos cumplidos, ninguna complicación atribuible a error propio. Trabaja con la misma actitud con que un fontanero especializado aborda una avería difícil: sin dramatismo, con las herramientas adecuadas, dejando el espacio más ordenado de lo que lo encontró. Su única excentricidad conocida es que nunca acepta un encargo sin leer el contrato completo. Tobias Forge considera que es su empleado más razonable.
+Notes DM: Veu: professional, neutral, com un servei tècnic.
+Clau: no té opinió sobre les feines. Les fa. Prou.
+Rol: recordatori que el Sindicat té braç executor. Apareix quan les paraules ja no funcionen.
+
+### Padre Messiah Marcolin
+Gremi: Orzhov, Dimir
+Control: DM
+Visible a: Ezzio Salvatore
+Localitzacions: Orfanato de Santa Alisande
+Notes DM: Veu: pastoral, càlida, amb cites velades. Inspira confiança immediatament.
+Clau: l'orfenat és una xarxa de reclutament Dimir. Ho fa amb genuïna cura pels nens, però els resultats són els mateixos.
+Rol: connexió fosca amb el passat d'Ezzio. Apareix quan convé destabilitzar-lo.
+
+### Niv-Mizzet, el Dracogenio
+Gremi: Izzet
+Control: DM
+Visible a: Tots
+Localitzacions: Nivix, el Nido del Mente ígnea
+Bio: Niv-Mizzet, comúnmente conocido como el Mente de Fuego,es un antiguo dragón de color marrón rojizo de Ravnica obsesionado con la omnisciencia. A pesar de su tamaño, es capaz de moverse con ligereza y gracia. Tiene una cola retorcida, largas alas con bordes azules, un largo cuello, membranas espinosas alrededor de su cabeza y largos cuernos oscuros. El intelecto del Mente de Fuego excede al de los mortales estándar en varios niveles, y es conocido por muchos inventos ingeniosos que actualmente sirven a los ciudadanos de Ravnica, siendo el más conocido el casi indestructible, pero fácilmente utilizable y forjable metal, el mizzium. Poseedor de una arrogancia y vanidad que iguala su vasto intelecto y su tremendo poder, Niv-Mizzet dirige la investigación y los experimentos de Izzet desde hace más de 10.000 años, a menudo desde su laboratorio privado en la cima de Nivix, sede gremial de los Izzet. Como el nuevo Pacto del Gremio Viviente, el Mente de Fuego sirve ahora como guardián de la propia Ravnica. Debido a su extrema edad, su triunfo sobre numerosos desafíos, y su estatus de mago dragón, Niv-Mizzet posee un conocimiento que ningún otro posee, incluyendo hechizos que se han perdido en el tiempo y armas cuyas hechuras se han perdido.
+Notes DM: Veu: si apareix: omniscient, distant, com si parlar amb mortals li costés esforç.
+Clau: sap coses que ningú més sap. La seva desaparició és el misteri que lliga l'Arc 3 amb el que ve.
+Rol: absència que pesa. Usa'l com a referència constant, no com a personatge present.
+
+### Sestri, Degana del Laboratorio de Tormentas y Electricidad
+Gremi: Izzet
+Control: DM
+Visible a: Manjatan
+Localitzacions: Nivix, el Nido del Mente ígnea
+Bio: Sestri lleva dos décadas dirigiendo el laboratorio de tormentas con la disciplina metódica que Niv-Mizzet siempre ignoró y que resulta ser exactamente lo que mantiene Nivix funcionando. No es brillante del modo en que el Mente de Fuego entiende la brillantez: no hace descubrimientos que reescriben el conocimiento. Hace que los descubrimientos de otros no maten a nadie en el proceso. Gestiona la Liga con la misma ecuanimidad con que gestionaría cualquier crisis: por partes, por orden de urgencia y sin dejarse ver preocupada, aunque lo esté.
+Notes DM: Veu: tècnica, eficient, lleument defensiva des de la crisi de l'Arc 3.
+Clau: intenta mantenir la Liga funcional en absència de Niv-Mizzet. No té la seva autoritat ni el seu geni.
+Rol: interlocutora oficial de l'Izzet post-Arc 3. Pot ser aliada tècnica si cal.
+
+### Coldie, Genio Inestable
+Gremi: Izzet
+Control: DM
+Visible a: Tots
+Localitzacions: Nivix, el Nido del Mente ígnea
+Bio: El apodo es una ironía. Coldie es todo lo contrario a frío: sus teorías arden, sus conversaciones se aceleran hasta hacerse incomprensibles y sus experimentos suelen terminar con al menos un elemento del laboratorio en un estado que no figuraba en el protocolo inicial. Nadie sabe exactamente qué rama de la investigación Izzet es su especialidad, incluyendo Coldie. Lo que sí sabe es que la frontera entre lo que funciona y lo que explota es, en su experiencia, mucho más permeable de lo que los manuales sugieren. Lo dice como si fuera una buena noticia.
+Notes DM: Veu: entusiasta, dispersa, salta de tema sense avisar. Els experiments l'emocionalen.
+Clau: brillant però impredictible. Les seves idees poden ser genials o catastròfiques. Sovint les dues alhora.
+Rol: còmic de relleu i recurs tècnic caòtic. Útil per a situacions on cal improvisació.
+
+### Rotxar, Cultista Tatuador
+Gremi: Rakdos
+Control: DM
+Visible a: Tots
+Bio: Rotxar tiene en la piel el mapa completo de todo lo que le ha importado en la vida: victorias, pérdidas, deudas pagadas y deudas que nunca lo serán. Sus tatuajes son registros, no decoración, y los hace con la misma filosofía: cada línea tiene un peso, cada símbolo corresponde a algo real. Es pendenciero por temperamento y leal por convicción, dos rasgos que en el Culto Rakdos resultan más compatibles de lo que parecen. Luda Manson lo describe como "parte de la familia", que en su vocabulario significa que le tiene afecto genuino y que si algún día fuera necesario, tampoco dudaría en usarlo. Rotxar lo sabe. Lo acepta. Es la definición de familia que conoce.
+Notes DM: Veu: intensa, ritualista, amb pauses que semblen amenaces.
+Clau: la violència és el seu idioma natural, però la conté quan el codi del cult ho exigeix.
+Rol: figura de color i perill físic dins del cercle Rakdos.
+
+### Tai On, Justicar del Senado
+Gremi: Azorius
+Control: DM
+Visible a: Marchena
+Bio: Tai On lleva cuarenta años interpretando la ley de Ravnica y ha llegado a la conclusión de que la ley no necesita interpretación: necesita aplicación. Formado en la tradición escolástica de la Escuela de los Pilares Inmóviles, ascendió por la jerarquía azorius no gracias a su brillantez —aunque la tiene— sino gracias a una cualidad más rara y más valiosa: la absoluta ausencia de dudas. Nunca se ha preguntado si una norma era justa. Se ha preguntado si se estaba cumpliendo. Trata a sus subordinados con la misma exactitud con que trata los artículos del código: sin crueldad innecesaria, sin concesiones innecesarias. Marchena es, para él, un instrumento útil con tendencias preocupantes.
+Notes DM: Veu: formal, condescendent, sempre amb un subtext de "esteu perdent el meu temps".
+Clau: visible a Marchena. La representa institucionalment però la usa políticament.
+Rol: obstacle burocràtic de rang alt. Apareix quan la situació escala.
+
+### Randall, Comunero Pacifista
+Gremi: Selesnya
+Control: DM
+Visible a: Tots
+Localitzacions: Misión de la Armonía Compartida Selesnya
+Notes DM: Veu: càlida, entusiasta, amb tendència al moralisme no demanat.
+Clau: fanàtic sincer. No és hipòcrita: creu de veritat. Que sigui el problema.
+Rol: representació del perill del pensament grupal voluntari. Useful, irritant, i ocasionalment inquietant.
+
+### Khatnas, Juez de Asuntos Internos
+Gremi: Azorius
+Control: DM
+Visible a: Marchena
+Bio: Hay un chiste en los pasillos del Senado: si ves a Khatnas acercarse, empieza a recordar exactamente qué hiciste el martes pasado. Nadie lo ha pronunciado en su presencia. Khatnas se encarga de investigar a los propios agentes azorius: los que toman decisiones que no están en el protocolo, los que tienen amistades poco convenientes, los que miran demasiado tiempo en la dirección equivocada. Es meticuloso, paciente y genuinamente convencido de que la pureza institucional es la única garantía de justicia duradera. No disfruta haciendo daño. Pero tampoco lo evita.
+Notes DM: Veu: suau, pausada, inquietant. Sembla comprensiu. No ho és.
+Clau: investiga als seus. Marchena és al seu punt de mira o al seu radar.
+Rol: amenaça latent per a Marchena. La seva aparició ha d'inquietar.
+
+### Nebum Gerava, Arbites del Senado
+Gremi: Azorius
+Control: DM
+Visible a: Marchena
+Bio: "Vigila a tus hermanos, su pecado de herejía es tu pecado de tolerancia."
+Nebum Gerava aprendió esa frase de su maestra cuando tenía doce años y la ha llevado consigo como otros llevan amuletos. Llegó al cargo de Arbites —supervisor de conducta doctrinal— después de una carrera en la que denunció a tres compañeros, dos supervisores y un juez. Todos eran culpables. Eso no lo hace más fácil de soportar en una sala. Habla poco, observa mucho, y tiene la costumbre de repetir las palabras de su interlocutor ligeramente reformuladas, como si estuviera verificando si resisten ser dichas en voz alta. En su experiencia, pocas cosas lo hacen.
+Notes DM: Veu: severa, sentenciosa. "La herejía de tu hermano es tu herejía."
+Clau: doctrinari pur. No negocia. No cedeix. Creu el que diu.
+Rol: antagonista ideològic de Marchena. Representa l'Azorius més intransigent.
+
+### Gasz, Matón de la Calle de Hojalata
+Gremi: Guildless
+Control: DM
+Visible a: Tots
+Bio: Gasz no se considera un criminal. Se considera un proveedor de servicios de seguridad con una política de precios flexible y un historial de persuasión efectiva. Opera en la Calle de Hojalata con la lógica sencilla de quien ha encontrado un equilibrio que funciona: cobra lo suficiente para que no valga la pena resistirse y lo bastante poco para que la gente no busque alternativas. La familia Brir es su cliente involuntario más antiguo. Eso, en su cabeza, es casi una relación establecida.
+Notes DM: Veu: intimidatoria, simple, directa.
+Clau: extorsiona una família concreta. No és una organització, és un individu amb un negoci petit i brut.
+Rol: problema de carrer resoluble. Bona introducció a la violència urbana del barri.
+Guia d'interpretació de personatges · Las Calles de Ravnica · Actualitzat: Arc 3 completat
+
+### Luda Manson, Productora y Cazatalentos
+Gremi: Rakdos
+Control: DM
+Visible a: Wundyr Somo, Kasz
+Bio: Luda Manson era la mejor representante de artistas de la pasada década y, aunque ahora todo ha cambiado, ella no. Cuando Juanita Mexita, su promesa más conocida, la abandona inesperadamente, el mundo de Luda se tambalea. Junto a Kasz, su nueva promesa, y Rotxar, un tatuador pendenciero, que acabará convertido en parte de la familia, Luda se lanza desesperada al descubrimiento de nuevo talento. Una búsqueda que le hará encontrar su lugar en la profesión y en el mundo tras la guerra.
+Notes DM: Veu: exagerada, dramàtica, com si cada conversa fos una actuació.
+Clau: el món Rakdos és el seu món natural. Genuïnament vol talent, genuïnament no li importa el cost.
+Rol: porta d'entrada al món Rakdos per a Wundyr i Kasz. Pot obrir o tancar portes.
+
+### Ylldiane, Intendente Mayor
+Gremi: Boros
+Control: DM
+Visible a: Tots
+Localitzacions: Casa Solar
+Bio: Si Casa Solar es el puño de la Legión, Ylldiane es el tendón que lo mantiene unido. Intendente Mayor desde antes de la Guerra de la Chispa, ha sobrevivido a tres cambios de mando, dos reestructuraciones y una invasión demoníaca con el mismo método: tener siempre los suministros en orden, los formularios completados y la cadena de mando satisfecha. Es la persona que sabe dónde está realmente cada recurso, qué unidades están sobreextendidas y qué decisiones de los superiores no tienen ningún sentido logístico. No lo dice en voz alta. Pero lo sabe. Trata a Wundyr con la cordialidad funcional que dispensa a todo aquel que no sea un problema activo, lo cual ya es más de lo que puede decirse de la mayoría.
+Notes DM: Veu: administrativa, eficient, lleugerament exasperada amb tothom.
+Clau: gestiona Casa Solar. Sap moltes coses que no pot dir oficialment.
+Rol: font d'informació interna dels Boros per a Wundyr, si la sap treballar.
+
+### Ayudantes de laboratorio Izzet
+Gremi: Izzet
+Control: DM
+Visible a: Tots
+Localitzacions: Taller Izzet  (actualmente en ruinas)
+Bio: Aún son aprendices, pero algún día podrían llegar a maestros.....
+
+### Reclutas Azorius
+Gremi: Azorius
+Control: DM
+Visible a: Tots
+Localitzacions: Oficina Capilla Azorius
+Bio: Siempre queda tanto papeleo que hacer...
+
+### Giagia, Ama de llaves del Hogar Ancestral Dalverjar
+Gremi: Golgari
+Control: DM
+Visible a: Svikull Rusl
+Localitzacions: Herbolario
+Bio: Ikram es el nombre falso bajo el que se esconde Giagia, la antigua ama de llaves del Hogar Ancestral Dalverjar, y lleva más de 3 siglos sirviendo a esta familia devkarin de la corte del sur. Su habilidad para preparar tinturas, pociones y venenos es legendaria entre los Golgari de cierto renombre, pero su manejo de la daga no se limita a la preparación de ingredientes. Para ella, la caída del hogar solo fue parte del ciclo de las cosas: sabe que todo se desmorona y se pudre al final, y luego una nueva vida surge de esa podredumbre. El tiempo pasa inevitablemente, trayendo tanto destrucción como nueva creación a todas las cosas, y ahora que ha encontrado al heredero perdido de los Dalverjar, pondrá todo su empeño a servirles una vez más.
+Notes DM: Veu: tranquil·la, antiga, sense pressa. Parla de la mort com si fos el temps.
+Clau: tres segles de vida fan que res l'impressioni. La seva lleialtat és al cicle, no a les persones.
+Rol: recurs d'informació i verins per a Svikull. Tractar-la amb respecte, mai com a subordinada.
+
+### Escuadrón Boros
+Gremi: Boros
+Control: DM
+Visible a: Tots
+Localitzacions: Comisaria Boros
+Bio: La justicia no se va a servir sola...
+Notes DM: Soldier Medium humanoid (any race), any alignment Armor Class 18 (chain mail, shield) Hit Points 16 (3d8+3) Speed 30 ft. STR 13 (+1) DEX 12 (+1) CON 12 (+1) INT 10 (+0) WIS 11 (+0) CHA 11 (+0) Skills Perception +2, Athletics +3 Senses passive Perception 12 Languages Any One Language (Usually Common) Challenge 1/2 (100 XP) Actions Multiattack. The soldier makes two melee attacks. Longsword. Melee Weapon Attack: +3 to hit, reach 5 ft ., one target. Hit: 6 (ld8 + 2) slashing damage, or 7 (1d10 + 2) slashing damage if used with two hands.
+
+### Anarquistas Gruul
+Gremi: Gruul
+Control: DM
+Visible a: Tots
+Localitzacions: Campamento Gruul
+Bio: Raramente desarmados, raramente sobrios...
+
+### Troupe Rakdos
+Gremi: Rakdos
+Control: DM
+Visible a: Tots
+Bio: El espectáculo debe continuar...
+
+### André el Herrero
+Gremi: Boros
+Control: DM
+Visible a: Tots
+Localitzacions: Forja Boros
+Bio: André, como muchos Loxodones, proviene de las arboledas y ensenadas del Cónclave Selesnya; pero poco más se sabe de sus orígenes. Es conocida sin embargo la traición sufrida a manos de sus compañeros vernadi, y su posterior salvación por parte de un gigante Boros, con quién adquirió una deuda de sangre. Tras abandonar a aquellos a quien una vez llamó hermanos, sus creencias y su hogar, se alistó en las filas de la legión. Allí su alma descubrió una nueva llamada al sentir el calor de la fragua, el sudor de los herreros y el latir de una hermandad de martillos golpeando el metal al ritmo de sus ardientes corazones. Sus golpes son rápidos y precisos, y su técnica moldea el metal y lo convierte en herramientas certeras que en manos de ángeles hacen el trabajo de demonios. Ha aprendido a tener largas charlas con martillo y yunque, con fuego y metal: puede el guerrero blandir el arma más poderosa o vestir la coraza más tenaz, que un herrero sabe que toda armadura, escama de dragón o mizzium encantado esconden un punto vulnerable…
+
+### Rezana, Médico Azorius
+Gremi: Azorius
+Control: DM
+Visible a: Tots
+Localitzacions: Medico Azorius
+Bio: Rezana llegó al Aventino como parte de un programa de extensión sanitaria del Senado que nadie recuerda haber solicitado y que ella administra con la eficiencia de quien prefiere no pensar demasiado en por qué la enviaron allí. Diagnostica con precisión, trata con competencia y factura con puntualidad. Sus pacientes reciben exactamente lo que necesitan médicamente: ni una palabra de más, ni un gesto de consuelo que no esté clínicamente justificado. Lo que nadie ha notado todavía es que sus informes de salud pública del barrio son extraordinariamente detallados, y que van a algún lugar más allá del archivo del Senado.
+Notes DM: Veu: clínica, precisa, poc empàtica. Diagnòstic primer, persona després.
+Clau: fa bé la seva feina. No menteix, però tampoc s'implica més del necessari.
+Rol: servei mèdic neutral. Pot ser font d'informació forense si se la tracta bé.
+
+### Alysa la Sastre
+Gremi: Dimir
+Control: DM
+Visible a: Tots
+Localitzacions: Sastre
+Bio: Alysa llegó al Aventino con dos maletas llenas de telas y una sonrisa que podría vender arena en el desierto. A primera vista es exactamente lo que parece: una modista obsesionada con las tendencias, los cotilleos y el color de temporada. La gente la subestima. Alysa lo agradece.
+Aprendió pronto que la ropa no viste solo cuerpos: viste identidades, estatus y mentiras. El taller es su red. Cada cliente que entra sale con un traje nuevo y sin algunos de sus secretos.
+Nunca pregunta directamente. Deja que la gente hable mientras toma medidas. Usa la frivolidad como escudo y la belleza como palanca. Tiene sus propias ambiciones, y no todas las muestra.
+Notes DM: Veu: efusiva, frívola, amb compliments constants que mai acaben on sembla que aniran.
+Clau: mai respon directament. Cada pregunta que li fan és informació per a ella.
+Rol: font d'informació i perill latent. Els PJs no han de saber mai del cert de quin bàndol és.
+
+### Albert Camus de la Oficina del Banco
+Gremi: Orzhov
+Control: DM
+Visible a: Tots
+Localitzacions: Banco del Sindicato Orzhov
+Bio: Albert Camus lleva diecisiete años sentado en la misma silla (o parecida), detrás del mismo escritorio (o parecido), procesando los mismos tipos de documentos con la eficiencia de alguien que hace tiempo dejó de fingir que le importa cualquier cosa que no sea que el número de la columna de la derecha cuadre con el número de la columna de la izquierda. Inteligente, meticuloso y profundamente infeliz, descubrió temprano que el Sindicato Orzhov premia la competencia y castiga la visibilidad, lo que lo ha condenado a una existencia de perfecta invisibilidad competente. Es desagradable con todo el mundo de manera equitativa, sin distinción de rango ni de motivo. Lo considera su único acto de rebeldía.
+Notes DM: Veu: plana, seca, sense inflexió emocional. Com llegir un extracte bancari en veu alta.
+Clau: miserable, però eficient. Desagradable amb tothom perquè odia la seva vida.
+Rol: obstacle burocràtic. Porta d'accés a recursos Orzhov per a Ezzio, però sempre amb un cost.
+
+### Mira, la de correos
+Gremi: Dimir
+Control: DM
+Visible a: Tots
+Localitzacions: Oficina de correo
+Bio: Mira lleva las cartas del Aventino desde que abrió la oficina, que nadie recuerda exactamente cuándo fue. Cobra una tarifa fija por envíos locales, otra por los de distrito, y una tercera por los urgentes que casi nadie usa porque sale muy caro. El horario está pegado en la puerta con cinta, aunque la cinta se está despegando por un lado.
+Si le preguntas cómo está, dice "bien". Si le preguntas de dónde es, dice "de aquí". Si le preguntas si ha visto a alguien pasar por la oficina, dice el nombre, la hora y el número de paquetes sin pestañear, porque eso es su trabajo.
+Casi nadie le ha preguntado nunca cómo se llama.
+Notes DM: Veu: monosil·làbica, neutral, eficient. "Bien." "De aquí." "Sí."
+Clau: recorda tot el que passa per la seva finestreta. Literalment tot.
+Rol: font d'informació passiva extraordinària si algú pensa a preguntar-li bé.
+
+### Aiker Bosset
+Gremi: Simic
+Control: DM
+Visible a: Nadie
+Bio: Despues del dolor causado por la guerra, no dejará que esta se vuelva a producir o por lo menos tendrá suficiente poder como para aplacarla. Incansable en la búsqueda de poder, utilizará todos los recursos Simic a su disposición para evolucionar a una forma de vida superior, si la naturaleza no evoluciona lo suficientemente rápido, le dará un empujón. Uniros a la lucha o no os interpongáis. Cualquiera que busque la guerra será aniquilado.
+Notes DM: Veu: determinada, intensa, amb frases curtes com ordres a si mateix.
+Clau: poder com a objectiu, no com a instrument. Ja no distingeix entre els dos.
+Rol: PJ absent. Si apareix com a NPC, mostrar la deriva sense jutjar-la explícitament.
+
+### Los fieles seguidores del Maestro, el Evolucionador de hombres
+Gremi: Simic
+Control: DM
+Visible a: Nadie
+Bio: El Maestro dijo: “Los sanos no tienen necesidad de médico, sino los enfermos”. Él vino realmente a buscar, levantar y salvar a los que están perdidos, a los débiles y abatidos. ¡Sí, Maestro, vienes a levantar al débil y lo tomas en tus brazos! ¡Qué poderosa verdad! Verdaderamente el Maestro te toma en Sus brazos de amor en este día, querido(a) amigo(a). Él te conduce hacia la Verdad y la mejora personal.
+Notes DM: Veu: coral, dòcil, amb frases fetes de sermó.
+Clau: no saben el que fan realment. Això és el més inquietant.
+Rol: massa de fons que mostra la capacitat de manipulació del Simic. Invisible fins que no ho és.
+
+### Trisz, Legionario Caido (Fallecido)
+Gremi: Boros
+Control: DM
+Visible a: Ezzio Salvatore, Wundyr Somo
+Localitzacions: Comisaria Boros
+Bio: Pese a que el hambre y el miedo siempre han estado presentes en su vida, Trisz nunca ha considerado tener una infancia infeliz. Criado en barrios que ya eran pobres antes de la Guerra de la Chispa, él y su familia malvivían como parias, con la incertidumbre constante de donde vendría el próximo bocado (si es que llegaba), pero siempre se tuvieron los unos a los otros. Su hermana en particular era una fuente constante de cándida alegría, y un solo abrazo suyo era capaz de hacerle olvidar las palizas recibidas durante el día o las desgracias vividas. Que ella pudiera seguir jugando con sus juguetes y tuviera una vida mejor fue lo que le empujó a alistarse (aunque ella odiase esa decisión). Con su última exhalación susurró su nombre.... LEGIO AETERNA VICTRIX
+Notes DM: Rol: absència que pesa. El seu nom pot aparèixer en moments clau per a Wundyr i Ezzio. No el ressuscitis, usa'l com a record i culpa.
+
+### Pandora, Espíritu Servicial
+Gremi: Orzhov
+Control: DM
+Visible a: Tots
+Bio: Pandora no recuerda con claridad cuándo empezó a ser Pandora. El nombre se lo pusieron después, como se le pone nombre a algo que ya existe pero que todavía no tiene uno. Lo que sí recuerda es el momento del vínculo: el frío del contrato cerrándose sobre algo que hasta entonces había sido libre de llamarse de otra manera. Su contrato pasó de mano en mano —de Ossian a Maeve, de Maeve a Ezzio— de formas que ningún código Orzhov reconocería como legítimas. Sirve con exactitud y sin queja porque el contrato así lo establece. Lo que piensa mientras sirve no está en el contrato, y por tanto es lo único que sigue siendo suyo.
+Notes DM: Veu: serena, una mica melancòlica. Obedient per contracte, no per voluntat.
+Clau: el seu futur depèn d'Ezzio. Que ell ho senti com a pes, no com a poder.
+Rol: dilema moral actiu d'Ezzio. No la resolgueu vosaltres com a DM: deixeu-la com a pregunta oberta.
+
+### Nullan, Chofer de Ezzio
+Gremi: Dimir
+Control: DM
+Visible a: Tots
+Bio: Nullan lleva años conduciendo carruajes por el Aventino. Nadie recuerda exactamente cuándo apareció, ni para quién trabajaba antes. Lo que sí recuerda todo el mundo es la flasca que lleva siempre en el cinturón y el olor a aguardiente barato que parece seguirle a todas partes. Es puntual, no hace preguntas y nunca pierde una dirección. Para un caballero Orzhov que necesita discreción, un cochero que nadie mira dos veces vale más que uno que recuerda todo el mundo.
+Notes DM: Veu: monosil·làbic, puntual, amb olor a aiguardent barat. No fa preguntes.
+Clau: sap més del que mostra. És Dimir. Observa sempre.
+Rol: recurs de mobilitat per a Ezzio amb un cost informatiu que aquest no percep.
+
+### Drekk, revolucionario desencantado
+Gremi: Gruul
+Control: DM
+Visible a: Tots
+Localitzacions: Campamento Gruul
+Bio: Drekk llegó al Aventino siguiendo el rastro de Yarog, como tantos otros Gruul que vieron en el campamento algo parecido a un hogar. Lo que encontró fue un trabajo, un catre y la misma pobreza de siempre, solo que rodeada de piedra en lugar de tierra.
+En los Yermos, su tamaño era una ventaja. En las obras del Computador, es un problema. No cabe por las puertas de la oficina de contratación. No puede subir a las plataformas superiores. Cobra lo mismo que un obrero humano y carga tres veces más. Nadie lo ha dicho en voz alta, pero Drekk lo sabe: la ciudad no fue construida para él.
+Todavía no ha decidido nada, pero eso no va a durar para siempre.
+Notes DM: Veu: lenta, cansada, amb moments de rabia que controla just.
+Clau: no ha decidit res encara. Però l'ha de decidir. El context el pressiona cap a la violència.
+Rol: mirall de Yarog. Representa el que pot passar quan el sistema esgota la paciència d'un Gruul.
+
+## EDIFICIS
+
+### Oficina Capilla Azorius [Azorius]
+Personatges: Marchena, El Vocero, Reclutas Azorius
+Notes DM: Elecciones a cargos publicos
+
+### Medico Azorius [Azorius]
+Personatges: Rezana, Médico Azorius
+Conflicte: Golgari
+
+### Recaudador de Impuestos Azorius [Azorius — INACTIU]
+Conflicte: Gruul
+
+### Ayuntamiento Azorius [Azorius — INACTIU]
+Conflicte: Rakdos
+Notes DM: Aduanas
+
+### Comisaria Boros [Boros]
+Personatges: Escuadrón Boros, Wundyr Somo (Torito), Trisz, Legionario Caido (Fallecido)
+Notes DM: Resolver crimenes
+
+### Forja Boros [Boros]
+Personatges: André el Herrero
+Conflicte: Simic
+
+### Calabozos Boros [Boros — INACTIU]
+Conflicte: Gruul
+
+### Callejuelas [Dimir]
+Personatges: Svikull Rusl
+Conflicte: Boros
+Notes DM: Crimenes, persecuciones
+
+### Sastre [Dimir]
+Personatges: Alysa la Sastre
+Conflicte: Gruul
+
+### Piso Franco [Dimir — INACTIU]
+
+### Oficina de correo [Dimir]
+Personatges: Mira, la de correos
+
+### Herbolario [Golgari]
+Personatges: Ikram la Contrabandista, Giagia, Ama de llaves del Hogar Ancestral Dalverjar
+Conflicte: Azorius
+
+### Oficina de objetos perdidos Golgari [Golgari — INACTIU]
+
+### Alcantarillado subterráneo Golgari [Golgari]
+Conflicte: Boros
+
+### Campamento Gruul [Gruul]
+Personatges: Yarog (HorseLuis), Anarquistas Gruul, Aurelio, Líder del Clan, Drekk, revolucionario desencantado
+Conflicte: Orzhov
+
+### Tienda del shaman Gruul [Gruul]
+Personatges: Shazel Bara, Chaman del clan
+Notes DM: Invocar elementales
+
+### Arena de duelos Gruul [Gruul — INACTIU]
+
+### Reserva salvaje Gruul [Gruul — INACTIU]
+Personatges: Aurelio, L der del Clan
+
+### Yermos Rojos [Gruul]
+Conflicte: Azorius
+
+### Mercado de la plaza del Aventino [Guildless]
+Personatges: Cresh el Vendedor de Comida Ambulante, Dhalya Macav la Comerciante, Elon Tusk el Mercader de grano, Ten el Pescadero, Kotyali la Cazadora
+Notes DM: Conseguir suministros (trigo Selesnya, por ej)
+
+### Otros negocios y tiendas del Aventino [Guildless]
+Personatges: Morai la Capataz
+
+### Taller Izzet  (actualmente en ruinas) [Izzet]
+Personatges: Ayudantes de laboratorio Izzet
+Conflicte: Golgari
+
+### Biblioteca Izzet [Izzet — INACTIU]
+Conflicte: Orzhov
+
+### Puerto Aereo Izzet [Izzet — INACTIU]
+
+### Laboratorio Arcano Izzet [Izzet — INACTIU]
+Conflicte: Selesnya
+
+### Casa del prestamista Ozhov [Orzhov]
+Personatges: Ezzio Salvatore, Obez el Prestamista
+Notes DM: Prestamos
+
+### Banco del Sindicato Orzhov [Orzhov]
+Personatges: Albert Camus de la Oficina del Banco
+Conflicte: Gruul
+
+### Iglesia Orzhov [Orzhov — INACTIU]
+Conflicte: Izzet
+Notes DM: Construcci n en multiples arcos
+
+### Cementerio Orzhov [Orzhov — INACTIU]
+Conflicte: Simic
+
+### Salon de juego Rakdos [Rakdos]
+Personatges: Kasz, Maeve la Carterista
+Conflicte: Selesnya
+
+### Teatro Rakdos [Rakdos — INACTIU]
+Conflicte: Azorius
+Notes DM: Festival rakdos
+
+### Taberna El Cuerno de Oro [Rakdos]
+Personatges: Pesha la Tabernera, Kasz, Iván el Cocinero
+
+### Gremio de Costureras Rakdos [Rakdos — INACTIU]
+
+### Misión de la Armonía Compartida Selesnya [Selesnya]
+Personatges: Randall, Comunero Pacifista
+Descripció: La Misión de la Armonía Compartida es una granería comunitaria y centro de ayuda vecinal donde los habitantes del Aventino pueden conseguir alimentos, semillas y apoyo durante los momentos difíciles. Sus voluntarios mantienen comedores populares, pequeños huertos urbanos y diversas actividades para la comunidad.
+
+Más allá de su labor benéfica, la misión promueve activamente los valores de cooperación, unidad y vida en comunidad propios de Selesnya. A través de reuniones, celebraciones y actividades sociales, muchos vecinos terminan integrándose cada vez más en la organización.
+
+Para la mayoría es un refugio de solidaridad en un barrio duro. Para Selesnya, es también una forma de cultivar algo más que alimentos.
+
+Conflicte: Rakdos
+
+### Estanque reproductor Simic [Simic — INACTIU]
+
+### Clinica de injertos Simic [Simic — INACTIU]
+
+### Dojo Inclusivo Simic [Simic — INACTIU]
+Personatges: Aiker Bosset
+
+### Casa Solar [Boros]
+Personatges: Ylldiane, Intendente Mayor, Sargento Instructor Gough, Tajic, Espada de la Legión, Sila, Tribuno de la Legión
+Descripció: Casa Solar es la imponente sede central de la Legión Boros, el gremio que actúa como el ejército permanente y la fuerza policial del plano de Rávnica. Esta gigantesca fortaleza militar funciona como un bastión inexpugnable de justicia y orden, caracterizado por su arquitectura colosal coronada con estandartes dorados, altares de luz y estatuas de ángeles que vigilan el plano. En su interior conviven la disciplina marcial y el fervor religioso, albergando desde barracones y arsenales hasta los aposentos de los arcángeles que lideran la facción. La Legión Boros opera bajo una estricta cadena de mando que fusiona la pasión y el fuego del color rojo con la estructura y la rectitud del color blanco. A diferencia de otros gremios de la ley que se pierden en la burocracia, los Boros defienden el espíritu de la justicia de forma apasionada, rápida y contundente, desplegando su poder militar desde Casa Solar para purgar el crimen y proteger a los ciudadanos de Rávnica con un celo implacable.
+
+### Nivix, el Nido del Mente ígnea [Izzet]
+Personatges: Niv-Mizzet, el Dracogenio, Coldie, Genio Inestable, Sestri, Degana del Laboratorio de Tormentas y Electricidad
+Descripció: Nivix, el Nido del Mente ígnea, es la descomunal sede central de la Liga Izzet, el gremio de científicos locos, magos e ingenieros encargados de la infraestructura pública y la innovación tecnológica en Rávnica. Esta colosal estructura es una de las torres más altas del plano, un laberinto vertical envuelto en potentes runas protectoras donde la magia y la ciencia colisionan en un caos constante. A lo largo de sus incontables pisos, miles de alquimistas y sabios elegidos a dedo teorizan, inventan y arrojan peligrosos experimentos fallidos de una habitación a otra, desatando llamaradas y distorsiones gravitacionales sin un orden aparente. Fiel al espíritu de su gremio, que fusiona el intelecto calculador del color azul con la pasión impredecible del color rojo, Nivix opera bajo una paradoja: es un epicentro de explosiones recurrentes, pero también el lugar donde se diseñan los sistemas de alcantarillado, calderas y energía que mantienen viva a la ciudad. En la cúspide absoluta de la torre se encuentra el nido privado de Niv-Mizzet, el egocéntrico e hiperinteligente dragón parun que lidera el gremio. Desde su inmensa biblioteca superior, el dragón observa el aparente descontrol de los niveles inferiores, tratándolo secretamente como las piezas interconectadas de un único, brillante y monumental experimento global.
+
+### Sede Sindical Orzhov del Cuarto Precinto [Orzhov]
+Personatges: Ministrant Tobias Forge, Glenn Danzing, Sicario del Sindicato
+Descripció: La sede Orzhov del Aventino es el corazón financiero del barrio. Comerciantes, artesanos y vecinos acuden allí en busca de préstamos, asesoramiento o ayuda durante tiempos difíciles, aunque pocos salen sin haber adquirido alguna nueva obligación.
+
+En sus despachos trabajan escribanos, recaudadores y sacerdotes financieros que administran contratos, deudas y herencias con una eficiencia casi sobrenatural. Los rumores afirman que algunos de sus empleados más antiguos continúan desempeñando sus funciones incluso después de la muerte.
+
+Para muchos es una institución respetable y necesaria. Para otros, una trampa elegante donde cada favor tiene un precio oculto. Lo único seguro es que los Orzhov siempre llevan las cuentas al día.
+
+
+### Orfanato de Santa Alisande [Dimir]
+Personatges: Padre Messiah Marcolin
+Descripció: El Orfanato de Santa Alisande es una institución modesta pero sorprendentemente bien gestionada que acoge a huérfanos y niños sin recursos del Aventino. Sus cuidadores son atentos, la educación es buena y rara vez faltan alimentos o materiales, algo que muchos vecinos consideran casi milagroso.
+
+A lo largo de los años, numerosos jóvenes han abandonado el orfanato para ocupar puestos respetables o encontrar oportunidades lejos del barrio. Curiosamente, pocos regresan y resulta difícil seguirles la pista.
+
+Para la mayoría de los habitantes del Aventino es simplemente un refugio para quienes más lo necesitan. Sin embargo, quienes han pasado por sus aulas suelen compartir ciertas cualidades: discreción, buena memoria y una notable capacidad para escuchar sin llamar la atención. En una ciudad como Ravnica, no son habilidades que pasen desapercibidas.
+Conflicte: Selesnya
+
+### Barracones Boros [Boros — INACTIU]
+Conflicte: Dimir
+Notes DM: Sacralizar [Hallow]
+
+## OBJECTES
+
+### Notas de Laboratorio [Manjatan]
+Descripció: Fajo desordenado de notas de laboratorio encontradas en la C mara de Crecimiento Simic. Est n principalmente redactadas en Vedalken y Trit n, aunque contiene notas en caracteres extra os escritos apresuradamente de forma enajenada y ca tica que no reconoces. Su contenido revela que recientes acontecimientos han permitido realizar grandes avances en el campo de la gesti n, control y regeneraci n de tejidos ex nimes mediante la infusi n de mana azul en metales no disponibles hasta la fecha (art culo pendiente de revisi n por parte de los responsables del Zonot). Tras aplicar Comprensi n idiom tica : los caracteres extra os siguen sin ser reconocibles, pero parece que el metal azul tiene propiedades nigromanticas.
+
+### Informe para el Juez de Manjatan [Marchena]
+Descripció: Fajo desordenado de notas de laboratorio encontradas en la C mara de Crecimiento Simic. Est n principalmente redactadas en Vedalken y Trit n, aunque contiene notas en caracteres extra os escritos apresuradamente de forma enajenada y ca tica que no reconoces. Su contenido revela que recientes acontecimientos han permitido realizar grandes avances en el campo de la gesti n, control y regeneraci n de tejidos ex nimes.
+
+### Espada de la Venganza [mpsh5o3tg6lulv]
+Descripció: ### Arma maldita — Espada bastarda +1 golpeadora
+ 
+---
+ 
+**Nivel del objeto** 6
+**Precio** —  *(no está en venta; no puede venderse voluntariamente)*
+**Peso** 1 Volumen (2 manos) / Versátil (1 mano)
+**Rasgos** Maldita, Versátil P, Dos manos d12
+ 
+---
+ 
+## Estadísticas de arma
+ 
+| Daño base | Dado | Tipo | Rasgos |
+|-----------|------|------|--------|
+| 2d8 | d8 | Corte | Versátil P, Dos manos d12 |
+ 
+*La runa +1 golpeadora añade un dado de daño adicional (2d8 total).*
+ 
+---
+ 
+## Descripción
+ 
+Una espada bastarda sin inscripciones, sin marca gremial, sin historia conocida. La hoja tiene un peso que no corresponde a su tamaño, y quienes la han empuñado durante tiempo suficiente dicen que a veces se mueve antes de que ellos hayan decidido moverse.
+ 
+Nadie recuerda a quién pertenecía. El arma parece que sí.
+ 
+---
+ 
+## Maldición — *Sed de combate*
+ 
+**Activación** Automática, inicio de cada turno en combate cuando hay al menos un enemigo en rango de alcance.
+ 
+**Efecto:** El portador debe superar una **tirada de Voluntad CD 22**.
+ 
+> **Éxito o éxito crítico:** Sin efecto. El portador actúa con normalidad.
+ 
+> **Fracaso:** La primera acción del turno debe ser un **Strike** con esta arma contra el enemigo más cercano. El portador puede elegir libremente sus acciones restantes.
+ 
+> **Fracaso crítico:** Todas las acciones del turno deben ser **Strikes** con esta arma. Si no hay enemigos accesibles, puede atacar a aliados. El portador no puede usar acciones de movimiento, hechizos ni reacciones ese turno.
+ 
+---
+ 
+## Capacidad especial — *Redirección*
+ 
+Una vez por combate, si el portador fuera a atacar a un **aliado** como resultado de un fracaso crítico de la maldición, puede **redirigir el ataque** a cualquier enemigo visible en ese momento.
+ 
+El ataque sigue siendo obligatorio. Solo cambia el objetivo.
+ 
+---
+ 
+## Vínculo maldito
+ 
+El arma **no puede soltarse voluntariamente** mientras el portador esté en combate. Intentarlo requiere una acción y superar una **tirada de Voluntad CD 22**. Fuera de combate, puede guardarse con normalidad.
+ 
+Si el portador cae inconsciente, el arma puede recogerse sin restricción.
+ 
+---### Arma maldita — Espada bastarda +1 golpeadora
+ 
+---
+ 
+**Nivel del objeto** 6
+**Precio** —  *(no está en venta; no puede venderse voluntariamente)*
+**Peso** 1 Volumen (2 manos) / Versátil (1 mano)
+**Rasgos** Maldita, Versátil P, Dos manos d12
+ 
+---
+ 
+## Estadísticas de arma
+ 
+| Daño base | Dado | Tipo | Rasgos |
+|-----------|------|------|--------|
+| 2d8 | d8 | Corte | Versátil P, Dos manos d12 |
+ 
+*La runa +1 golpeadora añade un dado de daño adicional (2d8 total).*
+ 
+---
+ 
+## Descripción
+ 
+Una espada bastarda sin inscripciones, sin marca gremial, sin historia conocida. La hoja tiene un peso que no corresponde a su tamaño, y quienes la han empuñado durante tiempo suficiente dicen que a veces se mueve antes de que ellos hayan decidido moverse.
+ 
+Nadie recuerda a quién pertenecía. El arma parece que sí.
+ 
+---
+ 
+## Maldición — *Sed de combate*
+ 
+**Activación** Automática, inicio de cada turno en combate cuando hay al menos un enemigo en rango de alcance.
+ 
+**Efecto:** El portador debe superar una **tirada de Voluntad CD 22**.
+ 
+> **Éxito o éxito crítico:** Sin efecto. El portador actúa con normalidad.
+ 
+> **Fracaso:** La primera acción del turno debe ser un **Strike** con esta arma contra el enemigo más cercano. El portador puede elegir libremente sus acciones restantes.
+ 
+> **Fracaso crítico:** Todas las acciones del turno deben ser **Strikes** con esta arma. Si no hay enemigos accesibles, puede atacar a aliados. El portador no puede usar acciones de movimiento, hechizos ni reacciones ese turno.
+ 
+---
+ 
+## Capacidad especial — *Redirección*
+ 
+Una vez por combate, si el portador fuera a atacar a un **aliado** como resultado de un fracaso crítico de la maldición, puede **redirigir el ataque** a cualquier enemigo visible en ese momento.
+ 
+El ataque sigue siendo obligatorio. Solo cambia el objetivo.
+ 
+---
+ 
+## Vínculo maldito
+ 
+El arma **no puede soltarse voluntariamente** mientras el portador esté en combate. Intentarlo requiere una acción y superar una **tirada de Voluntad CD 22**. Fuera de combate, puede guardarse con normalidad.
+ 
+Si el portador cae inconsciente, el arma puede recogerse sin restricción.
+ 
+---
+Notes DM: - La CD 22 es intencionadamente alta para nivel 6: el efecto debe activarse con frecuencia.
+- El fracaso crítico es raro pero dramático; resérvalo para momentos de tensión narrativa.
+- La redirección es el "salvavidas" del jugador: una válvula de escape que evita frustración sin eliminar el riesgo.
+- El arma puede tener consciencia latente (Ego item, GMG) si la campaña lo requiere más adelante.
+
+
+### Deposito común en el Santísimo Banco Sindical Orzhov [Compartido]
+Descripció: ### Cuenta colectiva nº 7.441-Ω · Precinto IV · Aventino
+ 
+---
+ 
+> *"Sus bienes están seguros con nosotros.*
+> *Sus bienes, de hecho, están más seguros aquí que con ustedes."*
+> — Bienvenida estándar a nuevos depositantes, Sindicato Orzhov
+ 
+---
+ 
+## Sobre el depósito
+ 
+El Santísimo Banco Sindical gestiona esta cuenta bajo los términos del **Contrato de Custodia Colectiva (Formulario 14-Ω)**, firmado en presencia de un ministrant certificado y vinculante para todos los titulares presentes y futuros.
+ 
+El Sindicato garantiza la integridad de los fondos depositados mediante sellos mágicos de quinta generación, vigilancia espectral permanente y la disuasión implícita que supone robarle algo a una organización que lleva las cuentas más allá de la muerte.
+ 
+Las **comisiones de mantenimiento** se aplican trimestralmente. Consúltese el Apéndice de Tarifas Vigentes (disponible en ventanilla, formato físico únicamente, no se dan copias).
+ 
+---
+ 
+## Estado actual de la cuenta
+ 
+### 💰 Fondos en metálico
+ 
+| Titular | Moneda | Cantidad | Equivalencia en gp |
+|---------|--------|----------|--------------------|
+| (A) | Monedas de cobre | 8.650 cp | 86,5 gp |
+| (O) | Monedas de cobre | 22.950 cp | 229,5 gp |
+| (A) | Monedas de electro | 262 ep | 131 gp |
+| (B) | Monedas de oro | 557 gp | 557 gp |
+ 
+**Total estimado en oro:** ~1.004 gp
+ 
+> *Nota del banco: el cambio de electro a otras divisas está sujeto a una comisión del 3%. El Sindicato no se hace responsable de las fluctuaciones del mercado de electro, que son frecuentes, inexplicables y, según algunos, deliberadas.*
+ 
+---
+ 
+### 🏺 Objetos en custodia
+ 
+| Objeto | Valor estimado | Notas |
+|--------|---------------|-------|
+| Cáliz de cobre con filigrana de plata | 25 gp | Pieza decorativa. El cobre está ligeramente oxidado en la base. |
+| Relicario de oro con retrato pintado (×2) | 25 gp c/u | Retratos de personas no identificadas. El marco del segundo tiene una pequeña mella. |
+| Set de dados de hueso grabados | 25 gp | Doce piezas. Todos los grabados son correctos. El banco no certifica que no estén cargados. |
+| Espejo pequeño con marco de madera pintada | 25 gp | La pintura del marco representa escenas de caza menores. Sin propiedades mágicas detectadas. |
+ 
+**Valor total de objetos:** 100 gp
+ 
+---
+ 
+### 📊 Resumen
+ 
+| Concepto | Valor |
+|----------|-------|
+| Fondos en metálico | ~1.004 gp |
+| Objetos en custodia | 100 gp |
+| **Total aproximado** | **~1.104 gp** |
+ 
+---
+ 
+## Condiciones del depósito
+ 
+- Los fondos pueden retirarse por cualquier titular acreditado mediante presentación del **Sello de Cuenta** y verificación ante notario espectral.
+- Las retiradas superiores a 200 gp requieren **preaviso de 48 horas** y la firma de al menos dos titulares.
+- El Sindicato se reserva el derecho de **retener temporalmente** cualquier fondo en caso de deuda pendiente de alguno de los titulares con cualquier entidad Orzhov, incluyendo deudas heredadas, deudas espirituales y deudas generadas por ancestros en los últimos tres siglos.
+- En caso de fallecimiento de un titular, sus fondos y participaciones **no se disuelven**. Pasan a formar parte de su patrimonio espiritual y seguirán siendo administrados por el Sindicato bajo las condiciones del **Contrato Postmortem Estándar**.
+---
+ 
+*Cuenta auditada y sellada · Banco Sindical Orzhov, Precinto IV*
+*"El deudor descansa. La deuda, no."*
+
+### Correo Misterioso [mpsh5o3tg6lulv]
+Descripció: "He estado ausente durante muchas lunas, hubo contratiempos inesperados. Explica qu  es lo que necesitas." - Firmado: Un aliado discreto. -------------------------------------------- 12/XII/21 Ocurren cosas que me afectan indirecta y directamente. Tengo enemigos por todas partes y necesito tus servicios: - Un hermano goblin esta desaparecido. necesito saber que ha sido de  l. se encuentra en la calle de hojalata [doy informacion] . - Cierto goblin esta ocasionando el malestar entre gremios... necesito saber de  l .[explico datos e informacion y sobretodo doy el nombre de arkady para ver si puede relacionarlos]. Necesito nombres para interrogar... y no sera solo con palabras. - Grukurg ha sido enga ado y presuntamente estafado. capataz 2 dice haber visto alguien , apodado " el fantasma ". necesito informaci n, datos... se que abunda el mana negro en el acto de aquel dia.[ explico el caso del prestamista y que empiece por su circulo]. - Pesha... quiero saber de su pasado. Que vida llev , quien era antes de ser la posadera del cuerno de oro.y sobretodo ... que objeto le podria gustar. Favor por favor. La confianza debe de ser mutua. Ayudame y la mano de la justicia estara de tu lado. 13/XII/21 Investigar  estos datos que me comentas sobre Arkady y Pesha y el Goblin desaparecido. Sobre el fantasma: Es un misterioso y poderoso ente, y su misterio s lo es comparable a su poder. Puede ser una figura clave para el futuro o un mero espectador, no sabemos cual es su prop sito a n. No parece estar relacionado con la presunta estafa. 28/II/2022 No necesito que busques al goblin ... cierto amigo ya me ha ayudado en encontrar su paradero. Tenia familia.B scala. Estar  retenida en algun lado, por miembros de mi orden, si los tienen la chusma de tajik o de algun colaborador .Dame una pista fiable, un lugar...solo pido eso para poder emmendar mi falta y empezar con mi venganza... 03/III/2022 Fue muy fortuito que alguien le diera a tu amigo la indicaci n correcta y la motivaci n d nde buscar a tu amigo. Pronto el viento susurrar  alguna otra pista.
+
+### Bandera Trofeo del Basilisco [mpsh5o3tg6lulv]
+Descripció: ---
+ 
+**Nivel del objeto** 4
+**Precio** 100 gp *(no está en venta; trofeo personal)*
+**Peso** 1 Volumen
+**Rasgos** Trofeo, Visual, Miedo
+ 
+---
+ 
+## Descripción
+ 
+Un asta de madera oscura rematada con la cabeza disecada de un basilisco. Los ojos del animal, tratados con resinas especiales, conservan un brillo pétreo que incomoda a quienes los miran demasiado tiempo. La bandera que cuelga bajo la cabeza lleva la marca de la Legión Boros: el portador mató a esta bestia, y la bestia era grande.
+ 
+No hace falta decir nada. La bandera habla sola.
+ 
+---
+ 
+## Efecto pasivo — *Reputación de combate*
+ 
+Mientras la bandera esté visible y no estés en combate activo, obtienes un **bonificador de objeto +1** a las tiradas de **Intimidación** y **Diplomacia** con criaturas que puedan verla y que conozcan qué es un basilisco o reconozcan una marca de guerra Boros.
+ 
+---
+ 
+## Activación — *La Mirada del Basilisco*
+ 
+**Frecuencia** Una vez por día
+**Acción** Acción única ◆
+**Requisito** La bandera debe estar visible. Debe haber al menos un enemigo a 9 metros que pueda verte.
+ 
+**Efecto:** Alzas la bandera y la mirada pétrea del basilisco se dirige hacia un enemigo objetivo. El objetivo debe superar una **tirada de Voluntad CD 18**.
+ 
+> **Éxito:** Sin efecto.
+> **Fracaso:** El objetivo queda **Asustado 1** hasta el inicio de su siguiente turno.
+> **Fracaso crítico:** El objetivo queda **Asustado 2** y pierde su reacción hasta el inicio de su siguiente turno.
+ 
+---
+ 
+## Limitaciones
+ 
+- La bandera ocupa una mano. Mientras se empuña no puede usarse esa mano para atacar ni para agarrar un escudo.
+- Si el portador cae inconsciente o suelta la bandera voluntariamente, el efecto pasivo desaparece hasta que vuelva a portarla.
+- El efecto de *La Mirada del Basilisco* no funciona contra criaturas ciegas o que no puedan procesar estímulos visuales.
+---
+Notes DM: ## Notas para el DM
+ 
+- El bonificador pasivo es situacional por diseño: requiere que el interlocutor vea la bandera y sepa qué significa. En contextos urbanos cotidianos puede no activarse.
+- La activación es una herramienta táctica menor pensada para crear aperturas, no para ser el eje del combate.
+- El objeto puede evolucionar narrativamente: si Wundyr hace algo especialmente notable, la reputación de la bandera podría crecer y aumentar la CD o la frecuencia de uso.
+---
+
+### Goblin Moñeco [Yarog (HorseLuis)]
+Descripció: **Nivel del objeto** 4
+**Precio** — *(reliquia; no puede comprarse ni venderse)*
+**Peso** 1 Volumen
+**Rasgos** Reliquia, Carisma, Aura gremial
+ 
+---
+ 
+## Descripción
+ 
+Lo que queda de Kasz es, técnicamente, un cadáver semimomificado de goblin en posición de meditación. Lo que queda de Kasz es, en la práctica, algo considerablemente más complicado.
+ 
+Tras una noche de circunstancias no del todo esclarecidas, el espíritu de Kasz trascendió su cuerpo y alcanzó cotas de iluminación cósmica reservadas normalmente a gurús, sabios y gente con mejor suerte. Nadie sabe si su alma está en el cielo o en el infierno. Su cuerpo, sin embargo, sigue aquí, semi-momificado, y ha adquirido propiedades que ningún tratado de magia explica satisfactoriamente.
+ 
+Sus seguidores lo adoran. Su portador lo lleva con una mezcla de reverencia y vergüenza ajena. Ambas actitudes son razonables.
+ 
+---
+ 
+## Efecto pasivo — *Afinidad gremial*
+ 
+La reliquia detecta mágicamente la afinidad gremial de las criaturas cercanas y reacciona en consecuencia. Mientras portes el Goblin Moñeco visible, tus tiradas de **Diplomacia, Intimidación, Engaño y Actuación** se ven modificadas por la relación entre tu gremi y el del objetivo:
+ 
+| Relación gremial | Efecto |
+|-----------------|--------|
+| El gremio del objetivo **comparte al menos un color de maná** con tu gremio | **+1 de circunstancia** a la tirada |
+| El gremio del objetivo **no comparte ningún color de maná** con tu gremio | **−1 de circunstancia** a la tirada |
+| El objetivo **no tiene afiliación gremial** | Sin efecto |
+ 
+*Ejemplo para Yarog (Gruul — Rojo/Verde): obtiene +1 ante Boros, Rakdos, Izzet, Golgari, Selesnya y Simic; y −1 ante Azorius, Dimir y Orzhov.*
+ 
+---
+ 
+## Activación — *La bendición del Moñeco*
+ 
+**Frecuencia** Una vez por día
+**Acción** Acción única ◆
+**Requisito** El Goblin Moñeco debe estar visible. El portador debe pronunciar el nombre de Kasz en voz alta.
+ 
+**Efecto:** Durante los próximos 10 minutos, el bonificador de circunstancia por afinidad gremial sube a **+2** en lugar de +1 para todas las tiradas de Carisma afectadas.
+ 
+---
+ 
+## Limitaciones
+ 
+- El objeto debe estar **visible** para que el efecto pasivo funcione. Guardarlo en una bolsa o mochila suspende el efecto.
+- El modificador se aplica **solo ante la presencia física del objetivo**: no funciona en correspondencia escrita ni a través de intermediarios.
+- Si el portador falla críticamente una tirada de Carisma mientras porta el Moñeco, debe superar una **tirada de Voluntad CD 14** o quedar **Avergonzado 1** durante 1 minuto. El Moñeco no aprueba las actuaciones deficientes.
+---
+Notes DM: - La tabla de colores hace el objeto **mecánicamente asimétrico según el personaje**: para Yarog es beneficioso ante 6 de los 10 gremis y perjudicial ante 3. Para otros PJs los números cambiarían.
+- El efecto negativo ante gremios sin color compartido da **peso a las interacciones con Azorius, Dimir y Orzhov**, que ya son los gremios más hostiles al Gruul narrativamente.
+- La penalización de fracaso crítico es un guiño cómico al espíritu de Kasz: la reliquia tiene carácter propio.
+- Si en algún momento Kasz regresa de alguna forma, el objeto puede evolucionar o dejar de funcionar.
+---
