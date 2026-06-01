@@ -30,6 +30,22 @@ Quan els canvis siguin aprovats, fer merge a `main` i esborrar el branch.
 
 ---
 
+## 0. Workflow de definició (OBLIGATORI — SEMPRE ABANS DE CODIFICAR)
+
+**Cap canvi de codi sense aprovació explícita de l'usuari.** El flux és sempre:
+
+1. **Entendre la petició** — Si no és completament clara, fer les preguntes necessàries per clarificar abast, casos límit i comportament esperat.
+2. **Proposar la implementació** — Descriure en text (sense tocar cap fitxer) exactament:
+   - Quins fitxers es modificaran i per què
+   - Quina lògica s'implementarà, incloent-hi casos límit identificats
+   - Quina versió bump correspon i per què
+3. **Esperar el go explícit** — No fer cap edició, build ni commit fins que l'usuari digui explícitament que pot procedir (p.ex. "endavant", "ok", "fes-ho").
+4. **Iterar si cal** — Si l'usuari refina o corregeix la proposta, tornar al pas 2 amb la nova definició. Mai procedir amb dubtes oberts.
+
+> **Regla absoluta:** Un "sembla bé" o silenci NO és un go. Cal una confirmació explícita. Qualsevol canvi fet sense go previ és un error de procés.
+
+---
+
 ## 1. Workflow de versions i commits (OBLIGATORI)
 
 Cada canvi de codi segueix aquest ordre **sempre**, sense excepcions:
