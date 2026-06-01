@@ -220,7 +220,7 @@ Al final de cada sessió, proposar tots els handouts, objectes, documents o tres
 ```
 
 Criteris:
-- Incloure **sempre** els documents que els PJs hagin obtingut com a props físics
+- Incloure **sempre** els documents que els PJs hagin obtingut com a props físics, pero no les cartes o missatges
 - Proposar objectes nous només si han aparegut narrativament o si hi ha una oportunitat clara
 - Les notes del DM han d'indicar si l'objecte pot ser usat com a lever narratiu futur
 - Per a objectes màgics, consultar sempre https://2e.aonprd.com/Equipment.aspx i indicar el nivell de l'objecte
