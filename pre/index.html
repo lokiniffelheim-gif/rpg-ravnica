@@ -125,13 +125,13 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.18.7";const BUILD_HASH="cca91dd";
+const VERSION="4.19.7";const BUILD_HASH="13e21cd";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
 function applyTheme(name){const p=PALETTES[name];GOLD=p.GOLD;BG=p.BG;BG2=p.BG2;BG3=p.BG3;BORDER=p.BORDER;localStorage.setItem("rv-theme",name);const dark=name==="dark";const v=dark?{"--bg":"#0e0d0b","--bg2":"#1a1814","--bg3":"#242018","--bg-body":"#0a0908","--gold":"#9b2020","--gold-dark":"#7a1010","--gold-text":"#e8dcc8","--border":"#3a3028","--border2":"#4a3a28","--text":"#e8dcc8","--text2":"#a09070","--text3":"#9a8060","--hover":"#2a2420","--check-hover":"#2a2420","--check-bg":"#242018","--setup-bg":"#1a1814","--input-ph":"#9a8060"}:{"--bg":"#ffffff","--bg2":"#f8f3ea","--bg3":"#f0e8d8","--bg-body":"#f0e4cc","--gold":"#8b1c1c","--gold-dark":"#6a1010","--gold-text":"#f5e8cc","--border":"#c0945a","--border2":"#a08050","--text":"#1a0a04","--text2":"#5a3820","--text3":"#7a5030","--hover":"#e8d8b8","--check-hover":"#c0a878","--check-bg":"#f5e8cc","--setup-bg":"#ede0b8","--input-ph":"#5a3820"};Object.entries(v).forEach(([k,val])=>document.documentElement.style.setProperty(k,val));}
 const FB_CONFIG={apiKey:"AIzaSyAXqDBZ0HDgFpfsO-2F9VOnmtf8RzL3UiI",authDomain:"app-ravnica.firebaseapp.com",projectId:"app-ravnica",storageBucket:"app-ravnica.firebasestorage.app",messagingSenderId:"654282926092",appId:"1:654282926092:web:501b8a63e7e4db1f366629"};
-const TABS=[{id:"aventino",icon:"🗺",label:"Aventino"},{id:"lugares",icon:"🏛",label:"Lugares"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
+const TABS=[{id:"aventino",icon:"📰",label:"Noticias"},{id:"mapa",icon:"🗺",label:"Mapa"},{id:"chars",icon:"👤",label:"Personajes"},{id:"handouts",icon:"📜",label:"Objetos"},{id:"gremios",icon:"⚜",label:"Gremios"},{id:"sesiones",icon:"📖",label:"Sesiones",dm:true}];
 
 let db=null,auth=null,storage=null;
 async function initFirebase(cfg){
@@ -826,10 +826,115 @@ function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
   </div>);
 }
 
+const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.png",decimo:"assets/img/mapa/decimo-distrito.png"};
+const MAP_SUB_TABS=[{id:"decimo",label:"Décimo Distrito"},{id:"cuarto",label:"Cuarto Precinto"},{id:"aventino",label:"Aventino"}];
+
+function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef,onNavigate}){
+  const [hov,setHov]=useState(false);
+  const [showTip,setShowTip]=useState(false);
+  const c=GC[pin.gremi]||GOLD;
+  const lbl=guildLabel(pin.gremi||"Guildless");
+  const ps=guildPillStyle(pin.gremi||"Guildless");
+  const mc=GUILD_MANA[pin.gremi||"Guildless"]||["C"];
+  const c1=MANA_HEX[mc[0]]||"#C6C5C5",c2=MANA_HEX[mc[1]||mc[0]]||c1;
+  const pinBg=`linear-gradient(to right,${c1}cc,${c2}cc)`;
+  const handleMouseDown=(e)=>{
+    if(!editMode)return;
+    e.preventDefault();e.stopPropagation();
+    const sx=e.clientX,sy=e.clientY;let moved=false;
+    const onMove=ev=>{if(!moved&&(Math.abs(ev.clientX-sx)>6||Math.abs(ev.clientY-sy)>6))moved=true;};
+    const onUp=ev=>{document.removeEventListener("mousemove",onMove);document.removeEventListener("mouseup",onUp);if(moved)onDragEnd(pin.id,ev);};
+    document.addEventListener("mousemove",onMove);document.addEventListener("mouseup",onUp);
+  };
+  const handleClick=(e)=>{e.stopPropagation();if(editMode){onEdit(pin);return;}if(pin.itemId&&onNavigate){onNavigate(pin.itemId);return;}setShowTip(s=>!s);};
+  return(<div style={{position:"absolute",left:pin.x+"%",top:pin.y+"%",transform:"translate(-50%,-50%)",zIndex:10,cursor:editMode?"grab":"pointer"}} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>{setHov(false);if(!editMode)setShowTip(false);}} onClick={handleClick} onMouseDown={handleMouseDown}>
+    <div style={{width:hov||editMode?22:18,height:hov||editMode?22:18,borderRadius:"50%",background:`${pinBg} padding-box,linear-gradient(to right,${c1},${c2}) border-box`,border:"2px solid transparent",boxShadow:(hov||editMode)?"0 0 8px "+c+"aa":"0 1px 4px #000a",transition:"all .15s",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",gap:1}}>
+      <span style={{fontSize:hov||editMode?9:7,lineHeight:1,color:"#fff",textShadow:"0 1px 2px #000a",userSelect:"none"}}>{lbl.pre}</span>
+      {lbl.post&&<span style={{fontSize:hov||editMode?9:7,lineHeight:1,color:"#fff",textShadow:"0 1px 2px #000a",userSelect:"none"}}>{lbl.post}</span>}
+      {editMode&&<button onClick={e=>{e.stopPropagation();onDelete(pin.id);}} style={{position:"absolute",top:-8,right:-8,background:"#c43030",border:"none",borderRadius:"50%",width:16,height:16,fontSize:10,color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}}>×</button>}
+    </div>
+    {(hov||showTip)&&(()=>{const ps=guildPillStyle(pin.gremi||"Guildless");return(<div style={{position:"absolute",bottom:"calc(100% + 7px)",left:"50%",transform:"translateX(-50%)",background:ps.background,border:ps.border,borderRadius:6,padding:showTip?"8px 12px":"4px 10px",minWidth:showTip?140:0,maxWidth:220,boxShadow:"0 4px 16px #000a",zIndex:20,pointerEvents:"none",whiteSpace:showTip?"normal":"nowrap"}}>
+      {pin.nom&&<div style={{fontFamily:"'Metamorphous',serif",fontSize:showTip?15:13,color:c,marginBottom:showTip&&pin.descripcio?4:0}}>{pin.nom}</div>}
+      {showTip&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:14,color:"var(--text)",lineHeight:1.4}}>{pin.descripcio}</div>}
+      {!pin.nom&&!showTip&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:13,color:"var(--text)"}}>{pin.descripcio}</div>}
+    </div>);})()}
+  </div>);
+}
+
+function MapaInteractiu({mapa,isDM,edificis,onNavToEdifici}){
+  const [pins,setPins]=useState([]);
+  const [editMode,setEditMode]=useState(false);
+  const [pinModal,setPinModal]=useState(null);
+  const [form,setForm]=useState({nom:"",descripcio:"",gremi:"Guildless",itemId:""});
+  const [saving,setSaving]=useState(false);
+  const containerRef=useRef(null);
+  useEffect(()=>{
+    setPins([]);setEditMode(false);
+    if(!db)return;
+    const unsub=db.collection("map_pins").where("mapa","==",mapa).onSnapshot(
+      snap=>setPins(snap.docs.map(d=>({id:d.id,...d.data()}))),()=>setPins([])
+    );
+    return()=>unsub();
+  },[mapa]);
+  const getPos=(e)=>{const rect=containerRef.current.getBoundingClientRect();return{x:parseFloat(((e.clientX-rect.left)/rect.width*100).toFixed(2)),y:parseFloat(((e.clientY-rect.top)/rect.height*100).toFixed(2))};};
+  const onMapClick=(e)=>{if(!editMode||!containerRef.current)return;const pos=getPos(e);setForm({nom:"",descripcio:"",gremi:"Guildless",itemId:""});setPinModal({mode:"create",x:pos.x,y:pos.y});};
+  const savePin=async()=>{if(!form.nom.trim()&&!form.descripcio.trim()||!db)return;setSaving(true);const data={mapa,nom:form.nom.trim(),descripcio:form.descripcio.trim(),gremi:form.gremi,itemId:form.itemId||""};try{if(pinModal.mode==="create"){await db.collection("map_pins").add({...data,x:pinModal.x,y:pinModal.y});}else{await db.collection("map_pins").doc(pinModal.pin.id).update(data);}setPinModal(null);}finally{setSaving(false);}};
+  const deletePin=async(id)=>{if(!db||!window.confirm("Eliminar aquest punt d'interès?"))return;await db.collection("map_pins").doc(id).delete();};
+  const movePin=async(id,e)=>{if(!db||!containerRef.current)return;const pos=getPos(e);await db.collection("map_pins").doc(id).update({x:Math.max(0,Math.min(100,pos.x)),y:Math.max(0,Math.min(100,pos.y))});};
+  const imgSrc=MAP_IMGS[mapa];
+  return(<div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
+    {isDM&&<div style={{flexShrink:0,padding:"6px 12px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:12,justifyContent:"flex-end"}}>
+      {editMode&&<span style={{fontSize:12,color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic",flex:1}}>Clic al mapa per afegir · Arrossega per moure · × per eliminar</span>}
+      <button onClick={()=>setEditMode(e=>!e)} style={{fontSize:13,padding:"4px 14px",border:"1px solid "+(editMode?GOLD:BORDER),borderRadius:3,background:editMode?GOLD+"22":"transparent",color:editMode?GOLD:"var(--text2)",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em"}}>{editMode?"✓ EDITANT":"✏ EDITAR MAPA"}</button>
+    </div>}
+    <div style={{flex:1,overflow:"auto",display:"flex",alignItems:"flex-start",justifyContent:"center",padding:16}}>
+      {!imgSrc?<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontSize:18,marginTop:60,opacity:.6}}>Mapa no disponible.</p>
+      :<div ref={containerRef} style={{position:"relative",display:"inline-block",cursor:editMode?"crosshair":"default",userSelect:"none"}} onClick={onMapClick}>
+        <img src={imgSrc} alt={mapa} style={{display:"block",maxWidth:"100%",maxHeight:"calc(100vh - 200px)",objectFit:"contain"}} draggable={false}/>
+        {pins.map(pin=><MapPin key={pin.id} pin={pin} editMode={editMode} isDM={isDM} onEdit={p=>{setForm({nom:p.nom,descripcio:p.descripcio||"",gremi:p.gremi||"Guildless",itemId:p.itemId||""});setPinModal({mode:"edit",pin:p});}} onDelete={deletePin} onDragEnd={movePin} containerRef={containerRef} onNavigate={onNavToEdifici}/>)}
+      </div>}
+    </div>
+    {pinModal&&ReactDOM.createPortal(
+      <div onClick={()=>setPinModal(null)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.6)",zIndex:9999,display:"flex",alignItems:"center",justifyContent:"center"}}>
+        <div onClick={e=>e.stopPropagation()} style={{background:BG2,border:"1px solid "+BORDER,borderRadius:6,padding:"20px 24px",minWidth:300,maxWidth:400,boxShadow:"0 8px 32px #000a"}}>
+          <div style={{fontFamily:"'Metamorphous',serif",fontSize:18,color:GOLD,marginBottom:14,letterSpacing:".08em"}}>{pinModal.mode==="create"?"NOU PUNT D'INTERÈS":"EDITAR PUNT"}</div>
+          <div style={{display:"flex",flexDirection:"column",gap:10}}>
+            <input autoFocus placeholder="Nom..." value={form.nom} onChange={e=>setForm(f=>({...f,nom:e.target.value}))} onKeyDown={e=>e.key==="Enter"&&savePin()} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:17,outline:"none"}}/>
+            <textarea placeholder="Descripció..." value={form.descripcio} onChange={e=>setForm(f=>({...f,descripcio:e.target.value}))} rows={3} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:16,outline:"none",resize:"vertical"}}/>
+            <select value={form.gremi} onChange={e=>setForm(f=>({...f,gremi:e.target.value}))} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'Metamorphous',serif",fontSize:15,outline:"none"}}>
+              {AG.map(g=><option key={g} value={g}>{g}</option>)}
+            </select>
+            <select value={form.itemId} onChange={e=>setForm(f=>({...f,itemId:e.target.value}))} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:15,outline:"none"}}>
+              <option value="">— Sense vinculació a Aventino —</option>
+              {(edificis||[]).sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=><option key={e.id} value={e.id}>{e.nom}</option>)}
+            </select>
+            <div style={{display:"flex",gap:8,justifyContent:"flex-end",marginTop:4}}>
+              <button onClick={()=>setPinModal(null)} style={{padding:"6px 16px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"var(--text2)",cursor:"pointer",fontFamily:"'Metamorphous',serif",fontSize:15}}>Cancel·lar</button>
+              <button onClick={savePin} disabled={saving||(!form.nom.trim()&&!form.descripcio.trim())} style={{padding:"6px 16px",border:"1px solid "+GOLD,borderRadius:3,background:GOLD+"22",color:GOLD,cursor:"pointer",fontFamily:"'Metamorphous',serif",fontSize:15,opacity:((!form.nom.trim()&&!form.descripcio.trim())||saving)?.5:1}}>{saving?"...":"Desar"}</button>
+            </div>
+          </div>
+        </div>
+      </div>,document.body)}
+  </div>);
+}
+
+function MapaPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar,onNavToGremi,onNavToEdifici,user,subTab,setSubTab}){
+  useEffect(()=>{if(navTarget)setSubTab("aventino");},[navTarget]);
+  return(<div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
+    <div style={{flexShrink:0,display:"flex",borderBottom:"1px solid "+BORDER,background:BG2,padding:"0 12px"}}>
+      {MAP_SUB_TABS.map(t=><button key={t.id} onClick={()=>setSubTab(t.id)} style={{padding:"8px 16px",fontSize:12,border:"none",borderBottom:"2px solid "+(subTab===t.id?GOLD:"transparent"),background:"transparent",color:subTab===t.id?GOLD:"var(--text2)",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".06em",transition:"all .15s"}}>{t.label.toUpperCase()}</button>)}
+    </div>
+    {subTab==="aventino"
+      ?<LugaresPanel edificis={edificis} onUpdate={onUpdate} onNew={onNew} sel={sel} onSelect={onSelect} isMob={isMob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={isPlayer} playerName={playerName} chars={chars} navTarget={navTarget} onNavToChar={onNavToChar} onNavToGremi={onNavToGremi}/>
+      :<MapaInteractiu mapa={subTab} isDM={user.rol==="dm"} edificis={edificis} onNavToEdifici={onNavToEdifici}/>}
+  </div>);
+}
+
 function App({user,onUsersPanel}){
   const [dark,setDark]=useState(()=>{const t=localStorage.getItem("rv-theme")||"light";applyTheme(t);return t==="dark";});
   const toggleTheme=()=>{const next=dark?"light":"dark";applyTheme(next);setDark(!dark);};
   const [tab,setTab]=useState("aventino");
+  const [mapSubTab,setMapSubTab]=useState("decimo");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("asc");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
@@ -842,13 +947,13 @@ function App({user,onUsersPanel}){
   const [aventNavTarget,setAventNavTarget]=useState(null);
   const [pendingCharId,setPendingCharId]=useState(null);
   const effectiveUser=useMemo(()=>previewAs?{rol:"jugador",personatge:previewAs,email:"preview",uid:"preview"}:user,[previewAs,user]);
-  const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("lugares");};
+  const enterPreview=p=>{setPreviewAs(p);setShowPreviewSel(false);setSel(null);setShowD(false);setTab("mapa");setMapSubTab("aventino");};
   const navToChar=useCallback(id=>{
     setTab("chars");setQ("");setFilt("all");setSort("asc");setShowD(true);
     setPendingCharId(id);
   },[]);
   const navToEdifici=useCallback(id=>{
-    setTab("lugares");setSel(null);setShowD(false);
+    setTab("mapa");setMapSubTab("aventino");setSel(null);setShowD(false);
     setAventNavTarget({id,key:Date.now()});
   },[]);
   const saveTimer=useRef(null);
@@ -1111,7 +1216,7 @@ function App({user,onUsersPanel}){
     </header>
     <main style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
     {tab==="aventino"?<AventinPanel/>
-    :tab==="lugares"?<LugaresPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} onNavToGremi={navToGremi} style={{position:"relative",zIndex:1}}/>
+    :tab==="mapa"?<MapaPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} onNavToGremi={navToGremi} onNavToEdifici={navToEdifici} user={effectiveUser} subTab={mapSubTab} setSubTab={setMapSubTab}/>
     :tab==="gremios"?<GremiosPanel canSeeDimir={canSeeDimir} isMob={mob} initGremi={gremioTarget} onVolver={prevGremioState?volverDeGremi:null}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}} className="rv-mob-scroll">
