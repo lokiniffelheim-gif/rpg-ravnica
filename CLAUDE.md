@@ -28,6 +28,20 @@ git checkout -b feature/descripcio-breu
 ```
 Quan els canvis siguin aprovats, fer merge a `main` i esborrar el branch.
 
+### Tancament de sessió (OBLIGATORI)
+Quan l'usuari digui "tanquem", "tanca la sessió", "finalitzem" o similar, executar sempre:
+1. `git status` — comprovar que no hi ha res pendent de commit
+2. Si hi ha canvis sense commitar → commitar-los
+3. Merge del branch de treball a `main` i push a producció
+4. Eliminar el branch de treball (local i remot)
+5. Confirmar que `git status` queda net (només fitxers untracked no rellevants com `.txt` d'exportació)
+
+```
+git checkout main && git merge feature/xxx && git push origin main
+git branch -d feature/xxx && git push origin --delete feature/xxx
+git status
+```
+
 ---
 
 ## 0. Workflow de definició (OBLIGATORI — SEMPRE ABANS DE CODIFICAR)
@@ -79,7 +93,7 @@ L'app mostra `#{id}` sota el nom de cada ítem al panell lateral **(només DM)**
 1. Obtenir l'ID de l'ítem des de l'app (`#{id}`)
 2. Posar la imatge a la carpeta correcta amb nom `{id}.{ext}`:
    - chars → `docs/assets/img/personajes/{id}.{ext}`
-   - edificis → `docs/assets/img/Aventino/{id}.{ext}`
+   - edificis → `docs/assets/img/mapa/lugares/{id}.{ext}`
    - handouts → `docs/assets/img/objetos/{id}.{ext}`
 3. Build i commit:
 ```
@@ -103,11 +117,15 @@ git push
 | `docs/assets/data/chars.json` | Dades de personatges (backup local) |
 | `docs/assets/data/edificis.json` | Dades d'edificis (backup local) |
 | `docs/assets/img/personajes/` | Avatars de personatges (nom = ID del registre) |
-| `docs/assets/img/Aventino/` | Imatges d'edificis (nom = ID del registre) |
+| `docs/assets/img/mapa/lugares/` | Imatges d'edificis (nom = ID del registre) |
+| `docs/assets/img/mapa/cuarto-precinto.png` | Mapa interactiu Cuarto Precinto |
+| `docs/assets/img/mapa/decimo-distrito.png` | Mapa interactiu Décimo Distrito (amagat temporalment) |
+| `docs/assets/img/noticias/` | Imatges carousel Noticias (aventino-times_X.Y.ext) |
 | `docs/assets/img/landing/` | Zona d'entrada imatges noves |
 
 ### Pestanyes de l'app
-- **Aventino** — edificis/locacions del districte, filtrats per gremi
+- **Noticias** — carousel Aventino Times (primera pestanya, per defecte)
+- **Mapa** — mapes interactius amb pins; sub-pestanyes: Cuarto Precinto · Aventino
 - **Personajes** — 60+ NPCs + PJs, visibilitat per jugador, tags gremi, avatar
 - **Objetos** — handouts (objectes màgics, documents, recursos)
 - **Gremios** — fitxes .md per cada gremi
@@ -155,7 +173,7 @@ L'app té dos temes: *Pergamí Maleït* (light) i *Cripta Profunda* (dark).
 ## 7. Gestió d'imatges a l'app
 
 - Les imatges dels personatges s'emmagatzemen a `docs/assets/img/personajes/{id}.{ext}`
-- Les imatges dels edificis a `docs/assets/img/Aventino/{id}.{ext}`
+- Les imatges dels edificis a `docs/assets/img/mapa/lugares/{id}.{ext}`
 - Els camps al JSON: `avatar` (chars), `img` (handouts) — `avatarCustom` eliminat (legacy)
 - Edificis: imatge per ID via `IMG_INDEX.edificis[id]` — no hi ha camp al registre Firebase
 - El marc de quadre fantàstic (`.rv-frame`) s'aplica automàticament a totes les imatges de detall
