@@ -110,8 +110,8 @@ function buildImgIndex() {
   }
 
   // Carousel Aventino Times: aventino-times_{acto}.{sessio}.ext — ordena numèricament
-  const aventinoDir = path.join(__dirname, 'docs/assets/img/aventino');
-  const aventinoPrefix = 'assets/img/aventino/';
+  const aventinoDir = path.join(__dirname, 'docs/assets/img/mapa/aventino');
+  const aventinoPrefix = 'assets/img/mapa/aventino/';
   index.aventino = [];
   if (fs.existsSync(aventinoDir)) {
     const aventinoFiles = fs.readdirSync(aventinoDir)
