@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.1";const BUILD_HASH="b98e132";
+const VERSION="4.19.2";const BUILD_HASH="15e4f7e";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -922,7 +922,7 @@ function App({user,onUsersPanel}){
   const [dark,setDark]=useState(()=>{const t=localStorage.getItem("rv-theme")||"light";applyTheme(t);return t==="dark";});
   const toggleTheme=()=>{const next=dark?"light":"dark";applyTheme(next);setDark(!dark);};
   const [tab,setTab]=useState("aventino");
-  const [mapSubTab,setMapSubTab]=useState("cuarto");
+  const [mapSubTab,setMapSubTab]=useState("decimo");
   const [q,setQ]=useState("");const [filt,setFilt]=useState("all");const [sort,setSort]=useState("asc");
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
