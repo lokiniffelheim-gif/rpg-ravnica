@@ -185,6 +185,48 @@ Quan sigui narrativament plausible, proposar tresors, objectes o riqueses adequa
 
 ---
 
+## RESUM DE FETS MEMORABLES (per al diari)
+
+Al final de cada sessió, incloure un bloc amb els **5-8 moments més memorables** de la sessió, redactats com a titulars potencials per a l'Aventino Times. Han de ser:
+- Breus, sarcàstics i en to Pratchett/Zola
+- Útils per recordar els *greatest hits* de la sessió
+- Reflectir tant el que ha passat com el punt de la trama on es troba l'arc
+
+Format:
+
+```
+## RESUM PER AL DIARI — [Títol de la sessió]
+
+- [Titular 1 — fet memorable en clau satírica]
+- [Titular 2]
+- [Titular 3]
+- ...
+
+PUNT DE TRAMA ACTUAL (una frase):
+[On es troba l'arc en aquest moment, de manera que un jugador que no hagi llegit els apunts pugui situar-se en 10 segons]
+```
+
+---
+
+## HANDOUTS, OBJECTES I TRESORS NOUS
+
+Al final de cada sessió, proposar tots els handouts, objectes, documents o tresors nous que han aparegut o podrien aparèixer. Cada entrada ha de contenir:
+
+```
+### [Nom de l'objecte o handout]
+**Tipus:** [Document / Objecte / Arma / Armadura / Objecte màgic / Monedes / Favor / Informació]
+**Descripció:** [Com es veu, com és físicament, de qui és o d'on prové]
+**Notes del DM:** [Valor real, mecànica PF2e si escau, implicacions narratives, a qui pertany, si és perillós tenir-lo]
+```
+
+Criteris:
+- Incloure **sempre** els documents que els PJs hagin obtingut com a props físics
+- Proposar objectes nous només si han aparegut narrativament o si hi ha una oportunitat clara
+- Les notes del DM han d'indicar si l'objecte pot ser usat com a lever narratiu futur
+- Per a objectes màgics, consultar sempre https://2e.aonprd.com/Equipment.aspx i indicar el nivell de l'objecte
+
+---
+
 ## GENERACIÓ DE DOCUMENTS
 
 - Sempre generar els documents de sessió en format **.md**
