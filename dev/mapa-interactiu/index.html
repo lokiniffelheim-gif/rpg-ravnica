@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.6";const BUILD_HASH="131a78c";
+const VERSION="4.19.7";const BUILD_HASH="13e21cd";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -829,7 +829,7 @@ function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
 const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.png",decimo:"assets/img/mapa/decimo-distrito.png"};
 const MAP_SUB_TABS=[{id:"decimo",label:"Décimo Distrito"},{id:"cuarto",label:"Cuarto Precinto"},{id:"aventino",label:"Aventino"}];
 
-function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef}){
+function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef,onNavigate}){
   const [hov,setHov]=useState(false);
   const [showTip,setShowTip]=useState(false);
   const c=GC[pin.gremi]||GOLD;
@@ -846,7 +846,7 @@ function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef}){
     const onUp=ev=>{document.removeEventListener("mousemove",onMove);document.removeEventListener("mouseup",onUp);if(moved)onDragEnd(pin.id,ev);};
     document.addEventListener("mousemove",onMove);document.addEventListener("mouseup",onUp);
   };
-  const handleClick=(e)=>{e.stopPropagation();if(editMode){onEdit(pin);return;}setShowTip(s=>!s);};
+  const handleClick=(e)=>{e.stopPropagation();if(editMode){onEdit(pin);return;}if(pin.itemId&&onNavigate){onNavigate(pin.itemId);return;}setShowTip(s=>!s);};
   return(<div style={{position:"absolute",left:pin.x+"%",top:pin.y+"%",transform:"translate(-50%,-50%)",zIndex:10,cursor:editMode?"grab":"pointer"}} onMouseEnter={()=>setHov(true)} onMouseLeave={()=>{setHov(false);if(!editMode)setShowTip(false);}} onClick={handleClick} onMouseDown={handleMouseDown}>
     <div style={{width:hov||editMode?22:18,height:hov||editMode?22:18,borderRadius:"50%",background:`${pinBg} padding-box,linear-gradient(to right,${c1},${c2}) border-box`,border:"2px solid transparent",boxShadow:(hov||editMode)?"0 0 8px "+c+"aa":"0 1px 4px #000a",transition:"all .15s",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",gap:1}}>
       <span style={{fontSize:hov||editMode?9:7,lineHeight:1,color:"#fff",textShadow:"0 1px 2px #000a",userSelect:"none"}}>{lbl.pre}</span>
@@ -861,11 +861,11 @@ function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef}){
   </div>);
 }
 
-function MapaInteractiu({mapa,isDM}){
+function MapaInteractiu({mapa,isDM,edificis,onNavToEdifici}){
   const [pins,setPins]=useState([]);
   const [editMode,setEditMode]=useState(false);
   const [pinModal,setPinModal]=useState(null);
-  const [form,setForm]=useState({nom:"",descripcio:"",gremi:"Guildless"});
+  const [form,setForm]=useState({nom:"",descripcio:"",gremi:"Guildless",itemId:""});
   const [saving,setSaving]=useState(false);
   const containerRef=useRef(null);
   useEffect(()=>{
@@ -877,8 +877,8 @@ function MapaInteractiu({mapa,isDM}){
     return()=>unsub();
   },[mapa]);
   const getPos=(e)=>{const rect=containerRef.current.getBoundingClientRect();return{x:parseFloat(((e.clientX-rect.left)/rect.width*100).toFixed(2)),y:parseFloat(((e.clientY-rect.top)/rect.height*100).toFixed(2))};};
-  const onMapClick=(e)=>{if(!editMode||!containerRef.current)return;const pos=getPos(e);setForm({nom:"",descripcio:"",gremi:"Guildless"});setPinModal({mode:"create",x:pos.x,y:pos.y});};
-  const savePin=async()=>{if(!form.nom.trim()&&!form.descripcio.trim()||!db)return;setSaving(true);try{if(pinModal.mode==="create"){await db.collection("map_pins").add({mapa,nom:form.nom.trim(),descripcio:form.descripcio.trim(),gremi:form.gremi,x:pinModal.x,y:pinModal.y});}else{await db.collection("map_pins").doc(pinModal.pin.id).update({nom:form.nom.trim(),descripcio:form.descripcio.trim(),gremi:form.gremi});}setPinModal(null);}finally{setSaving(false);}};
+  const onMapClick=(e)=>{if(!editMode||!containerRef.current)return;const pos=getPos(e);setForm({nom:"",descripcio:"",gremi:"Guildless",itemId:""});setPinModal({mode:"create",x:pos.x,y:pos.y});};
+  const savePin=async()=>{if(!form.nom.trim()&&!form.descripcio.trim()||!db)return;setSaving(true);const data={mapa,nom:form.nom.trim(),descripcio:form.descripcio.trim(),gremi:form.gremi,itemId:form.itemId||""};try{if(pinModal.mode==="create"){await db.collection("map_pins").add({...data,x:pinModal.x,y:pinModal.y});}else{await db.collection("map_pins").doc(pinModal.pin.id).update(data);}setPinModal(null);}finally{setSaving(false);}};
   const deletePin=async(id)=>{if(!db||!window.confirm("Eliminar aquest punt d'interès?"))return;await db.collection("map_pins").doc(id).delete();};
   const movePin=async(id,e)=>{if(!db||!containerRef.current)return;const pos=getPos(e);await db.collection("map_pins").doc(id).update({x:Math.max(0,Math.min(100,pos.x)),y:Math.max(0,Math.min(100,pos.y))});};
   const imgSrc=MAP_IMGS[mapa];
@@ -891,7 +891,7 @@ function MapaInteractiu({mapa,isDM}){
       {!imgSrc?<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontSize:18,marginTop:60,opacity:.6}}>Mapa no disponible.</p>
       :<div ref={containerRef} style={{position:"relative",display:"inline-block",cursor:editMode?"crosshair":"default",userSelect:"none"}} onClick={onMapClick}>
         <img src={imgSrc} alt={mapa} style={{display:"block",maxWidth:"100%",maxHeight:"calc(100vh - 200px)",objectFit:"contain"}} draggable={false}/>
-        {pins.map(pin=><MapPin key={pin.id} pin={pin} editMode={editMode} isDM={isDM} onEdit={p=>{setForm({nom:p.nom,descripcio:p.descripcio||"",gremi:p.gremi||"Guildless"});setPinModal({mode:"edit",pin:p});}} onDelete={deletePin} onDragEnd={movePin} containerRef={containerRef}/>)}
+        {pins.map(pin=><MapPin key={pin.id} pin={pin} editMode={editMode} isDM={isDM} onEdit={p=>{setForm({nom:p.nom,descripcio:p.descripcio||"",gremi:p.gremi||"Guildless",itemId:p.itemId||""});setPinModal({mode:"edit",pin:p});}} onDelete={deletePin} onDragEnd={movePin} containerRef={containerRef} onNavigate={onNavToEdifici}/>)}
       </div>}
     </div>
     {pinModal&&ReactDOM.createPortal(
@@ -904,6 +904,10 @@ function MapaInteractiu({mapa,isDM}){
             <select value={form.gremi} onChange={e=>setForm(f=>({...f,gremi:e.target.value}))} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'Metamorphous',serif",fontSize:15,outline:"none"}}>
               {AG.map(g=><option key={g} value={g}>{g}</option>)}
             </select>
+            <select value={form.itemId} onChange={e=>setForm(f=>({...f,itemId:e.target.value}))} style={{padding:"7px 10px",border:"1px solid "+BORDER,borderRadius:3,background:BG,color:"var(--text)",fontFamily:"'IM Fell English',serif",fontSize:15,outline:"none"}}>
+              <option value="">— Sense vinculació a Aventino —</option>
+              {(edificis||[]).sort((a,b)=>a.nom.localeCompare(b.nom)).map(e=><option key={e.id} value={e.id}>{e.nom}</option>)}
+            </select>
             <div style={{display:"flex",gap:8,justifyContent:"flex-end",marginTop:4}}>
               <button onClick={()=>setPinModal(null)} style={{padding:"6px 16px",border:"1px solid "+BORDER,borderRadius:3,background:"transparent",color:"var(--text2)",cursor:"pointer",fontFamily:"'Metamorphous',serif",fontSize:15}}>Cancel·lar</button>
               <button onClick={savePin} disabled={saving||(!form.nom.trim()&&!form.descripcio.trim())} style={{padding:"6px 16px",border:"1px solid "+GOLD,borderRadius:3,background:GOLD+"22",color:GOLD,cursor:"pointer",fontFamily:"'Metamorphous',serif",fontSize:15,opacity:((!form.nom.trim()&&!form.descripcio.trim())||saving)?.5:1}}>{saving?"...":"Desar"}</button>
@@ -914,7 +918,7 @@ function MapaInteractiu({mapa,isDM}){
   </div>);
 }
 
-function MapaPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar,onNavToGremi,user,subTab,setSubTab}){
+function MapaPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,canSeeDimir,isPlayer,playerName,chars,navTarget,onNavToChar,onNavToGremi,onNavToEdifici,user,subTab,setSubTab}){
   useEffect(()=>{if(navTarget)setSubTab("aventino");},[navTarget]);
   return(<div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden"}}>
     <div style={{flexShrink:0,display:"flex",borderBottom:"1px solid "+BORDER,background:BG2,padding:"0 12px"}}>
@@ -922,7 +926,7 @@ function MapaPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD,ca
     </div>
     {subTab==="aventino"
       ?<LugaresPanel edificis={edificis} onUpdate={onUpdate} onNew={onNew} sel={sel} onSelect={onSelect} isMob={isMob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={isPlayer} playerName={playerName} chars={chars} navTarget={navTarget} onNavToChar={onNavToChar} onNavToGremi={onNavToGremi}/>
-      :<MapaInteractiu mapa={subTab} isDM={user.rol==="dm"}/>}
+      :<MapaInteractiu mapa={subTab} isDM={user.rol==="dm"} edificis={edificis} onNavToEdifici={onNavToEdifici}/>}
   </div>);
 }
 
@@ -1212,7 +1216,7 @@ function App({user,onUsersPanel}){
     </header>
     <main style={{display:"flex",flexDirection:"column",flex:1,overflow:"hidden"}}>
     {tab==="aventino"?<AventinPanel/>
-    :tab==="mapa"?<MapaPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} onNavToGremi={navToGremi} user={effectiveUser} subTab={mapSubTab} setSubTab={setMapSubTab}/>
+    :tab==="mapa"?<MapaPanel edificis={eds} onUpdate={updE} onNew={newE} sel={sel} onSelect={setSel} isMob={mob} showD={showD} setShowD={setShowD} canSeeDimir={canSeeDimir} isPlayer={effectiveUser.rol==="jugador"} playerName={effectiveUser.personatge} chars={cs} navTarget={aventNavTarget} onNavToChar={navToChar} onNavToGremi={navToGremi} onNavToEdifici={navToEdifici} user={effectiveUser} subTab={mapSubTab} setSubTab={setMapSubTab}/>
     :tab==="gremios"?<GremiosPanel canSeeDimir={canSeeDimir} isMob={mob} initGremi={gremioTarget} onVolver={prevGremioState?volverDeGremi:null}/>
     :tab==="sesiones"?<SesionesPanel isMob={mob}/>
     :<div style={{display:"flex",flex:1,overflow:"hidden",position:"relative",background:BG}} className="rv-mob-scroll">
