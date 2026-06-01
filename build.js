@@ -88,12 +88,12 @@ function buildManifest() {
 function buildImgIndex() {
   const DIRS = {
     chars:    path.join(__dirname, 'docs/assets/img/personajes'),
-    edificis: path.join(__dirname, 'docs/assets/img/lugares'),
+    edificis: path.join(__dirname, 'docs/assets/img/mapa/lugares'),
     handouts: path.join(__dirname, 'docs/assets/img/objetos'),
   };
   const PREFIXES = {
     chars:    'assets/img/personajes/',
-    edificis: 'assets/img/lugares/',
+    edificis: 'assets/img/mapa/lugares/',
     handouts: 'assets/img/objetos/',
   };
   const IGNORE = /^(desktop\.ini|\.DS_Store|thumbs\.db|\.gitkeep)$/i;
@@ -110,8 +110,8 @@ function buildImgIndex() {
   }
 
   // Carousel Aventino Times: aventino-times_{acto}.{sessio}.ext — ordena numèricament
-  const aventinoDir = path.join(__dirname, 'docs/assets/img/mapa/aventino');
-  const aventinoPrefix = 'assets/img/mapa/aventino/';
+  const aventinoDir = path.join(__dirname, 'docs/assets/img/noticias');
+  const aventinoPrefix = 'assets/img/noticias/';
   index.aventino = [];
   if (fs.existsSync(aventinoDir)) {
     const aventinoFiles = fs.readdirSync(aventinoDir)
