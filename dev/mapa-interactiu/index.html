@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.3";const BUILD_HASH="fb638a9";
+const VERSION="4.19.4";const BUILD_HASH="a420d40";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -846,11 +846,11 @@ function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef}){
     <div style={{width:hov||editMode?18:14,height:hov||editMode?18:14,borderRadius:"50%",background:c+(editMode?"cc":"88"),border:"2px solid "+c,boxShadow:(hov||editMode)?"0 0 8px "+c+"aa":"0 1px 4px #000a",transition:"all .15s",position:"relative"}}>
       {editMode&&<button onClick={e=>{e.stopPropagation();onDelete(pin.id);}} style={{position:"absolute",top:-8,right:-8,background:"#c43030",border:"none",borderRadius:"50%",width:16,height:16,fontSize:10,color:"#fff",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}}>×</button>}
     </div>
-    {(hov||showTip)&&<div style={{position:"absolute",bottom:"calc(100% + 7px)",left:"50%",transform:"translateX(-50%)",background:BG2,border:"1px solid "+c+(showTip?"":"66"),borderRadius:4,padding:showTip?"8px 12px":"4px 8px",minWidth:showTip?140:0,maxWidth:220,boxShadow:"0 4px 16px #000a",zIndex:20,pointerEvents:"none",whiteSpace:showTip?"normal":"nowrap"}}>
+    {(hov||showTip)&&(()=>{const ps=guildPillStyle(pin.gremi||"Guildless");return(<div style={{position:"absolute",bottom:"calc(100% + 7px)",left:"50%",transform:"translateX(-50%)",background:ps.background,border:ps.border,borderRadius:6,padding:showTip?"8px 12px":"4px 10px",minWidth:showTip?140:0,maxWidth:220,boxShadow:"0 4px 16px #000a",zIndex:20,pointerEvents:"none",whiteSpace:showTip?"normal":"nowrap"}}>
       {pin.nom&&<div style={{fontFamily:"'Metamorphous',serif",fontSize:showTip?15:13,color:c,marginBottom:showTip&&pin.descripcio?4:0}}>{pin.nom}</div>}
-      {showTip&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:14,color:"var(--text2)",lineHeight:1.4}}>{pin.descripcio}</div>}
-      {!pin.nom&&!showTip&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:13,color:"var(--text2)"}}>{pin.descripcio}</div>}
-    </div>}
+      {showTip&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:14,color:"var(--text)",lineHeight:1.4}}>{pin.descripcio}</div>}
+      {!pin.nom&&pin.descripcio&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:13,color:"var(--text)"}}>{pin.descripcio}</div>}
+    </div>);})()}
   </div>);
 }
 
