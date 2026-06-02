@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.11";const BUILD_HASH="decd88c";
+const VERSION="4.19.12";const BUILD_HASH="b4d7f2f";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -948,7 +948,7 @@ function App({user,onUsersPanel}){
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
-  const rvRef=useRef(null);const savedListScroll=useRef(0);
+  const savedListScroll=useRef(0);
   const [gremioTarget,setGremioTarget]=useState(null);
   const [prevGremioState,setPrevGremioState]=useState(null);
   const [listW,setListW]=useState(36);
@@ -1061,8 +1061,8 @@ function App({user,onUsersPanel}){
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);if(t!=="gremios"){setGremioTarget(null);setPrevGremioState(null);}}
   const navToGremi=g=>{setPrevGremioState({tab,sel,showD});setGremioTarget(g);setTab("gremios");};
   const volverDeGremi=()=>{if(prevGremioState){setTab(prevGremioState.tab);setSel(prevGremioState.sel);setShowD(prevGremioState.showD);}setPrevGremioState(null);setGremioTarget(null);};
-  function pick(i){if(mob&&rvRef.current)savedListScroll.current=rvRef.current.scrollTop;setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
-  useEffect(()=>{if(!mob||!rvRef.current)return;if(showD){rvRef.current.scrollTop=0;}else{rvRef.current.scrollTop=savedListScroll.current;}},[showD,mob]);
+  function pick(i){if(mob)savedListScroll.current=window.scrollY;setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
+  useEffect(()=>{if(!mob)return;if(showD){requestAnimationFrame(()=>window.scrollTo({top:0,behavior:"instant"}));}else{requestAnimationFrame(()=>window.scrollTo({top:savedListScroll.current,behavior:"instant"}));}},[showD,mob]);
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
   const syncCol=saved==="⏳"?"#8a7a5a":saved?"#8b1c1c":db?"#5a9a3a":"#6a5a40";
@@ -1154,7 +1154,7 @@ function App({user,onUsersPanel}){
     </div>
   </div>):null;
 
-  return(<div ref={rvRef} className={"rv"+(dark?" dark":"")} style={{border:"1px solid "+BORDER,borderRadius:6,...(mob?{}:{overflow:"hidden"}),position:"relative"}}>
+  return(<div className={"rv"+(dark?" dark":"")} style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
     <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.28,zIndex:0,pointerEvents:"none"}}/>
     {previewAs&&<div style={{position:"relative",zIndex:1,background:"#8b1c1c",color:"#f5e8cc",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
       <span style={{fontSize:17,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
