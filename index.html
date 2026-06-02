@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.10";const BUILD_HASH="decd88c";
+const VERSION="4.19.12";const BUILD_HASH="197e638";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -948,7 +948,7 @@ function App({user,onUsersPanel}){
   const [sel,setSel]=useState(null);const [showD,setShowD]=useState(false);
   const [hs,setHs]=useState(HANDOUTS);const [cs,setCs]=useState(CHARS);const [eds,setEds]=useState(EDIFICIS_DEFAULT);const [gds,setGds]=useState({});const [imgZoom,setImgZoom]=useState(false);
   const [saved,setSaved]=useState("");const [mob,setMob]=useState(false);
-  const listScrollRef=useRef(null);const detailScrollRef=useRef(null);const savedListScroll=useRef(0);
+  const savedListScroll=useRef(0);
   const [gremioTarget,setGremioTarget]=useState(null);
   const [prevGremioState,setPrevGremioState]=useState(null);
   const [listW,setListW]=useState(36);
@@ -1061,8 +1061,8 @@ function App({user,onUsersPanel}){
   function chTab(t){setTab(t);setQ("");setFilt("all");setSort("asc");setSel(null);setShowD(false);setImgZoom(false);if(t!=="gremios"){setGremioTarget(null);setPrevGremioState(null);}}
   const navToGremi=g=>{setPrevGremioState({tab,sel,showD});setGremioTarget(g);setTab("gremios");};
   const volverDeGremi=()=>{if(prevGremioState){setTab(prevGremioState.tab);setSel(prevGremioState.sel);setShowD(prevGremioState.showD);}setPrevGremioState(null);setGremioTarget(null);};
-  function pick(i){if(mob)savedListScroll.current=listScrollRef.current?.scrollTop||0;setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
-  useEffect(()=>{if(!mob)return;if(showD){if(detailScrollRef.current)detailScrollRef.current.scrollTop=0;}else{if(listScrollRef.current)listScrollRef.current.scrollTop=savedListScroll.current;}},[showD,mob]);
+  function pick(i){if(mob)savedListScroll.current=window.scrollY;setSel(i===sel&&!mob?null:i);setShowD(true);setImgZoom(false);}
+  useEffect(()=>{if(!mob)return;if(showD){requestAnimationFrame(()=>window.scrollTo({top:0,behavior:"instant"}));}else{requestAnimationFrame(()=>window.scrollTo({top:savedListScroll.current,behavior:"instant"}));}},[showD,mob]);
   function del(){if(!item)return;if(!window.confirm('Eliminar "'+item.nom+'"?'))return;if(tab==="handouts"){const h=hs.filter((_,i)=>i!==origI);setHs(h);saveKey("handouts",h);}else{const c=cs.filter((_,i)=>i!==origI);setCs(c);saveKey("chars",c);}setSel(null);setShowD(false);}
 
   const syncCol=saved==="⏳"?"#8a7a5a":saved?"#8b1c1c":db?"#5a9a3a":"#6a5a40";
@@ -1110,7 +1110,7 @@ function App({user,onUsersPanel}){
         {!mob&&<button aria-label="Tancar detall" onClick={()=>{setSel(null);setShowD(false);}} style={{background:"none",border:"none",cursor:"pointer",color:"var(--text2)",fontSize:20,padding:"0 2px",lineHeight:1}}>×</button>}
       </div>
     </div>
-    <div ref={detailScrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
+    <div className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"14px 16px",display:"flex",flexDirection:"column",gap:12}}>
       {tab==="chars"&&effectiveUser.rol==="dm"&&<div style={{display:"flex",flexDirection:"column",gap:6}}>
         <div style={{display:"flex",gap:8,alignItems:"center",flexWrap:"wrap"}}>
           <div style={{fontSize:18,padding:"3px 10px",borderRadius:10,background:BG2,border:"1px solid "+BORDER,display:"inline-flex",gap:6,alignItems:"center"}}>
@@ -1243,7 +1243,7 @@ function App({user,onUsersPanel}){
             :[...PJS,"Compartido",...(effectiveUser.rol==="dm"?["Solo DM"]:[])] .map(p=><button key={p} className="rv-filter" onClick={()=>setFilt(p===filt?"all":p)} style={{background:filt===p?(PC[p]||"#888")+"1a":"transparent",border:"1px solid "+(filt===p?(PC[p]||"#888")+"66":(PC[p]||"#888")+"22"),color:filt===p?PC[p]||"#888":"#6a4a2a"}}>{p}</button>)}
           </div>
         </div>
-        <div ref={listScrollRef} className="rv-mob-scroll" style={{overflowY:"auto",flex:1}}>
+        <div className="rv-mob-scroll" style={{overflowY:"auto",flex:1}}>
           {fltd.length===0&&<div style={{padding:30,color:"var(--text2)",fontSize:17,textAlign:"center",fontStyle:"italic",fontFamily:"'IM Fell English',serif"}}>Cap registre als arxius...</div>}
           {fltd.map((x,i)=>{const vt=tab==="chars"?secureT(x.tags,x.nom):undefined,c=mc(x,tab,vt),isSel=!mob&&sel===i,sig=tab==="chars"&&vt&&vt[0]?GS[vt[0]]:"📜";const cnx=tab==="chars"?(x.visible==="Tots"||!x.visible||x.visible===""?"Todos":x.visible==="Nadie"||x.visible==="Solo DM"?"Nadie":x.visible.split(",")[0].trim()+(x.visible.includes(",")?"…":"")):null;const xlocs=tab==="chars"?eds.filter(e=>parsePers(e.personajes).includes(x.id)&&(effectiveUser.rol==="dm"||e.activo)):[];
             return(<div key={i} role="button" tabIndex={0} aria-pressed={isSel} onClick={()=>pick(i)} onKeyDown={e=>(e.key==="Enter"||e.key===" ")&&pick(i)} onMouseEnter={()=>prefetchImg(IMG_INDEX[tab==="handouts"?"handouts":"chars"][x.id])} className="rv-row" style={{padding:"9px 14px",cursor:"pointer",borderBottom:"1px solid "+BORDER,background:isSel?BG3:"transparent",borderLeft:isSel?"2px solid "+c:"2px solid transparent",display:"flex",alignItems:"center",gap:10,transition:"background .1s"}}>
