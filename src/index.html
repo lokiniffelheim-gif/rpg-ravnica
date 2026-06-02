@@ -639,7 +639,7 @@ function AventinPanel(){
           {idx>0&&<button onClick={prev} aria-label="Anterior"
             onMouseEnter={()=>setHovL(true)} onMouseLeave={()=>setHovL(false)}
             style={{...btnBase,left:0,background:hovL?"#000a":"#0003"}}>‹</button>}
-          <div style={{position:"absolute",top:0,left:0,right:0,zIndex:3,padding:"6px 10px",background:"#000000bb",borderRadius:"4px 4px 0 0",fontFamily:"'Metamorphous',serif",fontSize:14,color:"#e8dcc8",letterSpacing:".08em",textAlign:"center"}}>{label}</div>
+          <div style={{position:"absolute",top:0,left:0,right:0,zIndex:3,padding:"6px 10px",background:"#000000bb",fontFamily:"'Metamorphous',serif",fontSize:14,color:"#e8dcc8",letterSpacing:".08em",textAlign:"center"}}>{label}</div>
           <img src={cur.path} alt={label} style={{width:"100%",display:"block",borderRadius:4,boxShadow:"0 4px 28px #0008",touchAction:"pinch-zoom"}}/>
           {idx<slides.length-1&&<button onClick={next} aria-label="Següent"
             onMouseEnter={()=>setHovR(true)} onMouseLeave={()=>setHovR(false)}
