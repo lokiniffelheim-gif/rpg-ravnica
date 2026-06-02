@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.20.0";const BUILD_HASH="13d3422";
+const VERSION="4.21.0";const BUILD_HASH="b683e93";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -616,6 +616,8 @@ function AventinPanel(){
   const cur=slides[idx]||null;
   const prev=()=>setIdx(i=>Math.max(0,i-1));
   const next=()=>setIdx(i=>Math.min(slides.length-1,i+1));
+  const first=()=>setIdx(0);
+  const last=()=>setIdx(slides.length-1);
 
   const touchX=useRef(null);
   const onTouchStart=e=>{ touchX.current=e.touches[0].clientX; };
@@ -641,9 +643,11 @@ function AventinPanel(){
             onMouseEnter={()=>setHovL(true)} onMouseLeave={()=>setHovL(false)}
             style={{...btnBase,left:0,background:hovL?"#000a":"#0003"}}>‹</button>}
           <div style={{position:"absolute",top:8,left:"50%",transform:"translateX(-50%)",zIndex:3,display:"inline-flex",alignItems:"center",gap:2,background:"#000000cc",borderRadius:20,padding:"2px 6px",fontFamily:"'Metamorphous',serif",fontSize:13,color:"#e8dcc8",letterSpacing:".06em",whiteSpace:"nowrap"}}>
+            <button onClick={first} disabled={idx===0} aria-label="Primera" style={{visibility:idx>0?"visible":"hidden",background:"none",border:"none",color:"#e8dcc8",fontSize:16,cursor:"pointer",padding:"0 4px",lineHeight:1}}>«</button>
             <button onClick={prev} disabled={idx===0} aria-label="Anterior" style={{visibility:idx>0?"visible":"hidden",background:"none",border:"none",color:"#e8dcc8",fontSize:16,cursor:"pointer",padding:"0 4px",lineHeight:1}}>‹</button>
             <span>{label}</span>
             <button onClick={next} disabled={idx===slides.length-1} aria-label="Següent" style={{visibility:idx<slides.length-1?"visible":"hidden",background:"none",border:"none",color:"#e8dcc8",fontSize:16,cursor:"pointer",padding:"0 4px",lineHeight:1}}>›</button>
+            <button onClick={last} disabled={idx===slides.length-1} aria-label="Última" style={{visibility:idx<slides.length-1?"visible":"hidden",background:"none",border:"none",color:"#e8dcc8",fontSize:16,cursor:"pointer",padding:"0 4px",lineHeight:1}}>»</button>
           </div>
           <img src={cur.path} alt={label} style={{width:"100%",display:"block",borderRadius:4,boxShadow:"0 4px 28px #0008",touchAction:"pinch-zoom"}}/>
           {idx<slides.length-1&&<button onClick={next} aria-label="Següent"
