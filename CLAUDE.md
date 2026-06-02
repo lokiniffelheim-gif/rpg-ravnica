@@ -70,6 +70,9 @@ Cada canvi de codi segueix aquest ordre **sempre**, sense excepcions:
 4. `git add src/index.html docs/`
 5. `git commit -m "tipus(vX.Y.Z): descripció"`
 6. `git push` → GitHub Actions desplega automàticament (no cal cap pas addicional)
+7. **Comunicar sempre al final:** número de versió i URL de l'entorn desplegat:
+   - `main` → `https://lokiniffelheim-gif.github.io/rpg-ravnica/`
+   - `feature/xxx` → `https://lokiniffelheim-gif.github.io/rpg-ravnica/dev/xxx/`
 
 ### Versioning semàntic
 | Tipus de canvi | Bump |
