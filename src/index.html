@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.19.12";const BUILD_HASH="";
+const VERSION="4.19.13";const BUILD_HASH="";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -629,22 +629,22 @@ function AventinPanel(){
   const [hovR,setHovR]=useState(false);
 
   const label=cur?`Acto ${cur.acto} — Sesión ${cur.sessio}`:"";
-  const btnBase={position:"absolute",top:"50%",transform:"translateY(-50%)",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:32,lineHeight:1,width:44,height:64,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,transition:"opacity .15s,background .15s"};
+  const btnBase={position:"absolute",top:"50%",transform:"translateY(-50%)",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:32,lineHeight:1,width:44,height:64,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,transition:"background .15s"};
 
   return(<div style={{display:"flex",flex:1,flexDirection:"column",alignItems:"center",justifyContent:"flex-start",background:BG,overflow:"auto",userSelect:"none",padding:"8px 6px 8px",boxSizing:"border-box"}}>
     {slides.length===0
       ?<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontSize:18,marginTop:40}}>No hay ediciones disponibles.</p>
       :<div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:12,width:"100%",maxWidth:960}}>
         <div style={{position:"relative",width:"100%"}} onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
-          <button onClick={prev} aria-label="Anterior" disabled={idx===0}
+          {idx>0&&<button onClick={prev} aria-label="Anterior"
             onMouseEnter={()=>setHovL(true)} onMouseLeave={()=>setHovL(false)}
-            style={{...btnBase,left:0,background:hovL?"#000a":"#0003",opacity:idx>0?1:.2}}>‹</button>
+            style={{...btnBase,left:0,background:hovL?"#000a":"#0003"}}>‹</button>}
+          <div style={{position:"absolute",top:0,left:0,right:0,zIndex:3,padding:"6px 10px",background:"#000000bb",borderRadius:"4px 4px 0 0",fontFamily:"'Metamorphous',serif",fontSize:14,color:"#e8dcc8",letterSpacing:".08em",textAlign:"center"}}>{label}</div>
           <img src={cur.path} alt={label} style={{width:"100%",display:"block",borderRadius:4,boxShadow:"0 4px 28px #0008",touchAction:"pinch-zoom"}}/>
-          <button onClick={next} aria-label="Següent" disabled={idx===slides.length-1}
+          {idx<slides.length-1&&<button onClick={next} aria-label="Següent"
             onMouseEnter={()=>setHovR(true)} onMouseLeave={()=>setHovR(false)}
-            style={{...btnBase,right:0,background:hovR?"#000a":"#0003",opacity:idx<slides.length-1?1:.2}}>›</button>
+            style={{...btnBase,right:0,background:hovR?"#000a":"#0003"}}>›</button>}
         </div>
-        <div style={{fontFamily:"'Metamorphous',serif",fontSize:15,color:"var(--text2)",letterSpacing:".08em"}}>{label}</div>
       </div>
     }
   </div>);
