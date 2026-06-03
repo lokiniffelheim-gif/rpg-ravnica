@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.21.1";const BUILD_HASH="";
+const VERSION="4.21.2";const BUILD_HASH="";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -833,7 +833,7 @@ function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
   </div>);
 }
 
-const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.png",decimo:"assets/img/mapa/decimo-distrito.png"};
+const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.webp",decimo:"assets/img/mapa/decimo-distrito.webp"};
 const MAP_SUB_TABS=[{id:"cuarto",label:"Cuarto Precinto"},{id:"aventino",label:"Aventino"}];
 
 function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef,onNavigate}){
@@ -1163,12 +1163,12 @@ function App({user,onUsersPanel}){
   </div>):null;
 
   return(<div className={"rv"+(dark?" dark":"")} style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
-    <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.28,zIndex:0,pointerEvents:"none"}}/>
+    <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.webp')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.28,zIndex:0,pointerEvents:"none"}}/>
     {previewAs&&<div style={{position:"relative",zIndex:1,background:"#8b1c1c",color:"#f5e8cc",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
       <span style={{fontSize:17,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
       <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:17,padding:"3px 12px",borderRadius:3,border:"1px solid #f5e8cc55",background:"#f5e8cc22",color:"#f5e8cc",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
-    <header style={{backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
+    <header style={{backgroundImage:"url('assets/img/misc/Header.webp')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
       <div style={{position:"absolute",inset:0,background:dark?"linear-gradient(to bottom, #0e0d0bb8 0%, #0e0d0bdd 55%, #0e0d0b 100%)":"linear-gradient(to bottom, #f5e8ccb8 0%, #f5e8ccdd 55%, #f5e8cc 100%)",pointerEvents:"none"}}/>
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
