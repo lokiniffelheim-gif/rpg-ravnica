@@ -208,9 +208,9 @@ PUNT DE TRAMA ACTUAL (una frase):
 
 ---
 
-## HANDOUTS, OBJECTES I TRESORS NOUS
+## HANDOUTS, OBJECTES, PERSONATGES, SEGUIDORS I TRESORS NOUS
 
-Al final de cada sessió, proposar tots els handouts, objectes, documents o tresors nous que han aparegut o podrien aparèixer. Cada entrada ha de contenir:
+Al final de cada sessió, proposar tots els handouts, objectes, documents, personatges, seguidors o tresors nous que han aparegut o podrien aparèixer. Cada entrada ha de contenir:
 
 ```
 ### [Nom de l'objecte o handout]
@@ -220,7 +220,7 @@ Al final de cada sessió, proposar tots els handouts, objectes, documents o tres
 ```
 
 Criteris:
-- Incloure **sempre** els documents que els PJs hagin obtingut com a props físics, pero no les cartes o missatges
+- Incloure **sempre** els documents que els PJs hagin obtingut com a props físics
 - Proposar objectes nous només si han aparegut narrativament o si hi ha una oportunitat clara
 - Les notes del DM han d'indicar si l'objecte pot ser usat com a lever narratiu futur
 - Per a objectes màgics, consultar sempre https://2e.aonprd.com/Equipment.aspx i indicar el nivell de l'objecte
