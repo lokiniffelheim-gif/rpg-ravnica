@@ -56,6 +56,7 @@ html,body{height:100%;background:var(--bg-body)}
   .rv main{flex:none;height:auto;overflow:visible;display:block}
   .rv-mob-scroll{height:auto!important;overflow:visible!important;flex:none!important;min-height:0!important}
   .rv-detail{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;z-index:auto!important}
+  .rv-ses-scroll.rv-mob-scroll{overflow-y:auto!important;flex:1!important;height:0!important;min-height:0!important}
 }</style>
 </head>
 <body>
@@ -486,13 +487,13 @@ function SesionesPanel({isMob}){
   },[]);
   if(page)return(
     <React.Fragment>
-      <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
-        <div ref={breadcrumbRef} style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden",...(isMob?{position:"sticky",top:headerH,zIndex:49}:{})}}>
+      <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG,...(isMob&&headerH?{height:`calc(100svh - ${headerH}px)`}:{})}}>
+        <div ref={breadcrumbRef} style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
           <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
           <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
           <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
         </div>
-        <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+        <div ref={scrollRef} className="rv-mob-scroll rv-ses-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
           {page.error
             ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
             :page.body
