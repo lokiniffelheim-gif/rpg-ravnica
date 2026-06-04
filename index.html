@@ -9,8 +9,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Metamorphous&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#ffffff;--bg2:#f8f3ea;--bg3:#f0e8d8;--bg-body:#f0e4cc;--gold:#8b1c1c;--gold-dark:#6a1010;--gold-text:#f5e8cc;--border:#c0945a;--border2:#a08050;--text:#1a0a04;--text2:#5a3820;--text3:#7a5030;--hover:#e8d8b8;--check-hover:#c0a878;--check-bg:#f5e8cc;--setup-bg:#ede0b8;--input-ph:#5a3820}
-.rv.dark{--bg:#0e0d0b;--bg2:#1a1814;--bg3:#242018;--bg-body:#0a0908;--gold:#9b2020;--gold-dark:#7a1010;--gold-text:#e8dcc8;--border:#3a3028;--border2:#4a3a28;--text:#e8dcc8;--text2:#a09070;--text3:#9a8060;--hover:#2a2420;--check-hover:#2a2420;--check-bg:#242018;--setup-bg:#1a1814;--input-ph:#9a8060}
+:root{--bg:#ffffff;--bg2:#f8f3ea;--bg3:#f0e8d8;--bg-body:#f0e4cc;--gold:#8b1c1c;--gold-dark:#6a1010;--gold-text:#f5e8cc;--border:#c0945a;--border2:#a08050;--text:#1a0a04;--text2:#5a3820;--text3:#7a5030;--hover:#e8d8b8;--check-hover:#c0a878;--check-bg:#f5e8cc;--setup-bg:#ede0b8;--input-ph:#5a3820;--link:#8b1c1c}
+.rv.dark{--bg:#0e0d0b;--bg2:#1a1814;--bg3:#242018;--bg-body:#0a0908;--gold:#9b2020;--gold-dark:#7a1010;--gold-text:#e8dcc8;--border:#3a3028;--border2:#4a3a28;--text:#e8dcc8;--text2:#a09070;--text3:#9a8060;--hover:#2a2420;--check-hover:#2a2420;--check-bg:#242018;--setup-bg:#1a1814;--input-ph:#9a8060;--link:#c87840}
 html,body{height:100%;background:var(--bg-body)}
 .rv{font-family:'IM Fell English',Georgia,serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;font-size:18px;transition:background .3s,color .3s}
 .rv-head{font-family:'Metamorphous',serif;font-weight:400;letter-spacing:.05em}
@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.21.3";const BUILD_HASH="dcf116e";
+const VERSION="4.21.4";const BUILD_HASH="ead1582";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -201,7 +201,8 @@ function genId(){return Date.now().toString(36)+Math.random().toString(36).slice
 function renderMd(md){
   if(!md)return"";
   const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code style='background:var(--bg3);padding:1px 5px;border-radius:3px;font-size:15px;color:var(--text)'>$1</code>").replace(/\[(.+?)\]\((.+?)\)/g,"<a href='$2' target='_blank' rel='noopener noreferrer' style='color:var(--gold)'>$1</a>");
+  const slug=t=>t.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu,"").trim().replace(/\s/g,"-");
+  const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code style='background:var(--bg3);padding:1px 5px;border-radius:3px;font-size:15px;color:var(--text)'>$1</code>").replace(/\[(.+?)\]\((.+?)\)/g,(_,text,href)=>href.startsWith("#")?`<a href='${href}' style='color:var(--link);cursor:pointer'>${text}</a>`:`<a href='${href}' target='_blank' rel='noopener noreferrer' style='color:var(--link)'>${text}</a>`);
   const isSepRow=l=>l.trim().replace(/\|/g,"").replace(/[\s\-:]/g,"").length===0;
   const parseCells=l=>l.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
   const lines=md.split("\n");
@@ -225,9 +226,9 @@ function renderMd(md){
     if(/^\s*\|/.test(l)){closeP();closeUl();tBuf.push(l);continue;}
     else flushTable();
     const h1=/^# (.+)/.exec(l),h2=/^## (.+)/.exec(l),h3=/^### (.+)/.exec(l),li=/^[-*] (.+)/.exec(l),bq=/^> ?(.*)/.exec(l),hr=/^---+$/.test(l);
-    if(h1){closeP();closeUl();html+=`<h1 style="font-family:'Metamorphous',serif;font-size:24px;color:var(--text);letter-spacing:.06em;margin:0 0 16px;border-bottom:2px solid var(--border);padding-bottom:8px">${inline(h1[1])}</h1>`;}
-    else if(h2){closeP();closeUl();html+=`<h2 style="font-family:'Metamorphous',serif;font-size:20px;color:var(--text);letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
-    else if(h3){closeP();closeUl();html+=`<h3 style="font-family:'Metamorphous',serif;font-size:15px;color:var(--text2);letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
+    if(h1){closeP();closeUl();html+=`<h1 id="${slug(h1[1])}" style="font-family:'Metamorphous',serif;font-size:24px;color:var(--text);letter-spacing:.06em;margin:0 0 16px;border-bottom:2px solid var(--border);padding-bottom:8px">${inline(h1[1])}</h1>`;}
+    else if(h2){closeP();closeUl();html+=`<h2 id="${slug(h2[1])}" style="font-family:'Metamorphous',serif;font-size:20px;color:var(--text);letter-spacing:.06em;margin:20px 0 8px">${inline(h2[1])}</h2>`;}
+    else if(h3){closeP();closeUl();html+=`<h3 id="${slug(h3[1])}" style="font-family:'Metamorphous',serif;font-size:15px;color:var(--text2);letter-spacing:.08em;margin:14px 0 6px;text-transform:uppercase">${inline(h3[1])}</h3>`;}
     else if(hr){closeP();closeUl();html+="<hr style='border:none;border-top:1px solid var(--border);margin:16px 0'>";}
     else if(bq){closeP();closeUl();html+=`<blockquote style="border-left:3px solid var(--gold);margin:12px 0;padding:8px 16px;background:var(--bg3);color:var(--text2);font-style:italic">${inline(bq[1])}</blockquote>`;}
     else if(li){closeP();if(!inUl){html+="<ul style='margin:8px 0;padding-left:20px;list-style:none'>";inUl=true;}html+=`<li style="margin:4px 0;padding-left:8px">· ${inline(li[1])}</li>`;}
@@ -236,6 +237,17 @@ function renderMd(md){
   }
   flushTable();closeUl();closeP();
   return html;
+}
+function MdBody({html,style,className}){
+  const handleClick=e=>{
+    const a=e.target.closest('a[href^="#"]');
+    if(!a)return;
+    e.preventDefault();
+    const id=a.getAttribute('href').slice(1);
+    const el=document.getElementById(id);
+    if(el)el.scrollIntoView({behavior:'smooth'});
+  };
+  return React.createElement('div',{style,className,onClick:handleClick,dangerouslySetInnerHTML:{__html:html}});
 }
 </script>
 <script type="text/babel" charset="UTF-8">
@@ -359,7 +371,7 @@ function Field({value,onChange,multi,accent,ph,readOnly,heading}){
       ?heading
         ?<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,letterSpacing:".04em",paddingRight:readOnly?0:20}}>{value}</p>
         :multi
-          ?<div style={{fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,paddingRight:readOnly?0:20}} className="rv-md-body" dangerouslySetInnerHTML={{__html:renderMd(value)}}/>
+          ?<MdBody html={renderMd(value)} style={{fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,paddingRight:readOnly?0:20}} className="rv-md-body"/>
           :<p style={{margin:0,fontSize:fs,lineHeight:lh,color:"var(--text)",fontFamily:ff,whiteSpace:"pre-line",paddingRight:readOnly?0:20}}>{value}</p>
       :<p style={{margin:0,fontSize:heading?fs:18,color:"var(--text2)",fontStyle:"italic",fontFamily:ff}}>{ph||"—"}</p>}
   </div>);
@@ -450,6 +462,8 @@ function SesionesPanel({isMob}){
   const [loading,setLoading]=useState(true);
   const [sel,setSel]=useState(null);
   const [page,setPage]=useState(null);
+  const [hovTop,setHovTop]=useState(false);
+  const scrollRef=useRef(null);
   useEffect(()=>{fetch("assets/data/sesiones/manifest.json").then(r=>r.json()).then(d=>{setActs(d);setLoading(false);}).catch(()=>setLoading(false));},[]);
   const openFile=useCallback(async(act,file)=>{
     const url=`assets/data/sesiones/${encodeURIComponent(act.nom)}/${encodeURIComponent(file)}`;
@@ -460,17 +474,18 @@ function SesionesPanel({isMob}){
     } else window.open(url,"_blank");
   },[]);
   if(page)return(
-    <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
+    <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG,position:"relative"}}>
       <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
         <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
         <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
         <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
-      <div className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+      <button onClick={()=>scrollRef.current?.scrollTo({top:0,behavior:'smooth'})} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{position:"absolute",top:52,right:8,border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,transition:"background .15s",background:hovTop?"#000a":"#0003"}}>↑</button>
+      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
           ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
           :page.body
-            ?<div style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.8,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}} dangerouslySetInnerHTML={{__html:renderMd(page.body)}}/>
+            ?<MdBody html={renderMd(page.body)} style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.8,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}}/>
             :<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>Fitxer buit.</p>
         }
       </div>
@@ -819,7 +834,7 @@ function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
       </div>
       <div className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {loading&&<div style={{color:"var(--text2)",textAlign:"center",padding:40,fontFamily:"'IM Fell English',serif",fontSize:15}}>Cargando...</div>}
-        {!loading&&mdContent&&<div style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.85,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}} dangerouslySetInnerHTML={{__html:renderMd(mdContent)}}/>}
+        {!loading&&mdContent&&<MdBody html={renderMd(mdContent)} style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.85,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}}/>}
       </div>
     </div>
   );
