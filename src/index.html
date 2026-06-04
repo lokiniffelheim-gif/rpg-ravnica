@@ -247,7 +247,7 @@ function MdBody({html,style,className}){
     const el=document.getElementById(id);
     if(el)el.scrollIntoView({behavior:'smooth'});
   };
-  return <div style={style} className={className} onClick={handleClick} dangerouslySetInnerHTML={{__html:html}}/>;
+  return React.createElement('div',{style,className,onClick:handleClick,dangerouslySetInnerHTML:{__html:html}});
 }
 
 function PersonajesTagSel({value,onChange,chars,readOnly,filterVisible,onNavToChar,canSeeDimir}){
