@@ -471,11 +471,12 @@ function SesionesPanel({isMob}){
     const h=document.querySelector('.rv > header');
     if(h)setHeaderH(Math.round(h.getBoundingClientRect().height));
   },[]);
-  useEffect(()=>{
+  useLayoutEffect(()=>{
     if(!breadcrumbRef.current)return;
     const r=breadcrumbRef.current.getBoundingClientRect();
-    setBtnTop(Math.round(r.top+(r.height-48)/2));
-  },[page,headerH]);
+    const t=Math.round(r.top+(r.height-48)/2);
+    setBtnTop(prev=>prev===t?prev:t);
+  });
   useEffect(()=>{fetch("assets/data/sesiones/manifest.json").then(r=>r.json()).then(d=>{setActs(d);setLoading(false);}).catch(()=>setLoading(false));},[]);
   const openFile=useCallback(async(act,file)=>{
     const url=`assets/data/sesiones/${encodeURIComponent(act.nom)}/${encodeURIComponent(file)}`;
