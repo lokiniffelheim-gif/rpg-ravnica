@@ -1,0 +1,471 @@
+{
+  "handouts": [
+    {
+      "nom": "Notas de Laboratorio",
+      "contingut": 1598299155494,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Informe para el Juez de Manjatan",
+      "contingut": 1589486473941,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Espada de la Venganza",
+      "contingut": 1598705524338,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Gema de Resplandor",
+      "contingut": 1598292447542,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Escudo Centinela",
+      "contingut": 1598705468840,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Amuleto contra Detección y Localización",
+      "contingut": 1598705363390,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Aparato de Mizzium ",
+      "contingut": 1598284242082,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Sombrero de disfraz",
+      "contingut": 1603053062314,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Perla de Poder",
+      "contingut": 1598284225070,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Cota de mallas Adamantina",
+      "contingut": 1598289385375,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Baraja de Ilusiones",
+      "contingut": 1598705424152,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Pergamino Mágico - Nube de Dagas",
+      "contingut": 1593372106024,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Guantelete de Fuerza de Ogro",
+      "contingut": 1598284196042,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Par de Pistolas Ballesta Crueles",
+      "contingut": 1627748816860,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Bolsa de Contención",
+      "contingut": 1627748988461,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Deposito común en el Santísimo Banco Sindical Orzhov",
+      "contingut": 1627749428906,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "3x Poción de Heroísmo (+3)",
+      "contingut": 1627750028234,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Correo Misterioso",
+      "contingut": 1646296874049,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Bandera Trofeo del Basilisco",
+      "contingut": 1639249168963,
+      "notes_dm": "",
+      "te_contingut": false
+    },
+    {
+      "nom": "Goblin Moñeco",
+      "contingut": 1646381889865,
+      "notes_dm": "",
+      "te_contingut": false
+    }
+  ],
+  "personatges": [
+    {
+      "nom": "Ezzio Salvatore",
+      "bio": 1598881711673,
+      "info": 1635878752577
+    },
+    {
+      "nom": "Wundyr Somo",
+      "bio": 1589535662783,
+      "info": ""
+    },
+    {
+      "nom": "Yarog (HorseLuis)",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Manjatan",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Svikull Rusl",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Marchena",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Kasz",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Extraño de agua",
+      "bio": 1587923420498,
+      "info": ""
+    },
+    {
+      "nom": "Krasis Cat 1",
+      "bio": 1587979488568,
+      "info": ""
+    },
+    {
+      "nom": "Hybrid Spy",
+      "bio": 1588003427781,
+      "info": ""
+    },
+    {
+      "nom": "Tritón Salvaje",
+      "bio": 1588087292798,
+      "info": ""
+    },
+    {
+      "nom": "Hybrid Shocker",
+      "bio": 1588342320347,
+      "info": ""
+    },
+    {
+      "nom": "Hybrid Brute",
+      "bio": 1588342155094,
+      "info": ""
+    },
+    {
+      "nom": "Krasis Cat 2",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Sorbete",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "El Vocero",
+      "bio": 1589819377983,
+      "info": 1589825644965
+    },
+    {
+      "nom": "Pesha la Tabernera",
+      "bio": 1589827379954,
+      "info": 1590003441406
+    },
+    {
+      "nom": "Kotyali la Cazadora",
+      "bio": 1590005008501,
+      "info": 1589923698607
+    },
+    {
+      "nom": "Shazel Bara, Chaman del clan",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Obez el Prestamista",
+      "bio": 1589828956823,
+      "info": 1589827707657
+    },
+    {
+      "nom": "Iván el Cocinero",
+      "bio": 1590079861605,
+      "info": 1590007209077
+    },
+    {
+      "nom": "Grukurg el Tintador",
+      "bio": 1590004939302,
+      "info": 1590004949824
+    },
+    {
+      "nom": "Ten el Pescadero",
+      "bio": "",
+      "info": 1599409655676
+    },
+    {
+      "nom": "Morai la Capataz",
+      "bio": 1602759433783,
+      "info": 1635879920173
+    },
+    {
+      "nom": "Cresh el Vendedor de Comida Ambulante",
+      "bio": 1589925528348,
+      "info": 1590335965745
+    },
+    {
+      "nom": "Elon Tusk el Mercader de grano",
+      "bio": 1589996734342,
+      "info": 1639254983134
+    },
+    {
+      "nom": "Dhalya Macav la Comerciante",
+      "bio": 1590094513863,
+      "info": 1590094513863
+    },
+    {
+      "nom": "Maeve la Carterista",
+      "bio": 1590173313732,
+      "info": 1590172798683
+    },
+    {
+      "nom": "Sila, Tribuno de la Legión",
+      "bio": 1645983513897,
+      "info": ""
+    },
+    {
+      "nom": "Aurelio, Líder del Clan",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Arkady el Alborotador",
+      "bio": 1611594852924,
+      "info": ""
+    },
+    {
+      "nom": "Ikram la Contrabandista",
+      "bio": 1611484866326,
+      "info": ""
+    },
+    {
+      "nom": "Bookworm el Consigliere",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Kakí Skýla, Lugarteniente del Enjambre Ochran",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Tajic, Espada de la Legión",
+      "bio": 1591304772052,
+      "info": ""
+    },
+    {
+      "nom": "Sargento Instructor Gough",
+      "bio": 1591305695424,
+      "info": ""
+    },
+    {
+      "nom": "Informante Secreto",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Mecenas misterioso",
+      "bio": "",
+      "info": 1593368958343
+    },
+    {
+      "nom": "Emeritus Tobias Forge",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Glenn Danzing, Sicario del Sindicato",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Padre Messiah Marcolin",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Niv-Mizzet, el Dracogenio",
+      "bio": 1599950254386,
+      "info": ""
+    },
+    {
+      "nom": "Sestri, Degana del Laboratorio de Tormentas y Electricidad",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Coldie, Genio Inestable",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Rotxar, Cultista Tatuador",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Tai On, Justicar del Senado",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Randall, Comunero Pacifista",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Khatnas, Juez de Asuntos Internos",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Nebum Gerava, Arbites del Senado",
+      "bio": 1591535801507,
+      "info": ""
+    },
+    {
+      "nom": "Gasz, Matón de la Calle de Hojalata",
+      "bio": "",
+      "info": 1602255453590
+    },
+    {
+      "nom": "Luda Manson, Productora y Cazatalentos",
+      "bio": 1645702477707,
+      "info": ""
+    },
+    {
+      "nom": "Ylldiane, Intendente Mayor",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Ayudantes de laboratorio Izzet",
+      "bio": 1602760355247,
+      "info": 1602792697355
+    },
+    {
+      "nom": "Reclutas Azorius",
+      "bio": 1602760870823,
+      "info": 1603040382396
+    },
+    {
+      "nom": "Giagia, Ama de llaves del Hogar Ancestral Dalverjar",
+      "bio": 1611485681426,
+      "info": ""
+    },
+    {
+      "nom": "Escuadrón Boros",
+      "bio": 1602793017051,
+      "info": 1602793017051
+    },
+    {
+      "nom": "Anarquistas Gruul",
+      "bio": 1602793964096,
+      "info": 1602793971616
+    },
+    {
+      "nom": "Troupe Rakdos",
+      "bio": 1602955852062,
+      "info": 1611412082870
+    },
+    {
+      "nom": "Basilisk",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Bandidos",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "André el Herrero",
+      "bio": 1611613968887,
+      "info": ""
+    },
+    {
+      "nom": "Rezana, Médico Azorius",
+      "bio": "",
+      "info": ""
+    },
+    {
+      "nom": "Alysa la Sastre",
+      "bio": 1627748441160,
+      "info": ""
+    },
+    {
+      "nom": "Albert Camus de la Oficina del Banco",
+      "bio": 1627748353293,
+      "info": ""
+    },
+    {
+      "nom": "(la de correos)",
+      "bio": 1635876931714,
+      "info": ""
+    },
+    {
+      "nom": "Aiker Bosset",
+      "bio": 1646239701862,
+      "info": ""
+    },
+    {
+      "nom": "Los fieles seguidores del Maestro, el Evolucionador de hombres",
+      "bio": 1645984052313,
+      "info": ""
+    },
+    {
+      "nom": "Trisz, Legionario Caido (Fallecido)",
+      "bio": 1645981691120,
+      "info": ""
+    },
+    {
+      "nom": "Pandora, Espíritu Servicial",
+      "bio": 1724948909614,
+      "info": ""
+    }
+  ]
+}
