@@ -478,15 +478,17 @@ function SesionesPanel({isMob}){
         <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
         <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
         <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
-        <button onClick={()=>scrollRef.current?.scrollTo({top:0,behavior:'smooth'})} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{marginLeft:"auto",flexShrink:0,border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:34,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?GOLD+"33":"transparent"}}>↑</button>
       </div>
-      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+      <div style={{flex:1,position:"relative"}}>
+        <button onClick={()=>scrollRef.current?.scrollTo({top:0,behavior:'smooth'})} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{position:"absolute",top:8,right:8,zIndex:10,border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003"}}>↑</button>
+        <div ref={scrollRef} className="rv-mob-scroll" style={{position:"absolute",inset:0,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
           ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
           :page.body
             ?<MdBody html={renderMd(page.body)} style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.8,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}}/>
             :<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>Fitxer buit.</p>
         }
+        </div>
       </div>
     </div>
   );
