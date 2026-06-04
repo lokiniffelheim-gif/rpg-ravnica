@@ -201,7 +201,7 @@ function genId(){return Date.now().toString(36)+Math.random().toString(36).slice
 function renderMd(md){
   if(!md)return"";
   const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  const slug=t=>t.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu,"").trim().replace(/\s+/g,"-");
+  const slug=t=>t.toLowerCase().replace(/[^\p{L}\p{N}\s-]/gu,"").trim().replace(/\s/g,"-");
   const inline=s=>esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>").replace(/\*(.+?)\*/g,"<em>$1</em>").replace(/`(.+?)`/g,"<code style='background:var(--bg3);padding:1px 5px;border-radius:3px;font-size:15px;color:var(--text)'>$1</code>").replace(/\[(.+?)\]\((.+?)\)/g,(_,text,href)=>href.startsWith("#")?`<a href='${href}' style='color:var(--link);cursor:pointer'>${text}</a>`:`<a href='${href}' target='_blank' rel='noopener noreferrer' style='color:var(--link)'>${text}</a>`);
   const isSepRow=l=>l.trim().replace(/\|/g,"").replace(/[\s\-:]/g,"").length===0;
   const parseCells=l=>l.trim().replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
