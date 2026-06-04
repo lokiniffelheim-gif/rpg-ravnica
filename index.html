@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.21.0";const BUILD_HASH="ac5d437";
+const VERSION="4.21.3";const BUILD_HASH="43d37e2";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -289,7 +289,7 @@ function Avatar({nom,id,size,color,tab}){
   const src=id?(IMG_INDEX[tab==="handouts"?"handouts":"chars"][id]||""):"";
   const hasImg=src&&!err;
   return(<div style={{flexShrink:0,width:s,height:s}}>
-    {hasImg?<img src={src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:"50%",objectFit:"cover",border:"2px solid "+(color||"#8a7a5a")+"66",display:"block"}}/>
+    {hasImg?<img src={src} alt={nom} loading="lazy" onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:"50%",objectFit:"cover",border:"2px solid "+(color||"#8a7a5a")+"66",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:"50%",background:(color||"#8a7a5a")+"14",border:"2px solid "+(color||"#8a7a5a")+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*(tab==="handouts"?.45:.35),fontWeight:600,color:color||"#8a7a5a",fontFamily:"'Metamorphous',serif"}}>{tab==="handouts"?"📜":initials(nom)}</div>}
   </div>);
 }
@@ -301,7 +301,7 @@ function EdificiAvatar({gremi,nom,size,id}){
   const defaultSrc=GUILD_SVG_MAP[gremi]||GUILD_SVG_MAP['Guildless']||"";
   const src=(id?IMG_INDEX.edificis[id]:"")||defaultSrc;
   return(<div style={{flexShrink:0,width:s,height:s}}>
-    {src?<img src={err?defaultSrc:src} alt={nom} onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:8,objectFit:"cover",border:"2px solid "+c+"55",display:"block"}}/>
+    {src?<img src={err?defaultSrc:src} alt={nom} loading="lazy" onError={()=>setErr(true)} style={{width:s,height:s,borderRadius:8,objectFit:"cover",border:"2px solid "+c+"55",display:"block"}}/>
       :<div style={{width:s,height:s,borderRadius:8,background:c+"18",border:"2px solid "+c+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:s*.35,color:c}}>{GS[gremi]||"◆"}</div>}
   </div>);
 }
@@ -712,7 +712,7 @@ function LugaresPanel({edificis,onUpdate,onNew,sel,onSelect,isMob,showD,setShowD
       </div>,document.body)}
     {isMob&&<div style={{flexShrink:0,padding:"6px 10px",borderBottom:"1px solid "+BORDER,background:BG2}}><button onClick={()=>setShowD(false)} className="rv-btn-gold" style={{fontSize:15,padding:"4px 12px"}}>← VOLVER</button></div>}
     <div style={{flexShrink:0,position:"relative",background:imgBgAv,display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:edImgSrc?0:80}}>
-      {edImgSrc?<img className="rv-frame" src={edImgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center"}} onClick={()=>setImgZoom(true)}/>
+      {edImgSrc?<img className="rv-frame" src={edImgSrc} alt={item.nom} loading="lazy" onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:56,color:ac+"40",userSelect:"none",textAlign:"center",width:"100%"}}>{GS[secureG(item.gremi)]||"◆"}</div>}
     </div>
     <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
@@ -834,7 +834,7 @@ function GremiosPanel({canSeeDimir,isMob,initGremi,onVolver}){
   </div>);
 }
 
-const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.png",decimo:"assets/img/mapa/decimo-distrito.png"};
+const MAP_IMGS={cuarto:"assets/img/mapa/cuarto-precinto.webp",decimo:"assets/img/mapa/decimo-distrito.webp"};
 const MAP_SUB_TABS=[{id:"cuarto",label:"Cuarto Precinto"},{id:"aventino",label:"Aventino"}];
 
 function MapPin({pin,editMode,onEdit,onDelete,onDragEnd,containerRef,onNavigate}){
@@ -1086,7 +1086,7 @@ function App({user,onUsersPanel}){
       </div>,document.body)}
     {mob&&<div style={{flexShrink:0,padding:"6px 10px",borderBottom:"1px solid "+BORDER,background:BG2}}><button onClick={()=>setShowD(false)} className="rv-btn-gold" style={{fontSize:15,padding:"4px 12px"}}>← VOLVER</button></div>}
     <div style={{flexShrink:0,position:"relative",background:imgBgCh,display:"flex",alignItems:"center",justifyContent:"center",borderBottom:"1px solid "+BORDER,minHeight:imgSrc?0:80}}>
-      {imgSrc?<img className="rv-frame" src={imgSrc} alt={item.nom} onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center top"}} onClick={()=>setImgZoom(true)}/>
+      {imgSrc?<img className="rv-frame" src={imgSrc} alt={item.nom} loading="lazy" onError={e=>{e.target.style.display="none"}} style={{objectPosition:"center top"}} onClick={()=>setImgZoom(true)}/>
         :<div style={{padding:"28px 0",fontSize:52,fontWeight:"bold",color:ac+"40",fontFamily:"'Metamorphous',serif",userSelect:"none",textAlign:"center",width:"100%",letterSpacing:".1em"}}>{tab==="handouts"?"📜":item.nom.split(" ").slice(0,2).map(w=>w[0]||"").join("").toUpperCase()}</div>}
     </div>
     <div style={{padding:"10px 14px 8px",display:"flex",alignItems:"flex-start",gap:8,borderBottom:"1px solid "+BORDER,flexShrink:0,background:BG}}>
@@ -1149,7 +1149,7 @@ function App({user,onUsersPanel}){
             ?<p style={{textAlign:"center",fontFamily:"'IM Fell English',serif",fontStyle:"italic",color:"var(--text2)",fontSize:17,margin:0,lineHeight:1.6}}>Sargento creemos en usted,<br/>¡siga intentándolo!</p>
             :<div style={{display:"flex",flexWrap:"wrap",gap:16,justifyContent:"center"}}>
               {conquistes.map(c=>{const csrc=IMG_INDEX.chars[c.id]||"";const ct=secureT(c.tags,c.nom);const ccol=GC[ct[0]]||"#8a7a5a";return(<div key={c.nom} onClick={()=>navToChar(c.id)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:7,width:90,cursor:"pointer"}} title={c.nom}>
-                {csrc?<img src={csrc} alt={c.nom} onError={e=>{e.target.style.display="none"}} style={{width:78,height:78,borderRadius:"50%",objectFit:"cover",objectPosition:"center top",border:"2px solid #c4303066",transition:"transform .15s",boxShadow:"0 2px 10px #0006"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}/>
+                {csrc?<img src={csrc} alt={c.nom} loading="lazy" onError={e=>{e.target.style.display="none"}} style={{width:78,height:78,borderRadius:"50%",objectFit:"cover",objectPosition:"center top",border:"2px solid #c4303066",transition:"transform .15s",boxShadow:"0 2px 10px #0006"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}/>
                   :<div style={{width:78,height:78,borderRadius:"50%",background:ccol+"18",border:"2px solid "+ccol+"44",display:"flex",alignItems:"center",justifyContent:"center",fontSize:26,fontWeight:"bold",color:ccol,fontFamily:"'Metamorphous',serif",transition:"transform .15s"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.07)"} onMouseLeave={e=>e.currentTarget.style.transform="scale(1)"}>{initials(c.nom)}</div>}
                 <span style={{fontSize:17,color:"var(--gold)",fontFamily:"'Metamorphous',serif",textAlign:"center",lineHeight:1.3,letterSpacing:".03em",wordBreak:"break-word"}}>{c.nom.split(" ")[0]}</span>
               </div>);})}
@@ -1164,12 +1164,12 @@ function App({user,onUsersPanel}){
   </div>):null;
 
   return(<div className={"rv"+(dark?" dark":"")} style={{border:"1px solid "+BORDER,borderRadius:6,overflow:"hidden",position:"relative"}}>
-    <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.28,zIndex:0,pointerEvents:"none"}}/>
+    <div style={{position:"absolute",inset:0,backgroundImage:"url('assets/img/misc/Header.webp')",backgroundSize:"cover",backgroundPosition:"center 30%",opacity:0.28,zIndex:0,pointerEvents:"none"}}/>
     {previewAs&&<div style={{position:"relative",zIndex:1,background:"#8b1c1c",color:"#f5e8cc",padding:"5px 14px",display:"flex",alignItems:"center",gap:10,flexShrink:0}}>
       <span style={{fontSize:17,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",fontWeight:600}}>👁 VISTA COMO: {previewAs.toUpperCase()}</span>
       <button onClick={()=>{setPreviewAs(null);setSel(null);setShowD(false);}} style={{marginLeft:"auto",fontSize:17,padding:"3px 12px",borderRadius:3,border:"1px solid #f5e8cc55",background:"#f5e8cc22",color:"#f5e8cc",cursor:"pointer",fontFamily:"'Metamorphous',serif",letterSpacing:".05em",fontWeight:600}}>← VOLVER AL DM</button>
     </div>}
-    <header style={{backgroundImage:"url('assets/img/misc/Header.png')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
+    <header style={{backgroundImage:"url('assets/img/misc/Header.webp')",backgroundSize:"cover",backgroundPosition:"center 35%",borderBottom:"1px solid "+BORDER+"88",padding:"18px 18px 0",flexShrink:0,position:"relative",zIndex:1}}>
       <div style={{position:"absolute",inset:0,background:dark?"linear-gradient(to bottom, #0e0d0bb8 0%, #0e0d0bdd 55%, #0e0d0b 100%)":"linear-gradient(to bottom, #f5e8ccb8 0%, #f5e8ccdd 55%, #f5e8cc 100%)",pointerEvents:"none"}}/>
       <div style={{position:"relative",zIndex:1}}>
       <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
