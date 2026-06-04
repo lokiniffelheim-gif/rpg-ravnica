@@ -51,7 +51,7 @@ Cada document de sessió ha de contenir els següents blocs en ordre:
 Estructura obligatòria:
 1. **Text introductori narratiu**: estableix l'objectiu clarament, descriu l'entorn i el context, i convida els jugadors a pensar les seves pròpies solucions abans de veure els suggeriments
 2. **Estructura PF2e**: èxits necessaris, fracassos màxims, DC, dificultat
-3. **Taula d'habilitats per PJ**: mínim 4-5 opcions per personatge, cobrint diferents aproximacions (força, sigil, coneixement, social, màgia). Acceptar sempre habilitats justificades narrativament
+3. **Taula d'habilitats per PJ**: mínim 4-5 opcions per personatge, cobrint diferents aproximacions (força, sigil, coneixement, social, màgia). Per a cada habilitat, especificar l'**acció PF2e concreta** si n'hi ha una d'aplicable (ex: Deception → Create Diversion, Perception → Sense Motive, Athletics → Shove, etc.). Acceptar sempre habilitats justificades narrativament.
 4. **Taula de conseqüències**: resultat per a cada possible desenllaç
 
 **DC dels Skill Challenges — Regla oficial PF2e Remastered**
@@ -208,22 +208,76 @@ PUNT DE TRAMA ACTUAL (una frase):
 
 ---
 
-## HANDOUTS, OBJECTES, PERSONATGES, SEGUIDORS I TRESORS NOUS
+## HANDOUTS, OBJECTES I PERSONATGES NOUS
 
-Al final de cada sessió, proposar tots els handouts, objectes, documents, personatges, seguidors o tresors nous que han aparegut o podrien aparèixer. Cada entrada ha de contenir:
+Al final de cada sessió, proposar tots els handouts, objectes, documents, tresors i personatges nous que han aparegut o podrien aparèixer. **Tots els noms i textos d'aquesta secció han d'estar en castellà.** Cada entrada ha de contenir:
 
 ```
-### [Nom de l'objecte o handout]
-**Tipus:** [Document / Objecte / Arma / Armadura / Objecte màgic / Monedes / Favor / Informació]
-**Descripció:** [Com es veu, com és físicament, de qui és o d'on prové]
-**Notes del DM:** [Valor real, mecànica PF2e si escau, implicacions narratives, a qui pertany, si és perillós tenir-lo]
+### [Nom de l'objecte, handout o personatge — en castellà]
+**Tipo:** [Documento / Objeto / Arma / Armadura / Objeto mágico / Monedas / Favor / Información / Seguidor / PNJ nuevo]
+**Descripción:** [Com es veu, com és físicament, de qui és o d'on prové — en castellà]
+**Notas del DM:** [Valor real, mecànica PF2e si escau, implicacions narratives, a qui pertany, si és perillós tenir-lo — en castellà]
 ```
 
-Criteris:
+**Seguidors i personatges nous:**
+Incloure qualsevol NPC o seguidor nou que s'incorpori de manera permanent o semi-permanent a la vida dels PJs. Per a cada un, indicar:
+- Nom i rol
+- Lleialtat real (al PJ, al gremi, a una altra agenda)
+- Capacitats mecàniques si escau
+- Notes narratives per al DM
+
+Criteris generals:
 - Incloure **sempre** els documents que els PJs hagin obtingut com a props físics
-- Proposar objectes nous només si han aparegut narrativament o si hi ha una oportunitat clara
-- Les notes del DM han d'indicar si l'objecte pot ser usat com a lever narratiu futur
+- Proposar objectes nous només si han aparegut narrativament o hi ha una oportunitat clara
+- Les notes del DM han d'indicar si l'objecte o personatge pot ser un lever narratiu futur
 - Per a objectes màgics, consultar sempre https://2e.aonprd.com/Equipment.aspx i indicar el nivell de l'objecte
+
+---
+
+## Índex i Ancoratges Interns
+
+Cada document de sessió ha de tenir:
+
+**1. Índex al principi** (just després de la capçalera), amb enllaços clicables a totes les seccions principals i a cada NPC dels Elements de setting nous.
+
+Format de l'índex:
+```
+## Índex
+
+- [Context per al Master](#context-per-al-master)
+- [Elements de Setting Nous](#elements-de-setting-nous)
+  - [Nom NPC 1](#nom-npc-1)
+  - [Nom NPC 2](#nom-npc-2)
+- [Estructura de la Sessió](#estructura-de-la-sessió)
+- [Part 1 — Títol](#part-1--titol)
+- ...
+```
+
+**2. Títols simplificats per als NPCs** dins la secció Elements de Setting Nous:
+```markdown
+### Nullan
+*Cochero vedalken de Ezzio*
+
+### Tobias Forge
+*Ministrante Orzhov, Cuarto Distrito*
+```
+Títol curt → ancoratge net (`#nullan`, `#tobias-forge`). Subtítol descriptiu com a text en cursiva a la línia següent.
+
+**3. Noms clicables** al llarg del document:
+```markdown
+[Nullan](#nullan) apareix a la calesa...
+[Tajic](#tajic) nunca se sienta...
+```
+
+**Compatibilitat — IMPORTANT:**
+Els ancoratges GFM funcionen en **VS Code, GitHub, Obsidian i la majoria d'editors markdown**, però **NO funcionen dins de Claude.ai**. Els documents de sessió estan dissenyats per ser oberts en VS Code o similar per a la navegació amb ancoratges. Dins de Claude.ai, l'índex és útil com a referència visual però els links no seran clicables.
+
+**Regles per generar ancoratges correctes en GFM:**
+- Tot en minúscules
+- Espais → guions (`-`)
+- Caràcters especials eliminats (accents mantinguts en la majoria de renderers, però millor evitar-los als títols de secció si és possible)
+- Guions dobles per als em-dashes (`—` → `--`)
+- Exemple: `## Part 1 — Matí en Paral·lel` → `#part-1--matí-en-parallel`
 
 ---
 
