@@ -11,11 +11,30 @@
 
 ---
 
-## LLENGUA I TO
+## Llengua i To
 
-- Tot el **contingut creat** (lore, descripcions, noms, diàlegs de personatges, etc.) en **castellà**
-- Comunicació amb el master sempre en **català**
+- Tot el **contingut creat** (lore, descripcions d'ambient, noms, diàlegs de personatges, textos per llegir en veu alta) en **castellà**
+- Comunicació amb el master sempre en **català**: notes per al master, etiquetes internes dels documents, instruccions de joc, títols de seccions, encapçalaments de blocs
 - To narratiu: adaptat a l'arc en curs. Consultar les notes d'arc corresponents.
+
+### Taula de conversió d'etiquetes
+
+Sempre usar les etiquetes en català. Mai en castellà.
+
+| ❌ Castellà | ✅ Català |
+|---|---|
+| Voz: | Veu: |
+| Lo que X cree: | El que X creu: |
+| La realidad: | La realitat: |
+| Respuestas preparadas: | Respostes preparades: |
+| Respuestas alternativas: | Respostes alternatives: |
+| Cómo reacciona a cada PJ: | Com reacciona a cada PJ: |
+| Diálogo de referencia: | Diàleg de referència: |
+| Nota para el master: | Nota per al master: |
+| Pasado relevante: | Passat rellevant: |
+| Tensión racial con X: | Tensió racial amb X: |
+| Sobre la comisión X: | Sobre la comissió X: |
+| Notas del DM: | Notes del DM: |
 
 ---
 
