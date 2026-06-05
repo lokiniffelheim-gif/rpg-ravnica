@@ -477,7 +477,7 @@ function SesionesPanel({isMob}){
       catch(e){setPage({act,file,body:"",error:e.message});}
     } else window.open(url,"_blank");
   },[]);
-  const stickyTop=isMob?(headerH||0):8;
+  const stickyTop=isMob?(headerH||0):4;
   const scrollToTop=()=>{scrollRef.current?.scrollTo({top:0,behavior:'smooth'});scrollRef.current?.closest('.rv')?.scrollTo({top:0,behavior:'smooth'});};
   if(page)return(
     <div style={{flex:1,display:"flex",flexDirection:"column",overflow:isMob?"visible":"hidden",background:BG}}>
@@ -486,7 +486,7 @@ function SesionesPanel({isMob}){
         <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
         <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
-      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"8px 32px 24px"}}>
         <div style={{position:"sticky",top:stickyTop,zIndex:10,height:0,overflow:"visible",display:"flex",justifyContent:"flex-end",pointerEvents:"none"}}>
           <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{pointerEvents:"auto",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003",marginRight:-28}}>↑</button>
         </div>
