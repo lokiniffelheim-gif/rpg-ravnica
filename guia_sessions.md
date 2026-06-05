@@ -58,6 +58,7 @@ Cada document de sessió ha de contenir els següents blocs en ordre:
 - Incloure **descripcions d'entorn extenses** amb detalls sensorials: olors, sorolls, textures, llum
 - Afegir **ganxos de conversa entre PJs**: situacions o detalls que conviden orgànicament al roleig sense forçar-lo
 - Aquests textos han de ser prou llargs per donar temps a respirar i a que els jugadors parlin entre ells
+- Afegir **tirades puntuals opcionals** quan hi hagi informació oculta que un PJ actiu podria descobrir. No formen part d'un Skill Challenge: són tirades individuals, sense conseqüències de fracàs, que simplement revelen capes d'informació als jugadors curiosos. Format: **Habilitat DC X (Acció PF2e — N accions):** Descripció del que revela l'èxit.
 
 **Notes d'absència** — Al final de cada moment narratiu, indicar:
 - Si l'absència d'un PJ concret afecta un fil de trama important, proposar una justificació diegètica breu i coherent amb el personatge
