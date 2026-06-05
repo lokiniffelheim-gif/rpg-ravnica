@@ -495,7 +495,9 @@ function SesionesPanel({isMob}){
         <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
         <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
         <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
-        <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{...btnStyle(hovTop),marginLeft:"auto"}}>↑</button>
+      </div>
+      <div style={{flexShrink:0,height:0,overflow:"visible",display:"flex",justifyContent:"flex-end",zIndex:10,pointerEvents:"none"}}>
+        <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{...btnStyle(hovTop),pointerEvents:"auto",marginRight:4}}>↑</button>
       </div>
       <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
