@@ -125,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.22.1";const BUILD_HASH="9b0bb09";
+const VERSION="4.22.2";const BUILD_HASH="c272d18";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -481,7 +481,7 @@ function SesionesPanel({isMob}){
   useEffect(()=>{
     if(!mobLayout||!page)return;
     let raf=null;
-    const update=()=>{raf=null;const bc=breadcrumbRef.current,btn=fixedBtnRef.current;if(!bc||!btn)return;const corner=headerH+8;const natural=bc.getBoundingClientRect().bottom+8;btn.style.top=Math.max(corner,natural)+"px";};
+    const update=()=>{raf=null;const bc=breadcrumbRef.current,btn=fixedBtnRef.current;if(!bc||!btn)return;const corner=8;const natural=bc.getBoundingClientRect().bottom+8;btn.style.top=Math.max(corner,natural)+"px";};
     const onScroll=()=>{if(!raf)raf=requestAnimationFrame(update);};
     update();
     window.addEventListener("scroll",onScroll,true);
@@ -518,7 +518,7 @@ function SesionesPanel({isMob}){
         }
       </div>
       {mobLayout&&ReactDOM.createPortal(
-        <button ref={fixedBtnRef} onClick={scrollToTop} aria-label="Tornar al principi" style={{...btnStyle(false),position:"fixed",top:headerH+8,right:8,zIndex:1000}}>↑</button>,
+        <button ref={fixedBtnRef} onClick={scrollToTop} aria-label="Tornar al principi" style={{...btnStyle(false),position:"fixed",top:8,right:8,zIndex:1000}}>↑</button>,
         document.body
       )}
     </div>
