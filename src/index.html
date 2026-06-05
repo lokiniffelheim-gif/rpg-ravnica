@@ -56,7 +56,6 @@ html,body{height:100%;background:var(--bg-body)}
   .rv main{flex:none;height:auto;overflow:visible;display:block}
   .rv-mob-scroll{height:auto!important;overflow:visible!important;flex:none!important;min-height:0!important}
   .rv-detail{position:relative!important;top:auto!important;left:auto!important;right:auto!important;bottom:auto!important;z-index:auto!important}
-  .rv-ses-scroll.rv-mob-scroll{overflow-y:auto!important;flex:1!important;height:0!important;min-height:0!important}
 }</style>
 </head>
 <body>
@@ -126,7 +125,7 @@ function guildLabel(g){
 const AG=["Azorius","Boros","Dimir","Golgari","Gruul","Izzet","Orzhov","Rakdos","Selesnya","Simic","Guildless"];
 const PJS=["Ezzio Salvatore","Wundyr Somo","Yarog (HorseLuis)","Manjatan","Svikull Rusl","Marchena","Kasz"];
 const PC={"Ezzio Salvatore":"#888888","Wundyr Somo":"#d4621a","Yarog (HorseLuis)":"#c46a1a","Manjatan":"#c44aaa","Svikull Rusl":"#5a9a3a","Marchena":"#5b9fd4","Kasz":"#c43030","Compartido":"#8a7a5a","Solo DM":"#888"};
-const VERSION="4.21.8";const BUILD_HASH="";
+const VERSION="4.21.9";const BUILD_HASH="";
 const IS_DEV_ENV=/\/dev(\/|$)/.test(window.location.pathname);
 const PALETTES={light:{GOLD:"#8b1c1c",BG:"#ffffff",BG2:"#f8f3ea",BG3:"#f0e8d8",BORDER:"#c0945a"},dark:{GOLD:"#9b2020",BG:"#0e0d0b",BG2:"#1a1814",BG3:"#242018",BORDER:"#3a3028"}};
 let GOLD="#8b1c1c",BG="#ffffff",BG2="#f8f3ea",BG3="#f0e8d8",BORDER="#c0945a";
@@ -464,19 +463,11 @@ function SesionesPanel({isMob}){
   const [page,setPage]=useState(null);
   const [hovTop,setHovTop]=useState(false);
   const scrollRef=useRef(null);
-  const breadcrumbRef=useRef(null);
-  const [btnTop,setBtnTop]=useState(56);
   const [headerH,setHeaderH]=useState(0);
   useEffect(()=>{
     const h=document.querySelector('.rv > header');
     if(h)setHeaderH(Math.round(h.getBoundingClientRect().height));
   },[]);
-  useEffect(()=>{
-    if(!breadcrumbRef.current)return;
-    const r=breadcrumbRef.current.getBoundingClientRect();
-    const t=Math.round(r.top+(r.height-48)/2);
-    setBtnTop(prev=>prev===t?prev:t);
-  });
   useEffect(()=>{fetch("assets/data/sesiones/manifest.json").then(r=>r.json()).then(d=>{setActs(d);setLoading(false);}).catch(()=>setLoading(false));},[]);
   const openFile=useCallback(async(act,file)=>{
     const url=`assets/data/sesiones/${encodeURIComponent(act.nom)}/${encodeURIComponent(file)}`;
@@ -486,28 +477,27 @@ function SesionesPanel({isMob}){
       catch(e){setPage({act,file,body:"",error:e.message});}
     } else window.open(url,"_blank");
   },[]);
+  const stickyTop=isMob?(headerH||0):8;
+  const scrollToTop=()=>{scrollRef.current?.scrollTo({top:0,behavior:'smooth'});scrollRef.current?.closest('.rv')?.scrollTo({top:0,behavior:'smooth'});};
   if(page)return(
-    <React.Fragment>
-      <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG,...(isMob&&headerH?{height:`calc(100svh - ${headerH}px)`}:{})}}>
-        <div ref={breadcrumbRef} style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
-          <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
-          <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
-          <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
-        </div>
-        <div ref={scrollRef} className="rv-mob-scroll rv-ses-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
-          {page.error
-            ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
-            :page.body
-              ?<MdBody html={renderMd(page.body)} style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.8,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}}/>
-              :<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>Fitxer buit.</p>
-          }
-        </div>
+    <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:BG}}>
+      <div style={{flexShrink:0,padding:"10px 16px",borderBottom:"1px solid "+BORDER,background:BG2,display:"flex",alignItems:"center",gap:4,overflow:"hidden"}}>
+        <span onClick={()=>setPage(null)} style={{fontSize:17,color:GOLD,fontFamily:"'Metamorphous',serif",letterSpacing:".06em",cursor:"pointer",whiteSpace:"nowrap",textDecoration:"underline dotted",opacity:.85}} onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=.85}>{page.act.nom}</span>
+        <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
+        <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
-      {ReactDOM.createPortal(
-        <button onClick={()=>{scrollRef.current?.scrollTo({top:0,behavior:'smooth'});window.scrollTo({top:0,behavior:'smooth'});}} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" className="rv-back-top" style={{position:"fixed",top:btnTop,right:8,zIndex:1000,border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003"}}>↑</button>,
-        document.body
-      )}
-    </React.Fragment>
+      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
+        <div style={{position:"sticky",top:stickyTop,zIndex:10,height:0,overflow:"visible",display:"flex",justifyContent:"flex-end",pointerEvents:"none"}}>
+          <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{pointerEvents:"auto",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003"}}>↑</button>
+        </div>
+        {page.error
+          ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
+          :page.body
+            ?<MdBody html={renderMd(page.body)} style={{fontFamily:"'IM Fell English',serif",fontSize:18,lineHeight:1.8,color:"var(--text)",maxWidth:740,background:BG2,borderRadius:6,padding:"24px 28px",boxShadow:"0 1px 8px rgba(0,0,0,.08)"}}/>
+            :<p style={{color:"var(--text2)",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>Fitxer buit.</p>
+        }
+      </div>
+    </div>
   );
   return(<div style={{display:"flex",flex:1,overflow:"hidden",background:BG}} className="rv-mob-scroll">
     <div style={{width:isMob||sel===null?"100%":"36%",display:isMob&&sel!==null?"none":"flex",flexDirection:"column",borderRight:!isMob&&sel!==null?"1px solid "+BORDER:"none",overflowY:"auto"}}>
