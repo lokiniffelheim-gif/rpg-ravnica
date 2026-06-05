@@ -486,10 +486,10 @@ function SesionesPanel({isMob}){
         <span style={{fontSize:17,color:"var(--text3)",fontFamily:"'Metamorphous',serif",flexShrink:0}}> /</span>
         <span style={{fontSize:17,color:"var(--text2)",fontFamily:"'Metamorphous',serif",letterSpacing:".04em",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{page.file}</span>
       </div>
-      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"8px 32px 24px"}}>
-        <div style={{position:"sticky",top:stickyTop,zIndex:10,height:0,overflow:"visible",display:"flex",justifyContent:"flex-end",pointerEvents:"none"}}>
-          <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{pointerEvents:"auto",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003",marginRight:-28}}>↑</button>
-        </div>
+      <div style={{flexShrink:0,height:0,overflow:"visible",display:"flex",justifyContent:"flex-end",position:"sticky",top:stickyTop,zIndex:10,pointerEvents:"none"}}>
+        <button onClick={scrollToTop} onMouseEnter={()=>setHovTop(true)} onMouseLeave={()=>setHovTop(false)} aria-label="Tornar al principi" style={{pointerEvents:"auto",border:"1px solid "+GOLD+"55",borderRadius:3,color:GOLD,fontSize:22,lineHeight:1,width:36,height:48,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .15s",background:hovTop?"#000a":"#0003",marginRight:4}}>↑</button>
+      </div>
+      <div ref={scrollRef} className="rv-mob-scroll" style={{flex:1,overflowY:"auto",padding:"24px 32px"}}>
         {page.error
           ?<p style={{color:"#c43030",fontFamily:"'IM Fell English',serif",fontStyle:"italic"}}>{page.error}</p>
           :page.body
