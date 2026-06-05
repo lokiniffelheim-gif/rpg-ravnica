@@ -1,0 +1,56 @@
+[
+  {
+    "nom": "Acto I - Las Cloacas",
+    "gremi": "Simic",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto II - El Pan",
+    "gremi": "Selesnya",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto III - Los Monumentos",
+    "gremi": "Izzet",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto IV - La Plebe",
+    "gremi": "Gruul",
+    "fitxers": [
+      "4.0 El contrato de Pandora.md",
+      "4.1 La caza.md",
+      "4.2 Los contratos.md"
+    ]
+  },
+  {
+    "nom": "Acto V - El Circo",
+    "gremi": "Rakdos",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto VI - Las Legiones",
+    "gremi": "Boros",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto VII - La Basílica",
+    "gremi": "Orzhov",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto VIII - El Senado",
+    "gremi": "Azorius",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto IX - El Laberinto",
+    "gremi": "Golgari",
+    "fitxers": []
+  },
+  {
+    "nom": "Acto X - La Fortaleza",
+    "gremi": "Dimir",
+    "fitxers": []
+  }
+]
